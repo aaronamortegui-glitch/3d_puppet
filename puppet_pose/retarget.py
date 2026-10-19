@@ -12,6 +12,8 @@ rest).  With two vectors (primary + secondary) G is fully determined
 top of the parent's rotation (twist inherited).
 """
 
+import math
+
 from mathutils import Matrix, Quaternion, Vector
 
 from . import skeleton as sk
@@ -144,13 +146,21 @@ def _vec(pts, pair):
     return pts[pair[1]] - pts[pair[0]]
 
 
+def _relaxed(bone, g_parent):
+    """Neutral pose for limbs the photo does not show (arms hang down)."""
+    if bone.endswith("_shoulder"):
+        ang = math.radians(72.0) * (1.0 if bone.startswith("left") else -1.0)
+        return Matrix.Rotation(ang, 3, "Y") @ g_parent
+    return g_parent
+
+
 def _global_for(bone, pts, g_parent):
     spec = SPECS.get(bone)
     if spec is None:
         return g_parent
     pa = _pick(spec.a, pts)
     if pa is None:
-        return g_parent
+        return _relaxed(bone, g_parent)
     rest_a, tgt_a = _vec(REST_POINTS, pa), _vec(pts, pa)
     if tgt_a.length < EPS:
         return g_parent

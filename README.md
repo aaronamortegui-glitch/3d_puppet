@@ -41,6 +41,29 @@ run_server.bat --once foto.jpg --method nlf --out resultado.json
 ```
 Después ese JSON se aplica con **Load Result JSON**.
 
+## Funciona solo, sin Claude
+
+Todo corre **en local**: el addon dentro de Blender y el servidor en tu GPU. No usa Claude ni ningún servicio en la nube; internet solo hace falta la primera vez, para descargar los modelos.
+
+- **Desde Blender:** panel *Puppet* → *Pose From Photo*.
+- **Por lotes:** procesa una carpeta entera de fotos:
+  ```bat
+  samplesun_samples.bat                      :: usa samples\photos con el mejor método disponible
+  samplesun_samples.bat D:\mis_fotos nlf      :: otra carpeta, método fijo (auto | nlf | mediapipe | sam3d_body)
+  ```
+  Por cada foto crea en `samples/results/`:
+  - `<foto>_<método>.json`: la pose y la cámara.
+  - `<foto>_<método>.blend`: el puppet posado, con la cámara que copia ángulo, distancia y focal y la foto de fondo.
+  - `<foto>_<método>_overlay.png`: el puppet superpuesto a la foto, para revisar.
+
+## Copiar la cámara de la foto
+
+La cámara se reconstruye en tres pasos:
+
+1. **Focal:** se toma de tu valor manual, si no del EXIF, si no de la estimación de MoGe-2.
+2. **Ángulo:** sale de la gravedad que estima GeoCalib (pitch y roll reales); si no está disponible, de la postura del cuerpo con el horizonte nivelado.
+3. **Distancia y encuadre:** se ajustan con *Fit Camera to Photo*, que mueve la cámara hasta que las articulaciones visibles del puppet coinciden con las de la foto. Funciona aunque la foto esté recortada (medio cuerpo).
+
 ## Uso
 
 1. **Add Puppet**, o deja que *Pose From Photo* lo cree solo.

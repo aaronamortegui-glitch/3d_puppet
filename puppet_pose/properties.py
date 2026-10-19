@@ -52,6 +52,10 @@ class PUPPET_PG_settings(bpy.types.PropertyGroup):
                ("NONE", "Raw", "Camera at world origin looking +Y")],
         default="AUTO")
     make_camera: BoolProperty(name="Create Camera", default=True)
+    refine_camera: BoolProperty(
+        name="Fit Camera to Photo", default=True,
+        description="After posing, move the camera so the puppet's visible joints land on the "
+                    "photo's keypoints (copies framing/distance even for cropped photos)")
     bg_image: BoolProperty(name="Photo as Background", default=True)
     ground: BoolProperty(name="Feet on Ground", default=True)
     apply_body: BoolProperty(name="Body", default=True)

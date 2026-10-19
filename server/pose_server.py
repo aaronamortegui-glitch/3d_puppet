@@ -111,11 +111,30 @@ def main():
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--once", help="run a single image and exit")
+    ap.add_argument("--batch", help="run every image in this folder; JSONs go to --out")
     ap.add_argument("--method", default="auto")
     ap.add_argument("--focal", type=float, default=0.0, help="35mm-equivalent focal")
     ap.add_argument("--out", help="write result JSON here (with --once)")
     ap.add_argument("--no-gravity", action="store_true", help="skip GeoCalib")
     a = ap.parse_args()
+    if a.batch:
+        exts = (".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff")
+        out_dir = a.out or os.path.join(a.batch, "results")
+        os.makedirs(out_dir, exist_ok=True)
+        for name in sorted(os.listdir(a.batch)):
+            if not name.lower().endswith(exts):
+                continue
+            stem = os.path.splitext(name)[0]
+            try:
+                res = estimate(os.path.abspath(os.path.join(a.batch, name)), a.method,
+                               a.focal, not a.no_gravity)
+                with open(os.path.join(out_dir, f"{stem}_{a.method}.json"), "w",
+                          encoding="utf-8") as fh:
+                    json.dump(res, fh, indent=1)
+                print(f"OK   {name}: " + " | ".join(res.get("notes", [])))
+            except Exception as e:  # noqa: BLE001
+                print(f"FAIL {name}: {e}")
+        return
     if a.once:
         res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity)
         txt = json.dumps(res, indent=1)

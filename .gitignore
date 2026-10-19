@@ -8,3 +8,6 @@ server/models/
 server/vendor/
 *.torchscript
 *.task
+samples/photos/*
+!samples/photos/README.md
+samples/results/

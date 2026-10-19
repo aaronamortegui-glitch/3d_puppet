@@ -147,6 +147,21 @@ Decisión de licencias del proyecto: el **uso es interno o de investigación**, 
 | Servidor Pro: NLF + MoGe-2 + GeoCalib sobre el render del maniquí | La cadena completa corre en la RTX 5090 y entrega 72 puntos con manos. **MoGe-2 estimó una focal de ~36 mm (real 33,8)**. Pero tanto NLF como MediaPipe **interpretan el maniquí de cara lisa como visto de espaldas**, y GeoCalib no es fiable en una escena sintética sin estructura. **Hace falta validar con fotos reales de personas.** |
 | Extensión instalada desde el zip (perfil aislado) | Instalar → activar → *Install Lite Dependencies* → *Pose From Photo* → *Re-apply*: todo OK en Blender 5.0.1. |
 
+### Fotos reales (4 fotos publicitarias de medio cuerpo, con las manos sosteniendo productos)
+
+| Foto | MediaPipe (lite) | NLF (pro) |
+|---|---|---|
+| Rizador, vista frontal | ✅ brazo levantado y mano cerrada en el mango | ❌ brazo levantado mal |
+| Cepillo, tres cuartos | ✅ mano cerrada en el mango | ⚠️ cabeza baja, brazo aproximado |
+| Brazos arriba | ⚠️ un brazo demasiado alto | ✅ muy bien (ambas manos) |
+| Mano extendida | ✅ | ✅ |
+
+- **Cámara:** MoGe-2 estimó focales de ~41–45 mm equivalentes. GeoCalib estimó pitch de 8–17° y roll de 1–4°. La cámara queda a 1,1–1,7 m, coherente con un retrato de estudio.
+- **Ningún backend gana siempre**, por eso conviene probar ambos. SAM 3D Body (pendiente de aprobación) debería superar a los dos.
+- **Mejoras que salieron de esta prueba:**
+  1. Los brazos fuera de cuadro quedan **relajados hacia abajo** en vez de en pose T.
+  2. ***Fit Camera to Photo***: refinamiento de la cámara contra los keypoints 2D visibles. Bajó el error del test de 3,6 a 1,6 px y alinea bien las fotos recortadas.
+
 Notas de implementación aprendidas:
 - Blender no admite que un operador registrado herede de otro operador registrado. Se usa un mixin.
 - El TorchScript de NLF necesita `import torchvision` antes de `torch.jit.load`, para registrar `nms`.
@@ -162,5 +177,6 @@ Notas de implementación aprendidas:
 2. **Manos pequeñas** en fotos de cuerpo entero: el siguiente paso es un segundo pase sobre un recorte de la mano a mayor resolución (WiLoR o el decoder de manos de SAM 3D Body).
 3. ~~Gravedad real~~ **Hecho**: GeoCalib ya está integrado en el servidor (`up_cam`), y el modo AUTO lo usa para el pitch y el roll exactos. Falta validarlo con fotos reales.
 4. **Perfiles de mapeo** para Mixamo, Rigify, MPFB y UE, para aplicar la pose a personajes propios.
-5. **Refinamiento PnP** tras el retarget: ajustar la cámara al puppet ya posado, porque sus proporciones difieren de las del sujeto.
+5. ~~Refinamiento PnP~~ **Hecho**: *Fit Camera to Photo* (traslación por mínimos cuadrados contra los keypoints 2D visibles).
+7. **Fusión de backends:** elegir por articulación el backend que mejor reproyecta sobre los keypoints 2D de MediaPipe (por ejemplo, brazos de MediaPipe y cuerpo de NLF).
 6. **Modo multi-persona** y video (pose por frame con suavizado).

@@ -54,6 +54,7 @@ class PUPPET_PT_photo(bpy.types.Panel):
         row = col.row(align=True)
         row.prop(s, "make_camera", toggle=True)
         row.prop(s, "bg_image", toggle=True)
+        row.prop(s, "refine_camera", toggle=True)
         row = col.row(align=True)
         row.prop(s, "ground", toggle=True)
         row.prop(s, "keyframe", toggle=True)

@@ -120,7 +120,7 @@ def _lowest_z(arm):
 def apply_result(context, arm, result, *, frame_mode="AUTO",
                  make_camera=True, ground=True, use_rotations=False,
                  apply_body=True, apply_hands=True, bg_image=True,
-                 keyframe=False, flip_facing=False):
+                 keyframe=False, flip_facing=False, refine=True):
     """Pose `arm` from `result` and create/update the matching camera."""
     pts_cv = result.get("points3d", {})
     if not pts_cv:
@@ -172,6 +172,8 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
         # camera sits at the W_c origin; subject hip_mid is at pts["hip_mid"]
         cam_loc = hip_world - arm_rot @ (pts["hip_mid"] * scale)
         mw = cu.camera_world_matrix(arm_rot @ Q, cam_loc)
+        if refine:
+            mw = refine_camera(arm, mw, result, flip_facing)
         img = result.get("image", {})
         cam = cu.ensure_camera(arm.name + "_Cam")
         cu.setup_camera(cam, mw, cam_info["fx"], img.get("width", 1920),
@@ -211,6 +213,63 @@ def flip_front_back(pts_cv):
         s = z2 / z if z > 1e-6 else 1.0  # keep the 2D projection unchanged
         out[swap(k)] = [x * s, y * s, z2]
     return out
+
+
+def posed_points(arm):
+    """World positions of every named joint/landmark of the posed puppet."""
+    mw = arm.matrix_world
+    pts = {pb.name: mw @ pb.head for pb in arm.pose.bones}
+    attach = {"head_top": "head", "chin": "jaw", "nose": "head",
+              "left_ear": "head", "right_ear": "head"}
+    for s_ in sk.SIDES:
+        attach.update({f"{s_}_heel": f"{s_}_ankle", f"{s_}_toe": f"{s_}_foot"})
+        for f in sk.FINGERS:
+            attach[f"{s_}_{f}_tip"] = f"{s_}_{f}3"
+    for lm, bone in attach.items():
+        pb = arm.pose.bones.get(bone)
+        if pb is None:
+            continue
+        rest = arm.data.bones[bone].matrix_local
+        pts[lm] = mw @ (pb.matrix @ rest.inverted() @ sk.REST[lm])
+    return pts
+
+
+def refine_camera(arm, cam_matrix, result, flip_facing=False):
+    """Re-solve the camera position so the posed puppet's visible joints land
+    on the photo's 2D keypoints (keeps rotation + focal).  Fixes framing when
+    the puppet's proportions differ from the subject or the photo is cropped."""
+    cam = result["camera"]
+    img = result.get("image", {})
+    W, H = img.get("width", 0), img.get("height", 0)
+    f, cx, cy = cam["fx"], cam.get("cx", W / 2), cam.get("cy", H / 2)
+    p3 = result.get("points3d", {})
+    if flip_facing:
+        p3 = flip_front_back(p3)
+    uv = {}
+    for k, (x, y, z) in p3.items():
+        if z > 1e-3:
+            uv[k] = (f * x / z + cx, f * y / z + cy)
+    if not flip_facing:
+        for k, v in result.get("points2d", {}).items():
+            if k in uv:
+                uv[k] = tuple(v)
+    posed = posed_points(arm)
+    R_cv = cam_matrix.to_3x3().normalized() @ Matrix.Diagonal((1, -1, -1))
+    names, A, P, w = [], [], [], []
+    margin = 0.02 * max(W, H)
+    for k, (u, v) in uv.items():
+        if k not in posed or not (-margin <= u <= W + margin and -margin <= v <= H + margin):
+            continue
+        names.append(k)
+        A.append(tuple(R_cv.transposed() @ posed[k]))
+        P.append((u, v))
+        w.append(0.3 if _is_hand_bone(k) or "_tip" in k else 1.0)
+    if len(names) < 4:
+        return cam_matrix
+    t = cu.solve_translation(A, P, f, cx, cy, w)
+    m = cam_matrix.copy()
+    m.translation = -(R_cv @ t)
+    return m
 
 
 def _is_hand_bone(name):
