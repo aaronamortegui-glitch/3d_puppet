@@ -48,8 +48,8 @@ Todo corre **en local**: el addon dentro de Blender y el servidor en tu GPU. No 
 - **Desde Blender:** panel *Puppet* → *Pose From Photo*.
 - **Por lotes:** procesa una carpeta entera de fotos:
   ```bat
-  samplesun_samples.bat                      :: usa samples\photos con el mejor método disponible
-  samplesun_samples.bat D:\mis_fotos nlf      :: otra carpeta, método fijo (auto | nlf | mediapipe | sam3d_body)
+  samples\run_samples.bat                      :: usa samples\photos con el mejor método disponible
+  samples\run_samples.bat D:\mis_fotos nlf      :: otra carpeta, método fijo (auto | nlf | mediapipe | sam3d_body)
   ```
   Por cada foto crea en `samples/results/`:
   - `<foto>_<método>.json`: la pose y la cámara.
