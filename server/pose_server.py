@@ -20,7 +20,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from methods import focal, mediapipe_method, nlf_method, sam3d_method  # noqa: E402
+from methods import focal, gravity, mediapipe_method, nlf_method, sam3d_method  # noqa: E402
 from methods import common  # noqa: E402
 
 METHODS = {
@@ -36,7 +36,7 @@ def available_methods():
     return [k for k, m in METHODS.items() if m.available()]
 
 
-def estimate(image_path, method="auto", focal_35mm=0.0):
+def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True):
     if not os.path.isfile(image_path):
         raise FileNotFoundError(image_path)
     avail = available_methods()
@@ -52,7 +52,17 @@ def estimate(image_path, method="auto", focal_35mm=0.0):
         fpx, fsrc = focal.resolve(image_path, rgb, focal_35mm,
                                   allow_moge=focal.moge_available())
     with _lock:
-        return METHODS[method].run(image_path, focal_px=fpx, focal_note=fsrc)
+        res = METHODS[method].run(image_path, focal_px=fpx, focal_note=fsrc)
+        if use_gravity and gravity.available():
+            try:
+                g = gravity.estimate(image_path, res["camera"]["fx"])
+                if g:
+                    res["up_cam"] = g["up_cam"]
+                    res.setdefault("notes", []).append(
+                        f"GeoCalib roll {g['roll_deg']:.1f} pitch {g['pitch_deg']:.1f}")
+            except Exception as e:  # noqa: BLE001
+                res.setdefault("notes", []).append(f"GeoCalib failed: {e}")
+        return res
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -72,7 +82,8 @@ class Handler(BaseHTTPRequestHandler):
                 gpu = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "cpu"
             except Exception:
                 gpu = "no torch"
-            self._send(200, {"ok": True, "methods": available_methods(), "gpu": gpu})
+            self._send(200, {"ok": True, "methods": available_methods(), "gpu": gpu,
+                             "gravity": gravity.available(), "moge": focal.moge_available()})
         else:
             self._send(404, {"error": "not found"})
 
@@ -84,7 +95,8 @@ class Handler(BaseHTTPRequestHandler):
             n = int(self.headers.get("Content-Length", 0))
             req = json.loads(self.rfile.read(n).decode("utf-8"))
             res = estimate(req["image_path"], req.get("method", "auto"),
-                           float(req.get("focal_35mm") or 0.0))
+                           float(req.get("focal_35mm") or 0.0),
+                           bool(req.get("gravity", True)))
             self._send(200, res)
         except Exception as e:  # noqa: BLE001
             traceback.print_exc()
@@ -102,9 +114,10 @@ def main():
     ap.add_argument("--method", default="auto")
     ap.add_argument("--focal", type=float, default=0.0, help="35mm-equivalent focal")
     ap.add_argument("--out", help="write result JSON here (with --once)")
+    ap.add_argument("--no-gravity", action="store_true", help="skip GeoCalib")
     a = ap.parse_args()
     if a.once:
-        res = estimate(os.path.abspath(a.once), a.method, a.focal)
+        res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity)
         txt = json.dumps(res, indent=1)
         if a.out:
             with open(a.out, "w", encoding="utf-8") as fh:

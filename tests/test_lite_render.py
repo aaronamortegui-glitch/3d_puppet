@@ -67,10 +67,18 @@ scene.render.filepath = photo
 bpy.ops.render.render(write_still=True)
 print("rendered", photo, scene.render.engine)
 
-# run MediaPipe
-models = deps.ensure_models()
-res = mediapipe_lite.run(photo, models, focal_35mm=0.0,
-                         default_35mm=f / math.hypot(W, H) * math.hypot(36, 24))
+JSON = next((a.split("=", 1)[1] for a in argv if a.startswith("--json=")), None)
+NOGRAV = "--no-gravity" in argv
+if JSON:  # result produced by the pose server (e.g. NLF / SAM 3D Body)
+    import json
+    with open(JSON, encoding="utf-8") as fh:
+        res = json.load(fh)
+    if NOGRAV:
+        res.pop("up_cam", None)
+else:  # run MediaPipe
+    models = deps.ensure_models()
+    res = mediapipe_lite.run(photo, models, focal_35mm=0.0,
+                             default_35mm=f / math.hypot(W, H) * math.hypot(36, 24))
 print("notes:", res["notes"], "points:", len(res["points3d"]))
 
 dst = puppet_builder.build_puppet("Lite")

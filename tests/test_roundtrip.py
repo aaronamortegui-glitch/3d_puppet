@@ -101,11 +101,30 @@ px_err3 = [((Vector(project(tc[k])) - Vector(project(gc3[k]))).length) for k in 
 cam_x = cam3.matrix_world.to_3x3().col[0]
 print(f"AUTO reprojection error: mean {sum(px_err3)/len(px_err3):.1f}px, camera roll {math.degrees(math.asin(cam_x.z)):.2f} deg")
 
+# AUTO + gravity: a rolled camera must be recovered exactly
+roll = Matrix.Rotation(math.radians(12), 3, "Z")       # roll around view axis
+R_bl_r = R_bl @ roll
+R_cv_r = R_bl_r @ Matrix.Diagonal((1, -1, -1))
+res_g = dict(result)
+res_g["points3d"] = {k: list(R_cv_r.transposed() @ (p - cam_loc)) for k, p in truth.items()}
+res_g["up_cam"] = list(R_cv_r.transposed() @ Vector((0, 0, 1)))
+dst4 = puppet_builder.build_puppet("Target4")
+pose_apply.apply_result(bpy.context, dst4, res_g, frame_mode="AUTO", ground=True)
+bpy.context.view_layer.update()
+cam4 = bpy.data.objects["Target4_Cam"].matrix_world.to_3x3()
+def pitch_roll(m):
+    fwd, x = -m.col[2], m.col[0]
+    return math.degrees(math.asin(fwd.z)), math.degrees(math.asin(x.z))
+p_true, r_true = pitch_roll(R_bl_r)
+p_got, r_got = pitch_roll(cam4)
+print(f"GRAVITY pitch/roll true {p_true:.2f}/{r_true:.2f}  got {p_got:.2f}/{r_got:.2f}")
+grav_ok = abs(p_true - p_got) < 0.5 and abs(r_true - r_got) < 0.5
+
 out = os.path.join(ROOT, "tests", "_out")
 os.makedirs(out, exist_ok=True)
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out, "roundtrip.blend"))
 
-ok = mean_err < 3.0 and sum(px_err) / len(px_err) < 15 and \
+ok = grav_ok and mean_err < 3.0 and sum(px_err) / len(px_err) < 15 and \
     sum(px_err2) / len(px_err2) < 15 and \
     sum(px_err3) / len(px_err3) < 15 and abs(cam_x.z) < 1e-3
 print("RESULT:", "PASS" if ok else "FAIL")

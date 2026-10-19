@@ -143,6 +143,16 @@ Decisión de licencias del proyecto: el **uso es interno o de investigación**, 
 | `tests/test_roundtrip.py`: pose y cámara conocidas → puntos sintéticos → retarget a un puppet nuevo | Dirección de hueso con **error medio de 0,25°** (los dedos en 0°). Reproyección de **3,6 px**. Focal reconstruida **exacta** (33,75 mm). Modos UPRIGHT y AUTO con el mismo encuadre; **roll de AUTO = 0,00°**. PASS. |
 | `tests/test_lite_render.py`: render EEVEE del maniquí posado → MediaPipe → puppet nuevo | Cámara reconstruida: **3,58 m de distancia igual a la original**, elevación de 8,3° frente a 7,6° reales, misma focal. MediaPipe **no detecta manos de madera** (normal) y confunde la profundidad de la pierna levantada. Con fotos reales de personas el detector rinde mucho mejor. |
 | Presets de mano | Puño, señalar, paz, etc. se ven correctos. El pulgar cruza la palma. |
+| Gravedad (test de ida y vuelta, cámara con roll de 12°) | Con `up_cam` conocido, el pitch y el roll de la cámara se recuperan **exactos** (−9,96° / 11,82°). |
+| Servidor Pro: NLF + MoGe-2 + GeoCalib sobre el render del maniquí | La cadena completa corre en la RTX 5090 y entrega 72 puntos con manos. **MoGe-2 estimó una focal de ~36 mm (real 33,8)**. Pero tanto NLF como MediaPipe **interpretan el maniquí de cara lisa como visto de espaldas**, y GeoCalib no es fiable en una escena sintética sin estructura. **Hace falta validar con fotos reales de personas.** |
+| Extensión instalada desde el zip (perfil aislado) | Instalar → activar → *Install Lite Dependencies* → *Pose From Photo* → *Re-apply*: todo OK en Blender 5.0.1. |
+
+Notas de implementación aprendidas:
+- Blender no admite que un operador registrado herede de otro operador registrado. Se usa un mixin.
+- El TorchScript de NLF necesita `import torchvision` antes de `torch.jit.load`, para registrar `nms`.
+- NLF tiene `estimate_smpl_batched(images, boxes)`: si su detector YOLO falla, se le pasan cajas externas.
+- `glob('**')` no entra en carpetas que empiezan con punto, como `extensions/.user/`.
+- La ambigüedad **frente/espalda** es el error más común con una sola foto. Se corrige con el botón *Flip Front/Back*, que intercambia izquierda y derecha y refleja la profundidad manteniendo la proyección 2D.
 
 ---
 
@@ -150,7 +160,7 @@ Decisión de licencias del proyecto: el **uso es interno o de investigación**, 
 
 1. **Ambigüedad de profundidad** en una sola foto: un miembro puede quedar "al revés" en profundidad. Se mitiga con el backend pro (SAM 3D Body).
 2. **Manos pequeñas** en fotos de cuerpo entero: el siguiente paso es un segundo pase sobre un recorte de la mano a mayor resolución (WiLoR o el decoder de manos de SAM 3D Body).
-3. **Gravedad real**: integrar GeoCalib en el servidor para el pitch y el roll exactos de la cámara, en vez de deducirlos del cuerpo.
+3. ~~Gravedad real~~ **Hecho**: GeoCalib ya está integrado en el servidor (`up_cam`), y el modo AUTO lo usa para el pitch y el roll exactos. Falta validarlo con fotos reales.
 4. **Perfiles de mapeo** para Mixamo, Rigify, MPFB y UE, para aplicar la pose a personajes propios.
 5. **Refinamiento PnP** tras el retarget: ajustar la cámara al puppet ya posado, porque sus proporciones difieren de las del sujeto.
 6. **Modo multi-persona** y video (pose por frame con suavizado).

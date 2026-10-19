@@ -9,6 +9,7 @@ Result schema (produced by every backend, JSON-serialisable)::
       "points3d": {name: [x, y, z]},  # OpenCV camera space, meters
       "rotations": {joint: [rx, ry, rz]},  # optional SMPL-X axis-angle
       "global_orient_cam": [rx, ry, rz],  # optional, pelvis in camera
+      "up_cam": [x, y, z],  # optional world-up in camera axes (GeoCalib)
       "backend": str, "notes": [str]
     }
 """
@@ -22,7 +23,7 @@ from . import retarget as rt
 from . import skeleton as sk
 
 
-def _body_frame_rotation(pts, mode):
+def _body_frame_rotation(pts, mode, up_override=None):
     """Rotation Q (W_c -> world) that normalises the subject.
 
     mode 'UPRIGHT': subject's torso becomes vertical and faces -Y; any
@@ -43,6 +44,12 @@ def _body_frame_rotation(pts, mode):
         up = pts["shoulder_mid"] - pts["hip_mid"]
     if side is None:
         return Matrix.Identity(3)
+    if mode == "AUTO" and up_override is not None and up_override.length > 1e-6:
+        # true gravity from the image (GeoCalib): exact pitch AND roll
+        q1 = up_override.normalized().rotation_difference(Vector((0, 0, 1))).to_matrix()
+        s2 = q1 @ side
+        yaw = Vector((s2.x, s2.y, 0.0)).rotation_difference(Vector((1, 0, 0))).to_matrix()
+        return yaw @ q1
     if mode == "AUTO" and up is not None:
         # Photos almost never have camera roll: keep the camera X axis
         # horizontal; take pitch from the body's up vector (torso + legs).
@@ -123,7 +130,9 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
         pts_cv = flip_front_back(pts_cv)
     pts_wc = {k: cu.cv_to_wc(v) for k, v in pts_cv.items()}
     pts_wc = rt.derive_points(pts_wc)
-    Q = _body_frame_rotation(pts_wc, frame_mode)
+    up_cam = result.get("up_cam")
+    up_wc = cu.cv_to_wc(up_cam) if up_cam else None
+    Q = _body_frame_rotation(pts_wc, frame_mode, up_wc)
     pts = {k: Q @ v for k, v in pts_wc.items()}
 
     # --- pose -------------------------------------------------------------
