@@ -1,0 +1,7 @@
+numpy
+pillow
+opencv-python
+mediapipe
+huggingface_hub
+# MoGe-2 (MIT): field-of-view / focal estimation when the photo has no EXIF
+git+https://github.com/microsoft/MoGe.git

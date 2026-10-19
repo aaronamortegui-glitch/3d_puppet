@@ -1,0 +1,19 @@
+schema_version = "1.0.0"
+
+id = "puppet_pose"
+version = "0.1.0"
+name = "Puppet Pose"
+tagline = "Rigged mannequin that copies pose, hands and camera from a photo"
+maintainer = "Superside"
+type = "add-on"
+
+website = "https://github.com/aaronamortegui-glitch/3d_puppet"
+tags = ["Rigging", "Animation", "Camera"]
+
+blender_version_min = "4.2.0"
+
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+files = "Read photos and save result files"
+network = "Download MediaPipe and its models; talk to the local pose server"

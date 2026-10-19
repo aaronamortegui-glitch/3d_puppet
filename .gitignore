@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.blend1
+dist/
+tests/_out/
+server/.venv/
+server/models/
+server/vendor/
+*.torchscript
+*.task
