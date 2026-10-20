@@ -354,3 +354,18 @@ The step-by-step build guide for ComfyUI (prompts, settings and nodes per step) 
 - *Workflow A - library prep, once per photo / per product:* approved photo -> Nano Banana gray render with hair (`gray_render_prompt_v2_hair.txt`, now also removes pets, props and text) + pose details text. Packshot once per product.
 - *Workflow B - generation, one call per image:* gray render + packshot + `final_generation_prompt.txt` -> Nano Banana 2.1.
 - *Optional:* pose variations to grow the library (`pose_variation_prompt_v2.txt`); MoGe-2 depth map as image 1 (`depth_person_product_prompt.txt`).
+
+---
+
+## 18. Round 13: final prompt on the batch failures
+
+A closer review of the curling-iron batch showed detail failures behind the "10/10": close-up crops without a face gained an invented face and were re-framed (#001, #002), grips changed (#004, #073), and in #004 the gray render had already moved the figure.
+
+Re-run with the final prompt (`final_generation_prompt.txt`): pose details written by a vision LLM from the original photo (prompt A2; Claude was used as the vision LLM for this test, a Gemini node in ComfyUI), a new KEEP THE CROP line and a PRODUCT SIZE line (assumed standard size, 32 mm barrel, ~35 cm, since the real size of our product is unknown). Same gray renders, packshot and people as before.
+
+- #002: the invented face is gone; crop and grip match the photo.
+- #004: gaze (up-left) and both hands on the handle match.
+- #073: back of the hand toward the camera and thumb on the clamp, as in the photo.
+- #001: closer crop, but part of the face still appears.
+
+3 of 4 fixed. Remaining rules: check the gray render's framing before stage 2, and prefer references that show the face for hero shots.
