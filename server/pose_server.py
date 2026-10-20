@@ -21,7 +21,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from methods import focal, gravity, mediapipe_method, nlf_method, sam3d_method  # noqa: E402
-from methods import common, fit, keypoints2d  # noqa: E402
+from methods import common, fit, fit_rig, hands, keypoints2d  # noqa: E402
 
 METHODS = {
     "sam3d_body": sam3d_method,
@@ -40,6 +40,26 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit
     if not os.path.isfile(image_path):
         raise FileNotFoundError(image_path)
     avail = available_methods()
+    if method in ("auto", "", None) and do_fit and keypoints2d.available():
+        # try every installed model, keep the one whose fitted rig best
+        # matches the photo (median px error of body + hands)
+        best, table = None, []
+        for m in [m for m in AUTO_ORDER if m in avail]:
+            try:
+                r = estimate(image_path, m, focal_35mm, use_gravity, do_fit)
+            except Exception as e:  # noqa: BLE001
+                table.append(f"{m}: failed ({e})")
+                continue
+            fi = r.get("fit", {})
+            score = (fi.get("rig_px_body") or 1e6) + 0.5 * (fi.get("rig_px_hands") or 0)
+            table.append(f"{m}: {score:.1f}px")
+            if best is None or score < best[0]:
+                best = (score, r)
+        if best is None:
+            raise RuntimeError("no method succeeded: " + "; ".join(table))
+        best[1].setdefault("notes", []).insert(0, "auto pick -> " + best[1]["backend"]
+                                                + " (" + ", ".join(table) + ")")
+        return best[1]
     if method in ("auto", "", None):
         method = next((m for m in AUTO_ORDER if m in avail), None)
     if method not in avail:
@@ -83,7 +103,22 @@ def _refine_with_2d(res, rgb):
             fit.label_error(fit.flip_front_back(
                 {k: __import__("numpy").asarray(v) for k, v in pts.items()}),
                 p, f, cx, cy, fit.LR_CHECK)))
+        notes = res.setdefault("notes", [])
+        try:  # hands: high-res crop re-detection + palm/back (chirality) fix
+            pts, kp = hands.refine(pts, kp, rgb, notes, cam=(f, cx, cy))
+        except Exception as e:  # noqa: BLE001
+            notes.append(f"hand re-detection failed: {e}")
+        pts = hands.fix_chirality(pts, notes)
         new_pts, info = fit.fit(pts, kp, f, cx, cy, W, H)
+        new_pts = hands.fix_chirality(new_pts, notes)
+        try:  # fit the puppet rig itself (exact in Blender, no retarget loss)
+            rig = fit_rig.fit_rig(new_pts, kp, f, cx, cy, W, H)
+            res["rig"] = {"G": rig["G"], "pelvis_wc": rig["pelvis_wc"]}
+            info.update(rig["info"])
+            new_pts = rig["points3d"]
+        except Exception as e:  # noqa: BLE001
+            traceback.print_exc()
+            notes.append(f"rig fit failed: {e}")
         res["points3d_raw"] = pts
         res["points3d"] = new_pts
         res["points2d"] = {k: [v[0], v[1]] for k, v in kp.items() if v[2] >= 0.4}

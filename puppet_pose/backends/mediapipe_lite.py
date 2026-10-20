@@ -16,7 +16,7 @@ import tempfile
 import numpy as np
 
 BODY = {
-    0: "nose", 7: "left_ear", 8: "right_ear",
+    0: "nose", 2: "left_eye_smplhf", 5: "right_eye_smplhf", 7: "left_ear", 8: "right_ear",
     11: "left_shoulder", 12: "right_shoulder", 13: "left_elbow",
     14: "right_elbow", 15: "left_wrist", 16: "right_wrist",
     23: "left_hip", 24: "right_hip", 25: "left_knee", 26: "right_knee",

@@ -40,6 +40,8 @@ def _edges():
               (f"{s}_ring1", f"{s}_pinky1", 1.0), (f"{s}_index1", f"{s}_pinky1", 1.0)]
     e += [("left_shoulder", "right_shoulder", 1.0), ("left_hip", "right_hip", 1.0),
           ("left_ear", "right_ear", 0.5), ("nose", "left_ear", 0.5), ("nose", "right_ear", 0.5),
+          ("left_eye_smplhf", "right_eye_smplhf", 1.0), ("nose", "left_eye_smplhf", 1.0),
+          ("nose", "right_eye_smplhf", 1.0),
           ("pelvis", "spine1", 0.3), ("spine3", "neck", 0.3), ("neck", "head", 0.3)]
     return e
 

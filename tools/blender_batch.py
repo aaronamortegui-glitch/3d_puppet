@@ -66,6 +66,8 @@ for path in files:
     stem = os.path.splitext(os.path.basename(path))[0]
     with open(path, encoding="utf-8") as fh:
         result = json.load(fh)
+    if not isinstance(result, dict) or "points3d" not in result:
+        continue  # not a pose result (e.g. lens_report.json)
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scene = bpy.context.scene
     set_engine(scene)

@@ -120,7 +120,7 @@ def _lowest_z(arm):
 def apply_result(context, arm, result, *, frame_mode="AUTO",
                  make_camera=True, ground=True, use_rotations=False,
                  apply_body=True, apply_hands=True, bg_image=True,
-                 keyframe=False, flip_facing=False, refine=True):
+                 keyframe=False, flip_facing=False, refine=True, use_rig=True):
     """Pose `arm` from `result` and create/update the matching camera."""
     pts_cv = result.get("points3d", {})
     if not pts_cv:
@@ -136,7 +136,18 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
     pts = {k: Q @ v for k, v in pts_wc.items()}
 
     # --- pose -------------------------------------------------------------
-    if use_rotations and result.get("rotations"):
+    rig = result.get("rig") if use_rig else None
+    if rig:
+        # exact path: global bone rotations fitted on THIS skeleton (server
+        # fit_rig.py) in camera-world axes; only the frame Q is applied.
+        Gq = {b: Q @ Matrix(m) for b, m in rig["G"].items()}
+        bones = set()
+        if apply_body:
+            bones |= {b for b in sk.SMPLX_JOINTS if not _is_hand_bone(b)}
+        if apply_hands:
+            bones |= {b for b in sk.SMPLX_JOINTS if _is_hand_bone(b)}
+        rt.apply_globals(arm, Gq, bones=bones)
+    elif use_rotations and result.get("rotations"):
         rt.apply_smplx_rotations(arm, result["rotations"])
         # global orientation still comes from points (camera-consistent)
         G = rt.solve(pts)
@@ -164,7 +175,19 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
     # --- camera -------------------------------------------------------------
     cam = None
     cam_info = result.get("camera")
-    if make_camera and cam_info and "hip_mid" in pts:
+    if make_camera and cam_info and rig:
+        # pelvis joint position is known exactly in camera-world space
+        arm_rot = arm.matrix_world.to_3x3().normalized()
+        pelvis_world = arm.matrix_world @ arm.pose.bones["pelvis"].head
+        cam_loc = pelvis_world - arm_rot @ (Q @ Vector(rig["pelvis_wc"]))
+        mw = cu.camera_world_matrix(arm_rot @ Q, cam_loc)
+        img = result.get("image", {})
+        cam = cu.ensure_camera(arm.name + "_Cam")
+        cu.setup_camera(cam, mw, cam_info["fx"], img.get("width", 1920),
+                        img.get("height", 1080), cam_info.get("cx"),
+                        cam_info.get("cy"),
+                        image_path=img.get("path") if bg_image else None)
+    elif make_camera and cam_info and "hip_mid" in pts:
         scale = _scale_ratio(rt.REST_POINTS, pts)
         hip_posed = (_posed_point(arm, "left_hip") + _posed_point(arm, "right_hip")) * 0.5
         hip_world = arm.matrix_world @ hip_posed

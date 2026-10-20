@@ -19,7 +19,7 @@ REPO = os.path.join(ROOT, "vendor", "sam-3d-body")
 HF_REPO = os.environ.get("SAM3D_HF_REPO", "facebook/sam-3d-body-dinov3")
 
 MHR70 = [
-    "nose", "left_eye", "right_eye", "left_ear", "right_ear",
+    "nose", "left_eye_smplhf", "right_eye_smplhf", "left_ear", "right_ear",
     "left_shoulder", "right_shoulder", "left_elbow", "right_elbow",
     "left_hip", "right_hip", "left_knee", "right_knee", "left_ankle",
     "right_ankle", "left_toe", "left_small_toe", "left_heel",
@@ -92,7 +92,7 @@ def run(image_path, focal_px=None, focal_note="", **_):
         P = P + t * scale * flip
     else:
         P = P - P[body].mean(0) + Q.mean(0)
-    pts = {n: P[i] for i, n in enumerate(MHR70) if not n.startswith(("mhr_", "left_eye", "right_eye"))}
+    pts = {n: P[i] for i, n in enumerate(MHR70) if not n.startswith("mhr_")}
     notes = [f"SAM 3D Body, focal {f:.0f}px, reproj {err:.1f}px ({how})"]
     if focal_note:
         notes.append("focal source: " + focal_note)
