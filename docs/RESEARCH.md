@@ -238,3 +238,22 @@ v2 with the orange product is the cleanest edit (≈ 0.5–1 % of the image size
 3. MHR skin weights are mapped onto the DEF bones (twist joints go to the nearest DEF segment).
 
 **Pose transfer.** The pipeline poses a hidden 55-bone SMPL-X *driver* built on the human's own rest skeleton; `sync_rig()` moves the Rigify FK controls so every DEF bone follows its driver bone (max error 0.01 mm, `tests/test_human.py`). The server fits on the same skeleton (`server/methods/rest.py`, `figure` = `human` | `mannequin`, saved in the result), so the transfer stays exact.
+
+---
+
+## 11. Round 6: SAM 3D direct, generator choice
+
+**SAM 3D Body straight on the photo** (`tools/sam3d_direct.py`): the regressed MHR body already fits the photo exactly, so one pass gives the person's 3D mesh (.obj), a silhouette mask and a metric depth map (e.g. 0.86-1.10 m in photo 01, near = red). Body only: hair, clothing volume and the tool are not part of the mesh.
+
+**Nano Banana 2.1 vs GPT Image 2.5 Sunburst (high, 2K)** on the same 8 gray renders (same prompts):
+
+| | Nano Banana 2.1 | Sunburst high |
+|---|---|---|
+| Fingertip shift, bald | 6-15 px | 8-161 px |
+| Fingertip shift, hair | 7-12 px | 115-170 px |
+| Framing | kept | re-framed in 6 of 8 |
+| Moderation | none | 4 of 8 blocked by "no clothing" (passes with "fitted gray bodysuit like a store mannequin") |
+| Look | clean clay mannequin | more photoreal, keeps the original model's features |
+| Cost per 2K image | $0.077 | $0.122 |
+
+**Decision: Nano Banana 2.1.** It keeps the shot and drops the original model's identity, which is what we need before prompting new people, products and hair types on top of the gray render or its depth map.
