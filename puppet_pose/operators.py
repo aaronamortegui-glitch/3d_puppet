@@ -89,17 +89,31 @@ class PUPPET_OT_install_deps(bpy.types.Operator):
 
 def run_backend(settings, image_path):
     """Run the selected backend, returning the result dict."""
+    from . import calib_local
+    profile = bpy.path.abspath(settings.camera_profile) if settings.camera_profile else ""
+    pose = bpy.path.abspath(settings.camera_pose) if settings.camera_pose else ""
     if settings.backend == "LITE":
         if not deps.mediapipe_available():
             raise RuntimeError("MediaPipe not installed: press 'Install Lite Dependencies'")
         from .backends import mediapipe_lite
         models = deps.ensure_models()
-        return mediapipe_lite.run(image_path, models, focal_35mm=settings.focal_35mm,
-                                  default_35mm=settings.default_35mm,
-                                  min_visibility=settings.min_visibility)
+        f35, path, note = settings.focal_35mm, image_path, None
+        if profile:
+            prof = calib_local.load_json(profile)
+            path, f35 = calib_local.undistort(image_path, prof)
+            note = f"camera profile: {prof.get('camera', '')} {prof.get('lens', '')} (measured)"
+        res = mediapipe_lite.run(path, models, focal_35mm=f35,
+                                 default_35mm=settings.default_35mm,
+                                 min_visibility=settings.min_visibility)
+        if note:
+            res["notes"].insert(0, note)
+        if pose:
+            res["world_from_cv"] = calib_local.load_json(pose)["world_from_cv"]
+        return res
     from .backends import server_client
     return server_client.run(image_path, settings.host, settings.port,
-                             focal_35mm=settings.focal_35mm, method=settings.pro_method)
+                             focal_35mm=settings.focal_35mm, method=settings.pro_method,
+                             profile=profile or None, camera_pose=pose or None)
 
 
 class _ApplyMixin:
@@ -115,7 +129,8 @@ class _ApplyMixin:
                 use_rotations=s.use_rotations, apply_body=s.apply_body,
                 apply_hands=s.apply_hands, bg_image=s.bg_image,
                 keyframe=s.keyframe, flip_facing=s.flip_facing,
-                refine=s.refine_camera, hide_unseen=s.hide_unseen)
+                refine=s.refine_camera, hide_unseen=s.hide_unseen,
+                use_world=s.use_world)
         except Exception as e:  # noqa: BLE001
             self.report({"ERROR"}, f"Apply failed: {e}")
             return {"CANCELLED"}

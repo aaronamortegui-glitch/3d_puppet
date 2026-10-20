@@ -121,7 +121,10 @@ def calibrate(image_paths, spec=None, camera_name="", lens_name="", log=print):
     W, H = size
     f0 = max(W, H)
     K0 = np.array([[f0, 0, W / 2], [0, f0, H / 2], [0, 0, 1]], dtype=np.float64)
-    flags = cv2.CALIB_USE_INTRINSIC_GUESS | cv2.CALIB_FIX_ASPECT_RATIO | cv2.CALIB_ZERO_TANGENT_DIST
+    # k3 is fixed: for normal (non-fisheye) lenses it only overfits and makes the
+    # corners unstable; tangential distortion is negligible on modern lenses
+    flags = (cv2.CALIB_USE_INTRINSIC_GUESS | cv2.CALIB_FIX_ASPECT_RATIO |
+             cv2.CALIB_ZERO_TANGENT_DIST | cv2.CALIB_FIX_K3)
     rms, K, dist, rvecs, tvecs = cv2.calibrateCamera(objs, imgs, size, K0, None, flags=flags)
     # per-view error
     errs = []

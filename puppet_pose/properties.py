@@ -64,6 +64,17 @@ class PUPPET_PG_settings(bpy.types.PropertyGroup):
         name="Use Model Rotations", default=False,
         description="Pro only: apply SMPL-X joint rotations directly instead of point retargeting")
     keyframe: BoolProperty(name="Insert Keyframes", default=False)
+    camera_profile: StringProperty(
+        name="Camera Profile", subtype="FILE_PATH",
+        description="Lens calibration JSON from server/calibrate.py intrinsics (exact focal + distortion)")
+    camera_pose: StringProperty(
+        name="Camera Pose", subtype="FILE_PATH",
+        description="Camera pose JSON from server/calibrate.py pose (exact camera position). "
+                    "Leave empty to use the estimated camera")
+    use_world: BoolProperty(
+        name="Use Measured Camera", default=True,
+        description="When a camera pose is available, place camera and puppet in the measured world "
+                    "(ChArUco board = origin) instead of normalising the body")
     hide_unseen: BoolProperty(
         name="Hide Unseen Limbs", default=True,
         description="Hide (mask) limbs that are out of frame / not visible in the photo")

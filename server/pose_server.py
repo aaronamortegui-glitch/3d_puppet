@@ -113,6 +113,63 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit
         return res
 
 
+def _load_json(path_or_obj):
+    if path_or_obj is None or isinstance(path_or_obj, dict):
+        return path_or_obj
+    with open(path_or_obj, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def estimate_calibrated(image_path, method="auto", profile=None, camera_pose=None,
+                        use_gravity=True, do_fit=True, assist_path=None, mount="floor"):
+    """estimate() with a measured camera (see docs/CAPTURE_GUIDE.md).
+
+    profile: camera profile JSON (path or dict) from calibrate.py intrinsics.
+      The photo is undistorted (principal point re-centred) and the measured
+      focal length is used instead of an estimate.
+    camera_pose: camera pose JSON (path or dict) from calibrate.py pose, or
+      "auto" to look for the ChArUco board in the photo itself.  Adds
+      result["world_from_cv"] so Blender places the camera where it really was.
+    """
+    import tempfile
+    from PIL import Image
+    from calibration import charuco
+    prof = _load_json(profile)
+    if prof is None:
+        res = estimate(image_path, method, 0.0, use_gravity, do_fit, assist_path)
+    else:
+        def und(path):
+            rgb, _ = common.load_rgb(path)
+            out, K = charuco.undistort(rgb, prof)
+            dst = os.path.join(tempfile.gettempdir(), "puppet_undist_" +
+                               os.path.splitext(os.path.basename(path))[0] + ".png")
+            Image.fromarray(out).save(dst)
+            return dst, K, out
+        upath, K, urgb = und(image_path)
+        apath = und(assist_path)[0] if assist_path else None
+        H, W = urgb.shape[:2]
+        f35 = K[0, 0] / ((W * W + H * H) ** 0.5) * 43.2666
+        has_pose = camera_pose is not None
+        res = estimate(upath, method, f35, use_gravity and not has_pose, do_fit, apath)
+        res.setdefault("notes", []).insert(0, f"camera profile: {prof.get('camera', '')} "
+                                              f"{prof.get('lens', '')} f={K[0, 0]:.1f}px (measured)")
+        res["camera_profile"] = {k: prof.get(k) for k in ("camera", "lens", "focal_35mm_equiv", "rms_px")}
+        if camera_pose == "auto":
+            bp = charuco.board_pose(urgb, K, None, prof.get("board"), mount)
+            if bp:
+                camera_pose = bp
+                res["notes"].append(f"board found in photo: camera at {bp['camera_position_m']} m")
+            else:
+                camera_pose = None
+    pose = _load_json(camera_pose) if camera_pose not in (None, "auto") else None
+    if pose:
+        res["world_from_cv"] = pose["world_from_cv"]
+        res.pop("up_cam", None)  # measured orientation beats estimated gravity
+        res.setdefault("notes", []).append(
+            f"camera pose (measured): {pose.get('camera_position_m')} m, reproj {pose.get('reproj_px')}px")
+    return res
+
+
 def _hands_from(kp_body, rgb_hands):
     """Hybrid mode: replace hand keypoints (wrist + fingers) with detections on
     the original photo (the person closest to the body detection's face)."""
@@ -263,9 +320,18 @@ class Handler(BaseHTTPRequestHandler):
         try:
             n = int(self.headers.get("Content-Length", 0))
             req = json.loads(self.rfile.read(n).decode("utf-8"))
-            res = estimate(req["image_path"], req.get("method", "auto"),
-                           float(req.get("focal_35mm") or 0.0),
-                           bool(req.get("gravity", True)), bool(req.get("fit", True)))
+            if req.get("profile"):
+                res = estimate_calibrated(req["image_path"], req.get("method", "auto"),
+                                          req["profile"], req.get("camera_pose"),
+                                          bool(req.get("gravity", True)), bool(req.get("fit", True)),
+                                          mount=req.get("mount", "floor"))
+            else:
+                res = estimate(req["image_path"], req.get("method", "auto"),
+                               float(req.get("focal_35mm") or 0.0),
+                               bool(req.get("gravity", True)), bool(req.get("fit", True)))
+                if req.get("camera_pose") and req.get("camera_pose") != "auto":
+                    res["world_from_cv"] = _load_json(req["camera_pose"])["world_from_cv"]
+                    res.pop("up_cam", None)
             self._send(200, res)
         except Exception as e:  # noqa: BLE001
             traceback.print_exc()
@@ -286,6 +352,10 @@ def main():
     ap.add_argument("--out", help="write result JSON here (with --once)")
     ap.add_argument("--no-gravity", action="store_true", help="skip GeoCalib")
     ap.add_argument("--no-fit", action="store_true", help="skip the RTMW 2D fitting stage")
+    ap.add_argument("--profile", help="camera profile JSON (calibrate.py intrinsics)")
+    ap.add_argument("--camera-pose", help="camera pose JSON (calibrate.py pose) or 'auto' "
+                                          "(find the ChArUco board in each photo)")
+    ap.add_argument("--mount", choices=["floor", "wall"], default="floor")
     ap.add_argument("--assist", help="hybrid: edited copy of the photo (with --once) or a folder of "
                                      "edited copies named like the photos (with --batch)")
     a = ap.parse_args()
@@ -305,8 +375,13 @@ def main():
                     continue
                 assist = os.path.abspath(os.path.join(a.assist, cands[0]))
             try:
-                res = estimate(os.path.abspath(os.path.join(a.batch, name)), a.method,
-                               a.focal, not a.no_gravity, not a.no_fit, assist)
+                if a.profile or a.camera_pose:
+                    res = estimate_calibrated(os.path.abspath(os.path.join(a.batch, name)), a.method,
+                                              a.profile, a.camera_pose, not a.no_gravity,
+                                              not a.no_fit, assist, a.mount)
+                else:
+                    res = estimate(os.path.abspath(os.path.join(a.batch, name)), a.method,
+                                   a.focal, not a.no_gravity, not a.no_fit, assist)
                 with open(os.path.join(out_dir, f"{stem}_{a.method}.json"), "w",
                           encoding="utf-8") as fh:
                     json.dump(res, fh, indent=1)
@@ -315,8 +390,13 @@ def main():
                 print(f"FAIL {name}: {e}")
         return
     if a.once:
-        res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity, not a.no_fit,
-                       os.path.abspath(a.assist) if a.assist else None)
+        assist = os.path.abspath(a.assist) if a.assist else None
+        if a.profile or a.camera_pose:
+            res = estimate_calibrated(os.path.abspath(a.once), a.method, a.profile, a.camera_pose,
+                                      not a.no_gravity, not a.no_fit, assist, a.mount)
+        else:
+            res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity,
+                           not a.no_fit, assist)
         txt = json.dumps(res, indent=1)
         if a.out:
             with open(a.out, "w", encoding="utf-8") as fh:

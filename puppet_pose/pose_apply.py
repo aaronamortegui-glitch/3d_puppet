@@ -121,8 +121,13 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
                  make_camera=True, ground=True, use_rotations=False,
                  apply_body=True, apply_hands=True, bg_image=True,
                  keyframe=False, flip_facing=False, refine=True, use_rig=True,
-                 hide_unseen=True):
-    """Pose `arm` from `result` and create/update the matching camera."""
+                 hide_unseen=True, use_world=True):
+    """Pose `arm` from `result` and create/update the matching camera.
+
+    If the result carries a measured camera pose ("world_from_cv", from a
+    ChArUco board, see docs/CAPTURE_GUIDE.md) and use_world is on, the camera
+    is placed exactly where it was and the puppet is put in the same world
+    (board = origin, Z up) instead of normalising the body to the origin."""
     pts_cv = result.get("points3d", {})
     if not pts_cv:
         raise ValueError("Backend returned no 3D points")
@@ -133,7 +138,14 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
     pts_wc = rt.derive_points(pts_wc)
     up_cam = result.get("up_cam")
     up_wc = cu.cv_to_wc(up_cam) if up_cam else None
-    Q = _body_frame_rotation(pts_wc, frame_mode, up_wc)
+    world = result.get("world_from_cv") if use_world else None
+    t_world = None
+    if world:
+        M = Matrix(world)
+        Q = M.to_3x3() @ cu.CV_TO_WC.transposed()       # W_c -> world (measured)
+        t_world = M.translation.copy()                   # camera centre in world
+    else:
+        Q = _body_frame_rotation(pts_wc, frame_mode, up_wc)
     pts = {k: Q @ v for k, v in pts_wc.items()}
 
     # --- pose -------------------------------------------------------------
@@ -167,6 +179,23 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
         pb.location = (0.0, 0.0, 0.0)
     context.view_layer.update()
 
+    # --- measured world: put the puppet where the person was --------------
+    if world:
+        arm.rotation_mode = "XYZ"
+        arm.rotation_euler = (0.0, 0.0, 0.0)
+        arm.scale = (1.0, 1.0, 1.0)
+        context.view_layer.update()
+        if rig:
+            target = Q @ Vector(rig["pelvis_wc"]) + t_world
+            current = arm.matrix_world @ arm.pose.bones["pelvis"].head
+        else:
+            target = pts["hip_mid"] + t_world
+            current = arm.matrix_world @ ((_posed_point(arm, "left_hip") +
+                                           _posed_point(arm, "right_hip")) * 0.5)
+        arm.location = arm.location + (target - current)
+        context.view_layer.update()
+        ground = False
+
     # --- ground the puppet --------------------------------------------------
     offset = Vector((0, 0, 0))
     if ground:
@@ -177,7 +206,15 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
     # --- camera -------------------------------------------------------------
     cam = None
     cam_info = result.get("camera")
-    if make_camera and cam_info and rig:
+    if make_camera and cam_info and world:
+        mw = cu.camera_world_matrix(Q, t_world)
+        img = result.get("image", {})
+        cam = cu.ensure_camera(arm.name + "_Cam")
+        cu.setup_camera(cam, mw, cam_info["fx"], img.get("width", 1920),
+                        img.get("height", 1080), cam_info.get("cx"),
+                        cam_info.get("cy"),
+                        image_path=img.get("path") if bg_image else None)
+    elif make_camera and cam_info and rig:
         # pelvis joint position is known exactly in camera-world space
         arm_rot = arm.matrix_world.to_3x3().normalized()
         pelvis_world = arm.matrix_world @ arm.pose.bones["pelvis"].head

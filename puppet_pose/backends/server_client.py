@@ -41,9 +41,13 @@ def refit(result, keypoints2d, host="127.0.0.1", port=8765, replace=False, timeo
 
 
 def run(image_path, host="127.0.0.1", port=8765, focal_35mm=0.0,
-        method="auto", timeout=300.0):
-    body = json.dumps({"image_path": image_path, "focal_35mm": focal_35mm,
-                       "method": method}).encode("utf-8")
+        method="auto", timeout=600.0, profile=None, camera_pose=None):
+    req = {"image_path": image_path, "focal_35mm": focal_35mm, "method": method}
+    if profile:
+        req["profile"] = profile
+    if camera_pose:
+        req["camera_pose"] = camera_pose
+    body = json.dumps(req).encode("utf-8")
     req = urllib.request.Request(_url(host, port, "/estimate"), data=body,
                                  headers={"Content-Type": "application/json"})
     try:

@@ -65,6 +65,10 @@ The camera is rebuilt in three steps:
 2. **Angle:** from the gravity direction estimated by GeoCalib (real pitch and roll); if unavailable, from the body posture with a level horizon.
 3. **Distance and framing:** the Pro backend fits the rig itself to the 2D keypoints, so the camera is placed from the exact pelvis position. The Lite backend uses *Fit Camera to Photo*, which moves the camera until the puppet's visible joints match the photo. Both work with cropped (half-body) photos.
 
+### Exact camera from our own shoots (ChArUco)
+
+For photos we shoot ourselves, a printed ChArUco board turns the camera into a measurement (focal, distortion, position): see **[docs/CAPTURE_GUIDE.md](docs/CAPTURE_GUIDE.md)** and `server/calibrate.py`. Validated on synthetic renders: focal within 0.2 %, camera position within 3 mm at 1.8 m.
+
 ## Correcting keypoints by hand (and OpenPose)
 
 If a wrist, elbow or finger is wrong:
@@ -96,7 +100,8 @@ puppet_pose/            add-on / extension (GPL-3.0-or-later)
   openpose.py           OpenPose JSON import/export
   backends/             mediapipe_lite (in Blender), server_client (HTTP)
 server/                 Pro server (own venv, PyTorch)
-  pose_server.py        /health, /estimate, /refit, --once, --batch
+  pose_server.py        /health, /estimate, /refit, --once, --batch, --profile, --camera-pose
+  calibrate.py          ChArUco board / lens calibration / camera pose
   lens_report.py        compares focal-length estimators
   methods/              sam3d_method, nlf_method, mediapipe_method, keypoints2d (RTMW),
                         fit (points), fit_rig (rig), hands, focal (MoGe-2), gravity (GeoCalib), detect
@@ -110,6 +115,9 @@ docs/RESEARCH.md        full research
 blender -b --factory-startup --python tests/test_roundtrip.py
 blender -b --factory-startup --python tests/test_lite_render.py -- <site-packages-dir-with-mediapipe>
 blender -b --factory-startup --python tests/test_keypoint_editor.py -- <result.json>   # needs the server
+blender -b --factory-startup --python tests/test_world_placement.py
+blender -b --factory-startup --python tests/render_charuco.py -- <board.png> <render_dir>
+python tests/test_calibration.py <render_dir> <board.json>                              # server venv
 ```
 
 ## Licenses
