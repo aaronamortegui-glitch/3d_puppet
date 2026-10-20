@@ -115,7 +115,7 @@ class _ApplyMixin:
                 use_rotations=s.use_rotations, apply_body=s.apply_body,
                 apply_hands=s.apply_hands, bg_image=s.bg_image,
                 keyframe=s.keyframe, flip_facing=s.flip_facing,
-                refine=s.refine_camera)
+                refine=s.refine_camera, hide_unseen=s.hide_unseen)
         except Exception as e:  # noqa: BLE001
             self.report({"ERROR"}, f"Apply failed: {e}")
             return {"CANCELLED"}

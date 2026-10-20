@@ -122,8 +122,22 @@ def _fit_core(res, pts, kp, W, H, notes, label="RTMW"):
     new_pts, info = fit.fit(pts, kp, f, cx, cy, W, H)
     new_pts = hands.fix_chirality(new_pts, notes)
     try:  # fit the puppet rig itself (exact in Blender, no retarget loss)
-        rig = fit_rig.fit_rig(new_pts, kp, f, cx, cy, W, H)
+        # multi-start: the rig fit can land in a bad local minimum, so start
+        # from the point-fitted skeleton AND from the raw regressor skeleton
+        cands = []
+        for init in (new_pts, pts):
+            try:
+                rg = fit_rig.fit_rig(init, kp, f, cx, cy, W, H)
+                ri = rg["info"]
+                cands.append(((ri.get("rig_px_body") or 1e6) + 0.5 * (ri.get("rig_px_hands") or 0), rg))
+            except Exception:  # noqa: BLE001
+                traceback.print_exc()
+        if not cands:
+            raise RuntimeError("all rig fits failed")
+        rig = min(cands, key=lambda c: c[0])[1]
+        info["rig_starts"] = [round(c[0], 1) for c in cands]
         res["rig"] = {"G": rig["G"], "pelvis_wc": rig["pelvis_wc"]}
+        res["unseen"] = rig["unseen"]
         info.update(rig["info"])
         new_pts = rig["points3d"]
     except Exception as e:  # noqa: BLE001

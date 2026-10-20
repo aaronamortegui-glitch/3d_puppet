@@ -1,119 +1,128 @@
-# 3D Puppet — Pose y cámara desde una foto (addon de Blender)
+# 3D Puppet — Pose and camera from a single photo (Blender add-on)
 
-Addon de **Blender 4.2+ / 5.0** con un **maniquí 3D con rig completo**: muñecas y 15 huesos de dedos por mano, para abrir y cerrar la mano. A partir de **una sola foto** copia:
+A **Blender 4.2+ / 5.0** add-on with a **fully rigged 3D mannequin**: wrists and 15 finger bones per hand, so hands can open and close. From **a single photo** it copies:
 
-- la **pose** del cuerpo y de las manos;
-- la **cámara**: ángulo, distancia, focal y la foto como fondo.
+- the **pose** of the body and hands;
+- the **camera**: angle, distance and focal length, with the photo as background.
 
-La investigación completa (puppets con rig, modelos de pose, cámara, licencias) está en **[docs/RESEARCH.md](docs/RESEARCH.md)**.
+The full research (rigged puppets, pose models, camera, licenses) is in **[docs/RESEARCH.md](docs/RESEARCH.md)**.
 
-## Qué incluye
+## What's included
 
-- **Puppet procedural** con esqueleto SMPL-X (55 joints) y aspecto de maniquí de madera. Es 100 % código: no depende de assets de terceros.
-- **Controles de mano**: sliders para cerrar, pulgar y abrir (spread) por mano. Presets *Open, Relaxed, Fist, Point, Peace, Thumbs up, Grip, Pinch*.
-- **Pose From Photo** con dos backends:
-  - **Lite**: MediaPipe dentro de Blender. Corre en CPU y se instala con un botón.
-  - **Pro**: servidor local en GPU con SAM 3D Body (Meta), NLF y MediaPipe, más MoGe-2 para la focal.
-- **Cámara**: se crea una cámara con la focal y la posición que reproducen la foto, y la foto queda de fondo. El modo **AUTO** mantiene el horizonte nivelado.
+- **Procedural puppet** with an SMPL-X skeleton (55 joints) and a wooden-mannequin look. It is 100% code, with no third-party assets.
+- **Hand controls**: close, thumb and spread sliders per hand. Presets: *Open, Relaxed, Fist, Point, Peace, Thumbs up, Grip, Pinch*.
+- **Pose From Photo** with two backends:
+  - **Lite**: MediaPipe inside Blender. Runs on CPU and installs with one click.
+  - **Pro**: local GPU server with SAM 3D Body (Meta), NLF and MediaPipe, plus RTMW 2D keypoints, a direct rig fit, MoGe-2 (focal) and GeoCalib (gravity).
+- **Camera**: a camera whose focal length and position reproduce the photo, with the photo as background. **AUTO** mode keeps the horizon level unless real gravity is known.
+- **Keypoint editor + OpenPose**: correct any joint by hand and re-fit.
 
-## Instalación
+## Installation
 
-1. Empaqueta el addon. En Windows también puedes comprimir la carpeta `puppet_pose/` a mano.
+1. Build the add-on. On Windows you can also zip the `puppet_pose/` folder by hand.
    ```bash
    blender --command extension build --source-dir puppet_pose --output-dir dist
    ```
-2. En Blender ve a *Edit → Preferences → Get Extensions → ⌄ → Install from Disk…* y elige `dist/puppet_pose-0.1.0.zip`.
-3. Abre el panel en *Vista 3D → barra lateral (N) → pestaña **Puppet***.
+2. In Blender go to *Edit → Preferences → Get Extensions → ⌄ → Install from Disk…* and pick `dist/puppet_pose-0.1.0.zip`.
+3. Open the panel in *3D Viewport → Sidebar (N) → **Puppet** tab*.
 
-### Backend Lite (MediaPipe)
-En el panel, elige **Lite** y pulsa **Install Lite Dependencies**. Instala MediaPipe en la carpeta de usuario del addon y descarga los modelos (unos 30 MB). Necesita internet una sola vez.
+### Lite backend (MediaPipe)
+In the panel, choose **Lite** and press **Install Lite Dependencies**. This installs MediaPipe into the add-on's user folder and downloads its models (about 30 MB). Internet is needed once.
 
-### Backend Pro (servidor local en GPU)
+### Pro backend (local GPU server)
 ```bat
 cd server
-install_server.bat         :: venv + PyTorch CUDA 12.8 + MediaPipe + MoGe-2
-install_sam3d.bat          :: opcional: SAM 3D Body (pide acceso en HF + "hf auth login")
+install_server.bat         :: venv + PyTorch CUDA 12.8 + MediaPipe + MoGe-2 + GeoCalib + RTMW
+install_sam3d.bat          :: optional: SAM 3D Body (request access on HF + "hf auth login")
 run_server.bat             :: http://127.0.0.1:8765
 ```
-En Blender elige **Pro**, pulsa *Check Server* y luego *Pose From Photo*. El servidor también funciona por línea de comandos:
+In Blender choose **Pro**, press *Check Server*, then *Pose From Photo*. The server also works from the command line:
 ```bat
-run_server.bat --once foto.jpg --method nlf --out resultado.json
+run_server.bat --once photo.jpg --method auto --out result.json
 ```
-Después ese JSON se aplica con **Load Result JSON**.
+Apply that JSON with **Load Result JSON**.
 
-## Funciona solo, sin Claude
+## Runs on its own (no Claude, no cloud)
 
-Todo corre **en local**: el addon dentro de Blender y el servidor en tu GPU. No usa Claude ni ningún servicio en la nube; internet solo hace falta la primera vez, para descargar los modelos.
+Everything runs **locally**: the add-on inside Blender and the server on your GPU. Internet is only needed once, to download the models.
 
-- **Desde Blender:** panel *Puppet* → *Pose From Photo*.
-- **Por lotes:** procesa una carpeta entera de fotos:
+- **From Blender:** *Puppet* panel → *Pose From Photo*.
+- **Batch:** process a whole folder of photos:
   ```bat
-  samples\run_samples.bat                      :: usa samples\photos con el mejor método disponible
-  samples\run_samples.bat D:\mis_fotos nlf      :: otra carpeta, método fijo (auto | nlf | mediapipe | sam3d_body)
+  samples\run_samples.bat                       :: samples\photos with the best available method
+  samples\run_samples.bat D:\my_photos nlf      :: another folder, fixed method (auto | nlf | mediapipe | sam3d_body)
   ```
-  Por cada foto crea en `samples/results/`:
-  - `<foto>_<método>.json`: la pose y la cámara.
-  - `<foto>_<método>.blend`: el puppet posado, con la cámara que copia ángulo, distancia y focal y la foto de fondo.
-  - `<foto>_<método>_overlay.png`: el puppet superpuesto a la foto, para revisar.
+  For each photo it writes to `samples/results/`:
+  - `<photo>_<method>.json`: pose and camera.
+  - `<photo>_<method>.blend`: the posed puppet, with the camera copying angle, distance and focal, and the photo as background.
+  - `<photo>_<method>_overlay.png`: the puppet over the photo, for review.
 
-## Copiar la cámara de la foto
+## Matching the photo's camera
 
-La cámara se reconstruye en tres pasos:
+The camera is rebuilt in three steps:
 
-1. **Focal:** se toma de tu valor manual, si no del EXIF, si no de la estimación de MoGe-2.
-2. **Ángulo:** sale de la gravedad que estima GeoCalib (pitch y roll reales); si no está disponible, de la postura del cuerpo con el horizonte nivelado.
-3. **Distancia y encuadre:** se ajustan con *Fit Camera to Photo*, que mueve la cámara hasta que las articulaciones visibles del puppet coinciden con las de la foto. Funciona aunque la foto esté recortada (medio cuerpo).
+1. **Focal length:** your manual value, else EXIF, else the MoGe-2 estimate (`server/lens_report.py` compares estimators).
+2. **Angle:** from the gravity direction estimated by GeoCalib (real pitch and roll); if unavailable, from the body posture with a level horizon.
+3. **Distance and framing:** the Pro backend fits the rig itself to the 2D keypoints, so the camera is placed from the exact pelvis position. The Lite backend uses *Fit Camera to Photo*, which moves the camera until the puppet's visible joints match the photo. Both work with cropped (half-body) photos.
 
-## Corregir puntos a mano (y OpenPose)
+## Correcting keypoints by hand (and OpenPose)
 
-Si una muñeca, un codo o un dedo quedó mal:
+If a wrist, elbow or finger is wrong:
 
-1. En el panel *Puppet*, pulsa **Edit Keypoints**. Aparece un punto (empty) por articulación sobre la foto, en vista de cámara.
-2. Mueve los puntos incorrectos (`G`) a su lugar. Oculta con `H` los que no sirven.
-3. Pulsa **Re-fit**. El servidor reajusta el rig completo a tus puntos en unos segundos.
+1. In the *Puppet* panel, press **Edit Keypoints**. One point (empty) per joint appears over the photo in camera view.
+2. Move the wrong points (`G`) into place. Hide unusable ones with `H`.
+3. Press **Re-fit**. The server re-fits the whole rig to your points in a few seconds.
 
-**OpenPose In / Out** importa y exporta los puntos en formato OpenPose JSON (BODY_25 o COCO-18, más 21 puntos por mano). Así puedes corregirlos en cualquier editor de OpenPose (ComfyUI/ControlNet, etc.) y volver a traerlos.
+**OpenPose In / Out** imports and exports the points as OpenPose JSON (BODY_25 or COCO-18, plus 21 points per hand). You can correct them in any OpenPose editor (ComfyUI/ControlNet, etc.) and bring them back.
 
-## Uso
+## Usage
 
-1. **Add Puppet**, o deja que *Pose From Photo* lo cree solo.
-2. Elige la foto, el backend y, si quieres, fuerza la focal (35 mm equivalente; 0 = automática).
-3. **Pose From Photo**. Se posan el cuerpo y los dedos, se crea la cámara `Puppet_Cam` como cámara activa y la foto queda de fondo. Mira por la cámara con `Numpad 0`.
-4. Ajusta a mano en Pose Mode, con los sliders de manos o con **Re-apply Last Result** cambiando opciones (orientación, solo cuerpo o solo manos, keyframes).
+1. **Add Puppet**, or let *Pose From Photo* create it.
+2. Choose the photo and the backend. Optionally force the focal length (35 mm equivalent; 0 = automatic).
+3. **Pose From Photo**. The body and fingers are posed, `Puppet_Cam` becomes the active camera and the photo becomes its background. Look through the camera with `Numpad 0`.
+4. Adjust by hand in Pose Mode, with the hand sliders, or with **Re-apply Last Result** after changing options (orientation, body or hands only, keyframes, hide unseen limbs).
 
-## Estructura
+## Layout
 
 ```
-puppet_pose/            addon / extensión (GPL-3.0-or-later)
-  skeleton.py           esqueleto SMPL-X, rest pose y landmarks
-  puppet_builder.py     armature + maniquí segmentado
+puppet_pose/            add-on / extension (GPL-3.0-or-later)
+  skeleton.py           SMPL-X skeleton, rest pose and landmarks
+  puppet_builder.py     armature + segmented mannequin
   hand_controls.py      curl / spread / presets
-  retarget.py           puntos 3D con nombre -> rotaciones de hueso (swing + twist)
-  camera_utils.py       OpenCV <-> Blender, focal, cámara + fondo
-  pose_apply.py         aplica un resultado (pose + cámara + suelo)
-  backends/             mediapipe_lite (en Blender), server_client (HTTP)
-server/                 servidor Pro (venv propio, PyTorch)
-  pose_server.py        /health, /estimate, --once
-  methods/              sam3d_method, nlf_method, mediapipe_method, focal (MoGe-2), detect
-tests/                  tests que corren en Blender en modo background
-docs/RESEARCH.md        investigación completa
+  retarget.py           named 3D points -> bone rotations (swing + twist)
+  camera_utils.py       OpenCV <-> Blender, focal, camera + background
+  pose_apply.py         applies a result (pose + camera + ground)
+  keypoint_editor.py    movable keypoints over the photo
+  openpose.py           OpenPose JSON import/export
+  backends/             mediapipe_lite (in Blender), server_client (HTTP)
+server/                 Pro server (own venv, PyTorch)
+  pose_server.py        /health, /estimate, /refit, --once, --batch
+  lens_report.py        compares focal-length estimators
+  methods/              sam3d_method, nlf_method, mediapipe_method, keypoints2d (RTMW),
+                        fit (points), fit_rig (rig), hands, focal (MoGe-2), gravity (GeoCalib), detect
+tools/                  blender_batch.py (scenes + overlays), measure_overlay.py
+tests/                  tests that run in Blender background mode
+docs/RESEARCH.md        full research
 ```
 
 ## Tests
 ```bash
 blender -b --factory-startup --python tests/test_roundtrip.py
-blender -b --factory-startup --python tests/test_lite_render.py -- <carpeta-site-packages-con-mediapipe>
+blender -b --factory-startup --python tests/test_lite_render.py -- <site-packages-dir-with-mediapipe>
+blender -b --factory-startup --python tests/test_keypoint_editor.py -- <result.json>   # needs the server
 ```
 
-## Licencias
-El código del addon es GPL-3.0-or-later. Los modelos tienen sus propias licencias; **varios son solo para investigación o uso no comercial**:
+## Licenses
+The add-on code is GPL-3.0-or-later. Models have their own licenses; **several are research / non-commercial only**:
 
-| Modelo | Licencia |
+| Model | License |
 |---|---|
 | MediaPipe | Apache-2.0 |
-| SAM 3D Body | SAM License, pesos con acceso controlado |
-| NLF | pesos no comerciales |
-| SMPL-X | no comercial |
+| RTMW (rtmlib) | Apache-2.0 |
+| SAM 3D Body | SAM License, gated weights |
+| NLF | non-commercial weights |
+| SMPL-X | non-commercial |
 | MoGe-2 | MIT |
+| GeoCalib | Apache-2.0 code, CC-BY-4.0 weights |
 
-El detalle está en [docs/RESEARCH.md](docs/RESEARCH.md).
+Details in [docs/RESEARCH.md](docs/RESEARCH.md).

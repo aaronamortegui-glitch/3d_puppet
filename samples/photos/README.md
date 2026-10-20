@@ -1,8 +1,7 @@
-# Fotos de prueba
+# Test photos
 
-Coloca aquí fotos de personas para probar el addon. Los archivos de imagen
-**no se suben a git** (pueden tener derechos de autor). Convención de nombres:
+Put photos of people here to test the add-on. Image files are **not committed to git** (they may be copyrighted). Naming convention:
 
-    NN_descripcion_corta.ext     p. ej. 01_rizador_mano_derecha_frontal.webp
+    NN_short_description.ext     e.g. 01_curling_iron_right_hand_front.webp
 
-Procesa toda la carpeta con `samples/run_samples.bat` (ver README principal).
+Process the whole folder with `samples/run_samples.bat` (see the main README).

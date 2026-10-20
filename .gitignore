@@ -10,4 +10,4 @@ server/vendor/
 *.task
 samples/photos/*
 !samples/photos/README.md
-samples/results/
+samples/results*/

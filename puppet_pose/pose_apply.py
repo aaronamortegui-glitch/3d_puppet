@@ -120,7 +120,8 @@ def _lowest_z(arm):
 def apply_result(context, arm, result, *, frame_mode="AUTO",
                  make_camera=True, ground=True, use_rotations=False,
                  apply_body=True, apply_hands=True, bg_image=True,
-                 keyframe=False, flip_facing=False, refine=True, use_rig=True):
+                 keyframe=False, flip_facing=False, refine=True, use_rig=True,
+                 hide_unseen=True):
     """Pose `arm` from `result` and create/update the matching camera."""
     pts_cv = result.get("points3d", {})
     if not pts_cv:
@@ -147,6 +148,7 @@ def apply_result(context, arm, result, *, frame_mode="AUTO",
         if apply_hands:
             bones |= {b for b in sk.SMPLX_JOINTS if _is_hand_bone(b)}
         rt.apply_globals(arm, Gq, bones=bones)
+        set_hidden_bones(arm, result.get("unseen") if hide_unseen else None)
     elif use_rotations and result.get("rotations"):
         rt.apply_smplx_rotations(arm, result["rotations"])
         # global orientation still comes from points (camera-consistent)
@@ -293,6 +295,32 @@ def refine_camera(arm, cam_matrix, result, flip_facing=False):
     m = cam_matrix.copy()
     m.translation = -(R_cv @ t)
     return m
+
+
+def set_hidden_bones(arm, bones):
+    """Hide the mesh parts driven by `bones` with a Mask modifier (the rig
+    itself is untouched).  Used for limbs that are not visible in the photo."""
+    bones = set(bones or [])
+    for ob in arm.children:
+        if ob.type != "MESH":
+            continue
+        vg = ob.vertex_groups.get("PuppetVisible") or ob.vertex_groups.new(name="PuppetVisible")
+        idx_hidden = {ob.vertex_groups[b].index for b in bones if b in ob.vertex_groups}
+        vis, hid = [], []
+        for v in ob.data.vertices:
+            (hid if any(g.group in idx_hidden and g.weight > 0.5 for g in v.groups) else vis).append(v.index)
+        if vis:
+            vg.add(vis, 1.0, "REPLACE")
+        if hid:
+            vg.remove(hid)
+        mod = ob.modifiers.get("PuppetMask")
+        if not bones:
+            if mod:
+                ob.modifiers.remove(mod)
+            continue
+        if mod is None:
+            mod = ob.modifiers.new("PuppetMask", "MASK")
+        mod.vertex_group = "PuppetVisible"
 
 
 def _is_hand_bone(name):

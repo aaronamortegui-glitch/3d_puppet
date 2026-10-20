@@ -64,6 +64,9 @@ class PUPPET_PG_settings(bpy.types.PropertyGroup):
         name="Use Model Rotations", default=False,
         description="Pro only: apply SMPL-X joint rotations directly instead of point retargeting")
     keyframe: BoolProperty(name="Insert Keyframes", default=False)
+    hide_unseen: BoolProperty(
+        name="Hide Unseen Limbs", default=True,
+        description="Hide (mask) limbs that are out of frame / not visible in the photo")
     flip_facing: BoolProperty(
         name="Flip Front/Back", default=False,
         description="Use when the model confused the subject's front and back "

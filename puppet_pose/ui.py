@@ -59,6 +59,7 @@ class PUPPET_PT_photo(bpy.types.Panel):
         row.prop(s, "ground", toggle=True)
         row.prop(s, "keyframe", toggle=True)
         col.prop(s, "flip_facing", toggle=True, icon="ARROW_LEFTRIGHT")
+        col.prop(s, "hide_unseen", toggle=True, icon="HIDE_ON")
         layout.operator("puppet_pose.pose_from_photo", icon="ARMATURE_DATA")
         row = layout.row(align=True)
         row.operator("puppet_pose.reapply", icon="FILE_REFRESH")

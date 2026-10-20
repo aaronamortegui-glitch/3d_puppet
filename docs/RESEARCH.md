@@ -1,256 +1,191 @@
-# Investigación: puppet 3D con rig + pose y cámara desde una foto (Blender)
+# Research: rigged 3D puppet + pose and camera from a single photo (Blender)
 
-*Fecha: octubre 2026 · Blender objetivo: 5.0 (Python 3.11) · GPU de referencia: RTX 5090 Laptop 24 GB*
+*Date: October 2026 · Target: Blender 5.0 (Python 3.11) · Reference GPU: RTX 5090 Laptop 24 GB*
 
-Objetivo: tener un muñeco 3D (puppet) con rig completo, con muñecas y dedos (abrir y cerrar la mano), totalmente controlable. Desde **una sola foto** debe poder copiar:
+Goal: a fully rigged, fully controllable 3D puppet with wrists and fingers (open/close hands). From **a single photo** it must copy:
 
-- la **pose** del cuerpo y de las manos;
-- la **cámara**: ángulo, distancia y focal.
+- the **pose** of the body and hands;
+- the **camera**: angle, distance and focal length.
 
-Todo empaquetado como **addon instalable de Blender**.
+Everything is packaged as an **installable Blender add-on**.
 
-Decisión de licencias del proyecto: el **uso es interno o de investigación**, así que se permiten modelos no comerciales (SMPL-X, etc.). Igual se marca la licencia de cada pieza.
+License decision for this project: use is **internal / research**, so non-commercial models (SMPL-X, etc.) are allowed. Each component's license is still noted.
 
 ---
 
-## 1. Resumen de decisiones
+## 1. Decision summary
 
-| Pieza | Elección | Por qué |
+| Component | Choice | Why |
 |---|---|---|
-| Puppet por defecto | **Maniquí procedural propio** generado en Python, con esqueleto **SMPL-X (55 joints, 15 huesos de dedos por mano)** | Sin riesgo de licencia (todo es código GPL nuestro). Los nombres de hueso coinciden 1:1 con lo que entregan los estimadores. Aspecto de maniquí de artista. |
-| Controles de mano | Sliders de cerrar, pulgar y abrir (spread) por mano, más presets (open, fist, point, peace, thumbs up, grip, pinch) | Los huesos de dedo tienen el eje local X como eje de flexión, así que una rotación positiva cierra el dedo. |
-| Backend **Lite** | **MediaPipe Tasks 1.1.1** (Pose Landmarker heavy + Hand Landmarker) dentro del Python de Blender | Apache-2.0, CPU, unos 1–2 s por foto, se instala con un botón. |
-| Backend **Pro** | Servidor local (venv aparte, PyTorch cu128) con **SAM 3D Body** (Meta) → NLF → MediaPipe | SAM 3D Body es el estado del arte en cuerpo, manos y pies desde una foto y estima la focal. NLF es la alternativa fácil de instalar. |
-| Focal / FOV | Usuario > EXIF > **MoGe-2** (Microsoft, MIT) > 35 mm por defecto | La mayoría de los modelos asumen una focal fija; sin focal correcta la distancia de cámara sale mal. |
-| Retarget | **Por posiciones con referencia de twist** (swing + twist con marcos ortonormales) | Sirve para cualquier backend (MediaPipe, SMPL-X, MHR), porque todos entregan puntos 3D con nombre. Opcionalmente se pueden usar rotaciones SMPL-X directas. |
-| Cámara | Mínimos cuadrados lineales de perspectiva para la traslación, conversión OpenCV → Blender y modo **AUTO sin roll** | Probado en un test de ida y vuelta: error de 3,6 px y focal exacta. |
+| Default puppet | **Own procedural mannequin** generated in Python, with an **SMPL-X skeleton (55 joints, 15 finger bones per hand)** | No license risk (all our GPL code). Bone names match estimator outputs 1:1. Artist-mannequin look. |
+| Hand controls | Close / thumb / spread sliders per hand, plus presets (open, fist, point, peace, thumbs up, grip, pinch) | Finger bones use local X as the flexion axis, so a positive rotation closes the finger. |
+| **Lite** backend | **MediaPipe Tasks 1.1.1** (Pose Landmarker heavy + Hand Landmarker) inside Blender's Python | Apache-2.0, CPU, ~1–2 s per photo, one-click install. |
+| **Pro** backend | Local server (separate venv, PyTorch cu128) with **SAM 3D Body** (Meta), NLF and MediaPipe; **auto** mode picks the best fit | SAM 3D Body is the state of the art for body + hands + feet from one photo. NLF is the easy-to-install alternative. |
+| Precision stage | **RTMW** 2D keypoints + hand crops → **direct rig fit** (forward kinematics of the puppet in PyTorch) | Pixel-level overlay with zero retarget loss in Blender. |
+| Focal / FOV | User > EXIF > **MoGe-2** (Microsoft, MIT) > 35 mm default | Most models assume a fixed focal length; without the right focal the camera distance is wrong. |
+| Camera angle | **GeoCalib** gravity (real pitch/roll) when available, else AUTO (level horizon) | Photos rarely have roll; GeoCalib recovers it when the scene allows. |
 
 ---
 
-## 2. Puppets 3D con rig (con dedos)
+## 2. Rigged 3D puppets (with fingers)
 
-| Opción | Licencia | Dedos | Controles | Notas |
+| Option | License | Fingers | Controls | Notes |
 |---|---|---|---|---|
-| **Maniquí procedural (este repo)** | GPL-3 (código propio) | 15 por mano (3 por dedo) | FK y sliders/presets de mano | Elegido por defecto. Esqueleto = SMPL-X. |
-| SMPL-X Blender add-on (MPI / Meshcapade) | Modelo **no comercial**; Meshcapade fue adquirida por Epic (feb 2026) | 15 por mano (MANO) | FK, presets flat/relaxed | Máxima fidelidad con estimadores SMPL-X. No redistribuible: cada usuario trae su propio modelo. |
-| MPFB2 (MakeHuman) | Código GPL; assets **CC0** | `game_engine`: 15 por mano; `default`: 15 + metacarpianos | Helpers IK; opción Rigify | La mejor base CC0 si se quiere un cuerpo realista. Naming tipo UE (`index_01_l`). |
-| Rigify (incluido en Blender) | GPL | 15 + palm | IK/FK completo, *finger masters* (curl) | Ideal para animadores. Hay que escribir sobre los huesos FK/ORG y compensar la rest pose (A-pose). |
-| Blender Studio Human Base Meshes | CC0 | sin rig | — | Malla para skinnear sobre Rigify o MPFB. |
-| Blender Studio Rain / Storm | CC-BY | sí | CloudRig IK/FK | Rigs de animación pulidos, con naming propio. |
-| Mixamo | Uso comercial OK, pero **prohibido redistribuir** los archivos | 15 por mano (`LeftHandIndex1-3`) | FK | Útil como perfil de retarget para personajes del usuario. |
-| Auto-Rig Pro | Pago (~$50) | sí, con IK de dedos | IK/FK, fist | Solo del lado del usuario. |
-| Quaternius Universal Base Characters | CC0 | 15 por mano (reportado) | FK | Low-poly, naming UE. |
-| **MHR — Meta Momentum Human Rig** | **Apache-2.0** | sí | — | Rig nativo de SAM 3D Body; FBX con LODs y conversor SMPL ↔ MHR. |
-| **Anny (NAVER)** | Apache-2.0 / CC0 | sí (104 huesos) | — | Modelo paramétrico de cuerpo (edades y formas), alternativa abierta a SMPL-X. |
-| Ready Player Me | **Cerrado** (Netflix, ene 2026) | — | — | Descartado. |
-| Kenney | CC0 | no tiene dedos | — | Descartado. |
+| **Procedural mannequin (this repo)** | GPL-3 (own code) | 15 per hand (3 per finger) | FK + hand sliders/presets | Default. Skeleton = SMPL-X. |
+| SMPL-X Blender add-on (MPI / Meshcapade) | Model **non-commercial**; Meshcapade acquired by Epic (Feb 2026) | 15 per hand (MANO) | FK, flat/relaxed presets | Highest fidelity with SMPL-X estimators. Not redistributable: each user brings their own model. v1.0.3 supports Blender 4.5+/5.x. |
+| MPFB2 (MakeHuman) | GPL code; **CC0** assets | `game_engine`: 15 per hand; `default`: 15 + metacarpals | IK helpers; Rigify option | Best CC0 base for a realistic body. UE-style naming (`index_01_l`). |
+| Rigify (bundled with Blender) | GPL | 15 + palm | Full IK/FK, finger masters (curl) | Ideal for animators. Drive the FK/ORG bones and compensate the A-pose rest. |
+| Blender Studio Human Base Meshes | CC0 | no rig | — | Mesh to skin onto Rigify or MPFB. |
+| Blender Studio Rain / Storm | CC-BY | yes | CloudRig IK/FK | Polished animation rigs, custom naming. |
+| Mixamo | Commercial use OK, but **redistribution forbidden** | 15 per hand (`LeftHandIndex1-3`) | FK | Useful as a retarget profile for users' own characters. |
+| Auto-Rig Pro | Paid (~$50) | yes, finger IK | IK/FK, fist | User-side only. |
+| Quaternius Universal Base Characters | CC0 | 15 per hand (reported) | FK | Low-poly, UE naming. |
+| **MHR — Meta Momentum Human Rig** | **Apache-2.0** | yes | — | Native rig of SAM 3D Body; FBX with LODs and an SMPL ↔ MHR converter. |
+| **Anny (NAVER)** | Apache-2.0 / CC0 | yes (104 bones) | — | Parametric body model (ages and shapes), open alternative to SMPL-X. |
+| Ready Player Me | **Shut down** (Netflix, Jan 2026) | — | — | Discarded. |
+| Kenney | CC0 | no fingers | — | Discarded. |
 
-**Conclusión:** el puppet que viene con el addon es el maniquí procedural. Usa los nombres de SMPL-X, así que los resultados de cualquier estimador se aplican sin tablas de mapeo. Para personajes propios (Mixamo, Rigify, MPFB, UE), el siguiente paso es agregar **perfiles de mapeo de huesos**. El retarget por posiciones ya funciona con cualquier esqueleto si se le da la tabla de nombres.
+**Conclusion:** the bundled puppet is the procedural mannequin. It uses SMPL-X names, so any estimator's output applies without mapping tables. For users' own characters (Mixamo, Rigify, MPFB, UE) the next step is **bone mapping profiles**.
 
 ---
 
-## 3. Estimación de pose 3D desde una foto (cuerpo + dedos + cámara)
+## 3. 3D pose estimation from one photo (body + fingers + camera)
 
-| Método | Licencia (código / pesos) | Manos | Cámara | Instalación en Windows + 5090 |
+| Method | License (code / weights) | Hands | Camera | Windows + 5090 install |
 |---|---|---|---|---|
-| **SAM 3D Body** (Meta, 2025-26) | SAM License (permite uso comercial con restricciones); pesos con acceso controlado en HF | **Sí**, 21 keypoints por mano (MHR70) | Perspectiva completa; FOV con MoGe-2; acepta `cam_int` | Media. Evitamos detectron2 pasando nosotros las cajas de persona (Faster R-CNN de torchvision). |
-| Fast SAM 3D Body (ECCV 26) | MIT, usa los pesos de SAM 3D Body | sí | igual | ~65 ms en 5090; scripts bash (WSL). |
-| **NLF** (Neural Localizer Fields) | MIT / pesos **no comerciales** | sí (SMPL-X, manos algo débiles) | Perspectiva; acepta intrínsecos | **Fácil**: un solo archivo TorchScript. |
-| Multi-HMR / Multi-HMR 2 (NAVER) | CC BY-NC-SA / NC | sí (calidad moderada) | Intrínsecos opcionales | Fácil a media. |
-| SMPLer-X / SMPLest-X | S-Lab NC | sí (gruesas) | Focal fija | Difícil (torch 1.12 + mmcv), no compatible con la 5090 sin recompilar. |
-| AiOS, OSX, Hand4Whole, PIXIE | NC | sí | Focal fija o débil | Legacy, difícil. |
-| 4D-Humans (HMR2), TokenHMR, CameraHMR | NC (SMPL) | **no** | CameraHMR estima FOV (HumanFoV) | — |
-| WiLoR / HaMeR | NC (MANO) | Solo manos (lo mejor en dedos) | Weak perspective | Útil para refinar dedos sobre recortes de mano. |
-| **MediaPipe** Pose + Hands / Holistic | Apache-2.0 | 21 por mano | Ninguna (la resolvemos nosotros) | Trivial. Corre en el Python de Blender. |
-| RTMW / DWPose (rtmlib, ONNX) | Apache | 133 keypoints 2D | — | Fácil, pero solo 2D. |
+| **SAM 3D Body** (Meta, 2025-26) | SAM License (commercial use with restrictions); gated weights on HF | **Yes**, 21 keypoints per hand (MHR70) | Full perspective; FOV via MoGe-2; accepts `cam_int` | Medium. We avoid detectron2 and pyrender by loading the core model and passing person boxes from torchvision. |
+| Fast SAM 3D Body (ECCV 26) | MIT, uses SAM 3D Body weights | yes | same | ~65 ms on a 5090; bash scripts (WSL). |
+| **NLF** (Neural Localizer Fields) | MIT / **non-commercial** weights | yes (SMPL-X, weaker hands) | Perspective; accepts intrinsics | **Easy**: one TorchScript file. |
+| Multi-HMR / Multi-HMR 2 (NAVER) | CC BY-NC-SA / NC | yes (moderate) | Optional intrinsics | Easy to medium. |
+| SMPLer-X / SMPLest-X | S-Lab NC | yes (coarse) | Fixed focal | Hard (torch 1.12 + mmcv), not 5090-compatible without rebuilding. |
+| AiOS, OSX, Hand4Whole, PIXIE | NC | yes | Fixed or weak | Legacy, hard. |
+| 4D-Humans (HMR2), TokenHMR, CameraHMR | NC (SMPL) | **no** | CameraHMR estimates FOV (HumanFoV) | — |
+| WiLoR / HaMeR | NC (MANO) | Hands only (best fingers) | Weak perspective | Useful to refine fingers on hand crops. |
+| **MediaPipe** Pose + Hands / Holistic | Apache-2.0 | 21 per hand | None (we solve it) | Trivial. Runs in Blender's Python. |
+| **RTMW** / DWPose (rtmlib, ONNX) | Apache | 133 2D keypoints | — | Easy; 2D only. Used as the 2D target of the fitting stage. |
 
-**Estimación de cámara:**
-- **MoGe-2**: MIT, da FOV y profundidad métrica.
-- **GeoCalib**: Apache / CC-BY, da focal y **dirección de la gravedad**, o sea pitch y roll reales.
-- **Depth Pro**: Apple, licencia por confirmar.
-- **Depth Anything 3**: Apache en los modelos chicos.
-- **VGGT**: tiene una variante comercial.
-
-**Pipeline elegido:**
-
-- **Lite (en Blender):**
-  1. MediaPipe extrae los landmarks 3D métricos del cuerpo y las manos; las manos se asignan a la muñeca más cercana.
-  2. La focal sale del EXIF, o de un valor manual, o de 35 mm por defecto.
-  3. La traslación de cámara se resuelve por mínimos cuadrados con los landmarks 2D.
-  4. Retarget al puppet.
-- **Pro (servidor local en la GPU):**
-  1. Focal: valor del usuario, si no EXIF, si no MoGe-2.
-  2. Pose: **SAM 3D Body** (cuerpo, manos, pies, focal). Si no está instalado, **NLF** (SMPL-X); si tampoco, MediaPipe.
-  3. El servidor normaliza la salida a puntos 3D con nombre en espacio de cámara OpenCV. La convención de ejes y unidades se detecta sola por reproyección.
+**Camera estimation:**
+- **MoGe-2**: MIT, FOV + metric depth.
+- **GeoCalib**: Apache / CC-BY, focal + **gravity direction** (real pitch and roll).
+- **Depth Pro**: Apple, license to be confirmed.
+- **Depth Anything 3**: Apache for the small models.
+- **VGGT**: has a commercial variant.
 
 ---
 
-## 4. Integración en Blender
+## 4. Blender integration
 
-### Formato del addon
-- **Extensión de Blender (4.2+)**: `blender_manifest.toml` con permisos `files` y `network`, más un `bl_info` para instalarlo como addon legacy.
-- **Dependencias del modo lite**: se instalan con pip en el directorio de usuario de la extensión (`extension_path_user`), **nunca** en Program Files.
-  - numpy queda fijado a la versión de Blender (1.26.4 en 5.0).
-  - Probado: `mediapipe 1.1.1` importa bien en el Python 3.11 de Blender 5.0.1.
-- **Ojo:** Blender 5.1+ usa **Python 3.13**. Las dependencias compiladas se reinstalan con el botón; el servidor pro no se ve afectado porque corre en su propio proceso.
-- **PyTorch nunca va dentro de Blender** (conflictos de DLL, ~3 GB). Va en el servidor (`server/.venv`) y Blender le habla por HTTP local (`127.0.0.1:8765`) usando solo la stdlib.
+### Add-on format
+- **Blender extension (4.2+)**: `blender_manifest.toml` with `files` and `network` permissions, plus `bl_info` for legacy installs.
+- **Lite dependencies** are pip-installed into the extension's user directory (`extension_path_user`), **never** into Program Files.
+  - numpy is pinned to Blender's version (1.26.4 in 5.0).
+  - Tested: `mediapipe 1.1.1` imports fine in Blender 5.0.1's Python 3.11.
+- **Note:** Blender 5.1+ uses **Python 3.13**. Compiled dependencies are reinstalled with the button; the Pro server is unaffected because it runs in its own process.
+- **PyTorch never goes inside Blender** (DLL conflicts, ~3 GB). It lives in the server (`server/.venv`); Blender talks to it over local HTTP (`127.0.0.1:8765`) using only the standard library.
 
-### Retarget (`puppet_pose/retarget.py`)
-1. Cada hueso tiene una spec con un vector primario (p. ej. hombro → codo) y un vector secundario opcional para el twist:
-   - brazo superior: plano del codo;
-   - antebrazo y mano: línea índice-meñique;
-   - pelvis: línea de caderas;
-   - cabeza: orejas y nariz.
-2. Los mismos nombres se evalúan en la rest pose del puppet y en el resultado del modelo. Así **no hace falta que coincidan los ejes de hueso** entre rigs.
-3. Con dos vectores se construye un marco ortonormal: `G = F(target) · F(rest)ᵀ`. Con uno solo se aplica el swing mínimo sobre la rotación del padre.
-4. Si el vector secundario es degenerado (brazo o pierna recta), se cae al swing.
-5. De global a local: `basis = R_restᵀ · G_parentᵀ · G · R_rest`.
-6. `spine2` se interpola (slerp) entre `spine1` y `spine3` para repartir la torsión.
-7. Hay una ruta alternativa con **rotaciones SMPL-X directas** (axis-angle): `G_j = G_parent · C·R_j·C⁻¹`.
+### Point retarget (`puppet_pose/retarget.py`, Lite path)
+1. Each bone has a spec with a primary vector (e.g. shoulder → elbow) and an optional secondary vector for twist (elbow plane, index–pinky line, hip line, ears/nose).
+2. The same names are evaluated on the puppet's rest pose and on the model output, so **bone axes never need to match** between rigs.
+3. With two vectors an orthonormal frame gives `G = F(target) · F(rest)ᵀ`; with one, the minimal swing is applied on top of the parent rotation.
+4. Global → local: `basis = R_restᵀ · G_parentᵀ · G · R_rest`.
 
-### Cámara (`puppet_pose/camera_utils.py`, `pose_apply.py`)
-- **Focal:** `lens_mm = f_px · sensor_width / max(W, H)` con `sensor_fit = AUTO` y sensor de 36 mm. Desde EXIF 35 mm equivalente: `f_px = f35 / 43.27 · diag_px`.
-- **Punto principal:** `shift_x = (W/2 − cx)/max(W,H)`, `shift_y = (cy − H/2)/max(W,H)`.
-- **Traslación:** `f(X+tx) − (u−cx)(Z+tz) = 0` y lo mismo en y. Es lineal en `t`, así que se resuelve por mínimos cuadrados ponderados por visibilidad.
-- **Frames:**
-  - OpenCV: x a la derecha, y hacia abajo, z hacia adelante.
-  - W_c (marco interno): `(x, z, −y)`, con la cámara en el origen mirando a +Y.
-  - Cámara de Blender: `Euler(90°, 0, 0)` en W_c.
-- **Modos de orientación:**
-  - **AUTO** (por defecto): la cámara mantiene el **horizonte nivelado** (roll 0). El pitch sale del vector "arriba" del cuerpo (torso, más piernas si están rectas) y el yaw lo normaliza para que el puppet mire a −Y. Lo inclinado de la toma queda en la cámara, que es lo que pasa en la vida real.
-  - **UPRIGHT**: el torso queda vertical y toda la inclinación pasa a la cámara (pitch y roll).
-  - **LEVEL**: la cámara sin pitch ni roll; la inclinación queda en el puppet.
-  - **NONE**: la cámara en el origen.
-- **Escala:** el puppet tiene proporciones fijas. Se escala la posición del sujeto por la razón de longitudes (torso + piernas + brazos), así se mantiene el encuadre.
-- **Suelo:** se baja el puppet hasta que su punto más bajo toque z = 0, y la cámara se mueve con él.
-- **Foto de fondo:** la foto se pone como imagen de fondo de la cámara (alpha 0,6), con la resolución de render igual a la de la foto. Si la foto trae rotación EXIF, se guarda una copia enderezada porque Blender ignora el EXIF.
+### Camera (`puppet_pose/camera_utils.py`, `pose_apply.py`)
+- **Focal:** `lens_mm = f_px · sensor_width / max(W, H)` with `sensor_fit = AUTO` and a 36 mm sensor. From EXIF 35 mm equivalent: `f_px = f35 / 43.27 · diag_px`.
+- **Principal point:** `shift_x = (W/2 − cx)/max(W,H)`, `shift_y = (cy − H/2)/max(W,H)`.
+- **Translation:** `f(X+tx) − (u−cx)(Z+tz) = 0` (and the same in y) is linear in `t`; solved by weighted least squares.
+- **Frames:** OpenCV (x right, y down, z forward); internal W_c = `(x, z, −y)` with the camera at the origin looking +Y; a Blender camera is `Euler(90°, 0, 0)` in W_c.
+- **Orientation modes:** **AUTO** (default; real gravity from GeoCalib when available, otherwise level horizon with pitch from the body), **UPRIGHT**, **LEVEL**, **NONE**.
+- **Ground:** the puppet is lowered so its lowest point touches z = 0; the camera moves with it.
+- **Background:** the photo is the camera background (alpha 0.6) and render resolution matches the photo. Photos with EXIF rotation get an upright copy because Blender ignores EXIF.
 
-### Addons y proyectos de referencia estudiados
-- **PoseCap (Corridor, GPL-3)** es la referencia más parecida: extensión de Blender más un proceso GPU separado, con modo MediaPipe lite.
-- **BlendArMocap** (GPL-3, descontinuado): matemática de MediaPipe → Rigify.
-- **FreeMoCap addon** (AGPL, solo para estudiar).
-- **SMPL-X add-on** (axis-angle → quaternion).
-- **CEB 4D Humans** (venv externo con `.bat`).
-- **MoPA** (servidor por socket).
-- **Rokoko / Expy Kit / Retarget (KBS)** (mapeo de huesos).
+### Reference projects studied
+- **PoseCap (Corridor, GPL-3)**: closest reference (Blender extension + separate GPU process, MediaPipe lite mode).
+- **BlendArMocap** (GPL-3, discontinued): MediaPipe → Rigify math.
+- **FreeMoCap add-on** (AGPL, study only), **SMPL-X add-on**, **CEB 4D Humans**, **MoPA**, **Rokoko / Expy Kit / Retarget (KBS)**.
 
 ---
 
-## 5. Validación realizada
+## 5. Round 1 validation
 
-| Test | Resultado |
+| Test | Result |
 |---|---|
-| `tests/test_roundtrip.py`: pose y cámara conocidas → puntos sintéticos → retarget a un puppet nuevo | Dirección de hueso con **error medio de 0,25°** (los dedos en 0°). Reproyección de **3,6 px**. Focal reconstruida **exacta** (33,75 mm). Modos UPRIGHT y AUTO con el mismo encuadre; **roll de AUTO = 0,00°**. PASS. |
-| `tests/test_lite_render.py`: render EEVEE del maniquí posado → MediaPipe → puppet nuevo | Cámara reconstruida: **3,58 m de distancia igual a la original**, elevación de 8,3° frente a 7,6° reales, misma focal. MediaPipe **no detecta manos de madera** (normal) y confunde la profundidad de la pierna levantada. Con fotos reales de personas el detector rinde mucho mejor. |
-| Presets de mano | Puño, señalar, paz, etc. se ven correctos. El pulgar cruza la palma. |
-| Gravedad (test de ida y vuelta, cámara con roll de 12°) | Con `up_cam` conocido, el pitch y el roll de la cámara se recuperan **exactos** (−9,96° / 11,82°). |
-| Servidor Pro: NLF + MoGe-2 + GeoCalib sobre el render del maniquí | La cadena completa corre en la RTX 5090 y entrega 72 puntos con manos. **MoGe-2 estimó una focal de ~36 mm (real 33,8)**. Pero tanto NLF como MediaPipe **interpretan el maniquí de cara lisa como visto de espaldas**, y GeoCalib no es fiable en una escena sintética sin estructura. **Hace falta validar con fotos reales de personas.** |
-| Extensión instalada desde el zip (perfil aislado) | Instalar → activar → *Install Lite Dependencies* → *Pose From Photo* → *Re-apply*: todo OK en Blender 5.0.1. |
+| `tests/test_roundtrip.py`: known pose + camera → synthetic points → retarget | Bone direction error **0.25° mean** (fingers 0°). Reprojection **1.6 px** after camera fit. Focal **exact**. AUTO roll = **0.00°**. With known gravity, a 12° rolled camera is recovered **exactly** (−9.96° / 11.82°). PASS. |
+| `tests/test_lite_render.py`: EEVEE render of the posed mannequin → MediaPipe → new puppet | Camera distance **3.58 m = original**, elevation 8.3° vs 7.6°, same focal. MediaPipe does **not** detect wooden hands and reads the faceless mannequin as seen from the back; real photos behave much better. |
+| Extension installed from the zip (isolated profile) | Install → enable → *Install Lite Dependencies* → *Pose From Photo* → *Re-apply*: all OK in Blender 5.0.1. |
 
-### Fotos reales (4 fotos publicitarias de medio cuerpo, con las manos sosteniendo productos)
+Implementation notes:
+- Blender does not allow a registered operator to subclass another registered operator; a mixin is used.
+- NLF's TorchScript needs `import torchvision` before `torch.jit.load` (registers `nms`).
+- NLF exposes `estimate_smpl_batched(images, boxes)`: when its YOLO detector fails, external boxes are passed.
+- `glob('**')` does not enter dot folders such as `extensions/.user/`.
+- The **front/back** ambiguity is the most common single-photo error. *Flip Front/Back* swaps left/right and mirrors depth while keeping the 2D projection; the Pro server detects it automatically.
 
-| Foto | MediaPipe (lite) | NLF (pro) |
+---
+
+## 6. Round 2: deep research + 2D fitting
+
+### Research findings (4 tracks)
+- **Video mocap** (Move.ai, Rokoko, DeepMotion, WHAM, GVHMR, GEM-X…): **does not improve a still photo**. Duplicating the frame adds no information; temporal models only smooth. Worth trying only **Autodesk Flow Studio** (exports a Blender scene with camera) and **DeepMotion "3D Pose"** as a cheap commercial reference.
+- **Community (Reddit, GitHub, Hugging Face)**: **no ready-made tool** reaches this precision with fingers and camera. *Clip Studio Pose Scanner* is rough and skips fingers; *PoseCap* does not solve the camera; *ComfyUI-SAM3DBody* exports FBX with mirrored bones. The recommended recipe everywhere: **strong regressor + fit to 2D keypoints + silhouette**.
+- **State of the art**: **SAM 3D Body** is the best regressor (EMDB 61.7 mm vs NLF 68.4 mm) and accepts *keypoint prompts*; **RTMW-x** (70.2 whole-body AP) and **Sapiens2** (308 keypoints) are the best 2D detectors; **WiLoR** is best for fingers (FreiHAND 5.5 mm); **DPoser-X** is the best pose prior.
+- **Avatars**: lossless transfer is **MHR + SAM 3D Body** (needs an importer; community `sam-3d-body-fbxify` as a start). Alternative: the official **SMPL-X add-on**.
+
+### Implemented
+- **SAM 3D Body** on Windows + RTX 5090 without detectron2 or pyrender.
+- **RTMW** (rtmlib, ONNX): 133 whole-body 2D keypoints, 21 per hand.
+- **`server/methods/fit.py`**: moves the regressor's 3D points until their projection matches RTMW, with the **puppet's** bone lengths, a per-point depth prior (single global shift, so points cannot slide along their rays), regressor directions where there is no 2D evidence, COCO hips down-weighted, border keypoints ignored, and automatic front/back detection.
+
+### Lens (focal length)
+`server/lens_report.py` compares estimators (35 mm equivalent):
+
+| Photo | MoGe-2 | GeoCalib |
 |---|---|---|
-| Rizador, vista frontal | ✅ brazo levantado y mano cerrada en el mango | ❌ brazo levantado mal |
-| Cepillo, tres cuartos | ✅ mano cerrada en el mango | ⚠️ cabeza baja, brazo aproximado |
-| Brazos arriba | ⚠️ un brazo demasiado alto | ✅ muy bien (ambas manos) |
-| Mano extendida | ✅ | ✅ |
+| 01 | 44.8 | 56.4 |
+| 02 | 41.5 | 38.4 |
+| 03 | 43.4 | 59.9 |
+| 04 | 42.4 | 45.2 |
 
-- **Cámara:** MoGe-2 estimó focales de ~41–45 mm equivalentes. GeoCalib estimó pitch de 8–17° y roll de 1–4°. La cámara queda a 1,1–1,7 m, coherente con un retrato de estudio.
-- **Ningún backend gana siempre**, por eso conviene probar ambos. SAM 3D Body (pendiente de aprobación) debería superar a los dos.
-- **Mejoras que salieron de esta prueba:**
-  1. Los brazos fuera de cuadro quedan **relajados hacia abajo** en vez de en pose T.
-  2. ***Fit Camera to Photo***: refinamiento de la cámara contra los keypoints 2D visibles. Bajó el error del test de 3,6 a 1,6 px y alinea bien las fotos recortadas.
-
-Notas de implementación aprendidas:
-- Blender no admite que un operador registrado herede de otro operador registrado. Se usa un mixin.
-- El TorchScript de NLF necesita `import torchvision` antes de `torch.jit.load`, para registrar `nms`.
-- NLF tiene `estimate_smpl_batched(images, boxes)`: si su detector YOLO falla, se le pasan cajas externas.
-- `glob('**')` no entra en carpetas que empiezan con punto, como `extensions/.user/`.
-- La ambigüedad **frente/espalda** es el error más común con una sola foto. Se corrige con el botón *Flip Front/Back*, que intercambia izquierda y derecha y refleja la profundidad manteniendo la proyección 2D.
+- MoGe-2 is consistent; GeoCalib varies a lot on plain studio backgrounds.
+- **Lens search by fitting** (try 18–135 mm, keep the one most consistent with the puppet's proportions) was **not reliable**: at 1–2 m the perspective changes too little between lenses and the error curves are flat.
+- **Pending:** validate with photos of **known focal length** (EXIF) to measure each estimator's real error.
 
 ---
 
-## 6. Limitaciones conocidas y siguientes pasos
+## 7. Round 3: fitting the rig directly, hands, keypoint editor
 
-1. **Ambigüedad de profundidad** en una sola foto: un miembro puede quedar "al revés" en profundidad. Se mitiga con el backend pro (SAM 3D Body).
-2. **Manos pequeñas** en fotos de cuerpo entero: el siguiente paso es un segundo pase sobre un recorte de la mano a mayor resolución (WiLoR o el decoder de manos de SAM 3D Body).
-3. ~~Gravedad real~~ **Hecho**: GeoCalib ya está integrado en el servidor (`up_cam`), y el modo AUTO lo usa para el pitch y el roll exactos. Falta validarlo con fotos reales.
-4. **Perfiles de mapeo** para Mixamo, Rigify, MPFB y UE, para aplicar la pose a personajes propios.
-5. ~~Refinamiento PnP~~ **Hecho**: *Fit Camera to Photo* (traslación por mínimos cuadrados contra los keypoints 2D visibles).
-7. **Fusión de backends:** elegir por articulación el backend que mejor reproyecta sobre los keypoints 2D de MediaPipe (por ejemplo, brazos de MediaPipe y cuerpo de NLF).
-6. **Modo multi-persona** y video (pose por frame con suavizado).
+**Diagnosis.** Even with fitted points at ~1 px, the posed puppet was **50–100 px** off the photo (measured with `tools/measure_overlay.py`): retargeting points onto a rigid skeleton with different proportions loses precision.
 
+**Solution: `server/methods/fit_rig.py`.**
+- Forward kinematics of the puppet skeleton (same rest pose and hierarchy) runs in PyTorch.
+- One rotation per bone + the root translation are optimised against the 2D keypoints, with the regressor's depth as a prior and a pose prior.
+- Blender applies the global rotations as-is: server vs Blender difference is **0.0 px**; the camera is placed from the exact pelvis position.
+- **Multi-start**: the fit starts from both the point-fitted and the raw regressor skeleton and keeps the best (the same photo could land at 5 px or 25 px depending on the start).
 
----
+**Hands (`server/methods/hands.py`).**
+- **Chirality**: detects a mirrored hand (palm ↔ back) and fixes it by mirroring depth without changing 2D. It happened on several hands.
+- **High-resolution crop re-detection** (512 px) with MediaPipe Hands.
+- **Duplicate hands**: RTMW sometimes puts both hands on the same physical hand; the side is decided with the regressor's projected wrists.
+- **Finger joint limits** in the rig fit: PIP/DIP joints are pure hinges toward the palm, no hyperextension, MCP with limited spread and no twist.
 
-## 7. Segunda ronda (precisión): investigación profunda + ajuste 2D
+**Out-of-frame limbs.** Points the regressor places outside the image are kept outside during the fit, and bones without any 2D evidence (e.g. a hand out of frame) are reported as `unseen` and hidden in Blender with a Mask modifier (*Hide Unseen Limbs*).
 
-### Conclusiones de la investigación (4 frentes)
-- **Mocap de video** (Move.ai, Rokoko, DeepMotion, WHAM, GVHMR, GEM-X…): **no mejora una foto fija**. Duplicar el frame no aporta información, porque los modelos temporales solo suavizan. Lo único que vale la pena probar es **Autodesk Flow Studio**, que exporta escena de Blender con cámara, y **DeepMotion "3D Pose"** como referencia comercial barata.
-- **Comunidad (Reddit, GitHub, Hugging Face)**: **no existe** una herramienta lista con esta precisión que incluya dedos y cámara.
-  - *Clip Studio Pose Scanner* es aproximado y no captura los dedos.
-  - *PoseCap* (Corridor) es lo más parecido, pero no resuelve la cámara.
-  - *ComfyUI-SAM3DBody* exporta FBX, aunque con huesos espejados.
-  - La receta recomendada es la misma en todas partes: **regresor fuerte + ajuste a keypoints 2D + silueta**.
-- **Estado del arte**:
-  - **SAM 3D Body** es el mejor regresor: EMDB 61,7 mm frente a NLF 68,4 mm. Acepta *keypoint prompts*.
-  - **RTMW-x** (70,2 AP de cuerpo entero) y **Sapiens2** (308 keypoints) son los mejores detectores 2D.
-  - **WiLoR** es el mejor en dedos (FreiHAND 5,5 mm).
-  - **DPoser-X** es el mejor prior de pose.
-- **Avatares**: la transferencia sin pérdida es **MHR + SAM 3D Body**, pero hay que escribir un importador; el comunitario `sam-3d-body-fbxify` sirve como punto de partida. Alternativa: el **addon SMPL-X** oficial (v1.0.3, Blender 4.5+/5.x).
+**Head.** The eyes are used as head references, because ears are often covered by hair.
 
-### Implementado
-- **SAM 3D Body** corre en Windows + RTX 5090 sin detectron2 ni pyrender. Se carga el núcleo directamente y las cajas de persona salen de torchvision.
-- **RTMW** (rtmlib, ONNX): 133 keypoints 2D de cuerpo entero, con 21 por mano.
-- **`server/methods/fit.py`**: los puntos 3D del regresor se mueven hasta que su proyección coincide con RTMW. El ajuste tiene cinco restricciones:
-  - las longitudes de hueso son **las del puppet**, así que tras el retarget el puppet cae exacto sobre la foto;
-  - cada punto conserva su profundidad respecto al regresor (con un solo desplazamiento global), lo que evita que los puntos se deslicen por el rayo de visión;
-  - se mantienen las direcciones del regresor donde no hay evidencia 2D;
-  - las caderas COCO tienen peso 0,3 y se ignoran los keypoints pegados al borde de la imagen;
-  - la confusión frente/espalda se detecta sola comparando etiquetas con el detector 2D.
-- **Resultado**: error del cuerpo de **0,1–2,5 px** frente a la foto (antes 100–500 px). Las superposiciones están en `samples/results/grid_v3.png`.
-  - **MediaPipe + ajuste** fue el más fiel en las 4 fotos.
-  - SAM 3D Body y NLF a veces giran la cabeza, porque las orejas quedan tapadas por el pelo.
+**Auto mode.** Runs SAM 3D Body, NLF and MediaPipe, fits each and keeps the lowest error.
 
-### Lente (focal)
-`server/lens_report.py` compara estimadores. Valores en mm equivalentes:
+**Keypoint editor + OpenPose.** Movable points in Blender → *Re-fit* (`/refit` endpoint). `tests/test_keypoint_editor.py`: moving the wrist by 60 px, the puppet follows within **6.9 px**; the OpenPose round trip is exact.
 
-| Foto | MoGe-2 | GeoCalib |
-|---|---|---|
-| 01 | 44,8 | 56,4 |
-| 02 | 41,5 | 38,4 |
-| 03 | 43,4 | 59,9 |
-| 04 | 42,4 | 45,2 |
-
-- MoGe-2 es consistente; GeoCalib varía mucho en fondos lisos de estudio.
-- La **búsqueda de lente por ajuste** (probar 18–135 mm y elegir el que mejor encaja con las proporciones del puppet) **no fue confiable**. Con un cuerpo a 1–2 m la perspectiva cambia muy poco entre lentes, así que las curvas de error quedan planas.
-- **Pendiente:** validar con fotos de **lente conocido** (EXIF) para medir el error real de cada estimador y elegir el mejor. Ver el plan en el README.
-
+**Pending.**
+- Validate the lens with EXIF photos.
+- Learned pose prior (DPoser-X).
+- Silhouette term (person mask) for an even tighter overlay.
 
 ---
 
-## 8. Tercera ronda: ajustar el rig directamente, manos y editor de puntos
+## 8. Capture-side options (when we control the shoot)
 
-**Diagnóstico.** Aunque los puntos ajustados quedaban a ~1 px, el puppet posado quedaba a **50–100 px** de la foto (medido con `tools/measure_overlay.py`). El retarget de puntos a un esqueleto rígido con otras proporciones pierde precisión.
+Everything above works on **existing** photos. When the photos are shot by us, the most precise path is the film/VFX approach:
 
-**Solución: `server/methods/fit_rig.py`.**
-- La cinemática directa del esqueleto del puppet (las mismas medidas de reposo y la misma jerarquía) corre en PyTorch.
-- Se optimizan una rotación por hueso y la traslación de la raíz contra los keypoints 2D, con prior de profundidad del regresor y prior de pose.
-- Blender aplica las rotaciones globales tal cual. La diferencia entre el servidor y Blender es de **0,0 px**, y la cámara se ubica con la posición exacta de la pelvis.
-
-**Manos (`server/methods/hands.py`).**
-- **Quiralidad**: detecta la mano en espejo (palma ↔ dorso) y la corrige reflejando la profundidad sin cambiar el 2D. Pasaba en varias manos.
-- **Re-detección en recorte de alta resolución** (512 px) con MediaPipe Hands.
-- **Manos duplicadas**: RTMW a veces pone ambas manos sobre la misma mano física. Se decide el lado con la muñeca proyectada del modelo 3D.
-
-**Cabeza.** Los ojos se usan como referencia, porque las orejas suelen quedar tapadas por el pelo.
-
-**Modo auto.** Corre SAM 3D Body, NLF y MediaPipe, ajusta cada uno y elige el de menor error. En las 4 fotos eligió SAM 3D Body para la 1 y la 2, MediaPipe para la 3 y NLF para la 4. Resultado visual: cuerpo, cabeza y manos sobre los mangos alineados en las 4 fotos (`samples/results/grid_auto.png`).
-
-**Editor de puntos + OpenPose.** Puntos movibles en Blender → *Re-fit* (endpoint `/refit`). Test `tests/test_keypoint_editor.py`: al mover la muñeca 60 px, el puppet la sigue con **6,9 px** de error, y la ida y vuelta OpenPose sale exacta.
-
-**Pendiente.**
-- Ocultar los miembros fuera de cuadro (por ejemplo, la mano izquierda en la foto 1).
-- Validar el lente con fotos EXIF.
-- Prior de pose aprendido (DPoser-X) y límites articulares para los dedos.
+- **Camera:** a printed **ChArUco / ArUco board** (or a few markers) visible in a test frame gives the exact focal length, lens distortion and camera position with OpenCV calibration. This is how matchmove/VFX teams lock the "same camera shot".
+- **Body:** an **inertial mocap suit** (Rokoko Smartsuit, Xsens, Noitom) with **gloves** records the exact skeleton and fingers without any camera; or **optical markers** with ≥2 synchronized cameras triangulate exact 3D. With a **single** camera, markers only make the 2D points sharper (they do not solve depth by themselves).
+- **AI-painted markers** (e.g. asking an image model to add mocap markers to an existing photo) add **no measurement**: the model guesses where markers go, just as a pose estimator guesses joints, and can alter the pose. Not a substitute for real markers.

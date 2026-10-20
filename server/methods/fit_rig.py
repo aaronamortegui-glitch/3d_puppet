@@ -216,6 +216,7 @@ def fit_rig(points_cv, kp2d, f, cx, cy, W, H, iters=500, device="cuda", log=None
         Pj = torch.stack(Ps)
         own = torch.tensor(owner[len(JOINTS):], device=dev)
         Pl = Pj[own] + (Gt[own] @ (rest_all[len(JOINTS):] - rest_j[own])[..., None])[..., 0]
+        fk.L = L
         return Gt, torch.cat([Pj, Pl], 0)
 
     # root translation init: align FK(init) with targets in 3D
@@ -257,6 +258,60 @@ def fit_rig(points_cv, kp2d, f, cx, cy, W, H, iters=500, device="cuda", log=None
         x, d, z = P[:, 0], P[:, 1].clamp(min=0.05), P[:, 2]   # W_c -> cv: (x, -z, d)
         return torch.stack([f * x / d + cx, f * (-z) / d + cy], 1)
 
+    # --- finger joint limits (rest: fingers along +-X, palm down -Z, so the
+    # flexion axis is Y; skew(L) ~ sin(angle) * axis) --------------------------
+    fi = {k: [] for k in ("mcp", "pip", "thumb")}
+    fsign = []
+    for s_ in ("left", "right"):
+        for fg in FINGERS:
+            for i in (1, 2, 3):
+                j = JI[f"{s_}_{fg}{i}"]
+                if fg == "thumb":
+                    fi["thumb"].append(j)
+                else:
+                    fi["mcp" if i == 1 else "pip"].append(j)
+    sign_of = {JI[f"{s_}_{fg}{i}"]: (1.0 if s_ == "left" else -1.0)
+               for s_ in ("left", "right") for fg in FINGERS for i in (1, 2, 3)}
+    mcp = torch.tensor(fi["mcp"], device=dev)
+    pip = torch.tensor(fi["pip"], device=dev)
+    mcp_s = torch.tensor([sign_of[j] for j in fi["mcp"]], device=dev)
+    pip_s = torch.tensor([sign_of[j] for j in fi["pip"]], device=dev)
+
+    def skew(Lm):
+        return 0.5 * torch.stack([Lm[:, 2, 1] - Lm[:, 1, 2], Lm[:, 0, 2] - Lm[:, 2, 0],
+                                  Lm[:, 1, 0] - Lm[:, 0, 1]], 1)
+
+    def finger_limits():
+        Lm = fk.L
+        vp, vm = skew(Lm[pip]), skew(Lm[mcp])
+        lp = (vp[:, 0] ** 2 + vp[:, 2] ** 2).sum() * 5           # PIP/DIP: pure hinge
+        lp = lp + (torch.relu(-(vp[:, 1] * pip_s) - 0.15) ** 2).sum() * 10  # no hyperext.
+        lm = (vm[:, 0] ** 2).sum() * 5                            # MCP: no twist
+        lm = lm + (torch.relu(vm[:, 2].abs() - 0.35) ** 2).sum() * 5        # limited spread
+        lm = lm + (torch.relu(-(vm[:, 1] * mcp_s) - 0.4) ** 2).sum() * 10
+        return lp + lm
+
+    # --- keep points the regressor puts OUT of frame out of frame -------------
+    margin = 0.02 * max(W, H)
+    obs_names = {names[i] for i, _ in obs}
+    out_idx = []
+    for k, n in enumerate(names):
+        if n in T and n not in obs_names:
+            x, d, z = T[n]
+            if d > 0.05:
+                u, v = f * x / d + cx, f * (-z) / d + cy
+                if u < -margin or u > W + margin or v < -margin or v > H + margin:
+                    out_idx.append(k)
+    out_idx = torch.tensor(out_idx, device=dev, dtype=torch.long)
+
+    def stay_out(P):
+        if not len(out_idx):
+            return torch.zeros((), device=dev)
+        uv = project(P[out_idx])
+        inside = torch.minimum(torch.minimum(uv[:, 0], W - uv[:, 0]),
+                               torch.minimum(uv[:, 1], H - uv[:, 1]))
+        return (torch.relu(inside / scale_px + 1.0) ** 2).mean()
+
     opt = torch.optim.Adam([w, t], lr=0.02)
     for it in range(iters):
         opt.zero_grad()
@@ -271,6 +326,7 @@ def fit_rig(points_cv, kp2d, f, cx, cy, W, H, iters=500, device="cuda", log=None
         Tc = Tt - Tt.mean(0)
         loss = loss + 2.0 * (((Pc - Tc) * zw) ** 2).sum(1).mean()
         loss = loss + (prior_w[:, None] * w ** 2).sum()
+        loss = loss + finger_limits() + stay_out(P)
         loss.backward()
         opt.step()
         if it == int(iters * 0.6):
@@ -285,6 +341,8 @@ def fit_rig(points_cv, kp2d, f, cx, cy, W, H, iters=500, device="cuda", log=None
             # medians: a few hallucinated out-of-frame points must not dominate
             info["rig_px_body"] = round(float(e[body].median()), 1) if body.any() else None
             info["rig_px_hands"] = round(float(e[~body].median()), 1) if (~body).any() else None
+        info["out_of_frame_pts"] = int(len(out_idx))
+    unseen = unseen_bones(obs_names)
     Gn = G.cpu().numpy()
     Pn = P.cpu().numpy()
     WC_TO_CV = CV_TO_WC.T
@@ -293,4 +351,27 @@ def fit_rig(points_cv, kp2d, f, cx, cy, W, H, iters=500, device="cuda", log=None
         "pelvis_wc": Pn[0].tolist(),
         "points3d": {n: (WC_TO_CV @ Pn[i]).tolist() for i, n in enumerate(names)},
         "info": info,
+        "unseen": unseen,
     }
+
+
+DISTAL = tuple(f"{s}_{b}" for s in ("left", "right")
+               for b in ("elbow", "wrist", "knee", "ankle", "foot")) + tuple(
+    f"{s}_{fg}{i}" for s in ("left", "right") for fg in FINGERS for i in (1, 2, 3))
+
+
+def unseen_bones(observed):
+    """Distal limb bones with no 2D evidence on themselves or below them."""
+    children = {j: [] for j in JOINTS}
+    for j, p in PARENT.items():
+        if p:
+            children[p].append(j)
+    tail = _D["tail"]
+
+    def seen(j):
+        if j in observed or tail.get(j) in observed:
+            return True
+        if any(ATTACH[k] == j and k in observed for k in ATTACH):
+            return True
+        return any(seen(c) for c in children[j])
+    return [j for j in JOINTS if j in DISTAL and not seen(j)]
