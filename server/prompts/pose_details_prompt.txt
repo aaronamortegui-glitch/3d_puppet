@@ -1,0 +1,9 @@
+# Pose details (workflow A, once per library photo). Any vision LLM; save the answer as <id>_pose.txt.
+# It is inserted in final_generation_prompt.txt as {pose_details}; it stops the model from flipping the hand or the face.
+Describe the pose of the person in this photo so it can be re-created exactly. Write 3 to 5 short sentences and use image directions (left / right / top / bottom of the image), not the person's point of view, except to name her left or right hand:
+1. Which way the face points (toward the camera, toward the left or right edge, profile, three-quarter) and the head tilt.
+2. Which hand holds the tool (the one nearest or farthest from the camera, her left or right hand) and where it is in the image.
+3. Which side of that hand faces the camera (palm or back of the hand), where the fingers and the thumb are on the tool.
+4. The angle of the tool and where it touches the hair.
+5. What the other hand does.
+Do not describe clothing, colours, skin, hair colour or identity.

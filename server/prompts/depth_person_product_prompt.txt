@@ -1,4 +1,4 @@
-# Main path, final step (Nano Banana 2.1, 2K, aspect ratio of the source photo).
+# OPTIONAL alternative to final_generation_prompt.txt: depth map as image 1 (Nano Banana 2.1, 2K, aspect ratio of the source photo).
 # Image 1 = MoGe-2 depth map of the gray render WITH hair (turbo colormap, black background).
 # Image 2 = product packshot on white.
 # Fill {product}, {person}, {action}. If the request is blocked by moderation, retry once with "a fitted black long-sleeve top".

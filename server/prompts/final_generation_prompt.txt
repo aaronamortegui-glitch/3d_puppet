@@ -1,0 +1,21 @@
+# Final generation (workflow B, the only call per image). Nano Banana 2.1, 2K, aspect ratio of the source photo.
+#   image 1 = <id>_gray.png (gray_render_prompt_v2_hair.txt)
+#   image 2 = packshot of OUR product (product_swap_prompt.txt, end of file)
+# Use a library photo of the SAME tool category as the product. If blocked by moderation, retry once with "a fitted black long-sleeve top".
+Image 1 is a gray clay 3D render that defines the pose, body position, camera, framing and the hair styling action. Image 2 is the exact product to use: a {product}.
+Create a photorealistic studio beauty photograph of {person}, in EXACTLY the pose, head angle, camera angle, framing and crop of image 1; every body part stays at the same pixel position.
+POSE DETAILS (must match): {pose_details}
+Replace the orange tool of image 1 with the product from image 2, reproduced exactly: same design, colours, materials, buttons and proportions, held with the same grip, position and angle, {action}. If image 1 shows a second tool in the other hand, that hand stays empty and relaxed or touches the hair.
+Her hair follows the volume and placement of the sculpted hair in image 1 but with her own colour and texture.
+She wears a simple fitted black tank top. Soft, even studio lighting, plain light-gray background, natural skin texture, sharp detailed hands.
+No text, logos, watermarks or graphics.
+
+# {action} examples:
+# - curling iron: with the hair section wrapped around its barrel
+# - round brush: with a section of hair rolled around the bristles
+# - hair dryer: directed at the hair section being styled
+# - air styler: with a strand of hair wrapping around the barrel
+
+# Optional add-ons (append):
+# HAIR: {type}. Change the hair completely to this style, while the {product} still works a section of it in the same place as in image 1.
+# PRODUCT SIZE: {dimensions, e.g. total length 30 cm, barrel 25 mm}.

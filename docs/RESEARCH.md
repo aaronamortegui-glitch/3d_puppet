@@ -333,6 +333,24 @@ Three library cases with the product of the same category (#008 -> our curling i
 
 The step-by-step build guide for ComfyUI (prompts, settings and nodes per step) is in the Figma file, in the frame next to the study board.
 
-**Two separate workflows.**
+**Two separate workflows** (superseded in round 12: the gray render is the main input, depth is optional).
 - *Workflow A - library prep, run once:* approved photo (+ optional pose variations) -> Nano Banana gray render with hair -> MoGe-2 depth map, stored in the library by tool category; packshots made once per product.
 - *Workflow B - generation, one call per image:* depth map from the library (same category as the product) + packshot + prompt -> one Nano Banana 2.1 call. No 3D or depth estimation at this point.
+
+---
+
+## 17. Round 12: gray render vs depth map, pose details
+
+**A/B on image 1.** Same photo, product (our curling iron), person and prompt; only image 1 changes: the gray render with hair or its MoGe-2 depth map. Three cases (#066, #001, #073).
+
+- #066: equal.
+- #001: both turn the hand close-up into a wider shot with the face.
+- #073: each fails differently. From the gray render the hand is flipped (palm instead of back of the hand); from the depth map the face turns to the other side (a depth map cannot tell which way a profile looks).
+- The depth map is not clearly better, so it becomes optional. The gray render is the main input (one step less).
+
+**Pose details.** A short written description of face direction and grip ("face toward the left edge; the back of the hand faces the camera; the thumb rests on the clamp lever") fixes #073 with both inputs. Each library photo gets this description once (`server/prompts/pose_details_prompt.txt`, any vision LLM), inserted into the final prompt as `{pose_details}`.
+
+**Suggested path.**
+- *Workflow A - library prep, once per photo / per product:* approved photo -> Nano Banana gray render with hair (`gray_render_prompt_v2_hair.txt`, now also removes pets, props and text) + pose details text. Packshot once per product.
+- *Workflow B - generation, one call per image:* gray render + packshot + `final_generation_prompt.txt` -> Nano Banana 2.1.
+- *Optional:* pose variations to grow the library (`pose_variation_prompt_v2.txt`); MoGe-2 depth map as image 1 (`depth_person_product_prompt.txt`).
