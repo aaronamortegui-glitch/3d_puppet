@@ -369,3 +369,16 @@ Re-run with the final prompt (`final_generation_prompt.txt`): pose details writt
 - #001: closer crop, but part of the face still appears.
 
 3 of 4 fixed. Remaining rules: check the gray render's framing before stage 2, and prefer references that show the face for hero shots.
+
+---
+
+## 19. Round 14: close-ups - widen, generate, crop
+
+Close-up references without a face (#001, #002) make the model invent a face and re-frame. Fix tested: widen the gray render, generate a wider shot, crop back.
+
+- Widening with Nano Banana 2.1 (close-up on a white canvas, "keep it exactly") fails: it redraws the whole scene and changes the pose.
+- Widening with a masked outpaint (Ideogram 4.5 Precise, `server/prompts/closeup_widen_prompt.txt`) keeps the close-up pixel-exact (template match 0.98-0.995 at the expected position).
+- Final generation on the widened render at 4K (same final prompt, pose details rewritten for the wide shot), then crop of the saved box: 2528 x 1696 px.
+- #001: the invented eyes and nose are gone (only the edge of the lips shows); grip and hair wrap match the photo. #002: as good as or better than the final-prompt try. The wide shot is a usable bonus image.
+
+Rule: for close-ups, widen once in library prep and crop after generation.
