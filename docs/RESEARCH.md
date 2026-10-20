@@ -304,3 +304,14 @@ Our four products were turned into clean packshots (crop of the client photo -> 
 3. 3D gray input WITH hair: Nano Banana edit of the real photo (`gray_render_prompt_v2_hair.txt`), tool in orange, clothes as a gray bodysuit. Optional: its depth map (MoGe-2) or the SAM 3D Body mesh.
 4. Inject the prompt (person, hair, wardrobe, light) and the product packshot.
 5. Output: Nano Banana 2.1, 2K (Flora, Krea as fallback).
+
+---
+
+## 15. Round 10: hair types
+
+Three library cases with the product of the same category (#008 -> our curling iron, #057 -> our air styler, #072 -> our round brush) x four hair types (sleek bob, 4C coily afro, box braids, 3B copper curls), same person throughout: 12 images, Nano Banana 2.1 in Krea. The prompt is the product-swap prompt with an explicit `HAIR:` line ("change the hair completely to this style, while the tool still works a section of it in the same place").
+
+- Every hair type renders correctly; pose, grip and product stay.
+- The gray input with hair fixes where the hair is and what the tool does, not the texture: the hair type is set by the prompt.
+- Long hair keeps the wrap on the barrel; short or coily hair shows less wrapping (physically plausible). The brush case keeps the action with all four types.
+- Small figures in the input can be re-framed bigger.
