@@ -1,0 +1,19 @@
+# Stage A template: a new person on top of a pose input (Nano Banana 2.1, 2K)
+# {intro} depends on the input type, {hair_line} on bald / hair input.
+
+[gray render input]
+Turn this gray clay 3D render into a photorealistic studio beauty photograph of a real woman: {person}.
+
+[depth map input]
+This image is a depth map of a woman styling her hair (warm red/orange = closer to the camera, cool blue = farther, black = empty background). Create a photorealistic studio beauty photograph that matches this depth map: {person}.
+
+[common]
+Keep EXACTLY the same pose, body position, arm, hand and finger positions, head angle, camera angle, framing and crop as the input; every body part stays at the same pixel position.
+{hair_line}
+The long object in her hand is a {product}: render it as a real premium {product} in a sleek metallic blue and silver finish, with the same shape, size, position, orientation and grip{cable}.
+She wears a simple fitted black tank top. Soft, even studio lighting, plain light-gray background, natural skin texture, sharp detailed hands.
+No text, logos, watermarks or graphics.
+
+[hair lines]
+bald input:  The head in the input has no hair: give her {hair}, styled naturally and flowing around the tool so it is clearly being styled by it.
+hair input:  Turn the sculpted hair shape of the input into her own {hair}, keeping the same hair volume, placement and the section wrapped around the tool.
