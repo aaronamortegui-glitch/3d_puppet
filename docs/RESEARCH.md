@@ -257,3 +257,20 @@ v2 with the orange product is the cleanest edit (≈ 0.5–1 % of the image size
 | Cost per 2K image | $0.077 | $0.122 |
 
 **Decision: Nano Banana 2.1.** It keeps the shot and drops the original model's identity, which is what we need before prompting new people, products and hair types on top of the gray render or its depth map.
+
+---
+
+## 12. Round 7: Stage A - new people on top of the pose input
+
+Goal: use the pose input to prompt different people (and later other products and hair types) while keeping the shot, the pose and the grip. Template: `server/prompts/person_from_input_prompt.txt`. Nano Banana 2.1, 2K; 4 photos x 4 inputs x 4 people = 64 images (47 in Flora, 17 in Krea with the same model after the Flora workspace ran out of credits).
+
+Inputs:
+- gray render, bald / with hair (Nano Banana edit of the photo);
+- depth map of each gray render: MoGe-2, https://huggingface.co/Ruicheng/moge-2-vitl-normal (includes hair and the tool). SAM 3D Body (https://huggingface.co/facebook/sam-3d-body-dinov3) gives a body-only depth map instead.
+
+Findings:
+- every input keeps the pose, the grip and the framing, and the four women (African-American curvy, East Asian slim, Latina, blonde) read as clearly different people;
+- inputs **with hair** keep the action (hair wrapped in the tool, a strand pulled into the styler) but push the original hair placement; bald inputs free the hairstyle but sometimes lose the hair-tool interaction;
+- "curvy" changes the body only a little: the input silhouette dominates.
+
+**Decision: from now on we use the inputs with hair.**
