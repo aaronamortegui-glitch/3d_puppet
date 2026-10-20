@@ -216,7 +216,9 @@ v2 with the orange product is the cleanest edit (≈ 0.5–1 % of the image size
 
 **Depth.** `tools/depth_maps.py` writes MoGe-2 depth (16-bit, near = bright, plus a colour preview and the raw metres). Relative depth of the renders is clean; the metric scale is not consistent between renders (2–4.5 m for the same framing), so do not use it as absolute distance.
 
-**Reference library.** Real photos of people using hair tools, downloaded for internal research only (`samples/library/`, git-ignored), catalogued by tool, visible hands and camera angle — an alternative source of poses to generated variations.
+**Bigger variations.** The first variation prompt asked for "small" changes and the model barely moved the pose. `pose_variation_prompt_v2.txt` asks for a clearly different pose (at least 30 degrees at the shoulder or elbow) from a menu (tool to the other side and hand, arm above the head at the crown, tool down at the hair ends, torso turned 30-45 degrees, strong head tilt). 16 generated, 13 kept after review: 3 were implausible (an arm crossing the chest unnaturally, a hand floating above a bald head, an odd hair lift) — "lift a hair section above the head" and "switch the air styler to the other hand" should not be used for that pose. All 13 were posed on the human figure; body and arms follow the new poses, the free hand is the weakest part.
+
+**Reference library.** 80 real photos of people using hair tools, downloaded for internal research only (`samples/library/`, git-ignored), **sorted by tool category** in `images/<tool>/` (hair dryer 28, flat iron 18, curling iron / wand 14, air styler 8, hot brush 7, round brush + dryer 5), with one contact sheet per tool and a catalog of visible hands, camera angle, framing and pose. Gaps: few air-styler / hot-brush images, few high / low camera angles.
 
 **Study board.** All results are laid out in Figma: <https://www.figma.com/design/BIhbEhtz1sq2tjW5pzraUm/3d-puppet>.
 

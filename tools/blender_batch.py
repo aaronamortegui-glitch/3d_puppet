@@ -93,6 +93,12 @@ for path in files:
         human_builder.sync_rig(arm)
         rig.hide_render = True          # render the skinned body only
         arm.hide_render = True
+        skin = bpy.data.materials.get("PuppetHumanSkin")
+        if skin:                        # tint so the figure reads over gray renders and photos
+            skin.diffuse_color = (0.2, 0.5, 1.0, 1.0)
+            bsdf = skin.node_tree.nodes.get("Principled BSDF") if skin.node_tree else None
+            if bsdf:
+                bsdf.inputs["Base Color"].default_value = (0.2, 0.5, 1.0, 1.0)
     # light from the camera side so the puppet reads well in the overlay
     sun.rotation_euler = cam.matrix_world.to_euler()
     scene.render.film_transparent = True
