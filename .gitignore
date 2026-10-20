@@ -11,3 +11,5 @@ server/vendor/
 samples/photos/*
 !samples/photos/README.md
 samples/results*/
+samples/photos_mocap/
+server/calibration/boards/
