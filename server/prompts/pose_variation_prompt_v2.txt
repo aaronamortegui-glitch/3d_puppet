@@ -1,6 +1,7 @@
 Create a NEW POSE of the same person in this 3D render: the SAME figure (same body, same gray material, same hair or lack of it), the SAME orange product, the SAME camera, framing, lens, lighting and background, but a CLEARLY DIFFERENT pose of someone styling their hair with this tool: {variation}.
 The change must be obvious at first glance: arms, wrists and head clearly move (at least 30 degrees at the shoulder or elbow), not a subtle tweak. The pose must stay natural and physically plausible for using this tool on one's own hair.
 Keep the hands highly detailed with clearly separated fingers, a believable grip on the orange product and the product's exact shape. Keep the whole figure inside the frame as in the original. No text or graphics.
+Anatomy check: both arms anatomically correct, each hand clearly attached to its own arm, no arm crossing in front of the chest, the head tilted no more than about 20 degrees, every hand either holding the product, touching the hair or resting naturally - never floating.
 
 Variation menu (pick two different ones per photo):
 - tool moves to the OTHER side of the head, held by the other hand; the first hand drops or holds a hair section
@@ -9,3 +10,4 @@ Variation menu (pick two different ones per photo):
 - torso and head turned 30-45 degrees toward the camera-left or camera-right, tool following the head
 - head tilted strongly to one side, tool working the hair near the ear on the low side
 - free hand runs fingers through the hair at the back of the head while the tool rests near the shoulder
+- AVOID: lifting a hair section above the head with the free hand, or swapping hands when the arm would cross the chest
