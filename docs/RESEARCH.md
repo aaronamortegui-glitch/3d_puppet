@@ -332,3 +332,7 @@ Three library cases with the product of the same category (#008 -> our curling i
 - The real size of a new product is unknown to the model: give its dimensions in the prompt or add a photo of it in a hand.
 
 The step-by-step build guide for ComfyUI (prompts, settings and nodes per step) is in the Figma file, in the frame next to the study board.
+
+**Two separate workflows.**
+- *Workflow A - library prep, run once:* approved photo (+ optional pose variations) -> Nano Banana gray render with hair -> MoGe-2 depth map, stored in the library by tool category; packshots made once per product.
+- *Workflow B - generation, one call per image:* depth map from the library (same category as the product) + packshot + prompt -> one Nano Banana 2.1 call. No 3D or depth estimation at this point.
