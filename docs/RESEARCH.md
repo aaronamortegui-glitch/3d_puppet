@@ -274,3 +274,16 @@ Findings:
 - "curvy" changes the body only a little: the input silhouette dominates.
 
 **Decision: from now on we use the inputs with hair.**
+
+---
+
+## 13. Round 8: library test (real photos)
+
+One photo per tool from the reference library (#008 curling iron, #041 flat iron, #031 hair dryer, #057 air styler, #072 hot brush, #074 round brush + dryer). Step 1: gray render with hair (`gray_render_prompt_v2_hair.txt`, tool in orange). Step 2: the four people of stage A from that render. Nano Banana 2.1 through Krea (Flora workspace out of credits), 2K, 30 images.
+
+- Works on all six tools, including two tools at once (#074); pose, grip and framing are kept and the hair-tool action carries over to every person.
+- Ad text and badges of the source photo disappear.
+- One gray render (#031, crop top) was blocked by the provider's moderation with "no clothing"; "replace the clothes with a smooth, fitted, seamless gray bodysuit, like a retail display mannequin" passes. Use that wording by default.
+- Wide shots keep a small figure; the tool's look comes from the prompt; body type still follows the source silhouette.
+
+Next: swap the product for one of our four tools and test hair types, then batch the library.

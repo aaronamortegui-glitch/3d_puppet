@@ -3,7 +3,7 @@ Turn the person into a smooth, mannequin-like human figure:
 - Uniform matte medium-light gray material over the whole body (unpainted clay / gray 3D shader): no skin texture, no makeup, no colour.
 - Body: keep the person's own body shape, silhouette, size and proportions exactly as in the photo; simple, neutral facial features.
 - Hair: keep the person's exact hairstyle, length, volume and every strand position as in the photo (including hair wrapped around the tool), sculpted as gray clay in a slightly DARKER gray than the skin so hair and body are distinguishable; same head size, tilt and face direction.
-- No clothing: a smooth gray body with no fabric, folds, seams, logos, accessories or jewellery.
+- Clothing: replace the clothes with a smooth, fitted, seamless gray bodysuit in the same clay material, like a retail display mannequin; no fabric folds, seams, logos, accessories or jewellery.
 - Highly detailed hands: every finger clearly separated and readable, visible knuckles and finger joints, the thumb clearly distinct from the other fingers.
 - The object held in the hand(s) keeps exactly the same shape, size, position and orientation, but is rendered in a single bright saturated ORANGE matte material (#FF6A00) so it can never be confused with the gray hand; the cable, if any, also orange.
 CRITICAL - this is a measurement plate, geometry must not change:
