@@ -1,0 +1,17 @@
+# Main path, final step (Nano Banana 2.1, 2K, aspect ratio of the source photo).
+# Image 1 = MoGe-2 depth map of the gray render WITH hair (turbo colormap, black background).
+# Image 2 = product packshot on white.
+# Fill {product}, {person}, {action}. If the request is blocked by moderation, retry once with "a fitted black long-sleeve top".
+Image 1 is a depth map of a woman styling her hair with a tool (warm red/orange = closer to the camera, blue = farther, black = empty background); it includes her hair and the tool. Image 2 is the exact product to use: a {product}.
+Create a photorealistic studio beauty photograph of {person}, matching EXACTLY the pose, head angle, arm, hand and finger positions, camera angle, framing and crop of the depth map.
+The tool in the depth map is the product from image 2, reproduced exactly (same design, colours, proportions), held with the same grip, position and angle, {action} as in the depth map. Her hair follows the shape of the hair in the depth map, with her own colour and texture.
+She wears a simple fitted black tank top. Soft, even studio lighting, plain light-gray background, natural skin texture, sharp detailed hands.
+No text, logos, watermarks or graphics.
+
+# {action} examples:
+# - curling iron: with the hair section wrapped around its barrel
+# - round brush: with a section of hair rolled around the bristles
+# - hair dryer: directed at the hair section being styled
+# - air styler: with a strand of hair wrapping around the barrel
+
+# Optional hair line (append): HAIR: {type}. Change the hair completely to this style, while the {product} still works a section of it in the same place as in image 1.

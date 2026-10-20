@@ -315,3 +315,20 @@ Three library cases with the product of the same category (#008 -> our curling i
 - The gray input with hair fixes where the hair is and what the tool does, not the texture: the hair type is set by the prompt.
 - Long hair keeps the wrap on the barrel; short or coily hair shows less wrapping (physically plausible). The brush case keeps the action with all four types.
 - Small figures in the input can be re-framed bigger.
+
+---
+
+## 16. Round 11: SAM depth vs gray input, category batch
+
+**SAM 3D Body depth as input (not used).** Three library cases with the SAM 3D Body depth (body only) + packshot + prompt. The map has no hair and no tool, so the model has to guess where the product goes: the tool changes hand, and pose and framing move. The main input stays the MoGe-2 depth of the gray render WITH hair, which carries body, hair and tool together. SAM 3D Body is kept in `tools/sam3d_direct.py` for reference only.
+
+**Full pipeline on one category.** 10 of the 14 curling-iron photos (stylist and mirror shots excluded): photo -> gray render with hair -> MoGe-2 depth -> our curling iron packshot + one of the four people (`server/prompts/depth_person_product_prompt.txt`). Nano Banana 2.1 in Krea.
+
+- 10/10 usable: our curling iron in hand with the hair wrapped on the barrel, including hand close-ups and black-and-white sources.
+- Marketing text of the source photos is removed.
+- Clean the reference: one output kept a dog from the source; the gray-render step should drop everything that is not the person and the tool.
+- Small figures in wide shots stay small; prefer half-body references for hero shots.
+- One output was blocked once by moderation and passed with a long-sleeve top.
+- The real size of a new product is unknown to the model: give its dimensions in the prompt or add a photo of it in a hand.
+
+The step-by-step build guide for ComfyUI (prompts, settings and nodes per step) is in the Figma file, in the frame next to the study board.
