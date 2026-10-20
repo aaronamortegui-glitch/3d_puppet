@@ -188,4 +188,7 @@ Everything above works on **existing** photos. When the photos are shot by us, t
 
 - **Camera:** a printed **ChArUco / ArUco board** (or a few markers) visible in a test frame gives the exact focal length, lens distortion and camera position with OpenCV calibration. This is how matchmove/VFX teams lock the "same camera shot".
 - **Body:** an **inertial mocap suit** (Rokoko Smartsuit, Xsens, Noitom) with **gloves** records the exact skeleton and fingers without any camera; or **optical markers** with ≥2 synchronized cameras triangulate exact 3D. With a **single** camera, markers only make the 2D points sharper (they do not solve depth by themselves).
-- **AI-painted markers** (e.g. asking an image model to add mocap markers to an existing photo) add **no measurement**: the model guesses where markers go, just as a pose estimator guesses joints, and can alter the pose. Not a substitute for real markers.
+- **AI-painted markers** (asking an image model to add a mocap suit, skull cap and markers to an existing photo) add **no measurement**: the model guesses where markers go and can alter the pose. Tested with Nano Banana 2.1 on the 4 sample photos (`server/prompts/mocap_assist_prompt.txt`, `pose_server --assist`):
+  - the head stays within 2–5 px, but shoulders and elbows move 12–55 px and one image turned the head;
+  - hybrid mode (body from the AI image, hands from the original) gave 5–17 px fit error vs 3–11 px with the original only: **no clear gain**.
+  Not a substitute for real markers.
