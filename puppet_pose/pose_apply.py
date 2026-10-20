@@ -275,7 +275,7 @@ def refine_camera(arm, cam_matrix, result, flip_facing=False):
     if not flip_facing:
         for k, v in result.get("points2d", {}).items():
             if k in uv:
-                uv[k] = tuple(v)
+                uv[k] = (v[0], v[1])
     posed = posed_points(arm)
     R_cv = cam_matrix.to_3x3().normalized() @ Matrix.Diagonal((1, -1, -1))
     names, A, P, w = [], [], [], []

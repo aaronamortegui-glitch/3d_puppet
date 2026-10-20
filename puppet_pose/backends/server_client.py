@@ -23,6 +23,23 @@ def health(host="127.0.0.1", port=8765, timeout=2.0):
         return None
 
 
+def refit(result, keypoints2d, host="127.0.0.1", port=8765, replace=False, timeout=300.0):
+    """Re-fit a previous result with edited 2D keypoints {name: [u, v(, c)]}."""
+    body = json.dumps({"result": result, "keypoints2d": keypoints2d,
+                       "replace": replace}).encode("utf-8")
+    req = urllib.request.Request(_url(host, port, "/refit"), data=body,
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            res = json.loads(r.read().decode("utf-8"))
+    except (urllib.error.URLError, OSError) as e:
+        raise RuntimeError(f"Pose server not reachable at {host}:{port} ({e}). "
+                           "Re-fitting needs the Pro server (server/run_server.bat)")
+    if "error" in res:
+        raise RuntimeError(res["error"])
+    return res
+
+
 def run(image_path, host="127.0.0.1", port=8765, focal_35mm=0.0,
         method="auto", timeout=300.0):
     body = json.dumps({"image_path": image_path, "focal_35mm": focal_35mm,

@@ -64,6 +64,16 @@ La cámara se reconstruye en tres pasos:
 2. **Ángulo:** sale de la gravedad que estima GeoCalib (pitch y roll reales); si no está disponible, de la postura del cuerpo con el horizonte nivelado.
 3. **Distancia y encuadre:** se ajustan con *Fit Camera to Photo*, que mueve la cámara hasta que las articulaciones visibles del puppet coinciden con las de la foto. Funciona aunque la foto esté recortada (medio cuerpo).
 
+## Corregir puntos a mano (y OpenPose)
+
+Si una muñeca, un codo o un dedo quedó mal:
+
+1. En el panel *Puppet*, pulsa **Edit Keypoints**. Aparece un punto (empty) por articulación sobre la foto, en vista de cámara.
+2. Mueve los puntos incorrectos (`G`) a su lugar. Oculta con `H` los que no sirven.
+3. Pulsa **Re-fit**. El servidor reajusta el rig completo a tus puntos en unos segundos.
+
+**OpenPose In / Out** importa y exporta los puntos en formato OpenPose JSON (BODY_25 o COCO-18, más 21 puntos por mano). Así puedes corregirlos en cualquier editor de OpenPose (ComfyUI/ControlNet, etc.) y volver a traerlos.
+
 ## Uso
 
 1. **Add Puppet**, o deja que *Pose From Photo* lo cree solo.

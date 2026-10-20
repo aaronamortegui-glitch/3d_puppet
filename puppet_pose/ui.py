@@ -63,6 +63,14 @@ class PUPPET_PT_photo(bpy.types.Panel):
         row = layout.row(align=True)
         row.operator("puppet_pose.reapply", icon="FILE_REFRESH")
         row.operator("puppet_pose.load_json", icon="FILE")
+        box = layout.box()
+        box.label(text="Correct keypoints (Pro server)", icon="EMPTY_DATA")
+        row = box.row(align=True)
+        row.operator("puppet_pose.edit_keypoints", icon="RESTRICT_SELECT_OFF")
+        row.operator("puppet_pose.refit_keypoints", icon="FILE_REFRESH", text="Re-fit")
+        row = box.row(align=True)
+        row.operator("puppet_pose.import_openpose", icon="IMPORT", text="OpenPose In")
+        row.operator("puppet_pose.export_openpose", icon="EXPORT", text="OpenPose Out")
         if s.last_notes:
             for note in s.last_notes.split(" | "):
                 layout.label(text=note, icon="INFO")

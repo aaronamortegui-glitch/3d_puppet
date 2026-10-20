@@ -5,7 +5,7 @@ import os
 import bpy
 from bpy.props import EnumProperty, StringProperty
 
-from . import deps, hand_controls, pose_apply, puppet_builder
+from . import deps, hand_controls, keypoint_editor, openpose, pose_apply, puppet_builder
 
 
 def _active_puppet(context):
@@ -188,6 +188,115 @@ class PUPPET_OT_load_json(_ApplyMixin, bpy.types.Operator):
         return self._apply(context, arm, result, context.scene.puppet_pose)
 
 
+def _last(context):
+    arm = _active_puppet(context)
+    if not arm or "puppet_last_result" not in arm:
+        raise RuntimeError("Run 'Pose From Photo' (Pro backend) first")
+    cam = bpy.data.objects.get(arm.name + "_Cam")
+    if cam is None:
+        raise RuntimeError("Puppet camera not found")
+    return arm, cam, json.loads(arm["puppet_last_result"])
+
+
+class PUPPET_OT_edit_keypoints(bpy.types.Operator):
+    bl_idname = "puppet_pose.edit_keypoints"
+    bl_label = "Edit Keypoints"
+    bl_description = ("Show one movable point per joint over the photo (camera view). "
+                      "Drag the wrong ones (G), hide unwanted ones (H), then press Re-fit")
+    bl_options = {"REGISTER", "UNDO"}
+
+    def execute(self, context):
+        try:
+            arm, cam, result = _last(context)
+        except RuntimeError as e:
+            self.report({"ERROR"}, str(e))
+            return {"CANCELLED"}
+        n = keypoint_editor.create(context, arm, cam, result)
+        context.scene.camera = cam
+        for area in context.screen.areas if context.screen else []:
+            if area.type == "VIEW_3D":
+                area.spaces.active.region_3d.view_perspective = "CAMERA"
+        self.report({"INFO"}, f"{n} keypoints. Move them in camera view, then Re-fit")
+        return {"FINISHED"}
+
+
+class PUPPET_OT_refit_keypoints(_ApplyMixin, bpy.types.Operator):
+    bl_idname = "puppet_pose.refit_keypoints"
+    bl_label = "Re-fit from Keypoints"
+    bl_description = "Send the edited keypoints to the pose server and re-fit the puppet"
+    bl_options = {"REGISTER", "UNDO"}
+
+    def execute(self, context):
+        from .backends import server_client
+        s = context.scene.puppet_pose
+        try:
+            arm, cam, result = _last(context)
+            edits = keypoint_editor.read(context, cam)
+            if not edits:
+                self.report({"WARNING"}, "No keypoint was moved or hidden")
+                return {"CANCELLED"}
+            new = server_client.refit(result, edits, s.host, s.port)
+        except RuntimeError as e:
+            self.report({"ERROR"}, str(e))
+            return {"CANCELLED"}
+        r = self._apply(context, arm, new, s)
+        keypoint_editor.create(context, arm, bpy.data.objects[arm.name + "_Cam"], new)
+        return r
+
+
+class PUPPET_OT_import_openpose(_ApplyMixin, bpy.types.Operator):
+    bl_idname = "puppet_pose.import_openpose"
+    bl_label = "Import OpenPose JSON"
+    bl_description = ("Use 2D keypoints from an OpenPose JSON (BODY_25 / COCO-18 + hands, "
+                      "e.g. from a ControlNet/ComfyUI pose editor) and re-fit")
+    bl_options = {"REGISTER", "UNDO"}
+
+    filepath: StringProperty(subtype="FILE_PATH")
+    filter_glob: StringProperty(default="*.json", options={"HIDDEN"})
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {"RUNNING_MODAL"}
+
+    def execute(self, context):
+        from .backends import server_client
+        s = context.scene.puppet_pose
+        try:
+            arm, cam, result = _last(context)
+            img = result["image"]
+            kp = openpose.load(self.filepath, img["width"], img["height"])
+            new = server_client.refit(result, kp, s.host, s.port)
+        except (RuntimeError, ValueError, OSError) as e:
+            self.report({"ERROR"}, str(e))
+            return {"CANCELLED"}
+        return self._apply(context, arm, new, s)
+
+
+class PUPPET_OT_export_openpose(bpy.types.Operator):
+    bl_idname = "puppet_pose.export_openpose"
+    bl_label = "Export OpenPose JSON"
+    bl_description = "Save the current 2D keypoints (with your edits) as OpenPose BODY_25 + hands"
+
+    filepath: StringProperty(subtype="FILE_PATH")
+    filter_glob: StringProperty(default="*.json", options={"HIDDEN"})
+
+    def invoke(self, context, event):
+        self.filepath = "keypoints_openpose.json"
+        context.window_manager.fileselect_add(self)
+        return {"RUNNING_MODAL"}
+
+    def execute(self, context):
+        try:
+            arm, cam, result = _last(context)
+        except RuntimeError as e:
+            self.report({"ERROR"}, str(e))
+            return {"CANCELLED"}
+        img = result["image"]
+        openpose.save(bpy.path.ensure_ext(self.filepath, ".json"),
+                      keypoint_editor.current(context, cam, result), img["width"], img["height"])
+        return {"FINISHED"}
+
+
 class PUPPET_OT_check_server(bpy.types.Operator):
     bl_idname = "puppet_pose.check_server"
     bl_label = "Check Server"
@@ -205,7 +314,9 @@ class PUPPET_OT_check_server(bpy.types.Operator):
 
 classes = (PUPPET_OT_add, PUPPET_OT_reset, PUPPET_OT_hand_preset,
            PUPPET_OT_install_deps, PUPPET_OT_pose_from_photo,
-           PUPPET_OT_reapply, PUPPET_OT_load_json, PUPPET_OT_check_server)
+           PUPPET_OT_reapply, PUPPET_OT_load_json, PUPPET_OT_check_server,
+           PUPPET_OT_edit_keypoints, PUPPET_OT_refit_keypoints,
+           PUPPET_OT_import_openpose, PUPPET_OT_export_openpose)
 
 
 def register():

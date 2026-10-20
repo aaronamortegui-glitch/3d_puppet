@@ -226,3 +226,31 @@ Notas de implementación aprendidas:
 - MoGe-2 es consistente; GeoCalib varía mucho en fondos lisos de estudio.
 - La **búsqueda de lente por ajuste** (probar 18–135 mm y elegir el que mejor encaja con las proporciones del puppet) **no fue confiable**. Con un cuerpo a 1–2 m la perspectiva cambia muy poco entre lentes, así que las curvas de error quedan planas.
 - **Pendiente:** validar con fotos de **lente conocido** (EXIF) para medir el error real de cada estimador y elegir el mejor. Ver el plan en el README.
+
+
+---
+
+## 8. Tercera ronda: ajustar el rig directamente, manos y editor de puntos
+
+**Diagnóstico.** Aunque los puntos ajustados quedaban a ~1 px, el puppet posado quedaba a **50–100 px** de la foto (medido con `tools/measure_overlay.py`). El retarget de puntos a un esqueleto rígido con otras proporciones pierde precisión.
+
+**Solución: `server/methods/fit_rig.py`.**
+- La cinemática directa del esqueleto del puppet (las mismas medidas de reposo y la misma jerarquía) corre en PyTorch.
+- Se optimizan una rotación por hueso y la traslación de la raíz contra los keypoints 2D, con prior de profundidad del regresor y prior de pose.
+- Blender aplica las rotaciones globales tal cual. La diferencia entre el servidor y Blender es de **0,0 px**, y la cámara se ubica con la posición exacta de la pelvis.
+
+**Manos (`server/methods/hands.py`).**
+- **Quiralidad**: detecta la mano en espejo (palma ↔ dorso) y la corrige reflejando la profundidad sin cambiar el 2D. Pasaba en varias manos.
+- **Re-detección en recorte de alta resolución** (512 px) con MediaPipe Hands.
+- **Manos duplicadas**: RTMW a veces pone ambas manos sobre la misma mano física. Se decide el lado con la muñeca proyectada del modelo 3D.
+
+**Cabeza.** Los ojos se usan como referencia, porque las orejas suelen quedar tapadas por el pelo.
+
+**Modo auto.** Corre SAM 3D Body, NLF y MediaPipe, ajusta cada uno y elige el de menor error. En las 4 fotos eligió SAM 3D Body para la 1 y la 2, MediaPipe para la 3 y NLF para la 4. Resultado visual: cuerpo, cabeza y manos sobre los mangos alineados en las 4 fotos (`samples/results/grid_auto.png`).
+
+**Editor de puntos + OpenPose.** Puntos movibles en Blender → *Re-fit* (endpoint `/refit`). Test `tests/test_keypoint_editor.py`: al mover la muñeca 60 px, el puppet la sigue con **6,9 px** de error, y la ida y vuelta OpenPose sale exacta.
+
+**Pendiente.**
+- Ocultar los miembros fuera de cuadro (por ejemplo, la mano izquierda en la foto 1).
+- Validar el lente con fotos EXIF.
+- Prior de pose aprendido (DPoser-X) y límites articulares para los dedos.

@@ -108,26 +108,52 @@ def _refine_with_2d(res, rgb):
             pts, kp = hands.refine(pts, kp, rgb, notes, cam=(f, cx, cy))
         except Exception as e:  # noqa: BLE001
             notes.append(f"hand re-detection failed: {e}")
-        pts = hands.fix_chirality(pts, notes)
-        new_pts, info = fit.fit(pts, kp, f, cx, cy, W, H)
-        new_pts = hands.fix_chirality(new_pts, notes)
-        try:  # fit the puppet rig itself (exact in Blender, no retarget loss)
-            rig = fit_rig.fit_rig(new_pts, kp, f, cx, cy, W, H)
-            res["rig"] = {"G": rig["G"], "pelvis_wc": rig["pelvis_wc"]}
-            info.update(rig["info"])
-            new_pts = rig["points3d"]
-        except Exception as e:  # noqa: BLE001
-            traceback.print_exc()
-            notes.append(f"rig fit failed: {e}")
-        res["points3d_raw"] = pts
-        res["points3d"] = new_pts
-        res["points2d"] = {k: [v[0], v[1]] for k, v in kp.items() if v[2] >= 0.4}
-        res["fit"] = info
-        res.setdefault("notes", []).append("2D fit (RTMW): " + ", ".join(
-            f"{k}={v}" for k, v in info.items()))
+        _fit_core(res, pts, kp, W, H, notes)
     except Exception as e:  # noqa: BLE001
         traceback.print_exc()
         res.setdefault("notes", []).append(f"2D fit failed: {e}")
+
+
+def _fit_core(res, pts, kp, W, H, notes, label="RTMW"):
+    """Points fit -> rig fit; stores everything in `res`."""
+    cam = res["camera"]
+    f, cx, cy = cam["fx"], cam["cx"], cam["cy"]
+    pts = hands.fix_chirality(pts, notes)
+    new_pts, info = fit.fit(pts, kp, f, cx, cy, W, H)
+    new_pts = hands.fix_chirality(new_pts, notes)
+    try:  # fit the puppet rig itself (exact in Blender, no retarget loss)
+        rig = fit_rig.fit_rig(new_pts, kp, f, cx, cy, W, H)
+        res["rig"] = {"G": rig["G"], "pelvis_wc": rig["pelvis_wc"]}
+        info.update(rig["info"])
+        new_pts = rig["points3d"]
+    except Exception as e:  # noqa: BLE001
+        traceback.print_exc()
+        notes.append(f"rig fit failed: {e}")
+    res["points3d_raw"] = pts
+    res["points3d"] = new_pts
+    res["points2d"] = {k: [v[0], v[1], v[2]] for k, v in kp.items() if v[2] >= 0.4}
+    res["fit"] = info
+    notes.append(f"2D fit ({label}): " + ", ".join(f"{k}={v}" for k, v in info.items()))
+
+
+def refit(result, keypoints2d_edit, replace=False):
+    """Re-fit a previous result with user-edited 2D keypoints.
+
+    keypoints2d_edit: {name: [u, v] or [u, v, conf]} in pixels.  Edited
+    points get full confidence; with replace=False the previous detections
+    are kept for the points the user did not touch."""
+    res = json.loads(json.dumps(result))  # deep copy
+    W, H = res["image"]["width"], res["image"]["height"]
+    kp = {} if replace else {k: (v[0], v[1], (v[2] if len(v) > 2 else 0.8))
+                             for k, v in res.get("points2d", {}).items()}
+    for k, v in keypoints2d_edit.items():
+        kp[k] = (float(v[0]), float(v[1]), float(v[2]) if len(v) > 2 else 1.0)
+    pts = res.get("points3d_raw") or res["points3d"]
+    notes = [n for n in res.get("notes", []) if not n.startswith("2D fit")]
+    res["notes"] = notes
+    with _lock:
+        _fit_core(res, pts, kp, W, H, notes, label="edited keypoints")
+    return res
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -154,6 +180,16 @@ class Handler(BaseHTTPRequestHandler):
             self._send(404, {"error": "not found"})
 
     def do_POST(self):
+        if self.path.startswith("/refit"):
+            try:
+                n = int(self.headers.get("Content-Length", 0))
+                req = json.loads(self.rfile.read(n).decode("utf-8"))
+                self._send(200, refit(req["result"], req["keypoints2d"],
+                                      bool(req.get("replace", False))))
+            except Exception as e:  # noqa: BLE001
+                traceback.print_exc()
+                self._send(200, {"error": f"{type(e).__name__}: {e}"})
+            return
         if not self.path.startswith("/estimate"):
             self._send(404, {"error": "not found"})
             return
