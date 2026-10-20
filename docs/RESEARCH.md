@@ -287,3 +287,20 @@ One photo per tool from the reference library (#008 curling iron, #041 flat iron
 - Wide shots keep a small figure; the tool's look comes from the prompt; body type still follows the source silhouette.
 
 Next: swap the product for one of our four tools and test hair types, then batch the library.
+
+---
+
+## 14. Round 9: product swap and the final pipeline
+
+Our four products were turned into clean packshots (crop of the client photo -> Nano Banana "isolate on white"). Each of the six library cases got one packshot as a second reference image next to its gray input with hair (`server/prompts/product_swap_prompt.txt`), with one of the four people: 24 images in Krea.
+
+- The product is reproduced faithfully (shape, colours, barrel, cable).
+- Same-category swaps (curling iron reference -> our curling iron, hot brush -> our round brush) keep pose, grip and hair wrapped on the tool.
+- Cross-category swaps (flat iron or two-tool references) lose the hair interaction and can move the arms.
+
+**Pipeline adopted** (also drawn in the Figma board):
+1. Approved real library, sorted by tool category; start from the category of the new product.
+2. Optional: grow the library with small pose variations of approved photos (prompt v2 + anatomy check).
+3. 3D gray input WITH hair: Nano Banana edit of the real photo (`gray_render_prompt_v2_hair.txt`), tool in orange, clothes as a gray bodysuit. Optional: its depth map (MoGe-2) or the SAM 3D Body mesh.
+4. Inject the prompt (person, hair, wardrobe, light) and the product packshot.
+5. Output: Nano Banana 2.1, 2K (Flora, Krea as fallback).

@@ -1,0 +1,13 @@
+# Product swap (Nano Banana 2.1, 2K). Two input images:
+#   image 1 = gray render WITH hair of an approved reference (gray_render_prompt_v2_hair.txt)
+#   image 2 = clean packshot of OUR product (white background)
+# Use references of the SAME tool category as the product (same grip and hair action).
+Image 1 is a gray clay 3D render that defines the pose, body position, camera, framing and the hair styling action. Image 2 is the exact product to use: a {product}.
+Create a photorealistic studio beauty photograph of {person}, in EXACTLY the pose, head angle, camera angle, framing and crop of image 1; every body part stays at the same pixel position.
+Replace the orange tool(s) of image 1 with the product from image 2 (one product only), reproduced exactly: same design, colours, materials, buttons and proportions. She holds it in the same hand, at the same position and angle, with a natural, believable grip adapted to this product, {action}. If image 1 shows a second tool in the other hand, that hand stays empty and relaxed or touches the hair.
+Her hair follows the volume and placement of the sculpted hair in image 1 but with her own colour and texture.
+She wears a simple fitted black tank top. Soft, even studio lighting, plain light-gray background, natural skin texture, sharp detailed hands.
+No text, logos, watermarks or graphics.
+
+# Packshot prompt (from a crop of the product in a client photo):
+# Product packshot: isolate the hair-styling tool from this photo ({description}) and show it ALONE, complete and unobstructed, standing upright, centered on a pure white background, soft studio light, sharp detail. Reproduce its exact design, colours, proportions, buttons and finish. Remove the hand, the hair and everything else. No text, no logos added.
