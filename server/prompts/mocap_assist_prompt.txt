@@ -1,0 +1,10 @@
+Edit this photo into a clean motion-capture reference of the SAME shot. Turn every visible person into a VFX motion-capture performer:
+- Replace all clothing with a tight matte-black motion-capture suit and thin tight matte-black mocap gloves.
+- Hide ALL hair under a tight matte-black mocap skull cap (no hair visible anywhere, no loose strands over the face, neck or shoulders), keeping the exact same head shape, size, face, expression and head angle.
+- Add small bright-white reflective spherical markers (about 1.5 cm) at standard optical mocap positions: top of the cap, forehead, both temples, back of the head if visible, both shoulders (front and top), upper arms, both elbows (outer side), forearms, both wrists (two markers each: thumb side and pinky side), back of each hand (three markers), every finger knuckle (MCP), every middle finger joint (PIP), every fingertip including the thumb, sternum, chest, belly, both hips, both knees, both ankles, heels and toes when visible.
+CRITICAL - this is a measurement plate, so geometry must not change:
+- Keep exactly the same pose, body position and proportions, arm, hand and finger positions, finger curl and the grip on any object held.
+- Keep exactly the same camera angle, framing, crop, lens perspective, image size and lighting.
+- Do not move, rotate, resize, re-pose, re-frame, retouch or idealize anything.
+- Keep any object held in the hands, the background and any text or graphics exactly unchanged.
+Photorealistic, sharp, high detail on the hands and markers.

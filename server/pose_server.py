@@ -36,7 +36,27 @@ def available_methods():
     return [k for k, m in METHODS.items() if m.available()]
 
 
-def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit=True):
+def _assist_copy(image_path, assist_path):
+    """Resize the assist image (e.g. an AI 'mocap suit' version of the photo)
+    to the original's resolution so pixel coordinates are interchangeable."""
+    import tempfile
+    from PIL import Image
+    orig, _ = common.load_rgb(image_path)
+    a, _ = common.load_rgb(assist_path)
+    H, W = orig.shape[:2]
+    if abs(a.shape[1] / a.shape[0] - W / H) > 0.02:
+        raise ValueError("assist image aspect ratio differs from the photo")
+    out = os.path.join(tempfile.gettempdir(), "puppet_assist_" + os.path.splitext(
+        os.path.basename(assist_path))[0] + ".png")
+    Image.fromarray(a).resize((W, H), Image.LANCZOS).save(out)
+    return out
+
+
+def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit=True,
+             assist_path=None):
+    """assist_path: optional edited copy of the photo (same framing, e.g. the
+    person in a mocap suit). Body/arms are estimated on it; hands and the
+    background come from the original photo (hybrid mode)."""
     if not os.path.isfile(image_path):
         raise FileNotFoundError(image_path)
     avail = available_methods()
@@ -46,7 +66,7 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit
         best, table = None, []
         for m in [m for m in AUTO_ORDER if m in avail]:
             try:
-                r = estimate(image_path, m, focal_35mm, use_gravity, do_fit)
+                r = estimate(image_path, m, focal_35mm, use_gravity, do_fit, assist_path)
             except Exception as e:  # noqa: BLE001
                 table.append(f"{m}: failed ({e})")
                 continue
@@ -64,17 +84,23 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit
         method = next((m for m in AUTO_ORDER if m in avail), None)
     if method not in avail:
         raise RuntimeError(f"Method '{method}' not available. Installed: {avail}")
-    rgb, _ = common.load_rgb(image_path)
+    rgb_orig, orig_used = common.load_rgb(image_path)
+    body_path = _assist_copy(image_path, assist_path) if assist_path else image_path
+    rgb, _ = common.load_rgb(body_path)
     # SAM 3D Body estimates its own FOV (MoGe-2) unless we know the focal
     fpx, fsrc = None, ""
     exif = common.exif_focal_35mm(image_path)
     if focal_35mm or exif or method != "sam3d_body":
-        fpx, fsrc = focal.resolve(image_path, rgb, focal_35mm,
+        fpx, fsrc = focal.resolve(image_path, rgb_orig, focal_35mm,
                                   allow_moge=focal.moge_available())
     with _lock:
-        res = METHODS[method].run(image_path, focal_px=fpx, focal_note=fsrc)
+        res = METHODS[method].run(body_path, focal_px=fpx, focal_note=fsrc)
+        if assist_path:
+            res["image"]["path"] = orig_used
+            res.setdefault("notes", []).append(
+                "hybrid: body from " + os.path.basename(assist_path) + ", hands from the photo")
         if do_fit and keypoints2d.available():
-            _refine_with_2d(res, rgb)
+            _refine_with_2d(res, rgb, rgb_orig if assist_path else None)
         if use_gravity and gravity.available():
             try:
                 g = gravity.estimate(image_path, res["camera"]["fx"])
@@ -87,8 +113,32 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit
         return res
 
 
-def _refine_with_2d(res, rgb):
-    """Snap the 3D points onto RTMW whole-body 2D keypoints (see methods/fit.py)."""
+def _hands_from(kp_body, rgb_hands):
+    """Hybrid mode: replace hand keypoints (wrist + fingers) with detections on
+    the original photo (the person closest to the body detection's face)."""
+    import numpy as np
+    people = keypoints2d.detect(rgb_hands)
+    if not people:
+        return kp_body
+
+    def face(p):
+        pts = [p[n][:2] for n in ("nose", "left_eye_smplhf", "right_eye_smplhf") if n in p]
+        return np.mean(pts, 0) if pts else None
+    fb = face(kp_body)
+    ko = min(people, key=lambda p: 1e9 if face(p) is None or fb is None
+             else float(np.linalg.norm(face(p) - fb)))
+    out = dict(kp_body)
+    for side in ("left", "right"):
+        for n in ["wrist"] + list(hands.HAND_NAMES):
+            k = f"{side}_{n}"
+            if k in ko:
+                out[k] = ko[k]
+    return out
+
+
+def _refine_with_2d(res, rgb, rgb_hands=None):
+    """Snap the 3D points onto RTMW whole-body 2D keypoints (see methods/fit.py).
+    rgb_hands: hybrid mode - hands are detected on this (original) image."""
     try:
         people = keypoints2d.detect(rgb)
         if not people:
@@ -104,8 +154,11 @@ def _refine_with_2d(res, rgb):
                 {k: __import__("numpy").asarray(v) for k, v in pts.items()}),
                 p, f, cx, cy, fit.LR_CHECK)))
         notes = res.setdefault("notes", [])
+        if rgb_hands is not None:
+            kp = _hands_from(kp, rgb_hands)
         try:  # hands: high-res crop re-detection + palm/back (chirality) fix
-            pts, kp = hands.refine(pts, kp, rgb, notes, cam=(f, cx, cy))
+            pts, kp = hands.refine(pts, kp, rgb if rgb_hands is None else rgb_hands,
+                                   notes, cam=(f, cx, cy))
         except Exception as e:  # noqa: BLE001
             notes.append(f"hand re-detection failed: {e}")
         _fit_core(res, pts, kp, W, H, notes)
@@ -233,6 +286,8 @@ def main():
     ap.add_argument("--out", help="write result JSON here (with --once)")
     ap.add_argument("--no-gravity", action="store_true", help="skip GeoCalib")
     ap.add_argument("--no-fit", action="store_true", help="skip the RTMW 2D fitting stage")
+    ap.add_argument("--assist", help="hybrid: edited copy of the photo (with --once) or a folder of "
+                                     "edited copies named like the photos (with --batch)")
     a = ap.parse_args()
     if a.batch:
         exts = (".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff")
@@ -242,9 +297,16 @@ def main():
             if not name.lower().endswith(exts):
                 continue
             stem = os.path.splitext(name)[0]
+            assist = None
+            if a.assist:
+                cands = [f for f in os.listdir(a.assist) if f.startswith(stem)]
+                if not cands:
+                    print(f"SKIP {name}: no assist image")
+                    continue
+                assist = os.path.abspath(os.path.join(a.assist, cands[0]))
             try:
                 res = estimate(os.path.abspath(os.path.join(a.batch, name)), a.method,
-                               a.focal, not a.no_gravity, not a.no_fit)
+                               a.focal, not a.no_gravity, not a.no_fit, assist)
                 with open(os.path.join(out_dir, f"{stem}_{a.method}.json"), "w",
                           encoding="utf-8") as fh:
                     json.dump(res, fh, indent=1)
@@ -253,7 +315,8 @@ def main():
                 print(f"FAIL {name}: {e}")
         return
     if a.once:
-        res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity, not a.no_fit)
+        res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity, not a.no_fit,
+                       os.path.abspath(a.assist) if a.assist else None)
         txt = json.dumps(res, indent=1)
         if a.out:
             with open(a.out, "w", encoding="utf-8") as fh:
