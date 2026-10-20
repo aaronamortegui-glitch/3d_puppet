@@ -21,7 +21,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from methods import focal, gravity, mediapipe_method, nlf_method, sam3d_method  # noqa: E402
-from methods import common  # noqa: E402
+from methods import common, fit, keypoints2d  # noqa: E402
 
 METHODS = {
     "sam3d_body": sam3d_method,
@@ -36,7 +36,7 @@ def available_methods():
     return [k for k, m in METHODS.items() if m.available()]
 
 
-def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True):
+def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit=True):
     if not os.path.isfile(image_path):
         raise FileNotFoundError(image_path)
     avail = available_methods()
@@ -53,6 +53,8 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True):
                                   allow_moge=focal.moge_available())
     with _lock:
         res = METHODS[method].run(image_path, focal_px=fpx, focal_note=fsrc)
+        if do_fit and keypoints2d.available():
+            _refine_with_2d(res, rgb)
         if use_gravity and gravity.available():
             try:
                 g = gravity.estimate(image_path, res["camera"]["fx"])
@@ -63,6 +65,34 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True):
             except Exception as e:  # noqa: BLE001
                 res.setdefault("notes", []).append(f"GeoCalib failed: {e}")
         return res
+
+
+def _refine_with_2d(res, rgb):
+    """Snap the 3D points onto RTMW whole-body 2D keypoints (see methods/fit.py)."""
+    try:
+        people = keypoints2d.detect(rgb)
+        if not people:
+            return
+        cam = res["camera"]
+        f, cx, cy = cam["fx"], cam["cx"], cam["cy"]
+        H, W = rgb.shape[:2]
+        pts = res["points3d"]
+        # pick the detected person that best matches the regressor's person
+        kp = min(people, key=lambda p: min(
+            fit.label_error(pts, p, f, cx, cy, fit.LR_CHECK),
+            fit.label_error(fit.flip_front_back(
+                {k: __import__("numpy").asarray(v) for k, v in pts.items()}),
+                p, f, cx, cy, fit.LR_CHECK)))
+        new_pts, info = fit.fit(pts, kp, f, cx, cy, W, H)
+        res["points3d_raw"] = pts
+        res["points3d"] = new_pts
+        res["points2d"] = {k: [v[0], v[1]] for k, v in kp.items() if v[2] >= 0.4}
+        res["fit"] = info
+        res.setdefault("notes", []).append("2D fit (RTMW): " + ", ".join(
+            f"{k}={v}" for k, v in info.items()))
+    except Exception as e:  # noqa: BLE001
+        traceback.print_exc()
+        res.setdefault("notes", []).append(f"2D fit failed: {e}")
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -83,7 +113,8 @@ class Handler(BaseHTTPRequestHandler):
             except Exception:
                 gpu = "no torch"
             self._send(200, {"ok": True, "methods": available_methods(), "gpu": gpu,
-                             "gravity": gravity.available(), "moge": focal.moge_available()})
+                             "gravity": gravity.available(), "moge": focal.moge_available(),
+                             "fit2d": keypoints2d.available()})
         else:
             self._send(404, {"error": "not found"})
 
@@ -96,7 +127,7 @@ class Handler(BaseHTTPRequestHandler):
             req = json.loads(self.rfile.read(n).decode("utf-8"))
             res = estimate(req["image_path"], req.get("method", "auto"),
                            float(req.get("focal_35mm") or 0.0),
-                           bool(req.get("gravity", True)))
+                           bool(req.get("gravity", True)), bool(req.get("fit", True)))
             self._send(200, res)
         except Exception as e:  # noqa: BLE001
             traceback.print_exc()
@@ -116,6 +147,7 @@ def main():
     ap.add_argument("--focal", type=float, default=0.0, help="35mm-equivalent focal")
     ap.add_argument("--out", help="write result JSON here (with --once)")
     ap.add_argument("--no-gravity", action="store_true", help="skip GeoCalib")
+    ap.add_argument("--no-fit", action="store_true", help="skip the RTMW 2D fitting stage")
     a = ap.parse_args()
     if a.batch:
         exts = (".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff")
@@ -127,7 +159,7 @@ def main():
             stem = os.path.splitext(name)[0]
             try:
                 res = estimate(os.path.abspath(os.path.join(a.batch, name)), a.method,
-                               a.focal, not a.no_gravity)
+                               a.focal, not a.no_gravity, not a.no_fit)
                 with open(os.path.join(out_dir, f"{stem}_{a.method}.json"), "w",
                           encoding="utf-8") as fh:
                     json.dump(res, fh, indent=1)
@@ -136,7 +168,7 @@ def main():
                 print(f"FAIL {name}: {e}")
         return
     if a.once:
-        res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity)
+        res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity, not a.no_fit)
         txt = json.dumps(res, indent=1)
         if a.out:
             with open(a.out, "w", encoding="utf-8") as fh:

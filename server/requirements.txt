@@ -7,3 +7,6 @@ huggingface_hub
 git+https://github.com/microsoft/MoGe.git
 # GeoCalib (Apache-2.0 code, CC-BY-4.0 weights): camera roll/pitch from the image
 git+https://github.com/cvg/GeoCalib.git
+# RTMW whole-body 2D keypoints (Apache-2.0) for the pixel-accurate fitting stage
+rtmlib
+onnxruntime-gpu

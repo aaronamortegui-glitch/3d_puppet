@@ -1,0 +1,501 @@
+{
+ "rest": {
+  "pelvis": [
+   0.0,
+   0.0,
+   0.9300000071525574
+  ],
+  "spine1": [
+   0.0,
+   0.004999999888241291,
+   1.0299999713897705
+  ],
+  "spine2": [
+   0.0,
+   0.0,
+   1.149999976158142
+  ],
+  "spine3": [
+   0.0,
+   -0.004999999888241291,
+   1.2699999809265137
+  ],
+  "neck": [
+   0.0,
+   0.009999999776482582,
+   1.4500000476837158
+  ],
+  "head": [
+   0.0,
+   -0.004999999888241291,
+   1.5299999713897705
+  ],
+  "jaw": [
+   0.0,
+   -0.029999999329447746,
+   1.5549999475479126
+  ],
+  "head_top": [
+   0.0,
+   0.0,
+   1.7300000190734863
+  ],
+  "chin": [
+   0.0,
+   -0.08500000089406967,
+   1.5
+  ],
+  "nose": [
+   0.0,
+   -0.1080000028014183,
+   1.590000033378601
+  ],
+  "left_hip": [
+   0.08500000089406967,
+   0.0,
+   0.8600000143051147
+  ],
+  "right_hip": [
+   -0.08500000089406967,
+   0.0,
+   0.8600000143051147
+  ],
+  "left_knee": [
+   0.0949999988079071,
+   -0.004999999888241291,
+   0.47999998927116394
+  ],
+  "right_knee": [
+   -0.0949999988079071,
+   -0.004999999888241291,
+   0.47999998927116394
+  ],
+  "left_ankle": [
+   0.0949999988079071,
+   0.02500000037252903,
+   0.07999999821186066
+  ],
+  "right_ankle": [
+   -0.0949999988079071,
+   0.02500000037252903,
+   0.07999999821186066
+  ],
+  "left_foot": [
+   0.10000000149011612,
+   -0.09000000357627869,
+   0.019999999552965164
+  ],
+  "right_foot": [
+   -0.10000000149011612,
+   -0.09000000357627869,
+   0.019999999552965164
+  ],
+  "left_collar": [
+   0.03999999910593033,
+   0.0,
+   1.399999976158142
+  ],
+  "right_collar": [
+   -0.03999999910593033,
+   0.0,
+   1.399999976158142
+  ],
+  "left_shoulder": [
+   0.18000000715255737,
+   0.009999999776482582,
+   1.409999966621399
+  ],
+  "right_shoulder": [
+   -0.18000000715255737,
+   0.009999999776482582,
+   1.409999966621399
+  ],
+  "left_elbow": [
+   0.4399999976158142,
+   0.019999999552965164,
+   1.409999966621399
+  ],
+  "right_elbow": [
+   -0.4399999976158142,
+   0.019999999552965164,
+   1.409999966621399
+  ],
+  "left_wrist": [
+   0.6899999976158142,
+   0.0,
+   1.409999966621399
+  ],
+  "right_wrist": [
+   -0.6899999976158142,
+   0.0,
+   1.409999966621399
+  ],
+  "left_eye_smplhf": [
+   0.03200000151991844,
+   -0.08500000089406967,
+   1.6200000047683716
+  ],
+  "right_eye_smplhf": [
+   -0.03200000151991844,
+   -0.08500000089406967,
+   1.6200000047683716
+  ],
+  "left_heel": [
+   0.0949999988079071,
+   0.05000000074505806,
+   0.019999999552965164
+  ],
+  "right_heel": [
+   -0.0949999988079071,
+   0.05000000074505806,
+   0.019999999552965164
+  ],
+  "left_toe": [
+   0.10499999672174454,
+   -0.1550000011920929,
+   0.019999999552965164
+  ],
+  "right_toe": [
+   -0.10499999672174454,
+   -0.1550000011920929,
+   0.019999999552965164
+  ],
+  "left_ear": [
+   0.07500000298023224,
+   0.0,
+   1.600000023841858
+  ],
+  "right_ear": [
+   -0.07500000298023224,
+   0.0,
+   1.600000023841858
+  ],
+  "left_thumb1": [
+   0.7149999737739563,
+   -0.029999999329447746,
+   1.3949999809265137
+  ],
+  "right_thumb1": [
+   -0.7149999737739563,
+   -0.029999999329447746,
+   1.3949999809265137
+  ],
+  "left_thumb2": [
+   0.7450000047683716,
+   -0.05999999865889549,
+   1.3899999856948853
+  ],
+  "right_thumb2": [
+   -0.7450000047683716,
+   -0.05999999865889549,
+   1.3899999856948853
+  ],
+  "left_thumb3": [
+   0.7720000147819519,
+   -0.07800000160932541,
+   1.3899999856948853
+  ],
+  "right_thumb3": [
+   -0.7720000147819519,
+   -0.07800000160932541,
+   1.3899999856948853
+  ],
+  "left_thumb_tip": [
+   0.7950000166893005,
+   -0.09200000017881393,
+   1.3899999856948853
+  ],
+  "right_thumb_tip": [
+   -0.7950000166893005,
+   -0.09200000017881393,
+   1.3899999856948853
+  ],
+  "left_index1": [
+   0.7850000262260437,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "right_index1": [
+   -0.7850000262260437,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "left_index2": [
+   0.824999988079071,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "right_index2": [
+   -0.824999988079071,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "left_index3": [
+   0.8500000238418579,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "right_index3": [
+   -0.8500000238418579,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "left_index_tip": [
+   0.871999979019165,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "right_index_tip": [
+   -0.871999979019165,
+   -0.029999999329447746,
+   1.4049999713897705
+  ],
+  "left_middle1": [
+   0.7900000214576721,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "right_middle1": [
+   -0.7900000214576721,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "left_middle2": [
+   0.8349999785423279,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "right_middle2": [
+   -0.8349999785423279,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "left_middle3": [
+   0.8629999756813049,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "right_middle3": [
+   -0.8629999756813049,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "left_middle_tip": [
+   0.8870000243186951,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "right_middle_tip": [
+   -0.8870000243186951,
+   -0.00800000037997961,
+   1.4049999713897705
+  ],
+  "left_ring1": [
+   0.7829999923706055,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "right_ring1": [
+   -0.7829999923706055,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "left_ring2": [
+   0.824999988079071,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "right_ring2": [
+   -0.824999988079071,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "left_ring3": [
+   0.8519999980926514,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "right_ring3": [
+   -0.8519999980926514,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "left_ring_tip": [
+   0.8740000128746033,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "right_ring_tip": [
+   -0.8740000128746033,
+   0.013000000268220901,
+   1.4049999713897705
+  ],
+  "left_pinky1": [
+   0.7720000147819519,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "right_pinky1": [
+   -0.7720000147819519,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "left_pinky2": [
+   0.8040000200271606,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "right_pinky2": [
+   -0.8040000200271606,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "left_pinky3": [
+   0.824999988079071,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "right_pinky3": [
+   -0.824999988079071,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "left_pinky_tip": [
+   0.843999981880188,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "right_pinky_tip": [
+   -0.843999981880188,
+   0.03200000151991844,
+   1.4049999713897705
+  ],
+  "hip_mid": [
+   0.0,
+   0.0,
+   0.8600000143051147
+  ],
+  "shoulder_mid": [
+   0.0,
+   0.009999999776482582,
+   1.409999966621399
+  ],
+  "ear_mid": [
+   0.0,
+   0.0,
+   1.600000023841858
+  ]
+ },
+ "parent": {
+  "pelvis": null,
+  "left_hip": "pelvis",
+  "right_hip": "pelvis",
+  "spine1": "pelvis",
+  "left_knee": "left_hip",
+  "right_knee": "right_hip",
+  "spine2": "spine1",
+  "left_ankle": "left_knee",
+  "right_ankle": "right_knee",
+  "spine3": "spine2",
+  "left_foot": "left_ankle",
+  "right_foot": "right_ankle",
+  "neck": "spine3",
+  "left_collar": "spine3",
+  "right_collar": "spine3",
+  "head": "neck",
+  "left_shoulder": "left_collar",
+  "right_shoulder": "right_collar",
+  "left_elbow": "left_shoulder",
+  "right_elbow": "right_shoulder",
+  "left_wrist": "left_elbow",
+  "right_wrist": "right_elbow",
+  "jaw": "head",
+  "left_eye_smplhf": "head",
+  "right_eye_smplhf": "head",
+  "left_index1": "left_wrist",
+  "left_index2": "left_index1",
+  "left_index3": "left_index2",
+  "left_middle1": "left_wrist",
+  "left_middle2": "left_middle1",
+  "left_middle3": "left_middle2",
+  "left_pinky1": "left_wrist",
+  "left_pinky2": "left_pinky1",
+  "left_pinky3": "left_pinky2",
+  "left_ring1": "left_wrist",
+  "left_ring2": "left_ring1",
+  "left_ring3": "left_ring2",
+  "left_thumb1": "left_wrist",
+  "left_thumb2": "left_thumb1",
+  "left_thumb3": "left_thumb2",
+  "right_index1": "right_wrist",
+  "right_index2": "right_index1",
+  "right_index3": "right_index2",
+  "right_middle1": "right_wrist",
+  "right_middle2": "right_middle1",
+  "right_middle3": "right_middle2",
+  "right_pinky1": "right_wrist",
+  "right_pinky2": "right_pinky1",
+  "right_pinky3": "right_pinky2",
+  "right_ring1": "right_wrist",
+  "right_ring2": "right_ring1",
+  "right_ring3": "right_ring2",
+  "right_thumb1": "right_wrist",
+  "right_thumb2": "right_thumb1",
+  "right_thumb3": "right_thumb2"
+ },
+ "tail": {
+  "pelvis": "spine1",
+  "spine1": "spine2",
+  "spine2": "spine3",
+  "spine3": "neck",
+  "neck": "head",
+  "head": "head_top",
+  "jaw": "chin",
+  "left_hip": "left_knee",
+  "left_knee": "left_ankle",
+  "left_ankle": "left_foot",
+  "left_foot": "left_toe",
+  "left_collar": "left_shoulder",
+  "left_shoulder": "left_elbow",
+  "left_elbow": "left_wrist",
+  "left_wrist": "left_middle1",
+  "left_thumb1": "left_thumb2",
+  "left_thumb2": "left_thumb3",
+  "left_thumb3": "left_thumb_tip",
+  "left_index1": "left_index2",
+  "left_index2": "left_index3",
+  "left_index3": "left_index_tip",
+  "left_middle1": "left_middle2",
+  "left_middle2": "left_middle3",
+  "left_middle3": "left_middle_tip",
+  "left_ring1": "left_ring2",
+  "left_ring2": "left_ring3",
+  "left_ring3": "left_ring_tip",
+  "left_pinky1": "left_pinky2",
+  "left_pinky2": "left_pinky3",
+  "left_pinky3": "left_pinky_tip",
+  "right_hip": "right_knee",
+  "right_knee": "right_ankle",
+  "right_ankle": "right_foot",
+  "right_foot": "right_toe",
+  "right_collar": "right_shoulder",
+  "right_shoulder": "right_elbow",
+  "right_elbow": "right_wrist",
+  "right_wrist": "right_middle1",
+  "right_thumb1": "right_thumb2",
+  "right_thumb2": "right_thumb3",
+  "right_thumb3": "right_thumb_tip",
+  "right_index1": "right_index2",
+  "right_index2": "right_index3",
+  "right_index3": "right_index_tip",
+  "right_middle1": "right_middle2",
+  "right_middle2": "right_middle3",
+  "right_middle3": "right_middle_tip",
+  "right_ring1": "right_ring2",
+  "right_ring2": "right_ring3",
+  "right_ring3": "right_ring_tip",
+  "right_pinky1": "right_pinky2",
+  "right_pinky2": "right_pinky3",
+  "right_pinky3": "right_pinky_tip"
+ }
+}

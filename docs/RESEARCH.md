@@ -180,3 +180,49 @@ Notas de implementación aprendidas:
 5. ~~Refinamiento PnP~~ **Hecho**: *Fit Camera to Photo* (traslación por mínimos cuadrados contra los keypoints 2D visibles).
 7. **Fusión de backends:** elegir por articulación el backend que mejor reproyecta sobre los keypoints 2D de MediaPipe (por ejemplo, brazos de MediaPipe y cuerpo de NLF).
 6. **Modo multi-persona** y video (pose por frame con suavizado).
+
+
+---
+
+## 7. Segunda ronda (precisión): investigación profunda + ajuste 2D
+
+### Conclusiones de la investigación (4 frentes)
+- **Mocap de video** (Move.ai, Rokoko, DeepMotion, WHAM, GVHMR, GEM-X…): **no mejora una foto fija**. Duplicar el frame no aporta información, porque los modelos temporales solo suavizan. Lo único que vale la pena probar es **Autodesk Flow Studio**, que exporta escena de Blender con cámara, y **DeepMotion "3D Pose"** como referencia comercial barata.
+- **Comunidad (Reddit, GitHub, Hugging Face)**: **no existe** una herramienta lista con esta precisión que incluya dedos y cámara.
+  - *Clip Studio Pose Scanner* es aproximado y no captura los dedos.
+  - *PoseCap* (Corridor) es lo más parecido, pero no resuelve la cámara.
+  - *ComfyUI-SAM3DBody* exporta FBX, aunque con huesos espejados.
+  - La receta recomendada es la misma en todas partes: **regresor fuerte + ajuste a keypoints 2D + silueta**.
+- **Estado del arte**:
+  - **SAM 3D Body** es el mejor regresor: EMDB 61,7 mm frente a NLF 68,4 mm. Acepta *keypoint prompts*.
+  - **RTMW-x** (70,2 AP de cuerpo entero) y **Sapiens2** (308 keypoints) son los mejores detectores 2D.
+  - **WiLoR** es el mejor en dedos (FreiHAND 5,5 mm).
+  - **DPoser-X** es el mejor prior de pose.
+- **Avatares**: la transferencia sin pérdida es **MHR + SAM 3D Body**, pero hay que escribir un importador; el comunitario `sam-3d-body-fbxify` sirve como punto de partida. Alternativa: el **addon SMPL-X** oficial (v1.0.3, Blender 4.5+/5.x).
+
+### Implementado
+- **SAM 3D Body** corre en Windows + RTX 5090 sin detectron2 ni pyrender. Se carga el núcleo directamente y las cajas de persona salen de torchvision.
+- **RTMW** (rtmlib, ONNX): 133 keypoints 2D de cuerpo entero, con 21 por mano.
+- **`server/methods/fit.py`**: los puntos 3D del regresor se mueven hasta que su proyección coincide con RTMW. El ajuste tiene cinco restricciones:
+  - las longitudes de hueso son **las del puppet**, así que tras el retarget el puppet cae exacto sobre la foto;
+  - cada punto conserva su profundidad respecto al regresor (con un solo desplazamiento global), lo que evita que los puntos se deslicen por el rayo de visión;
+  - se mantienen las direcciones del regresor donde no hay evidencia 2D;
+  - las caderas COCO tienen peso 0,3 y se ignoran los keypoints pegados al borde de la imagen;
+  - la confusión frente/espalda se detecta sola comparando etiquetas con el detector 2D.
+- **Resultado**: error del cuerpo de **0,1–2,5 px** frente a la foto (antes 100–500 px). Las superposiciones están en `samples/results/grid_v3.png`.
+  - **MediaPipe + ajuste** fue el más fiel en las 4 fotos.
+  - SAM 3D Body y NLF a veces giran la cabeza, porque las orejas quedan tapadas por el pelo.
+
+### Lente (focal)
+`server/lens_report.py` compara estimadores. Valores en mm equivalentes:
+
+| Foto | MoGe-2 | GeoCalib |
+|---|---|---|
+| 01 | 44,8 | 56,4 |
+| 02 | 41,5 | 38,4 |
+| 03 | 43,4 | 59,9 |
+| 04 | 42,4 | 45,2 |
+
+- MoGe-2 es consistente; GeoCalib varía mucho en fondos lisos de estudio.
+- La **búsqueda de lente por ajuste** (probar 18–135 mm y elegir el que mejor encaja con las proporciones del puppet) **no fue confiable**. Con un cuerpo a 1–2 m la perspectiva cambia muy poco entre lentes, así que las curvas de error quedan planas.
+- **Pendiente:** validar con fotos de **lente conocido** (EXIF) para medir el error real de cada estimador y elegir el mejor. Ver el plan en el README.

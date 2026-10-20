@@ -46,10 +46,20 @@ def _load():
     if _estimator is None:
         if REPO not in sys.path:
             sys.path.insert(0, REPO)
-        from notebook.utils import setup_sam_3d_body  # type: ignore
-        # no detectron2 detector: we pass boxes from torchvision (detect.py)
-        _estimator = setup_sam_3d_body(hf_repo_id=HF_REPO, detector_name=None,
-                                       fov_name="moge2")
+        # Load the core model directly: notebook.utils pulls the pyrender/EGL
+        # visualiser (not available on Windows) and the detectron2 detector.
+        # Person boxes come from torchvision instead (detect.py).
+        from sam_3d_body import SAM3DBodyEstimator, load_sam_3d_body_hf  # type: ignore
+        model, cfg = load_sam_3d_body_hf(HF_REPO, device="cuda")
+        fov = None
+        try:
+            from tools.build_fov_estimator import FOVEstimator  # type: ignore
+            fov = FOVEstimator(name="moge2", device="cuda")
+        except Exception as e:  # noqa: BLE001
+            print("SAM3D: MoGe-2 FOV estimator unavailable:", e)
+        _estimator = SAM3DBodyEstimator(sam_3d_body_model=model, model_cfg=cfg,
+                                        human_detector=None, human_segmentor=None,
+                                        fov_estimator=fov)
     return _estimator
 
 
