@@ -21,7 +21,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from methods import focal, gravity, mediapipe_method, nlf_method, sam3d_method  # noqa: E402
-from methods import common, fit, fit_rig, hands, keypoints2d  # noqa: E402
+from methods import common, fit, fit_rig, hands, keypoints2d, rest  # noqa: E402
 
 METHODS = {
     "sam3d_body": sam3d_method,
@@ -52,7 +52,7 @@ def _assist_copy(image_path, assist_path):
     return out
 
 
-def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit=True,
+def _estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit=True,
              assist_path=None):
     """assist_path: optional edited copy of the photo (same framing, e.g. the
     person in a mocap suit). Body/arms are estimated on it; hands and the
@@ -66,7 +66,7 @@ def estimate(image_path, method="auto", focal_35mm=0.0, use_gravity=True, do_fit
         best, table = None, []
         for m in [m for m in AUTO_ORDER if m in avail]:
             try:
-                r = estimate(image_path, m, focal_35mm, use_gravity, do_fit, assist_path)
+                r = _estimate(image_path, m, focal_35mm, use_gravity, do_fit, assist_path)
             except Exception as e:  # noqa: BLE001
                 table.append(f"{m}: failed ({e})")
                 continue
@@ -120,7 +120,7 @@ def _load_json(path_or_obj):
         return json.load(fh)
 
 
-def estimate_calibrated(image_path, method="auto", profile=None, camera_pose=None,
+def _estimate_calibrated(image_path, method="auto", profile=None, camera_pose=None,
                         use_gravity=True, do_fit=True, assist_path=None, mount="floor"):
     """estimate() with a measured camera (see docs/CAPTURE_GUIDE.md).
 
@@ -136,7 +136,7 @@ def estimate_calibrated(image_path, method="auto", profile=None, camera_pose=Non
     from calibration import charuco
     prof = _load_json(profile)
     if prof is None:
-        res = estimate(image_path, method, 0.0, use_gravity, do_fit, assist_path)
+        res = _estimate(image_path, method, 0.0, use_gravity, do_fit, assist_path)
     else:
         def und(path):
             rgb, _ = common.load_rgb(path)
@@ -150,7 +150,7 @@ def estimate_calibrated(image_path, method="auto", profile=None, camera_pose=Non
         H, W = urgb.shape[:2]
         f35 = K[0, 0] / ((W * W + H * H) ** 0.5) * 43.2666
         has_pose = camera_pose is not None
-        res = estimate(upath, method, f35, use_gravity and not has_pose, do_fit, apath)
+        res = _estimate(upath, method, f35, use_gravity and not has_pose, do_fit, apath)
         res.setdefault("notes", []).insert(0, f"camera profile: {prof.get('camera', '')} "
                                               f"{prof.get('lens', '')} f={K[0, 0]:.1f}px (measured)")
         res["camera_profile"] = {k: prof.get(k) for k in ("camera", "lens", "focal_35mm_equiv", "rms_px")}
@@ -260,7 +260,7 @@ def _fit_core(res, pts, kp, W, H, notes, label="RTMW"):
     notes.append(f"2D fit ({label}): " + ", ".join(f"{k}={v}" for k, v in info.items()))
 
 
-def refit(result, keypoints2d_edit, replace=False):
+def _refit(result, keypoints2d_edit, replace=False):
     """Re-fit a previous result with user-edited 2D keypoints.
 
     keypoints2d_edit: {name: [u, v] or [u, v, conf]} in pixels.  Edited
@@ -278,6 +278,31 @@ def refit(result, keypoints2d_edit, replace=False):
     with _lock:
         _fit_core(res, pts, kp, W, H, notes, label="edited keypoints")
     return res
+
+
+# ---------------------------------------------------------------------------
+# figure selection: the fit uses the rest skeleton of the figure that will be
+# posed in Blender ("human" MHR figure or "mannequin"), so the transfer is exact
+# ---------------------------------------------------------------------------
+def _with_figure(fn, figure, *args, **kw):
+    with rest.LOCK:
+        used = rest.use(figure)
+        res = fn(*args, **kw)
+    if isinstance(res, dict) and "error" not in res:
+        res["figure"] = used
+    return res
+
+
+def estimate(*args, figure=None, **kw):
+    return _with_figure(_estimate, figure, *args, **kw)
+
+
+def estimate_calibrated(*args, figure=None, **kw):
+    return _with_figure(_estimate_calibrated, figure, *args, **kw)
+
+
+def refit(result, keypoints2d_edit, replace=False):
+    return _with_figure(_refit, result.get("figure", "mannequin"), result, keypoints2d_edit, replace)
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -324,11 +349,12 @@ class Handler(BaseHTTPRequestHandler):
                 res = estimate_calibrated(req["image_path"], req.get("method", "auto"),
                                           req["profile"], req.get("camera_pose"),
                                           bool(req.get("gravity", True)), bool(req.get("fit", True)),
-                                          mount=req.get("mount", "floor"))
+                                          mount=req.get("mount", "floor"), figure=req.get("figure"))
             else:
                 res = estimate(req["image_path"], req.get("method", "auto"),
                                float(req.get("focal_35mm") or 0.0),
-                               bool(req.get("gravity", True)), bool(req.get("fit", True)))
+                               bool(req.get("gravity", True)), bool(req.get("fit", True)),
+                               figure=req.get("figure"))
                 if req.get("camera_pose") and req.get("camera_pose") != "auto":
                     res["world_from_cv"] = _load_json(req["camera_pose"])["world_from_cv"]
                     res.pop("up_cam", None)
@@ -356,6 +382,8 @@ def main():
     ap.add_argument("--camera-pose", help="camera pose JSON (calibrate.py pose) or 'auto' "
                                           "(find the ChArUco board in each photo)")
     ap.add_argument("--mount", choices=["floor", "wall"], default="floor")
+    ap.add_argument("--figure", choices=["human", "mannequin"], default=None,
+                    help=f"skeleton to fit (default: {rest.DEFAULT})")
     ap.add_argument("--assist", help="hybrid: edited copy of the photo (with --once) or a folder of "
                                      "edited copies named like the photos (with --batch)")
     a = ap.parse_args()
@@ -378,10 +406,10 @@ def main():
                 if a.profile or a.camera_pose:
                     res = estimate_calibrated(os.path.abspath(os.path.join(a.batch, name)), a.method,
                                               a.profile, a.camera_pose, not a.no_gravity,
-                                              not a.no_fit, assist, a.mount)
+                                              not a.no_fit, assist, a.mount, figure=a.figure)
                 else:
                     res = estimate(os.path.abspath(os.path.join(a.batch, name)), a.method,
-                                   a.focal, not a.no_gravity, not a.no_fit, assist)
+                                   a.focal, not a.no_gravity, not a.no_fit, assist, figure=a.figure)
                 with open(os.path.join(out_dir, f"{stem}_{a.method}.json"), "w",
                           encoding="utf-8") as fh:
                     json.dump(res, fh, indent=1)
@@ -393,10 +421,11 @@ def main():
         assist = os.path.abspath(a.assist) if a.assist else None
         if a.profile or a.camera_pose:
             res = estimate_calibrated(os.path.abspath(a.once), a.method, a.profile, a.camera_pose,
-                                      not a.no_gravity, not a.no_fit, assist, a.mount)
+                                      not a.no_gravity, not a.no_fit, assist, a.mount,
+                                      figure=a.figure)
         else:
             res = estimate(os.path.abspath(a.once), a.method, a.focal, not a.no_gravity,
-                           not a.no_fit, assist)
+                           not a.no_fit, assist, figure=a.figure)
         txt = json.dumps(res, indent=1)
         if a.out:
             with open(a.out, "w", encoding="utf-8") as fh:

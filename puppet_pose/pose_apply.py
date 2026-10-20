@@ -280,6 +280,7 @@ def flip_front_back(pts_cv):
 def posed_points(arm):
     """World positions of every named joint/landmark of the posed puppet."""
     mw = arm.matrix_world
+    rest_pts = sk.rest_of(arm)
     pts = {pb.name: mw @ pb.head for pb in arm.pose.bones}
     attach = {"head_top": "head", "chin": "jaw", "nose": "head",
               "left_ear": "head", "right_ear": "head"}
@@ -292,7 +293,7 @@ def posed_points(arm):
         if pb is None:
             continue
         rest = arm.data.bones[bone].matrix_local
-        pts[lm] = mw @ (pb.matrix @ rest.inverted() @ sk.REST[lm])
+        pts[lm] = mw @ (pb.matrix @ rest.inverted() @ rest_pts[lm])
     return pts
 
 
@@ -336,28 +337,38 @@ def refine_camera(arm, cam_matrix, result, flip_facing=False):
 
 def set_hidden_bones(arm, bones):
     """Hide the mesh parts driven by `bones` with a Mask modifier (the rig
-    itself is untouched).  Used for limbs that are not visible in the photo."""
+    itself is untouched).  Used for limbs that are not visible in the photo.
+    For the human figure the body is skinned to the Rigify DEF bones, so the
+    driver bone names are translated to those."""
+    from . import human_builder
     bones = set(bones or [])
-    for ob in arm.children:
-        if ob.type != "MESH":
-            continue
-        vg = ob.vertex_groups.get("PuppetVisible") or ob.vertex_groups.new(name="PuppetVisible")
-        idx_hidden = {ob.vertex_groups[b].index for b in bones if b in ob.vertex_groups}
-        vis, hid = [], []
-        for v in ob.data.vertices:
-            (hid if any(g.group in idx_hidden and g.weight > 0.5 for g in v.groups) else vis).append(v.index)
-        if vis:
-            vg.add(vis, 1.0, "REPLACE")
-        if hid:
-            vg.remove(hid)
-        mod = ob.modifiers.get("PuppetMask")
-        if not bones:
-            if mod:
-                ob.modifiers.remove(mod)
-            continue
-        if mod is None:
-            mod = ob.modifiers.new("PuppetMask", "MASK")
-        mod.vertex_group = "PuppetVisible"
+    meshes = [(ob, bones) for ob in arm.children if ob.type == "MESH"]
+    rig = human_builder.rig_of(arm)
+    if rig is not None:
+        hidden_def = {d for d, b in human_builder.def_to_driver().items() if b in bones}
+        meshes += [(ob, hidden_def) for ob in rig.children if ob.type == "MESH"]
+    for ob, names in meshes:
+        _mask_groups(ob, names)
+
+
+def _mask_groups(ob, names):
+    vg = ob.vertex_groups.get("PuppetVisible") or ob.vertex_groups.new(name="PuppetVisible")
+    idx_hidden = {ob.vertex_groups[b].index for b in names if b in ob.vertex_groups}
+    vis, hid = [], []
+    for v in ob.data.vertices:
+        (hid if any(g.group in idx_hidden and g.weight > 0.5 for g in v.groups) else vis).append(v.index)
+    if vis:
+        vg.add(vis, 1.0, "REPLACE")
+    if hid:
+        vg.remove(hid)
+    mod = ob.modifiers.get("PuppetMask")
+    if not names:
+        if mod:
+            ob.modifiers.remove(mod)
+        return
+    if mod is None:
+        mod = ob.modifiers.new("PuppetMask", "MASK")
+    mod.vertex_group = "PuppetVisible"
 
 
 def _is_hand_bone(name):

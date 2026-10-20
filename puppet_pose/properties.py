@@ -23,6 +23,12 @@ class PUPPET_PG_hands(bpy.types.PropertyGroup):
 
 class PUPPET_PG_settings(bpy.types.PropertyGroup):
     image_path: StringProperty(name="Photo", subtype="FILE_PATH")
+    figure: EnumProperty(
+        name="Figure",
+        items=[("HUMAN", "Human (Rigify)", "Realistic human body (Meta MHR, Apache-2.0) with a "
+                                           "professional Rigify rig: IK/FK limbs, spine, fingers"),
+               ("MANNEQUIN", "Mannequin", "Procedural wooden mannequin (SMPL-X skeleton)")],
+        default="HUMAN")
     backend: EnumProperty(
         name="Backend",
         items=[("LITE", "Lite (MediaPipe)", "Runs inside Blender, CPU, body + hands"),

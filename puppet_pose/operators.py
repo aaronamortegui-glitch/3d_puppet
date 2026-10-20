@@ -5,13 +5,17 @@ import os
 import bpy
 from bpy.props import EnumProperty, StringProperty
 
-from . import deps, hand_controls, keypoint_editor, openpose, pose_apply, puppet_builder
+from . import (deps, hand_controls, human_builder, keypoint_editor, openpose, pose_apply,
+               puppet_builder)
+from . import skeleton as sk
 
 
 def _active_puppet(context):
     obj = context.object
     if obj and obj.type == "MESH" and obj.parent and obj.parent.type == "ARMATURE":
         obj = obj.parent
+    if obj and obj.type == "ARMATURE" and "puppet_driver" in obj:   # human Rigify rig
+        obj = bpy.data.objects.get(obj["puppet_driver"]) or obj
     if obj and obj.type == "ARMATURE":
         return obj
     for o in context.scene.objects:
@@ -20,19 +24,41 @@ def _active_puppet(context):
     return None
 
 
+def new_figure(context):
+    """Build the figure chosen in the panel; returns the armature the pipeline poses."""
+    s = context.scene.puppet_pose
+    if s.figure == "HUMAN" and human_builder.available():
+        return human_builder.build_human("Human")
+    return puppet_builder.build_puppet("Puppet")
+
+
+def figure_of(arm):
+    return "human" if arm is not None and sk.REST_PROP in arm else "mannequin"
+
+
+def sync_figure(arm):
+    """Human figure: copy the driver pose onto the Rigify controls."""
+    if human_builder.rig_of(arm) is not None:
+        human_builder.sync_rig(arm)
+
+
 class PUPPET_OT_add(bpy.types.Operator):
     bl_idname = "puppet_pose.add_puppet"
-    bl_label = "Add Puppet"
-    bl_description = "Add a rigged mannequin (SMPL-X skeleton, full fingers)"
+    bl_label = "Add Figure"
+    bl_description = ("Add the rigged figure chosen above: realistic human with a Rigify rig, "
+                      "or the wooden mannequin")
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context):
-        arm = puppet_builder.build_puppet("Puppet")
+        arm = new_figure(context)
         arm.location = context.scene.cursor.location
+        context.view_layer.update()
+        sync_figure(arm)
+        shown = human_builder.rig_of(arm) or arm
         for o in context.selected_objects:
             o.select_set(False)
-        arm.select_set(True)
-        context.view_layer.objects.active = arm
+        shown.select_set(True)
+        context.view_layer.objects.active = shown
         return {"FINISHED"}
 
 
@@ -50,6 +76,8 @@ class PUPPET_OT_reset(bpy.types.Operator):
             pb.rotation_mode = "QUATERNION"
             pb.rotation_quaternion = (1, 0, 0, 0)
             pb.location = (0, 0, 0)
+        context.view_layer.update()
+        sync_figure(arm)
         return {"FINISHED"}
 
 
@@ -67,6 +95,8 @@ class PUPPET_OT_hand_preset(bpy.types.Operator):
             self.report({"ERROR"}, "No puppet armature found")
             return {"CANCELLED"}
         hand_controls.apply_preset(arm, self.side, self.preset)
+        context.view_layer.update()
+        sync_figure(arm)
         return {"FINISHED"}
 
 
@@ -87,7 +117,7 @@ class PUPPET_OT_install_deps(bpy.types.Operator):
         return {"FINISHED"}
 
 
-def run_backend(settings, image_path):
+def run_backend(settings, image_path, figure=None):
     """Run the selected backend, returning the result dict."""
     from . import calib_local
     profile = bpy.path.abspath(settings.camera_profile) if settings.camera_profile else ""
@@ -113,7 +143,8 @@ def run_backend(settings, image_path):
     from .backends import server_client
     return server_client.run(image_path, settings.host, settings.port,
                              focal_35mm=settings.focal_35mm, method=settings.pro_method,
-                             profile=profile or None, camera_pose=pose or None)
+                             profile=profile or None, camera_pose=pose or None,
+                             figure=figure)
 
 
 class _ApplyMixin:
@@ -134,6 +165,8 @@ class _ApplyMixin:
         except Exception as e:  # noqa: BLE001
             self.report({"ERROR"}, f"Apply failed: {e}")
             return {"CANCELLED"}
+        context.view_layer.update()
+        sync_figure(arm)
         s.last_notes = " | ".join(result.get("notes", []))
         arm["puppet_last_result"] = json.dumps(result)
         self.report({"INFO"}, f"Pose applied ({result.get('backend', '?')})")
@@ -154,11 +187,11 @@ class PUPPET_OT_pose_from_photo(_ApplyMixin, bpy.types.Operator):
             return {"CANCELLED"}
         arm = _active_puppet(context)
         if arm is None:
-            arm = puppet_builder.build_puppet("Puppet")
+            arm = new_figure(context)
         try:
             if context.window:
                 context.window.cursor_set("WAIT")
-            result = run_backend(s, path)
+            result = run_backend(s, path, figure_of(arm))
         except Exception as e:  # noqa: BLE001
             self.report({"ERROR"}, str(e))
             return {"CANCELLED"}
@@ -199,7 +232,7 @@ class PUPPET_OT_load_json(_ApplyMixin, bpy.types.Operator):
     def execute(self, context):
         with open(self.filepath, encoding="utf-8") as fh:
             result = json.load(fh)
-        arm = _active_puppet(context) or puppet_builder.build_puppet("Puppet")
+        arm = _active_puppet(context) or new_figure(context)
         return self._apply(context, arm, result, context.scene.puppet_pose)
 
 

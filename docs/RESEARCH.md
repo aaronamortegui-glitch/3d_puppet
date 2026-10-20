@@ -192,3 +192,47 @@ Everything above works on **existing** photos. When the photos are shot by us, t
   - the head stays within 2–5 px, but shoulders and elbows move 12–55 px and one image turned the head;
   - hybrid mode (body from the AI image, hands from the original) gave 5–17 px fit error vs 3–11 px with the original only: **no clear gain**.
   Not a substitute for real markers.
+
+---
+
+## 9. Round 4: generative clean renders, pose variations, reference library
+
+**Idea.** If a photo is hard to measure (hair over the face, fabric, a product that looks like a hand), ask an image model to redraw the **same shot** as a clean gray 3D render, then run the pipeline on it. Nano Banana 2.1 (Flora, 2K, ≈ $0.08 per image) with the prompts in `server/prompts/`:
+
+- `gray_render_prompt_v1.txt` — gray clay, bald, no clothing.
+- `gray_render_prompt_v2_bald.txt` / `gray_render_prompt_v2_hair.txt` — same, but the **held product is painted solid orange (#FF6A00)** so it is never confused with the hand, and the hair version keeps the hair sculpted in a darker gray. The figure keeps the person's own body shape (the product line is for women; making the body androgynous is not a goal).
+- `pose_variation_prompt.txt` — the same render with a small, plausible change of pose (raise / lower / rotate the tool, tilt the head): a cheap way to grow a pose library from one photo.
+
+**How much does the edit move the person?** `tools/compare_generated.py` runs RTMW on the original and on the edit (1500 px images) and reports per-group median shifts plus the residual after removing a global scale + shift:
+
+| Edit | Fingertips | Wrists | Residual after align |
+|---|---|---|---|
+| Mocap suit | — | 12–55 px (all joints) | — |
+| Gray clay v1 | 16–21 px | 6–161 px | 8–55 px |
+| Gray clay v2, bald | 6–15 px | 5–33 px | 6–11 px |
+| Gray clay v2, hair | 7–12 px | 9–24 px | 7–9 px |
+
+v2 with the orange product is the cleanest edit (≈ 0.5–1 % of the image size), but no edit keeps the pose to the pixel, so the measured pose should still come from the original photo; the edit helps where the original is ambiguous (hybrid mode: body from the edit, hands from the original).
+
+**Depth.** `tools/depth_maps.py` writes MoGe-2 depth (16-bit, near = bright, plus a colour preview and the raw metres). Relative depth of the renders is clean; the metric scale is not consistent between renders (2–4.5 m for the same framing), so do not use it as absolute distance.
+
+**Reference library.** Real photos of people using hair tools, downloaded for internal research only (`samples/library/`, git-ignored), catalogued by tool, visible hands and camera angle — an alternative source of poses to generated variations.
+
+**Study board.** All results are laid out in Figma: <https://www.figma.com/design/BIhbEhtz1sq2tjW5pzraUm/3d-puppet>.
+
+---
+
+## 10. Round 5: realistic human figure with a professional rig
+
+**Why.** The wooden mannequin (chosen in round 1 only to avoid third-party assets) does not read as a human: different volumes and proportions make the overlay look wrong even when the joints match, and it has no animator controls. The use is internal, so a real body model is fine.
+
+**Choice: MHR (Meta Momentum Human Rig, Apache-2.0)** — it was already on disk inside the SAM 3D Body weights (`assets/mhr_model.pt`):
+- scan-based human mesh (18 439 vertices, UVs), 127-joint skeleton with twist, finger and face joints, linear-blend skin weights, 45 identity and 28 proportion coefficients;
+- it is the body SAM 3D Body predicts, so the **body shape of the person in the photo** comes for free: `tools/build_human.py --photos ...` averages the shape of our 4 models (1.63 m, female body).
+
+**Rig: Rigify** (bundled with Blender), generated in code by `puppet_pose/human_builder.py`:
+1. the full human metarig (face removed) is moved onto the MHR joints; bone rolls are carried over from the metarig defaults (hand bones through a hand-frame change), so Rigify's IK/FK and finger conventions hold;
+2. Rigify generates the rig (404 bones, 130 controls);
+3. MHR skin weights are mapped onto the DEF bones (twist joints go to the nearest DEF segment).
+
+**Pose transfer.** The pipeline poses a hidden 55-bone SMPL-X *driver* built on the human's own rest skeleton; `sync_rig()` moves the Rigify FK controls so every DEF bone follows its driver bone (max error 0.01 mm, `tests/test_human.py`). The server fits on the same skeleton (`server/methods/rest.py`, `figure` = `human` | `mannequin`, saved in the result), so the transfer stays exact.

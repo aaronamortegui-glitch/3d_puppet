@@ -79,7 +79,8 @@ class _MeshBuilder:
         return me
 
 
-def _create_armature(name):
+def _create_armature(name, rest=None):
+    rest = sk.REST if rest is None else rest
     arm_data = bpy.data.armatures.new(name)
     arm_data.display_type = "OCTAHEDRAL"
     arm_obj = bpy.data.objects.new(name, arm_data)
@@ -92,8 +93,8 @@ def _create_armature(name):
     ebones = arm_data.edit_bones
     for joint in sk.SMPLX_JOINTS:
         eb = ebones.new(joint)
-        eb.head = sk.REST[joint]
-        eb.tail = sk.bone_tail(joint)
+        eb.head = rest[joint]
+        eb.tail = sk.bone_tail(joint, rest)
         # Roll: finger bones get local Z pointing to the palm side so that a
         # positive local-X rotation curls the finger (see hand_controls.py).
         if "_thumb" in joint:  # thumb flexes across the palm

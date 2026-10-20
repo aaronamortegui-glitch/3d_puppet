@@ -13,3 +13,9 @@ samples/photos/*
 samples/results*/
 samples/photos_mocap/
 server/calibration/boards/
+samples/library/
+samples/gray_render*/
+samples/variations/
+samples/board/
+samples/human_test/
+samples/mhr/

@@ -1,0 +1,12 @@
+Edit this photo into a clean, untextured 3D render of the SAME shot, like a neutral gray clay sculpt or a default-material CG viewport render. Turn every visible person into an anatomically neutral, unisex, mannequin-like human figure:
+- Uniform matte medium-light gray material over the whole body (like unpainted clay or a gray 3D shader): no skin texture, no makeup, no tattoos, no colour.
+- Completely bald: no hair at all, no eyebrows, no beard, no loose strands; keep the exact same skull shape, head size, head angle and face direction, with simple neutral facial features.
+- No clothing details: a smooth gray body with no fabric, folds, seams, logos, accessories or jewellery; keep the same body silhouette, volume and proportions.
+- Highly detailed hands: every finger clearly separated and readable, visible knuckles and finger joints, fingernail shapes sculpted in gray, the thumb clearly distinct from the other fingers.
+- Any object held in the hands stays in place with the same shape, size and orientation, but rendered in a slightly darker plain gray material.
+CRITICAL - this is a measurement plate, so geometry must not change:
+- Keep exactly the same pose, body position and proportions, the same arm, hand and finger positions, the same finger curl and the same grip on any held object.
+- Keep exactly the same camera angle, framing, crop, lens perspective, horizon and image size; every body part must stay at the same pixel position as in the photo.
+- Do not move, rotate, resize, re-pose, re-frame, idealize, slim or straighten anything, and do not add or remove limbs or fingers.
+Lighting and background: neutral, even, soft studio lighting with gentle ambient occlusion so depth and overlapping limbs read clearly; plain light-gray seamless background with no environment, furniture or props other than the held object. No text, logos, watermarks or graphics.
+Clean 3D render look, sharp edges, high detail on the hands.

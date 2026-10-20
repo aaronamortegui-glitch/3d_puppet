@@ -3,6 +3,8 @@
 Standalone (no Claude needed):
     blender -b --factory-startup --python tools/blender_batch.py -- <results_dir> [--frame AUTO]
 
+The figure is the one the result was fitted on ("figure" key: human or mannequin).
+
 For every *.json in <results_dir> it creates:
     <stem>.blend          puppet posed + camera matching the photo (photo as background)
     <stem>_overlay.png    render of the puppet blended over the photo
@@ -20,7 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 import puppet_pose  # noqa: E402
-from puppet_pose import pose_apply, puppet_builder  # noqa: E402
+from puppet_pose import human_builder, pose_apply, puppet_builder  # noqa: E402
 
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 if not argv:
@@ -79,8 +81,18 @@ for path in files:
     sun.rotation_euler = (0.6, 0.2, 0.4)
     scene.collection.objects.link(sun)
 
-    arm = puppet_builder.build_puppet("Puppet")
+    if result.get("figure") == "human" and human_builder.available():
+        arm = human_builder.build_human("Human")
+        bpy.ops.object.select_all(action="DESELECT")
+    else:
+        arm = puppet_builder.build_puppet("Puppet")
     cam = pose_apply.apply_result(bpy.context, arm, result, frame_mode=FRAME)
+    bpy.context.view_layer.update()
+    rig = human_builder.rig_of(arm)
+    if rig is not None:
+        human_builder.sync_rig(arm)
+        rig.hide_render = True          # render the skinned body only
+        arm.hide_render = True
     # light from the camera side so the puppet reads well in the overlay
     sun.rotation_euler = cam.matrix_world.to_euler()
     scene.render.film_transparent = True

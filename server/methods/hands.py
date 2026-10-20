@@ -10,7 +10,6 @@
    and a clean 3D hand shape that replaces the regressor's fingers.
 """
 
-import json
 import os
 
 import numpy as np
@@ -23,9 +22,9 @@ _MP_ORDER = ["wrist", "thumb1", "thumb2", "thumb3", "thumb_tip",
              "ring1", "ring2", "ring3", "ring_tip",
              "pinky1", "pinky2", "pinky3", "pinky_tip"]
 
-_ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
-with open(os.path.join(_ASSETS, "puppet_rest.json"), encoding="utf-8") as _fh:
-    _REST = {k: np.array(v) for k, v in json.load(_fh)["rest"].items()}
+from . import rest as _rest
+
+_REST = _rest.REST                   # shared: follows rest.use(figure)
 
 
 def chirality(points, side):
@@ -36,9 +35,10 @@ def chirality(points, side):
     return int(np.sign(np.linalg.det(np.stack([a - w, b - w, t - w]))))
 
 
-# the puppet's own rest pose defines the correct sign for each side
+# the figure's own rest pose defines the correct sign for each side
 # (rest is in Blender axes; camera conversion is a proper rotation -> same sign)
-REST_SIGN = {s: chirality(_REST, s) for s in ("left", "right")}
+def rest_sign(side):
+    return chirality(_REST, side)
 
 
 def mirror_hand(points, side):
@@ -58,7 +58,7 @@ def mirror_hand(points, side):
 def fix_chirality(points, notes=None):
     for s in ("left", "right"):
         c = chirality(points, s)
-        if c and c != REST_SIGN[s]:
+        if c and c != rest_sign(s):
             points = mirror_hand(points, s)
             if notes is not None:
                 notes.append(f"{s} hand was mirrored (palm/back) -> fixed")

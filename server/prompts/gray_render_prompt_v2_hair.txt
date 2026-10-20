@@ -1,0 +1,14 @@
+Edit this photo into a clean, untextured 3D render of the SAME shot, like a neutral gray clay sculpt or a default-material CG viewport render.
+Turn the person into a smooth, mannequin-like human figure:
+- Uniform matte medium-light gray material over the whole body (unpainted clay / gray 3D shader): no skin texture, no makeup, no colour.
+- Body: keep the person's own body shape, silhouette, size and proportions exactly as in the photo; simple, neutral facial features.
+- Hair: keep the person's exact hairstyle, length, volume and every strand position as in the photo (including hair wrapped around the tool), sculpted as gray clay in a slightly DARKER gray than the skin so hair and body are distinguishable; same head size, tilt and face direction.
+- No clothing: a smooth gray body with no fabric, folds, seams, logos, accessories or jewellery.
+- Highly detailed hands: every finger clearly separated and readable, visible knuckles and finger joints, the thumb clearly distinct from the other fingers.
+- The object held in the hand(s) keeps exactly the same shape, size, position and orientation, but is rendered in a single bright saturated ORANGE matte material (#FF6A00) so it can never be confused with the gray hand; the cable, if any, also orange.
+CRITICAL - this is a measurement plate, geometry must not change:
+- Keep exactly the same pose, body position and proportions, the same arm, hand and finger positions, the same finger curl and the same grip on the object.
+- Keep exactly the same camera angle, framing, crop, lens perspective, horizon and image size; every body part stays at the same pixel position as in the photo. Do not zoom out or re-centre.
+- Do not move, rotate, resize, re-pose, re-frame, idealize, slim or straighten anything; do not add or remove limbs or fingers.
+Lighting and background: neutral, even, soft studio lighting with gentle ambient occlusion so depth and overlapping limbs read clearly; plain light-gray seamless background. No text, logos, watermarks or graphics.
+Clean 3D render look, sharp edges, high detail on the hands.

@@ -41,8 +41,10 @@ def refit(result, keypoints2d, host="127.0.0.1", port=8765, replace=False, timeo
 
 
 def run(image_path, host="127.0.0.1", port=8765, focal_35mm=0.0,
-        method="auto", timeout=600.0, profile=None, camera_pose=None):
+        method="auto", timeout=600.0, profile=None, camera_pose=None, figure=None):
     req = {"image_path": image_path, "focal_35mm": focal_35mm, "method": method}
+    if figure:
+        req["figure"] = figure      # fit on the skeleton of the figure that will be posed
     if profile:
         req["profile"] = profile
     if camera_pose:

@@ -11,16 +11,14 @@ It also fixes the front/back (left/right) ambiguity by comparing labels
 with the 2D detector.
 """
 
-import json
-import os
 
 import numpy as np
 
-ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
-with open(os.path.join(ASSETS, "puppet_rest.json"), encoding="utf-8") as _fh:
-    _REST_RAW = json.load(_fh)
-# rest is in Blender axes (x left, -y front, z up); lengths are all we need
-REST = {k: np.array(v) for k, v in _REST_RAW["rest"].items()}
+from . import rest as _rest
+
+# rest is in Blender axes (x left, -y front, z up); lengths are all we need.
+# Shared dict: follows the figure selected with rest.use().
+REST = _rest.REST
 
 FINGERS = ("thumb", "index", "middle", "ring", "pinky")
 

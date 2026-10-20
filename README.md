@@ -1,6 +1,6 @@
 # 3D Puppet — Pose and camera from a single photo (Blender add-on)
 
-A **Blender 4.2+ / 5.0** add-on with a **fully rigged 3D mannequin**: wrists and 15 finger bones per hand, so hands can open and close. From **a single photo** it copies:
+A **Blender 4.2+ / 5.0** add-on with a **realistic, professionally rigged human figure** (Rigify: IK/FK limbs, spine, 15 finger bones per hand). From **a single photo** it copies:
 
 - the **pose** of the body and hands;
 - the **camera**: angle, distance and focal length, with the photo as background.
@@ -9,7 +9,8 @@ The full research (rigged puppets, pose models, camera, licenses) is in **[docs/
 
 ## What's included
 
-- **Procedural puppet** with an SMPL-X skeleton (55 joints) and a wooden-mannequin look. It is 100% code, with no third-party assets.
+- **Human figure (default)**: Meta's **MHR** body (Apache-2.0, the body model of SAM 3D Body): a scan-based mesh with skin weights, body shape averaged from our photos, and a **Rigify** rig generated in code (130 animator controls: IK/FK arms and legs, spine, neck/head, fingers). The pose pipeline drives a hidden 55-bone SMPL-X driver and copies it onto the Rigify FK controls, so every result stays editable. Built from `puppet_pose/assets/human.npz` (`tools/build_human.py`).
+- **Mannequin (option)**: the procedural wooden mannequin with the same SMPL-X skeleton, 100% code.
 - **Hand controls**: close, thumb and spread sliders per hand. Presets: *Open, Relaxed, Fist, Point, Peace, Thumbs up, Grip, Pinch*.
 - **Pose From Photo** with two backends:
   - **Lite**: MediaPipe inside Blender. Runs on CPU and installs with one click.
@@ -81,7 +82,7 @@ If a wrist, elbow or finger is wrong:
 
 ## Usage
 
-1. **Add Puppet**, or let *Pose From Photo* create it.
+1. Choose the **Figure** (Human or Mannequin) and press **Add Figure**, or let *Pose From Photo* create it. With the human, select the `Human_rig` object to animate with the Rigify controls.
 2. Choose the photo and the backend. Optionally force the focal length (35 mm equivalent; 0 = automatic).
 3. **Pose From Photo**. The body and fingers are posed, `Puppet_Cam` becomes the active camera and the photo becomes its background. Look through the camera with `Numpad 0`.
 4. Adjust by hand in Pose Mode, with the hand sliders, or with **Re-apply Last Result** after changing options (orientation, body or hands only, keyframes, hide unseen limbs).
@@ -92,6 +93,8 @@ If a wrist, elbow or finger is wrong:
 puppet_pose/            add-on / extension (GPL-3.0-or-later)
   skeleton.py           SMPL-X skeleton, rest pose and landmarks
   puppet_builder.py     armature + segmented mannequin
+  human_builder.py      MHR human mesh + Rigify rig + driver sync
+  assets/human.npz      MHR mesh, skin weights and skeleton (tools/build_human.py)
   hand_controls.py      curl / spread / presets
   retarget.py           named 3D points -> bone rotations (swing + twist)
   camera_utils.py       OpenCV <-> Blender, focal, camera + background
@@ -105,7 +108,8 @@ server/                 Pro server (own venv, PyTorch)
   lens_report.py        compares focal-length estimators
   methods/              sam3d_method, nlf_method, mediapipe_method, keypoints2d (RTMW),
                         fit (points), fit_rig (rig), hands, focal (MoGe-2), gravity (GeoCalib), detect
-tools/                  blender_batch.py (scenes + overlays), measure_overlay.py
+tools/                  blender_batch.py (scenes + overlays), measure_overlay.py,
+                        build_human.py (MHR figure + its rest skeleton for the fit)
 tests/                  tests that run in Blender background mode
 docs/RESEARCH.md        full research
 ```
@@ -116,6 +120,7 @@ blender -b --factory-startup --python tests/test_roundtrip.py
 blender -b --factory-startup --python tests/test_lite_render.py -- <site-packages-dir-with-mediapipe>
 blender -b --factory-startup --python tests/test_keypoint_editor.py -- <result.json>   # needs the server
 blender -b --factory-startup --python tests/test_world_placement.py
+blender -b --factory-startup --python tests/test_human.py [-- <render_dir>]
 blender -b --factory-startup --python tests/render_charuco.py -- <board.png> <render_dir>
 python tests/test_calibration.py <render_dir> <board.json>                              # server venv
 ```
@@ -125,6 +130,7 @@ The add-on code is GPL-3.0-or-later. Models have their own licenses; **several a
 
 | Model | License |
 |---|---|
+| MHR body model (human figure) | Apache-2.0 |
 | MediaPipe | Apache-2.0 |
 | RTMW (rtmlib) | Apache-2.0 |
 | SAM 3D Body | SAM License, gated weights |

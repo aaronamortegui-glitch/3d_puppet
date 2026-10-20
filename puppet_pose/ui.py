@@ -13,6 +13,7 @@ class PUPPET_PT_main(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        layout.prop(context.scene.puppet_pose, "figure")
         layout.operator("puppet_pose.add_puppet", icon="OUTLINER_OB_ARMATURE")
         layout.operator("puppet_pose.reset_pose", icon="LOOP_BACK")
 

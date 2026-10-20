@@ -12,17 +12,14 @@ Frames: everything here is in "W_c" = Blender-like camera-world axes
 rest skeleton (Blender armature axes) is used as-is in W_c.
 """
 
-import json
 import math
-import os
 
 import numpy as np
 
-_ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
-with open(os.path.join(_ASSETS, "puppet_rest.json"), encoding="utf-8") as _fh:
-    _D = json.load(_fh)
-REST = {k: np.array(v, dtype=np.float64) for k, v in _D["rest"].items()}
-PARENT = _D["parent"]                # 55 joints, parent-first order
+from . import rest as _rest
+
+REST = _rest.REST                    # shared: follows rest.use(figure)
+PARENT = _rest.PARENT                # 55 joints, parent-first order (same for every figure)
 JOINTS = list(PARENT.keys())
 JI = {j: i for i, j in enumerate(JOINTS)}
 FINGERS = ("thumb", "index", "middle", "ring", "pinky")
@@ -366,7 +363,7 @@ def unseen_bones(observed):
     for j, p in PARENT.items():
         if p:
             children[p].append(j)
-    tail = _D["tail"]
+    tail = _rest.TAIL
 
     def seen(j):
         if j in observed or tail.get(j) in observed:

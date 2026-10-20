@@ -123,13 +123,29 @@ for _s in SIDES:
         TAIL[f"{_s}_{_f}3"] = f"{_s}_{_f}_tip"
 
 
-def bone_tail(name):
+def bone_tail(name, rest=None):
     """Rest tail position for a bone."""
+    rest = REST if rest is None else rest
     if name in TAIL:
-        return REST[TAIL[name]]
+        return rest[TAIL[name]]
     if name.endswith("_eye_smplhf"):
-        return REST[name] + Vector((0.0, -0.02, 0.0))
+        return rest[name] + Vector((0.0, -0.02, 0.0))
     raise KeyError(name)
+
+
+REST_PROP = "puppet_rest"   # per-armature rest positions (JSON), e.g. the human figure
+_rest_cache = {}
+
+
+def rest_of(arm):
+    """Rest joint/landmark positions of this armature's figure."""
+    raw = arm.get(REST_PROP) if arm is not None else None
+    if not raw:
+        return REST
+    if raw not in _rest_cache:
+        import json
+        _rest_cache[raw] = {k: Vector(v) for k, v in json.loads(raw).items()}
+    return _rest_cache[raw]
 
 
 def finger_bones(side, finger):
