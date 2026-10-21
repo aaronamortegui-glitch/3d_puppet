@@ -73,4 +73,10 @@ Review: all 21 kept identity (colour, mannequin, framing). Three results were to
 - SS_t1_aircurl: v1 showed full waves. The v2 prompt says the curls "have already fallen out", leaving only a weak bend in the bottom 10 cm. Result: mostly straight with a soft end bend, which matches the real-world reviews on fine hair.
 - AC_t3: v1 was almost the same as the BEFORE. The v2 prompt says the small corkscrews are "REPLACED" by uniform 1-inch barrel curls. Result: bigger, glossy, regular ringlets.
 
+A second, pair-by-pair check (each AFTER next to its BEFORE at full size) found 4 more results that were too weak. These were also regenerated:
+- SS_t1_roundbrush: v1 had waves through the lengths. v2 is a smooth volume blowout with only the ends flipped.
+- SS_t2_aircurl: v1 was close to the natural waves. v2 has bigger, glossier blowout waves.
+- SS_t3_diffuser: v1 and v2 were near copies of the BEFORE. v3 (`v3_jobs.txt`) lists three explicit differences: fewer, thicker glossy ringlets, a wider shape and 15 % shrinkage. It is now a clear change.
+- SS_t4_diffuser: v1 was a copy of the BEFORE. v2 is bigger, rounder and more defined.
+
 Lesson: when the AFTER is close to the BEFORE, the model copies the BEFORE. Say what disappears (in capitals), not only what appears.
