@@ -617,3 +617,12 @@ Brand how-to: 1. Start with completely dry, detangled hair and apply a heat prot
 - Launch dates for the Thermal Round Brush, Style/Switch BNTSSSW and Pink Rush flat iron are not shown on Amazon; only the Auto Curler has a first-available date (Sep 15 2026).
 - Flat iron heat chart conflict: gallery says 300/340/380/420/450 F, A+ module says 285/320/355/395/430 F; the physical LEDs on the A+ close-up read 265/300/355/390/450 F.
 - Hair-type matrices mix brand claims with estimates for types the brand does not show (e.g. Auto Curler on 3A-4C, Thermal Brush on 4A-4C); estimates are flagged.
+
+## Decision 2026-10-21: flat iron colours
+
+The flat iron is documented in two colours, both valid product references for image generation:
+
+- **Pink Rush** - BNT131THP, ASIN B0H7DD5W2V (the client's Amazon link): hot pink approx #EB437C, soft-touch matte, lighter pink wordmark. Limited edition.
+- **Nano Blue** - BNT131T-N, ASIN B0F4MHYKSZ: metallic Nano Blue approx #68A4CB, white wordmark; the same blue as the Auto Curler, Thermal Round Brush and Style/Switch.
+
+Same tool, sizes and specs; only the finish changes.
