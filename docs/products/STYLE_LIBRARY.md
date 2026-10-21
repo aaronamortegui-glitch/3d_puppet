@@ -68,7 +68,9 @@ AFTER prompt:
 
 For straightening on curly and coily hair, the result says the hair is now longer, because the curls are stretched; without that line the model keeps the shrunken length.
 
-Review: all 21 kept identity (colour, mannequin, framing). Weak spots:
-- TB_t2 is still fairly wavy for a "polished blowout".
-- SS_t1_aircurl shows full waves rather than a curl that is already dropping.
-- AC_t3 is close to the BEFORE curls.
+Review: all 21 kept identity (colour, mannequin, framing). Three results were too weak and were regenerated with stronger prompts. The first versions are kept in `backview/v1/`, the jobs are in `v2_jobs.txt`, and the table shows v2.
+- TB_t2: v1 stayed wavy. The v2 prompt says the waves are "COMPLETELY GONE", the lengths are sleek and only the ends are bent. Result: a clear polished blowout.
+- SS_t1_aircurl: v1 showed full waves. The v2 prompt says the curls "have already fallen out", leaving only a weak bend in the bottom 10 cm. Result: mostly straight with a soft end bend, which matches the real-world reviews on fine hair.
+- AC_t3: v1 was almost the same as the BEFORE. The v2 prompt says the small corkscrews are "REPLACED" by uniform 1-inch barrel curls. Result: bigger, glossy, regular ringlets.
+
+Lesson: when the AFTER is close to the BEFORE, the model copies the BEFORE. Say what disappears (in capitals), not only what appears.
