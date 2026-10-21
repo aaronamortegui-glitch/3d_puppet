@@ -507,3 +507,15 @@ Sources: https://www.amazon.com/dp/B0H7DD5W2V, https://www.amazon.com/dp/B0F4MHY
 - The Tangerine Salon review cited in products.json for the Style/Switch reviews the OLDER StyleSwitch (dryer, round brush, smoothing tool, diffuser, no air barrels). It is sibling evidence, not evidence for the 2026 5-in-1 kits.
 - The flat iron has three conflicting brand heat charts (see brand claims); products.json listed two.
 - products.json "estimate" cells are superseded by the verdict tables above.
+## Audit 2: every photo against its row (2026-10-21)
+
+Each customer photo in the Figma READ FIRST table (68:2) was checked again, this time against the hair type of its row: does the photo actually show that hair type? 12 photos were removed from the table. The files stay in `samples/products/research/`.
+
+| Cell | Problem | Action |
+|---|---|---|
+| Auto Curler × curly | The only photo shows wavy blonde hair, not curly | Photo removed. The cell says "2 reviews say curly, but no photo shows curly hair". |
+| Flat iron × curly | The sibling-iron "curly" befores (2 before/after pairs) show wavy 2C hair | 4 photos removed. Verdict changed from WORKS to LOW EVIDENCE, here and in START HERE and both style libraries. |
+| Flat iron × wavy | In one sibling pair, the before is already straight | Pair removed |
+| Thermal Brush × wavy | The same before/after photo was cross-posted to Sephora | Duplicate removed |
+| Thermal Brush × curly, Style/Switch × curly | Result photos where the hair type cannot be seen (mirror selfie, smoothed hair, hair in a bun) | 3 photos removed |
+| Style/Switch × coily | A YouTube thumbnail with no visible result, and a photo of a child | 2 photos removed. Photos of minors are not used. |
