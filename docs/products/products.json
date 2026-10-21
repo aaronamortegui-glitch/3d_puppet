@@ -1,0 +1,1864 @@
+{
+  "_meta": {
+    "researched": "2026-10-21",
+    "method": "Amazon US product pages (fetched with curl, USD prices via currency cookie), Ulta product pages, Pearlon distributor page, web search snippets. babylisspro.com was NOT scraped (bot wall); facts attributed to it come from search-engine snippets only and are marked as such.",
+    "conventions": "Every fact is {value, source}. Fields with \"estimate\": true were measured from photos (pixel ratios against a known dimension or a hand of ~18.5 cm length / ~8 cm palm width) and are NOT published specs. Prices are Amazon US list/sale prices on the research date.",
+    "client_photo_mapping": [
+      {
+        "photo": "samples/photos/01_curling_iron_right_hand_front.webp",
+        "crop": "samples/products/01_curling_iron_crop.png",
+        "packshot": "samples/products/01_curling_iron_packshot.png",
+        "product_id": "01_curling_iron",
+        "product": "BaBylissPRO The Auto Curler 1\" (BNTAC100)",
+        "attachment": "n/a (single tool)",
+        "note": "Visually identical to Amazon gallery image 2 of B0H6CS24D5 (headline 'Perfect curls in just 10 minutes'), saved as research/01_curling_iron/02_in_hand_ad_photo01_source.jpg"
+      },
+      {
+        "photo": "samples/photos/02_round_brush_right_hand_three_quarter.webp",
+        "crop": "samples/products/02_round_brush_crop.png",
+        "packshot": "samples/products/02_round_brush_packshot.png",
+        "product_id": "02_round_brush",
+        "product": "BaBylissPRO The Thermal Round Brush 1.25\" (BNTHTB125)",
+        "attachment": "n/a (single tool)",
+        "note": "Visually identical to Amazon gallery image 2 of B0H6GT5D2V ('Smooth, shape, and curl'), saved as research/02_round_brush/02_in_hand_ad_photo02_source.jpg"
+      },
+      {
+        "photo": "samples/photos/03_hair_dryer_arms_up.webp",
+        "crop": "samples/products/03_dryer_wand_crop.png",
+        "packshot": "samples/products/03_dryer_wand_packshot.png",
+        "product_id": "03_style_switch",
+        "product": "BaBylissPRO The Style/Switch 5-in-1 Straight & Wavy (BNTSSSW-4PK-SL)",
+        "attachment": "1 1/2\" bidirectional air-curling barrel (black barrel with blue tip cap and blue collar)",
+        "note": "Visually identical to Amazon gallery image 3 of B0GSP69R85 ('110K RPM with zero heat damage'). Same scene/pose appears in gallery image 8 labelled '1 1/2\" BARREL - Blowout curls'. It is NOT a hair dryer or dryer wand; the old filename '03_dryer_wand' is a misnomer."
+      },
+      {
+        "photo": "samples/photos/04_air_styler_left_hand_extended.webp",
+        "crop": "samples/products/04_air_styler_crop.png",
+        "packshot": "samples/products/04_air_styler_packshot.png",
+        "product_id": "03_style_switch",
+        "product": "BaBylissPRO The Style/Switch 5-in-1 Straight & Wavy (BNTSSSW-4PK-SL)",
+        "attachment": "1 1/2\" bidirectional air-curling barrel",
+        "note": "Visually identical to Amazon gallery image 5 of B0GSP69R85 ('Effortless Coanda curling'); white rotation arrows are graphics, not part of the product."
+      },
+      {
+        "photo": null,
+        "product_id": "05_flat_iron",
+        "product": "BaBylissPRO Nano Titanium 1 1/2\" Ultra-Sleek Straightening Iron (B0H7DD5W2V = Pink Rush BNT131THP)",
+        "note": "No client photo or packshot yet."
+      }
+    ]
+  },
+  "products": [
+    {
+      "id": "01_curling_iron",
+      "identification": {
+        "name": {
+          "value": "BaBylissPRO The Auto Curler 1-Inch Automatic Rotating Curling Iron",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "alt_names": {
+          "value": [
+            "The Auto Curler 1\" Automatic Rotating Barrel, Dual Voltage (Ulta)",
+            "BaBylissPRO One-Click Auto Curler 1\" Curling Iron (babylisspro.com per search snippet)"
+          ],
+          "source": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541?sku=2661665"
+        },
+        "model": {
+          "value": "BNTAC100",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "asin": {
+          "value": "B0H6CS24D5",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "upc": {
+          "value": "074108533982",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "variants": {
+          "value": "BNTAC100C (Canadian/pro SKU, same 1\" barrel, 8 ft cord); Ulta item 2661665. No other colours found.",
+          "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/"
+        },
+        "colour_name": {
+          "value": "Nano Blue",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "price_usd": {
+          "value": "$129.99 (list price $139.99, -7%) on Amazon; Ulta $129.99; babylisspro.com $139.99 per search snippet",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "launch_date": {
+          "value": "Date First Available on Amazon: September 15, 2026",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "rating": {
+          "value": "4.9/5 (22 reviews at research time)",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "confidence": "HIGH - the client photo is the Amazon listing's own gallery image; tool shape (grey barrel, dark clamp, long teal handle, black swivel) matches all gallery packshots.",
+        "doubts": "Earlier leads (BNT125S spring iron, BNTW125XLUC extended barrel, BNTSC125 PrecisionGrip) are all WRONG: this is an automatic ROTATING 1\" iron, not a 1 1/4\" manual iron. The ad copy 'Rizos perfectos en solo 10 minutos' is the Amazon headline 'Perfect curls in just 10 minutes'."
+      },
+      "physical": {
+        "barrel_diameter": {
+          "value": "1 in (2.54 cm)",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "barrel_length": {
+          "value": "5.5 in (14.0 cm)",
+          "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/"
+        },
+        "clamp_length": {
+          "value": "3 in (7.6 cm) '3\" Clamp' (Pearlon: '3\" long steel spoon')",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5 (gallery image 5 callout); https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/"
+        },
+        "overall_length": {
+          "value": "14.38 in (36.5 cm) (Amazon 'Product Dimensions' 14.38 x 2.63 x 2.63 in; probably the tool, 2.63 in = clamp-lever width)",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "handle_length": {
+          "value": "~16-18 cm grip section below the clamp collar (about 45% of total length)",
+          "estimate": true,
+          "source": "measured on research/01_curling_iron/06_packshot_left_side_silo_BNTAC100C_pearlon.jpg and client photo 01"
+        },
+        "handle_diameter": {
+          "value": "~3.0 cm under the clamp widening to ~3.4 cm at the cord end (slight taper, wider at the bottom)",
+          "estimate": true,
+          "source": "width profile of the Pearlon silo scaled to the 1\" barrel"
+        },
+        "weight": {
+          "value": "1.25 lb (567 g) per Amazon product details; the A+ module says 'just 2.2 pounds' (generic copy shared with other tools, treat as unreliable)",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "cord": {
+          "value": "8 ft (2.4 m) power cord with 360-degree swivel, velcro cord strap (BNTAC100C)",
+          "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/"
+        }
+      },
+      "technical": {
+        "heat_settings": {
+          "value": "5 settings: 285, 320, 360, 395, 430 F (140, 160, 182, 202, 221 C)",
+          "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/"
+        },
+        "max_temperature": {
+          "value": "430 F (221 C)",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "rotation": {
+          "value": "Motorised barrel rotates left or right (directional button), 2 speed settings (slow for beginners / fast), Home button resets barrel position between sections",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "heater": {
+          "value": "MCH ceramic heater",
+          "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/"
+        },
+        "coating": {
+          "value": "PerfectCurl coating on the barrel (smooth glide, consistent tension, reduces clamp lines); listed material 'Titanium' / Nano Titanium line",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "safety": {
+          "value": "Auto shut-off after 60 minutes",
+          "source": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541?sku=2661665"
+        },
+        "voltage": {
+          "value": "Auto dual voltage",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "warranty": {
+          "value": "2-year limited protection plan",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "wattage": {
+          "value": "not published",
+          "source": null
+        },
+        "heat_up_time": {
+          "value": "not published ('heats up quickly')",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        }
+      },
+      "description": {
+        "summary": {
+          "value": "Press the directional button and the 1\" barrel rotates automatically, wrapping and curling each section - no manual twisting. Classic, defined, glossy curls in as little as 10 minutes.",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "key_claims": {
+          "value": [
+            "Perfect curls in just 10 minutes",
+            "One-click auto styling / auto-wrap technology",
+            "PerfectCurl coating - smooth glide without the clamp line",
+            "Directional button turns curls toward or away from the face",
+            "Does not tangle or pull hair (brand FAQ)",
+            "Safe for thick or coarse hair (brand FAQ)"
+          ],
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "hair_types": {
+          "value": "All hair types (Amazon: All, Coarse, Color Treated, Thick)",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "hair_length": {
+          "value": "Medium to long hair (a section must reach the clamp and wrap round a 5.5\" barrel); shoulder length and longer as in the ads",
+          "estimate": true,
+          "source": "inference from barrel size and gallery photos"
+        },
+        "results": {
+          "value": "Classic defined curls / glossy bouncy curls, face-framing when curl direction alternates",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "in_the_box": {
+          "value": "Curling iron only (Ulta/Amazon list no accessories)",
+          "source": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541?sku=2661665"
+        },
+        "how_to_use": {
+          "value": [
+            "Plug in and select one of 5 heat settings (lower for fine/damaged hair, higher for coarse).",
+            "Choose rotation speed: slow while learning, fast once comfortable.",
+            "Take a small section of dry hair; open the clamp lever and place the section (ends or mid-length) against the barrel, close the clamp.",
+            "Hold the iron vertically (tip up or down) next to the head and press the directional button: the barrel rotates and wraps the section around itself.",
+            "Hold a few seconds, open the clamp and slide the iron out of the curl.",
+            "Press Home to reset the barrel before the next section; alternate direction toward/away from the face for a balanced look."
+          ],
+          "source": "https://www.amazon.com/dp/B0H6CS24D5 (buttons/functions); clamp handling steps are general curling-iron practice (not stated verbatim)"
+        }
+      },
+      "grip_and_hair_interaction": {
+        "value": "Held in one hand like a traditional curling iron: fingers wrap the long teal handle around its middle/lower part, thumb along the inner side, barrel pointing straight up beside the head (photo 01: right hand, iron vertical at temple height). The clamp lever (dark grey thumb paddle) sits at the top of the handle where the barrel starts; directional (rocker/oval) button and round Home button are on the handle face just below the clamp collar, within thumb reach; speed/heat controls further down the handle; cord exits the bottom through a black swivel. Hair: a 3-5 cm wide section is wound in a loose spiral around the grey barrel from mid-shaft, ends tucked under the clamp near the collar; the free end of the curl drops out of the clamp area. Free hand is not needed (that is the selling point).",
+        "source": "client photo 01 + https://www.amazon.com/dp/B0H6CS24D5 gallery images 3-4 (button callouts)"
+      },
+      "visual": {
+        "value": {
+          "body_colour": "Metallic teal-blue 'Nano Blue' handle, approx #248EA6 (shadow #057A93, highlight #57ADC8), satin/pearlescent finish",
+          "barrel": "Warm titanium-grey, satin, approx #777777-#8A8580, with a dark charcoal cool tip (#3A3A3C)",
+          "clamp": "Dark charcoal/gunmetal clamp and lever, matte (#4A4A4E)",
+          "logos": "White 'BaBylissPRO' wordmark printed along the handle (lower half, reading along the axis); small white control icons near the buttons",
+          "distinctive": "Rocker-style directional button + round home button just below the clamp collar; a small chrome/silver ring at the cord end; black 360-degree swivel with black strain-relief spring; long slim handle that is noticeably longer than the barrel's exposed length",
+          "cable": "Black round cord exiting the bottom end of the handle, axial"
+        },
+        "source": "colours sampled from research/01_curling_iron/01_packshot_white_3q.jpg; details from gallery images"
+      },
+      "hair_styles": {
+        "legend": "recommended: yes / yes-brand-claim / limited / no / not-stated. \"estimate\": true = inference from tool geometry, sibling-product guides or general styling practice, not a published claim.",
+        "brand_positioning": {
+          "value": "All hair types; FAQ: safe for thick or coarse hair; 5 heat settings let you pick the temperature for your hair type. Amazon hair type field: All, Coarse, Color Treated, Thick.",
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "heat_guide": {
+          "value": "No official per-type chart for the Auto Curler. Settings are 285 / 320 / 360 / 395 / 430 F. The sibling Nano Titanium PrecisionGrip iron publishes: 250-280 F fine (1A), 310-340 F thin (1B-1C), 370-400 F textured (2A-3C), 430 F coarse (4A-4C) - applied below by analogy.",
+          "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/ ; https://www.amazon.com/dp/B0GXG5BHD5",
+          "estimate": true
+        },
+        "styles_it_creates": {
+          "value": [
+            "Classic defined curls (main claim, 1\" barrel)",
+            "Loose glossy curls / soft waves when brushed out",
+            "Face-framing curls (rotate away from face)",
+            "Balanced curls by alternating direction left/right"
+          ],
+          "source": "https://www.amazon.com/dp/B0H6CS24D5"
+        },
+        "by_curl_pattern": [
+          {
+            "hair": "Type 1 straight (1A-1C)",
+            "recommended": "yes",
+            "style_result": "Classic defined curls that relax into soft waves; ad shows straight brunette -> long loose curls",
+            "setting_or_attachment": "285-320 F fine/thin, 360 F normal",
+            "caveats": "Straight fine hair may drop curls within hours; use setting spray (Ulta reviewer with long fine hair: curls held about an hour without product, waves all day)",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5 (gallery before/after) ; https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541?sku=2661665"
+          },
+          {
+            "hair": "Type 2 wavy (2A-2C)",
+            "recommended": "yes",
+            "style_result": "Defined, glossy uniform curls replacing irregular waves",
+            "setting_or_attachment": "360-395 F",
+            "caveats": "Frizz-prone 2C benefits from smoothing first",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5",
+            "estimate": true
+          },
+          {
+            "hair": "Type 3 curly (3A-3C)",
+            "recommended": "limited",
+            "style_result": "Re-defining or uniforming curls / smoothing a blowout into curls; on natural 3A-3C hair it is used after a blowout or silk press",
+            "setting_or_attachment": "395-430 F",
+            "caveats": "Not shown in brand imagery; curling natural curls without prior straightening adds little",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5",
+            "estimate": true
+          },
+          {
+            "hair": "Type 4 coily (4A-4C)",
+            "recommended": "limited",
+            "style_result": "Curls on blown-out / pressed 4A-4C hair (bouncy curls on a silk press)",
+            "setting_or_attachment": "430 F (coarse)",
+            "caveats": "Only on stretched/pressed hair; high heat on fragile coils - heat protectant; brand claims safe for coarse hair",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5 (FAQ coarse)",
+            "estimate": true
+          }
+        ],
+        "by_density": [
+          {
+            "hair": "Fine",
+            "recommended": "yes",
+            "style_result": "Defined curls, lighter hold",
+            "setting_or_attachment": "Lowest settings 285-320 F, small 1\" sections",
+            "caveats": "Curl longevity is lower; a Ulta reviewer with fine hair got about 1 hour of curl",
+            "source": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541?sku=2661665"
+          },
+          {
+            "hair": "Medium",
+            "recommended": "yes",
+            "style_result": "Classic curls",
+            "setting_or_attachment": "320-360 F",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5",
+            "estimate": true
+          },
+          {
+            "hair": "Thick / coarse",
+            "recommended": "yes-brand-claim",
+            "style_result": "Defined curls",
+            "setting_or_attachment": "395-430 F; smaller sections",
+            "caveats": "Brand FAQ: safe and effective for thick or coarse hair",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5"
+          }
+        ],
+        "by_length": [
+          {
+            "hair": "Short (above chin)",
+            "recommended": "limited",
+            "style_result": "Bends / short curls",
+            "setting_or_attachment": "any",
+            "caveats": "Barrel is 5.5 in long and rotates; very short hair may not wrap a full turn and gets close to the scalp",
+            "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/",
+            "estimate": true
+          },
+          {
+            "hair": "Medium (chin to shoulder)",
+            "recommended": "yes",
+            "style_result": "Bouncy curls",
+            "setting_or_attachment": "any",
+            "caveats": "Minimum about 15 cm / 6 in of hair for one wrap round a 1 in barrel (circumference ~8 cm) plus clamp grip",
+            "source": "https://www.pearlon.com/product/babylisspro-1-auto-curling-iron-bntac100c/",
+            "estimate": true
+          },
+          {
+            "hair": "Long (below shoulder)",
+            "recommended": "yes",
+            "style_result": "Long classic curls / loose curls (all ad models have long hair)",
+            "setting_or_attachment": "any",
+            "caveats": "Use 1 in sections so the wrapped hair fits the 5.5 in barrel without stacking",
+            "source": "https://www.amazon.com/dp/B0H6CS24D5 (A+ how-to: one-inch sections)"
+          }
+        ],
+        "how_to_brand": {
+          "value": [
+            "Section clean, dry hair into manageable one-inch sections; comb through to remove tangles.",
+            "Choose from five heat settings up to 430 F and adjust rotation speed; place a section of hair in the barrel and press the button to automatically wrap.",
+            "Release the button to reveal a classic, defined curl; press the home button to reset the tool."
+          ],
+          "source": "https://www.amazon.com/dp/B0H6CS24D5 (A+ how-to module, saved as 01_curling_iron/howto_3_steps_section_wrap_release_blonde_aplus.png)"
+        }
+      }
+    },
+    {
+      "id": "02_round_brush",
+      "identification": {
+        "name": {
+          "value": "BaBylissPRO The Thermal Round Brush 1.25-Inch Heated Styling Brush",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "alt_names": {
+          "value": [
+            "The Thermal Round Brush 1 1/4\" Barrel, Dual Voltage (Ulta item 2661667)"
+          ],
+          "source": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542?sku=2661667"
+        },
+        "model": {
+          "value": "BNTHTB125",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "asin": {
+          "value": "B0H6GT5D2V",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "upc": {
+          "value": "074108525338",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "variants": {
+          "value": "Only Nano Blue found. Not to be confused with the older 'Nano Titanium Extra-Long Thermal Round Brush' (1.73\"/2\", vented barrel, Ulta 2637386/2637387).",
+          "source": "https://www.ulta.com/p/nano-titanium-extra-long-thermal-round-brush-pimprod2050666?sku=2637387"
+        },
+        "colour_name": {
+          "value": "Nano Blue",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "price_usd": {
+          "value": "$99.99 (Amazon, Ulta)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "launch_date": {
+          "value": "not shown on Amazon; ASIN family B0H6 (same as the Auto Curler, first available Sep 15 2026) suggests a fall-2026 launch",
+          "estimate": true,
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "rating": {
+          "value": "4.5/5 (24 reviews on Amazon at research time); Ulta 4.6 (70 reviews per search snippet)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "confidence": "HIGH - client photo 02 is the listing's own gallery image; brush shape, flared collar and cool tip match.",
+        "doubts": "The '1.25 in' refers to the Nano Titanium barrel core; outer bristle diameter is not published (estimate below)."
+      },
+      "physical": {
+        "barrel_diameter": {
+          "value": "1.25 in (3.2 cm) Nano Titanium coated barrel core",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "outer_diameter_with_bristles": {
+          "value": "~3.6 cm across the short heated comb teeth; ~6 cm across the long nylon bristle rows",
+          "estimate": true,
+          "source": "width profile of research/02_round_brush/01_packshot_white_front.jpg scaled to 14.38 in overall length"
+        },
+        "barrel_length": {
+          "value": "~16-17 cm bristle section (cool tip excluded)",
+          "estimate": true,
+          "source": "same packshot measurement"
+        },
+        "overall_length": {
+          "value": "14.38 in (36.5 cm) (Amazon dimensions 7 x 2.63 x 14.38 in)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "handle_length": {
+          "value": "~16 cm from the flared collar to the cord end",
+          "estimate": true,
+          "source": "packshot measurement"
+        },
+        "handle_diameter": {
+          "value": "~2.8 cm below the collar widening to ~3.2 cm near the cord end; flared collar ~4.5 cm",
+          "estimate": true,
+          "source": "packshot measurement"
+        },
+        "weight": {
+          "value": "1.6 lb (726 g) per Amazon product details; A+ says 'just 2.2 pounds' (generic copy, unreliable)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "cord": {
+          "value": "9 ft (2.7 m) 360-degree swivel cord",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        }
+      },
+      "technical": {
+        "heat_settings": {
+          "value": "5 heat settings up to 430 F (221 C)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "ionic": {
+          "value": "Ionic Mode button: on = smoother, shinier, less frizz; off = more volume",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "materials": {
+          "value": "Nano Titanium coated barrel; two sets of heated ceramic combs/teeth; nylon bristles",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "wattage": {
+          "value": "50 W (Amazon spec table)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "safety": {
+          "value": "Cool tip; auto shut-off after 60 minutes",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V (gallery callouts 'Cool tip', 'auto shut-off after 60 minutes')"
+        },
+        "voltage": {
+          "value": "Auto dual voltage (spec table lists 120 V)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "warranty": {
+          "value": "2-year limited protection plan",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "heat_up_time": {
+          "value": "not published ('heats up quickly and evenly')",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        }
+      },
+      "description": {
+        "summary": {
+          "value": "Heated styling brush for DRY hair: smooths, shapes and curls in one step for a polished blowout look with volume, lift, movement and shine; refreshes second-day hair.",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "key_claims": {
+          "value": [
+            "Smooth, shape, and curl",
+            "The blowout standard - volume, bounce and shine in minutes",
+            "Extends your blowout / refreshes second-day hair",
+            "Heated combs smooth while nylon bristles detangle and add tension",
+            "Can replace a flat iron or curling wand"
+          ],
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "hair_types": {
+          "value": "All hair types incl. curly/textured (brand FAQ: no tugging on curly and textured hair)",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "hair_length": {
+          "value": "Shoulder length and longer works best for wrapping; short hair for root lift/smoothing",
+          "estimate": true,
+          "source": "inference from barrel size and gallery photos"
+        },
+        "results": {
+          "value": "Smooth blowout with volume/lift, bent ends, soft curls and waves, sleek frizz-free finish",
+          "source": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542?sku=2661667"
+        },
+        "in_the_box": {
+          "value": "Thermal Round Brush unit with attached 9-ft 360-degree swivel cord",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "how_to_use": {
+          "value": [
+            "Start on completely dry, detangled hair (it is not a dryer).",
+            "Choose heat: lower settings for fine/damaged hair, up to 430 F for coarse hair; press Ionic Mode on for sleek/anti-frizz or leave off for volume.",
+            "Take a section no wider than the brush; place the brush under the section at the root for lift.",
+            "Glide slowly from root to ends, letting the heated combs smooth the hair.",
+            "At mid-lengths/ends, roll the brush to wrap the hair 1-2 turns, hold a few seconds, then unroll/glide out for a bent end or soft curl.",
+            "Repeat around the head; touch up flyaways or second-day bends."
+          ],
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V (functions); sequence is standard thermal-brush practice"
+        }
+      },
+      "grip_and_hair_interaction": {
+        "value": "Held like a round brush in one hand: fingers wrap the lower half of the blue handle, thumb on top, cord end resting just below the little finger (photo 02: right hand at shoulder height, brush angled up ~45 degrees toward the temple, head of the brush above eye level). Controls (ionic button, heat buttons with small red LED dots) sit on the handle face just below the flared collar. Hair: a section from beside the face is wrapped ~1.5 turns around the middle of the bristle barrel, ends caught in the bristles; bristles hold tension. No second hand needed.",
+        "source": "client photo 02 + https://www.amazon.com/dp/B0H6GT5D2V gallery images 4-5"
+      },
+      "visual": {
+        "value": {
+          "body_colour": "Metallic Nano Blue, approx #308FBE (shadow #277397, highlight #4FA7D7), satin finish",
+          "barrel": "Dark gunmetal perforated Nano Titanium barrel core (#3C3F44) with many round vent holes; rows of black nylon bristles alternating with short dark heated comb teeth",
+          "tip": "Blue cool tip shaped like a small finial/knob on a stem",
+          "collar": "Flared, trumpet-shaped blue collar where barrel meets handle",
+          "logos": "White 'BaBylissPRO' wordmark along the handle (vertical, mid-handle)",
+          "distinctive": "Chrome ring at the cord end, black swivel with a loop/hang hook; ionic button on the collar side",
+          "cable": "Black cord, axial exit at the bottom"
+        },
+        "source": "colours sampled from research/02_round_brush/01_packshot_white_front.jpg; details from gallery images"
+      },
+      "hair_styles": {
+        "legend": "recommended: yes / yes-brand-claim / limited / no / not-stated. \"estimate\": true = inference from tool geometry, sibling-product guides or general styling practice, not a published claim.",
+        "brand_positioning": {
+          "value": "For all hair types; heated styling brush for DRY hair; FAQ: no pulling on curly and textured hair; lower settings for fine or damaged hair.",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "heat_guide": {
+          "value": "5 settings up to 430 F (exact steps not published). Brand: select a lower temperature for fine or damaged hair. Ionic Mode ON = smoother, shinier, less frizz; OFF = more volume.",
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+        },
+        "styles_it_creates": {
+          "value": [
+            "Polished blowout with volume and lift",
+            "Bouncy bent ends / soft curls (wrap ends)",
+            "Sleek, frizz-free straight finish (brand shows 3B curls -> sleek straight)",
+            "Root lift / volume (ionic off)",
+            "Second-day refresh: revive volume, smooth bends, reshape ends"
+          ],
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V ; https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542?sku=2661667"
+        },
+        "by_curl_pattern": [
+          {
+            "hair": "Type 1 straight",
+            "recommended": "yes",
+            "style_result": "Root lift, volume, bouncy bent ends; blowout look on straight hair (ad model)",
+            "setting_or_attachment": "Low-medium heat, ionic OFF for volume",
+            "caveats": "Fine straight hair can go flat - lift at root and wrap ends",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V (gallery: The Blowout Standard)"
+          },
+          {
+            "hair": "Type 2 wavy",
+            "recommended": "yes",
+            "style_result": "Smooth blowout with movement; soft waves at the ends",
+            "setting_or_attachment": "Medium heat, ionic ON for frizz",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V",
+            "estimate": true
+          },
+          {
+            "hair": "Type 3 curly (3A-3C)",
+            "recommended": "yes-brand-claim",
+            "style_result": "Sleek, polished, frizz-free straight blowout from curly hair (brand before/after 3B -> sleek)",
+            "setting_or_attachment": "Higher heat (up to 430 F), ionic ON, small sections",
+            "caveats": "Hair must be dry; heat protectant first (brand how-to). One user with very curly hair reported soft, non-frizzy results",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V ; https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542?sku=2661667"
+          },
+          {
+            "hair": "Type 4 coily (4A-4C)",
+            "recommended": "limited",
+            "style_result": "Smoothing / stretching and blowout touch-ups",
+            "setting_or_attachment": "Highest heat, ionic ON, very small sections",
+            "caveats": "Brand says all hair types and no tugging on textured hair, but no 4A-4C imagery; on dense 4C a flat iron or dryer-brush is usually needed first",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V",
+            "estimate": true
+          }
+        ],
+        "by_density": [
+          {
+            "hair": "Fine",
+            "recommended": "yes",
+            "style_result": "Volume and lift, smooth finish",
+            "setting_or_attachment": "Lower settings (brand), ionic OFF for volume",
+            "caveats": "Brand: choose lower temperature for fine or damaged hair",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+          },
+          {
+            "hair": "Medium",
+            "recommended": "yes",
+            "style_result": "Blowout",
+            "setting_or_attachment": "Medium",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V",
+            "estimate": true
+          },
+          {
+            "hair": "Thick / coarse",
+            "recommended": "yes",
+            "style_result": "Smoothing, frizz control",
+            "setting_or_attachment": "High heat, ionic ON",
+            "caveats": "Dual heated combs + nylon bristles add tension; small sections",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V"
+          }
+        ],
+        "by_length": [
+          {
+            "hair": "Short (pixie/bob)",
+            "recommended": "yes",
+            "style_result": "Root lift, smoothing, bent-under ends on a bob",
+            "setting_or_attachment": "any",
+            "caveats": "Barrel 1.25 in suits short-medium hair; pixie length only lifts roots",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V",
+            "estimate": true
+          },
+          {
+            "hair": "Medium",
+            "recommended": "yes",
+            "style_result": "Blowout with bouncy ends",
+            "setting_or_attachment": "any",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V",
+            "estimate": true
+          },
+          {
+            "hair": "Long",
+            "recommended": "yes",
+            "style_result": "Long blowout, soft waves at mid-lengths/ends (ad models have long hair)",
+            "setting_or_attachment": "any",
+            "caveats": "Takes more passes; wrap ends 1-2 turns for bounce",
+            "source": "https://www.amazon.com/dp/B0H6GT5D2V (gallery)"
+          }
+        ],
+        "how_to_brand": {
+          "value": [
+            "Apply a heat protectant spray to dry hair and divide into small, manageable sections.",
+            "Glide the heated barrel down toward the ends to smooth flyaways. Style your blowout by lifting at the root, then wrapping the ends around the barrel to shape curls.",
+            "Use the ionic mode to tame frizz and lock in shine. Let hair cool completely before brushing."
+          ],
+          "source": "https://www.amazon.com/dp/B0H6GT5D2V (A+ how-to module, saved as 02_round_brush/howto_curly_3b_to_sleek_3_steps_heat_protectant_glide_ionic_aplus.png)"
+        }
+      }
+    },
+    {
+      "id": "03_style_switch",
+      "identification": {
+        "name": {
+          "value": "BaBylissPRO The Style/Switch 5-in-1 Air Styling and Drying System, Ionic Lightweight Multi-Styler Hot Air Styler (Straight & Wavy Hair Types)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "model": {
+          "value": "BNTSSSW-4PK-SL",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "asin": {
+          "value": "B0GSP69R85",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "upc": {
+          "value": "074108530028",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "variants": {
+          "value": [
+            "Curly & Coily Hair Types: ASIN B0GSNX1NLM (BNTSSCC, includes a diffuser)",
+            "Limited Edition Hot Pink Straight & Wavy BNTSSSW-4PKHP (babylisspro.com/SalonCentric 'Pink Rush')",
+            "Older 2025 Style/Switch Ionic Multi-Styler BNTSS-5PK (concentrator, smoother, paddle, diffuser, round brush - no air curlers; different kit)",
+            "Accessory: 1\" Air Curling Barrels sold separately (ASIN B0H6GV3CYL)"
+          ],
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (variation data); accessory per web search https://www.amazon.com/dp/B0H6GV3CYL"
+        },
+        "colour_name": {
+          "value": "Blue",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "price_usd": {
+          "value": "$249.99 (Amazon, Ulta)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "launch_date": {
+          "value": "The Straight & Wavy kit with air curlers was already on Ulta in 2025 (People \"Best New Launches 2025\" badge on Ulta item 2654756); the Amazon ASIN B0GSP69R85 carries the Shop TODAY 2026 award and Vogue \"Best Value Multi-Styler 2026\".",
+          "source": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756 ; https://www.amazon.com/dp/B0GSNX1NLM"
+        },
+        "rating": {
+          "value": "4.2/5 (131 reviews) at research time",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "confidence": "HIGH - client photos 03 and 04 are the listing's own gallery images 3 and 5; body, buttons and attachments match the 'What's in the box' image.",
+        "doubts": "Function of each individual button on the body is not documented in any source reached (manual pages were blocked)."
+      },
+      "attachments": {
+        "value": [
+          {
+            "name": "Adjustable Concentrator",
+            "detail": "3 concentrated airflow (nozzle opening) settings for targeted drying / rough-dry",
+            "in_photo": null
+          },
+          {
+            "name": "1 3/4\" Round Brush",
+            "detail": "Volumizing; long nylon bristles detangle, short natural bristles add shine and control",
+            "in_photo": null
+          },
+          {
+            "name": "Paddle Brush",
+            "detail": "Vented paddle/detangler, smooths and straightens in one pass",
+            "in_photo": null
+          },
+          {
+            "name": "1 1/2\" Bidirectional Air-Curling Barrels (pair)",
+            "detail": "Coanda auto-curling: airflow attracts and wraps hair around the barrel; one barrel curls clockwise, the other counter-clockwise (alternate per side of the head). Black barrel with a blue end cap and blue mounting collar; a white chevron/arrow on the barrel marks direction.",
+            "in_photo": [
+              "03",
+              "04"
+            ]
+          },
+          {
+            "name": "Accessories",
+            "detail": "4 creaseless clips, sectioning comb, soft zippered storage case",
+            "in_photo": null
+          }
+        ],
+        "source": "https://www.amazon.com/dp/B0GSP69R85 ; https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756"
+      },
+      "physical": {
+        "body_length": {
+          "value": "8 in (20.3 cm) motor body without attachment",
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (gallery image 'What's in the box' with dimension lines)"
+        },
+        "body_diameter": {
+          "value": "2 in (5.1 cm)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (gallery image 'What's in the box')"
+        },
+        "air_curling_barrel_diameter": {
+          "value": "1 1/2 in (3.8 cm)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "air_curling_barrel_length": {
+          "value": "~19-20 cm including blue collar and cap (packshot ratio to 2\" body width)",
+          "estimate": true,
+          "source": "research/03_style_switch/01_packshot_all_attachments.jpg"
+        },
+        "overall_length_with_air_curler": {
+          "value": "~33-36 cm (13-14 in); the barrel collar slides over the top blue section of the body",
+          "estimate": true,
+          "source": "client photo 04 proportions"
+        },
+        "round_brush": {
+          "value": "1 3/4 in (4.4 cm) published; ~8.5 cm across bristle tips, ~17 cm long",
+          "estimate": true,
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (diameter); packshot ratio (other values)"
+        },
+        "paddle_brush": {
+          "value": "~7.5 x 16 cm head",
+          "estimate": true,
+          "source": "packshot ratio"
+        },
+        "weight": {
+          "value": "2 lb (907 g) listed 'Item Weight' - almost certainly the full kit, not the handle; listing calls it the 'smallest and lightest multistyler'",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "handle_weight": {
+          "value": "~450-550 g body alone",
+          "estimate": true,
+          "source": "typical for 1250 W brushless stylers of this size; no source"
+        },
+        "cord": {
+          "value": "9 ft (2.7 m) swivel cord",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        }
+      },
+      "technical": {
+        "motor": {
+          "value": "110,000 RPM high-speed motor (brushless per earlier lead / Modern Beauty for prior model)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "wattage": {
+          "value": "1250 W",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "max_temperature": {
+          "value": "257 F (125 C); claim: extreme heat damage can occur above 302 F",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "settings": {
+          "value": "9 heat/speed setting combinations ('Number of settings = 9'), cool shot button, pause function, automatic memory recall of last setting",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "ionic": {
+          "value": "Nano Titanium technology + true ion generator (millions of negative ions)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "attachment_system": {
+          "value": "Attachments twist and lock in place; hold the Attachment Release button to remove",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "filter": {
+          "value": "Magnetic filter cover (air intake at the bottom, perforated grille)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "voltage": {
+          "value": "Auto dual voltage (spec table: 125 V)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "warranty": {
+          "value": "2-year protection plan / limited 2-year warranty",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "award": {
+          "value": "Shop TODAY Beauty Award Winner 2026",
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (gallery image 3)"
+        }
+      },
+      "description": {
+        "summary": {
+          "value": "Multi-styler that dries, blows out, volumizes and curls with air only (max 257 F), using a 110,000 RPM motor and interchangeable attachments; Coanda air-curling barrels wrap hair automatically.",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "key_claims": {
+          "value": [
+            "110K RPM with zero heat damage*",
+            "Dry, blow out, volume & curl effortlessly with no heat damage",
+            "Effortless Coanda curling - blowout curls, relaxed waves, defined curls",
+            "Frizz-free shine (Nano Titanium + ions)",
+            "Smallest and lightest multistyler",
+            "2 barrel sizes: 1 1/2\" for blowout curls, 1\" (sold separately) for defined curls"
+          ],
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "hair_types": {
+          "value": "Straight and wavy hair types (Curly & Coily version exists separately)",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "hair_length": {
+          "value": "Shoulder length and longer for the air curlers (photos show long hair)",
+          "estimate": true,
+          "source": "inference from gallery"
+        },
+        "results": {
+          "value": "Blowout curls, relaxed waves, defined curls, sleek or voluminous blowouts",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "in_the_box": {
+          "value": "Motor body, adjustable concentrator, 1 3/4\" round brush, paddle brush, 2 x 1 1/2\" bidirectional air-curling barrels, 4 creaseless clips, sectioning comb, storage case",
+          "source": "https://www.amazon.com/dp/B0GSP69R85"
+        },
+        "how_to_use": {
+          "value": [
+            "Start with clean, damp hair; use the Concentrator nozzle to rough-dry.",
+            "Switch to an Air Curler barrel (hold Attachment Release, twist off/on) and section hair with the creaseless clips.",
+            "Prep with mousse and heat protectant; hold the end of a section near the barrel - the Coanda airflow pulls the hair in and wraps it around the barrel; use the opposite-direction barrel on the other side of the head.",
+            "Hold until dry, lock the curl with the Cold Shot, then slide the barrel out downward.",
+            "Pin curls to cool and set, then finish with hairspray.",
+            "For blowouts use the 1 3/4\" round brush (lift at root, roll through) or the paddle brush (smooth in one pass)."
+          ],
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (gallery image 'How to hold your curl' 4 steps and A+ text); last step from Ulta feature list https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756"
+        }
+      },
+      "grip_and_hair_interaction": {
+        "value": "The motor body IS the handle (no separate grip): held vertically with the attachment pointing up, fingers wrapped around the lower chrome/blue part of the 5 cm body, just above the blue perforated air intake at the bottom; thumb on the front near the button column; cord hangs from the bottom end. Photo 03 (arms up): right hand grips the body at head height, left hand reaches over the head and pinches the blue end cap of the barrel; the hair section from the crown is wound around the black barrel near the root. Photo 04 (arm extended): left hand holds the body at shoulder/ear height, arm out to the side; a section from the side of the head is pulled straight out horizontally and its ends are being drawn round the upper black barrel by the airflow (white arrows in the ad are graphics).",
+        "source": "client photos 03, 04; https://www.amazon.com/dp/B0GSP69R85 gallery"
+      },
+      "visual": {
+        "value": {
+          "body_colour": "Metallic Nano Blue anodised-look aluminium, approx #2D8AB0 (shadow #18658A, highlight #68B0D1), combined with a mirror-chrome front/side panel",
+          "barrel": "Matte black air-curling barrel (#212123) with fine slots, blue end cap and blue collar; white chevron mark",
+          "air_intake": "Bottom ~4 cm of the body is a blue cylinder perforated with a dense grid of round holes (magnetic filter cover)",
+          "controls": "Vertical column on the front chrome panel: two small round buttons at top (one with red indicator), small speed/heat LED dots, two oval/pill buttons, a small round button near the bottom; side 'BaBylissPRO' wordmark in white along the chrome/blue panel",
+          "logos": "'BaBylissPRO' vertical white wordmark on the body",
+          "distinctive": "Blue ring with small triangle alignment markers where attachments lock; slim cylindrical form; no pistol grip",
+          "cable": "Black cord exiting the bottom centre of the air-intake end"
+        },
+        "source": "colours sampled from research/03_style_switch/01_packshot_all_attachments.jpg; layout from gallery 'What's in the box' close-up"
+      },
+      "hair_styles": {
+        "legend": "recommended: yes / yes-brand-claim / limited / no / not-stated. \"estimate\": true = inference from tool geometry, sibling-product guides or general styling practice, not a published claim.",
+        "versions": {
+          "straight_wavy": {
+            "value": "BNTSSSW-4PK-SL (B0GSP69R85): 1 1/2\" air-curling barrels (x2), 1 3/4\" round brush, paddle brush, adjustable concentrator, sectioning comb, 4 creaseless clips, case. For straight and wavy hair types (1A-2C).",
+            "source": "https://www.amazon.com/dp/B0GSP69R85"
+          },
+          "curly_coily": {
+            "value": "BNTSSCC-4PK-SL (B0GSNX1NLM): 1 1/2\" air-curling barrels (x2), 1 3/4\" round brush, diffuser, adjustable concentrator, 4 XL sectioning clips, 2-in-1 Mini Slick Back Brush, case (no paddle brush, no comb/creaseless clips). For curly and coily hair types incl. 4C (brand FAQ). Same body, $249.99.",
+            "source": "https://www.amazon.com/dp/B0GSNX1NLM"
+          },
+          "comparison_chart": {
+            "value": "Brand chart: air curlers + round brush in both kits; paddle brush, sectioning comb, creaseless clips only Straight & Wavy; sectioning clips, mini slick back brush, diffuser only Curly & Coily.",
+            "source": "https://www.amazon.com/dp/B0GSP69R85 (A+ chart, saved as 03_style_switch/guide_attachments_straight_wavy_vs_curly_coily_aplus.jpg)"
+          }
+        },
+        "heat_guide": {
+          "value": "Brand \"Heat & airflow guide\" (3 heat x 3 speed = 9 settings, max 257 F): Round Brush = heat low-medium, speed low-medium, best on damp or dry hair; Paddle Brush = heat low-medium, speed low only, damp or dry hair; Diffuser = heat low-high, speed low only, damp or wet hair; Concentrator = any heat, any speed, best for drying wet hair. Ulta: Air Curling Barrels = High Heat + High Airflow; Round Brush = Medium Heat + Medium Airflow.",
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (A+ guide, saved as 03_style_switch/guide_heat_and_speed_per_attachment_aplus.jpg) ; https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756 (gallery images, saved as 03_style_switch/result_*_ulta.jpg)"
+        },
+        "styles_it_creates": {
+          "value": [
+            "Soft blowout curls and relaxed waves (1 1/2\" air curlers)",
+            "Tighter defined curls (1\" air curlers, sold separately)",
+            "Bouncy, voluminous round-brush blowout with flipped ends",
+            "Sleek, smooth straight blowout (paddle brush; frizz-free shine)",
+            "Enhanced natural curl definition (diffuser, Curly & Coily kit)",
+            "Fast rough-dry (concentrator)"
+          ],
+          "source": "https://www.amazon.com/dp/B0GSP69R85 ; https://www.amazon.com/dp/B0GSNX1NLM"
+        },
+        "per_attachment": {
+          "air_curling_barrels_1_5in": {
+            "in_kits": "both",
+            "result": {
+              "value": "Soft, relaxed waves and loose blowout curls; bidirectional pair - alternate curl direction on each side for a natural bouncy finish",
+              "source": "https://www.amazon.com/dp/B0GSP69R85 (FAQ: 1 1/2\" create soft, relaxed waves and loose curls)"
+            },
+            "setting": {
+              "value": "High heat + high airflow; finish each curl with Cold Shot before releasing; pin curls to cool",
+              "source": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756 ; https://www.amazon.com/dp/B0GSP69R85"
+            },
+            "hair_matrix": [
+              {
+                "hair": "Type 1 straight",
+                "recommended": "yes",
+                "style_result": "Soft blowout curls / loose waves (ad models: straight to slightly wavy long hair)",
+                "setting_or_attachment": "1 1/2\" barrels, high heat/air",
+                "caveats": "Air-only curls on straight fine hair drop faster - prep with mousse + Cold Shot + pins (brand steps)",
+                "source": "https://www.amazon.com/dp/B0GSP69R85"
+              },
+              {
+                "hair": "Type 2 wavy",
+                "recommended": "yes",
+                "style_result": "Blowout curls, relaxed waves (photos 03/04 of the client)",
+                "setting_or_attachment": "1 1/2\" barrels",
+                "caveats": "",
+                "source": "https://www.amazon.com/dp/B0GSP69R85"
+              },
+              {
+                "hair": "Type 3 curly",
+                "recommended": "yes-brand-claim",
+                "style_result": "Curls stretched into soft waves / blowout curls (Sephora curly-coarse reviewer: barrels made natural curls look wavy instead of curly)",
+                "setting_or_attachment": "1 1/2\" barrels on damp-to-dry stretched hair",
+                "caveats": "Hair usually blown out first with round brush or concentrator",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM ; https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791"
+              },
+              {
+                "hair": "Type 4 coily",
+                "recommended": "yes-brand-claim",
+                "style_result": "Soft blowout curls on stretched coily hair",
+                "setting_or_attachment": "1 1/2\" barrels after stretching",
+                "caveats": "Salon review: very coarse/highly textured hair may find the motor underpowered",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM ; https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              },
+              {
+                "hair": "Fine",
+                "recommended": "yes",
+                "style_result": "Soft waves",
+                "setting_or_attachment": "medium-high heat",
+                "caveats": "Lower hold",
+                "source": "https://www.amazon.com/dp/B0GSP69R85",
+                "estimate": true
+              },
+              {
+                "hair": "Thick / coarse",
+                "recommended": "yes-brand-claim",
+                "style_result": "Waves",
+                "setting_or_attachment": "high heat/air, smaller sections",
+                "caveats": "Brand FAQ: adjustable airflow manages thick dense hair; salon review: may struggle",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM ; https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              },
+              {
+                "hair": "Short",
+                "recommended": "no / limited",
+                "style_result": "-",
+                "setting_or_attachment": "-",
+                "caveats": "Coanda wrap needs enough length to go round a 3.8 cm barrel at least 1.5 turns (~20 cm / 8 in); bobs get bends only",
+                "source": "https://www.amazon.com/dp/B0GSP69R85",
+                "estimate": true
+              },
+              {
+                "hair": "Medium-long",
+                "recommended": "yes",
+                "style_result": "Blowout curls / waves; all brand imagery is shoulder-length to long",
+                "setting_or_attachment": "-",
+                "caveats": "",
+                "source": "https://www.amazon.com/dp/B0GSP69R85"
+              }
+            ]
+          },
+          "air_curling_barrels_1in": {
+            "in_kits": "sold separately (ASIN B0H6GV3CYL)",
+            "result": {
+              "value": "Tighter, more defined curls",
+              "source": "https://www.amazon.com/dp/B0GSP69R85 (FAQ)"
+            },
+            "hair_matrix": [
+              {
+                "hair": "All types, medium-long hair",
+                "recommended": "yes",
+                "style_result": "Defined curls",
+                "setting_or_attachment": "1\" barrels",
+                "caveats": "Accessory not in either kit",
+                "source": "https://www.amazon.com/dp/B0GSP69R85"
+              }
+            ]
+          },
+          "round_brush_1_75in": {
+            "in_kits": "both",
+            "result": {
+              "value": "Lifts at the roots and builds volume; bouncy, frizz-free blowout; flip ends",
+              "source": "https://www.amazon.com/dp/B0GSP69R85 ; https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756"
+            },
+            "setting": {
+              "value": "Medium heat + medium airflow; damp or dry hair",
+              "source": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756 ; https://www.amazon.com/dp/B0GSP69R85"
+            },
+            "hair_matrix": [
+              {
+                "hair": "Type 1 straight",
+                "recommended": "yes",
+                "style_result": "Volume, bouncy blowout",
+                "setting_or_attachment": "medium/medium",
+                "caveats": "Reviewer favourite attachment (sponsored review, wavy mid-length hair)",
+                "source": "https://bellagerard.substack.com/p/babylisspro-styleswitch-review"
+              },
+              {
+                "hair": "Type 2 wavy",
+                "recommended": "yes",
+                "style_result": "Smooth voluminous blowout",
+                "setting_or_attachment": "medium/medium",
+                "caveats": "",
+                "source": "https://www.amazon.com/dp/B0GSP69R85"
+              },
+              {
+                "hair": "Type 3 curly",
+                "recommended": "yes",
+                "style_result": "Bouncy smooth blowout from 3B curls (Ulta before/after)",
+                "setting_or_attachment": "medium/medium",
+                "caveats": "Work in sections no wider than the brush",
+                "source": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618?sku=2654756 ; https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              },
+              {
+                "hair": "Type 4 coily",
+                "recommended": "yes-brand-claim",
+                "style_result": "Stretched, smoothed blowout",
+                "setting_or_attachment": "medium/medium",
+                "caveats": "May need longer passes on dense 4C",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM",
+                "estimate": true
+              },
+              {
+                "hair": "Short-long",
+                "recommended": "yes",
+                "style_result": "Short bob to long",
+                "setting_or_attachment": "-",
+                "caveats": "1 3/4\" brush is large for very short hair",
+                "source": "https://www.amazon.com/dp/B0GSP69R85",
+                "estimate": true
+              }
+            ]
+          },
+          "paddle_brush": {
+            "in_kits": "Straight & Wavy only",
+            "result": {
+              "value": "Detangles and smooths while drying; sleek and polished results in one pass",
+              "source": "https://www.amazon.com/dp/B0GSP69R85"
+            },
+            "setting": {
+              "value": "Heat low-medium, speed low; damp or dry hair",
+              "source": "https://www.amazon.com/dp/B0GSP69R85 (A+ guide)"
+            },
+            "hair_matrix": [
+              {
+                "hair": "Type 1-2",
+                "recommended": "yes",
+                "style_result": "Sleek straight blowout",
+                "setting_or_attachment": "low speed",
+                "caveats": "",
+                "source": "https://www.amazon.com/dp/B0GSP69R85"
+              },
+              {
+                "hair": "Type 3-4",
+                "recommended": "not-stated",
+                "style_result": "-",
+                "setting_or_attachment": "-",
+                "caveats": "Not included in the Curly & Coily kit",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM"
+              }
+            ]
+          },
+          "concentrator": {
+            "in_kits": "both",
+            "result": {
+              "value": "Rough-dry and targeted drying; 3 nozzle opening settings",
+              "source": "https://www.amazon.com/dp/B0GSP69R85"
+            },
+            "setting": {
+              "value": "Any heat, any speed; best for drying wet hair (step 1 of every routine)",
+              "source": "https://www.amazon.com/dp/B0GSP69R85 (A+ guide)"
+            },
+            "hair_matrix": [
+              {
+                "hair": "All types, all lengths",
+                "recommended": "yes",
+                "style_result": "Fast rough-dry to 70-80% before styling",
+                "setting_or_attachment": "high speed on wet hair",
+                "caveats": "Salon review: may not replace a full dryer on thick coarse hair",
+                "source": "https://www.amazon.com/dp/B0GSP69R85 ; https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              }
+            ]
+          },
+          "diffuser": {
+            "in_kits": "Curly & Coily only",
+            "result": {
+              "value": "Enhances natural curls and waves; deep bowl lifts and separates strands",
+              "source": "https://www.amazon.com/dp/B0GSNX1NLM"
+            },
+            "setting": {
+              "value": "Heat low-high, speed LOW; damp or wet hair",
+              "source": "https://www.amazon.com/dp/B0GSNX1NLM (A+ guide)"
+            },
+            "hair_matrix": [
+              {
+                "hair": "Type 2 wavy",
+                "recommended": "yes",
+                "style_result": "Defined natural waves",
+                "setting_or_attachment": "low speed",
+                "caveats": "Salon review: wavy hair benefits most",
+                "source": "https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              },
+              {
+                "hair": "Type 3 curly (3A-3C)",
+                "recommended": "yes",
+                "style_result": "Defined, voluminous natural curls (brand 3B imagery, Vogue image)",
+                "setting_or_attachment": "low speed, medium heat",
+                "caveats": "High speed breaks curl formation",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM ; https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              },
+              {
+                "hair": "Type 4 coily (4A-4C)",
+                "recommended": "yes-brand-claim",
+                "style_result": "Dried, defined coils",
+                "setting_or_attachment": "low speed",
+                "caveats": "Very tight coils may prefer a bowl-style diffuser (salon review)",
+                "source": "https://www.amazon.com/dp/B0GSNX1NLM ; https://www.tangerinesalon.net/blog/babyliss-style-switch"
+              }
+            ]
+          }
+        },
+        "by_version_summary": [
+          {
+            "hair": "Straight & Wavy kit - 1A-2C, fine to medium, medium-long",
+            "recommended": "yes",
+            "style_result": "Soft blowout curls, relaxed waves, voluminous or sleek blowouts",
+            "setting_or_attachment": "air curlers / round brush / paddle",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0GSP69R85"
+          },
+          {
+            "hair": "Curly & Coily kit - 3A-4C incl. 4C, thick/coarse",
+            "recommended": "yes-brand-claim",
+            "style_result": "Defined natural curls (diffuser), stretched blowouts (round brush), soft waves on stretched hair (air curlers)",
+            "setting_or_attachment": "diffuser / round brush / air curlers",
+            "caveats": "Independent reviews: tool runs cool (max 257 F) - some found it not hot/strong enough for very coarse hair",
+            "source": "https://www.amazon.com/dp/B0GSNX1NLM ; https://www.tangerinesalon.net/blog/babyliss-style-switch ; https://www.cnn.com/cnn-underscored/reviews/best-hair-multi-stylers"
+          }
+        ],
+        "how_to_brand": {
+          "value": [
+            "Start with clean, damp hair and use the Concentrator Nozzle to rough-dry.",
+            "Switch to the Air Curler attachment and section hair with the included creaseless clips.",
+            "Prep hair with mousse and heat protectant and begin shaping curls; lock in your curl with a Cold Shot.",
+            "Pin curls to cool and set, then finish with hairspray for a look that lasts."
+          ],
+          "source": "https://www.amazon.com/dp/B0GSP69R85 (gallery How to hold your curl, saved as 03_style_switch/05_how_to_hold_curl_4_steps.jpg)"
+        }
+      }
+    },
+    {
+      "id": "05_flat_iron",
+      "identification": {
+        "name": {
+          "value": "BabylissPRO Nano Titanium Ultra-Sleek Hair Straightener, Flat Iron for All Hair Types (Nano Titanium Ultra Sleek Straightening Iron) 1 1/2\"",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "model": {
+          "value": "BNT131THP (Amazon 'Manufacturer Part Number' field shows BNT131TLB - listing inconsistency)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "asin": {
+          "value": "B0H7DD5W2V",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "upc": {
+          "value": "074108523310",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "colour_name": {
+          "value": "Pink Rush (selected variant of this ASIN). NOTE: not blue.",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "variants": {
+          "value": [
+            "1 1/2\" Pink Rush - B0H7DD5W2V - BNT131THP - $99.99",
+            "1 1/2\" Iced Blue (limited edition, pale sky blue) - B0GS7CFJ6F - BNT131TLB - $99.99",
+            "1 1/2\" Blue (classic Nano Blue, matches the other 3 products) - B0F4MHYKSZ - BNT131T-N - showed $34.99 on research date (likely a deal/third-party offer, verify)",
+            "1\" Blue - B0F4LPCTKT; 2\" Blue - B0F4LSG43K; 1\" with mini prepack - B0GK4Y53GG"
+          ],
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V (variation data); https://www.amazon.com/dp/B0GS7CFJ6F ; https://www.amazon.com/dp/B0F4MHYKSZ"
+        },
+        "price_usd": {
+          "value": "$99.99 (Amazon); babylisspro.com $99.99 for BNT131T per search snippet",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "launch_date": {
+          "value": "Base model BNT131T on Amazon since ~2025 (ASIN B0F4...); Pink Rush ASIN B0H7 suggests a fall-2026 limited edition",
+          "estimate": true,
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "rating": {
+          "value": "4.5/5 (2,706 ratings, shared across variants)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "confidence": "HIGH for the model (given by the user's Amazon link); colour to use in images is an OPEN QUESTION (link = Pink Rush, the rest of the line = Nano Blue).",
+        "doubts": "Amazon bullets on the Pink Rush ASIN still say 'limited-edition Iced Blue finish' (copy shared across variants). No client photo exists."
+      },
+      "physical": {
+        "plate_width": {
+          "value": "1 1/2 in (3.8 cm)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "plate_length": {
+          "value": "'Extended-length' full-floating plates; ~13-15 cm (5-6 in) measured",
+          "estimate": true,
+          "source": "https://www.amazon.com/dp/B0F4MHYKSZ dimension image (scaled to 13.375 in length)"
+        },
+        "overall_length": {
+          "value": "13.375 in (34.0 cm)",
+          "source": "https://www.amazon.com/dp/B0F4MHYKSZ (gallery 'What's in the box' dimension lines, Nano Blue 1 1/2\" same model)"
+        },
+        "overall_width": {
+          "value": "2 1/2 in (6.4 cm) at the plate housing",
+          "source": "https://www.amazon.com/dp/B0F4MHYKSZ (gallery dimension image)"
+        },
+        "handle": {
+          "value": "Each arm narrows to ~3.2 cm wide below the plates; closed thickness ~2.5-3 cm",
+          "estimate": true,
+          "source": "dimension image ratio"
+        },
+        "weight": {
+          "value": "1.2 lb (544 g) Pink Rush; 1.17 lb Iced Blue; 1.15 lb Blue",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V ; https://www.amazon.com/dp/B0GS7CFJ6F ; https://www.amazon.com/dp/B0F4MHYKSZ"
+        },
+        "cord": {
+          "value": "9 ft (2.7 m) 360-degree swivel cord",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        }
+      },
+      "technical": {
+        "heat_settings": {
+          "value": "5 digital heat settings: 300 F (fine, 1A), 340 F (thin, 1B-1C), 380 F (textured, 2A-2C), 420 F (curly, 3A-3C), 450 F (coarse, 4A-4C)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V (gallery '5 digital heat settings up to 450 F')"
+        },
+        "max_temperature": {
+          "value": "450 F (232 C)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "heater_and_plates": {
+          "value": "Ceramic heater, instant heat-up and recovery; ultra-smooth Nano Titanium full-floating plates",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "display": {
+          "value": "LED heat display; On/Off and +/- control buttons on the outer side of one arm, near the hinge end",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V (gallery callouts)"
+        },
+        "voltage": {
+          "value": "Spec table: 120 V (Iced Blue/other copy mentions dual voltage on sibling tools; not stated for this one)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "warranty": {
+          "value": "2-year manufacturer",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "wattage": {
+          "value": "not published",
+          "source": null
+        }
+      },
+      "description": {
+        "summary": {
+          "value": "Slim, lightweight 1 1/2\" straightener with extended full-floating Nano Titanium plates for smooth, shiny one-pass straightening; can also wave or curl.",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "key_claims": {
+          "value": [
+            "Smooths frizz for brilliant shine",
+            "Extended-length, full-floating plates - straighten more hair in fewer passes",
+            "Straighten, wave, or curl",
+            "Easy control for beginners and pros",
+            "Lightweight, slim & ergonomic"
+          ],
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "hair_types": {
+          "value": "All hair types (resulting: straight, wavy, curly)",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "hair_length": {
+          "value": "Medium to long (1 1/2\" plates suit longer/thicker hair)",
+          "estimate": true,
+          "source": "inference"
+        },
+        "results": {
+          "value": "Sleek straight, smooth shiny hair; waves or curls by twisting",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+        },
+        "in_the_box": {
+          "value": "1 1/2\" Ultra-Sleek Straightening Iron only",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V (gallery 'What's in the box')"
+        },
+        "how_to_use": {
+          "value": [
+            "Start with clean, completely dry, detangled hair; apply heat protectant.",
+            "Press On and set the temperature for your hair type (300-450 F chart).",
+            "Take a 1-2 in section, clamp it between the plates close to the root.",
+            "Glide slowly and steadily down to the ends in one pass.",
+            "For waves/curls: clamp, rotate the iron half a turn and glide down.",
+            "Turn off and let cool after use."
+          ],
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V (settings); steps are standard flat-iron practice"
+        }
+      },
+      "grip_and_hair_interaction": {
+        "value": "Held in one hand around both arms just below the plates (fingers on the outer arm, thumb on the other arm) and squeezed to close; the hinge and cord end point down/back, plates point up and away. Gallery shows it held horizontally at chin height with a section of hair clamped between the plates near mid-length and pulled through; controls on the side face toward the palm/thumb. Free hand often holds the hair end taut.",
+        "source": "https://www.amazon.com/dp/B0F4MHYKSZ gallery (in-hand images, saved as research/05_flat_iron/04-05)"
+      },
+      "visual": {
+        "value": {
+          "pink_rush_body": "Hot pink, approx #EB437C (shadow #DA316A), soft-touch matte finish",
+          "nano_blue_body": "Classic Nano Blue metallic, approx #68A4CB (highlight #8FC5EA, shadow #4388AF) on packshot - appears more saturated cobalt-teal in lifestyle shots",
+          "iced_blue_body": "Pale powder/sky blue, matte",
+          "plates": "Polished silver Nano Titanium plates, rounded outer edges",
+          "logos": "White 'BaBylissPRO' wordmark along the outer arm (Pink Rush: lighter pink wordmark)",
+          "distinctive": "Row of small red LED heat indicator dots + 3 small buttons on the outer arm near the hinge; chrome ring collar at the hinge end; black swivel with strain relief",
+          "cable": "Black cord exiting the hinge end, axial"
+        },
+        "source": "colours sampled from research/05_flat_iron/01 and 03 packshots"
+      },
+      "hair_styles": {
+        "legend": "recommended: yes / yes-brand-claim / limited / no / not-stated. \"estimate\": true = inference from tool geometry, sibling-product guides or general styling practice, not a published claim.",
+        "brand_positioning": {
+          "value": "All hair types; resulting hair: straight, wavy, curly; FAQ: lower settings for fine or thin hair, up to 450 F for thick and coarse hair.",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V ; https://www.amazon.com/dp/B0F4MHYKSZ"
+        },
+        "heat_guide": {
+          "value": "Gallery chart (Pink Rush / Iced Blue / Nano Blue listings): 300 F fine 1A; 340 F thin 1B-1C; 380 F textured 2A-2C; 420 F curly 3A-3C; 450 F coarse 4A-4C. CONFLICT: the A+ module on the Nano Blue listing shows 285 F fragile & fine, 320 F thin, 355 F medium, 395 F wavy & curly, 430 F coily & thick (older model labels). Pro tip: gradually increase heat.",
+          "source": "https://www.amazon.com/dp/B0H7DD5W2V (gallery, saved as 05_flat_iron/guide_heat_settings_by_hair_type_1a_to_4c_pink_rush_amazon.jpg) ; https://www.amazon.com/dp/B0F4MHYKSZ (A+, saved as 05_flat_iron/guide_heat_285_to_430_by_hair_type_nano_blue_aplus.png)"
+        },
+        "styles_it_creates": {
+          "value": [
+            "Sleek, bone-straight hair in one pass",
+            "Smooth, shiny frizz-free finish",
+            "Loose waves and defined curls by twisting (heated outer housing)",
+            "Silk press on natural hair (user reports)"
+          ],
+          "source": "https://www.amazon.com/dp/B0F4MHYKSZ (FAQ) ; https://luxurybeautyreviews.com/reviews/babylisspro-nano-titanium-ionic-hair-straightener/"
+        },
+        "by_curl_pattern": [
+          {
+            "hair": "Type 1 straight (1A-1C)",
+            "recommended": "yes",
+            "style_result": "Sleek polish, smoothing flyaways; waves/curls by twisting",
+            "setting_or_attachment": "300 F (1A), 340 F (1B-1C)",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+          },
+          {
+            "hair": "Type 2 wavy (2A-2C)",
+            "recommended": "yes",
+            "style_result": "Sleek straight (brand before/after: wavy 2B -> straight)",
+            "setting_or_attachment": "380 F",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V (gallery before/after)"
+          },
+          {
+            "hair": "Type 3 curly (3A-3C)",
+            "recommended": "yes",
+            "style_result": "Smooth shiny straight (brand 3A -> straight how-to); users: very curly frizzy hair straight in 2 passes",
+            "setting_or_attachment": "420 F",
+            "caveats": "Small sections, heat protectant",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V ; https://www.amazon.com/dp/B0F4MHYKSZ ; https://www.amazon.com/dp/B0H7DD5W2V (customer review summary)"
+          },
+          {
+            "hair": "Type 4 coily (4A-4C)",
+            "recommended": "yes",
+            "style_result": "Silk press / bone straight; editorial testers took dense 4C coils to straight in 1-2 passes",
+            "setting_or_attachment": "450 F (coarse 4A-4C)",
+            "caveats": "1 1/2\" plates speed up long/thick hair; protect fragile coils",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V ; https://luxurybeautyreviews.com/reviews/babylisspro-nano-titanium-ionic-hair-straightener/"
+          }
+        ],
+        "by_density": [
+          {
+            "hair": "Fine / thin",
+            "recommended": "yes",
+            "style_result": "Sleek smooth",
+            "setting_or_attachment": "300-340 F (or 285-320 F per A+)",
+            "caveats": "High settings can be intense for fine or damaged hair (sister-model review)",
+            "source": "https://www.amazon.com/dp/B0F4MHYKSZ ; https://www.homedepot.com/p/reviews/Conair-BabylissPRO-1-in-Nano-Titanium-Ultra-Thin-Hair-Straightener-BNT4072TUC/319847619/1"
+          },
+          {
+            "hair": "Medium",
+            "recommended": "yes",
+            "style_result": "Straight in one pass; review summary: works well with medium-length hair",
+            "setting_or_attachment": "355-380 F",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+          },
+          {
+            "hair": "Thick / coarse",
+            "recommended": "yes",
+            "style_result": "Straight, sleek; reviewers praise it on thick curly/coarse hair",
+            "setting_or_attachment": "420-450 F",
+            "caveats": "Some users report temperature drop during use",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+          }
+        ],
+        "by_length": [
+          {
+            "hair": "Short (pixie)",
+            "recommended": "limited",
+            "style_result": "Smoothing only",
+            "setting_or_attachment": "any",
+            "caveats": "1 1/2\" wide plates are bulky near the scalp on very short hair; the 1\" version suits short hair/bangs",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V",
+            "estimate": true
+          },
+          {
+            "hair": "Medium",
+            "recommended": "yes",
+            "style_result": "Straight, waves",
+            "setting_or_attachment": "any",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+          },
+          {
+            "hair": "Long",
+            "recommended": "yes",
+            "style_result": "Straight in fewer passes (extended-length plates)",
+            "setting_or_attachment": "any",
+            "caveats": "",
+            "source": "https://www.amazon.com/dp/B0H7DD5W2V"
+          }
+        ],
+        "how_to_brand": {
+          "value": [
+            "Start with completely dry, detangled hair and apply a heat protectant spray evenly.",
+            "Divide your hair into small, manageable sections to ensure even heat distribution and a smoother, faster styling process.",
+            "Choose from the five digital heat settings up to 450 F, selecting the ideal and safest temperature for your specific hair texture."
+          ],
+          "source": "https://www.amazon.com/dp/B0F4MHYKSZ (A+ how-to, saved as 05_flat_iron/howto_curly_3a_to_straight_3_steps_nano_blue_aplus.png)"
+        }
+      }
+    }
+  ],
+  "images": {
+    "01_curling_iron": [
+      {
+        "file": "01_curling_iron/01_packshot_white_3q.jpg",
+        "content": "Packshot on white, 3/4 view, clamp closed",
+        "url": "https://m.media-amazon.com/images/I/61dL9vHjpkL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/02_in_hand_ad_photo01_source.jpg",
+        "content": "Amazon ad image = client photo 01",
+        "url": "https://m.media-amazon.com/images/I/81EuiUF9NmL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/03_closeup_clamp_buttons_in_hand.jpg",
+        "content": "Close-up of clamp, directional and home buttons in hand",
+        "url": "https://m.media-amazon.com/images/I/716qP7THtNL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/04_callouts_vertical_in_hand.jpg",
+        "content": "Vertical in hand with feature callouts (3\" clamp, buttons, 2 speeds)",
+        "url": "https://m.media-amazon.com/images/I/61fR629uhDL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/05_packshot_blue_bg_side.jpg",
+        "content": "Side packshot on blue background",
+        "url": "https://m.media-amazon.com/images/I/61aGYQO-ouL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/06_packshot_left_side_silo_BNTAC100C_pearlon.jpg",
+        "content": "High-res 2000 px left-side silo (BNTAC100C)",
+        "url": "https://www.pearlon.com/wp-content/uploads/2026/10/BNTAC100C_LeftSide_Silo_0001-copy.jpg"
+      },
+      {
+        "file": "01_curling_iron/result_straight_1a_long_brunette_before_after_loose_defined_curls_amazon.jpg",
+        "content": "Result: straight long brunette before -> long loose curls",
+        "url": "https://m.media-amazon.com/images/I/81xpnxSWwHL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/result_wavy_2a_blonde_long_glossy_classic_curls_amazon.jpg",
+        "content": "Result: long blonde glossy classic curls (PerfectCurl)",
+        "url": "https://m.media-amazon.com/images/I/71cqFjYGdnL._AC_SL1500_.jpg"
+      },
+      {
+        "file": "01_curling_iron/howto_3_steps_section_wrap_release_blonde_aplus.png",
+        "content": "Brand 3-step how-to",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/e33da59b-70ab-46f0-be4b-a34d023741e0.png"
+      },
+      {
+        "file": "01_curling_iron/in_hand_brunette_long_wavy_vertical_curl_aplus.png",
+        "content": "In hand, vertical, brunette long hair",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/96e9cffe-36a8-4018-8fa7-ff453fe899ae.png"
+      },
+      {
+        "file": "01_curling_iron/closeup_handle_controls_led_heat_buttons_aplus.png",
+        "content": "Close-up of handle controls, coloured heat LEDs, +/- and speed",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3139395a-324a-48c6-a82c-5449f7d3f758.png"
+      },
+      {
+        "file": "01_curling_iron/callouts_side_view_clamp_buttons_speed_aplus.png",
+        "content": "Side view callouts",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5f45c751-c67f-40a8-aadf-5dbf6bba4988.png"
+      },
+      {
+        "file": "01_curling_iron/packshot_front_vertical_buttons_black_bg_ulta.jpg",
+        "content": "Front vertical packshot showing buttons",
+        "url": "https://media.ulta.com/i/ulta/2661665"
+      }
+    ],
+    "02_round_brush": [
+      {
+        "file": "02_round_brush/01_packshot_white_front.jpg",
+        "content": "Front packshot on white",
+        "url": "https://m.media-amazon.com/images/I/61VSDRMN91L._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/02_in_hand_ad_photo02_source.jpg",
+        "content": "Amazon ad image = client photo 02",
+        "url": "https://m.media-amazon.com/images/I/81YpemRkMJL._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/03_closeup_ionic_button_in_hand.jpg",
+        "content": "Close-up in hand, bristles + ionic button inset",
+        "url": "https://m.media-amazon.com/images/I/71FUOnXkfaL._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/04_callouts_vertical_in_hand.jpg",
+        "content": "Vertical in hand with callouts (cool tip, combs, ionic, 5 settings)",
+        "url": "https://m.media-amazon.com/images/I/61qHPSvxo4L._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/05_packshot_blue_bg_angled.jpg",
+        "content": "Angled packshot on blue with swivel/hook",
+        "url": "https://m.media-amazon.com/images/I/71NA4N6OiSL._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/06_result_blowout.jpg",
+        "content": "Result: blowout before/after (same model as photo 02)",
+        "url": "https://m.media-amazon.com/images/I/81BsOh2tLBL._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/result_curly_3b_long_before_after_sleek_polished_amazon.jpg",
+        "content": "Result: 3B curly before -> sleek polished",
+        "url": "https://m.media-amazon.com/images/I/81U+AOg8rLL._SL1500_.jpg"
+      },
+      {
+        "file": "02_round_brush/howto_curly_3b_to_sleek_3_steps_heat_protectant_glide_ionic_aplus.png",
+        "content": "Brand 3-step how-to on curly hair",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/fefd367a-6ba2-4689-8488-44ce3b8f4e53.png"
+      },
+      {
+        "file": "02_round_brush/result_curly_3b_before_after_smooth_straight_aplus.png",
+        "content": "Result banner 3B -> smooth",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/14af656b-e1e9-410c-93d4-f81f2e00b056.png"
+      },
+      {
+        "file": "02_round_brush/in_hand_long_dark_straight_hair_smoothing_aplus.png",
+        "content": "In hand smoothing long dark hair",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5fcc8658-3d8e-45b5-9734-19bf2f4fdfac.png"
+      },
+      {
+        "file": "02_round_brush/callouts_side_view_cool_tip_ionic_combs_aplus.png",
+        "content": "Side view callouts",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/3f5ec4d4-7bf6-4c9b-acc3-6de646246b4a.png"
+      },
+      {
+        "file": "02_round_brush/closeup_cord_end_swivel_hang_loop_aplus.png",
+        "content": "Close-up cord end, swivel, hang loop",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/7b4ef678-807f-4e98-9179-51df834cf1d6.png"
+      },
+      {
+        "file": "02_round_brush/packshot_front_vertical_black_bg_ulta.jpg",
+        "content": "Front vertical packshot",
+        "url": "https://media.ulta.com/i/ulta/2661667"
+      }
+    ],
+    "03_style_switch": [
+      {
+        "file": "03_style_switch/01_packshot_all_attachments.jpg",
+        "content": "Body with all attachments, clips and comb on white",
+        "url": "https://m.media-amazon.com/images/I/71VLyTm8-GL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/02_in_use_air_curler_1-5in_ad_photo03_source.jpg",
+        "content": "Amazon ad image = client photo 03 (1 1/2\" air curler)",
+        "url": "https://m.media-amazon.com/images/I/81o0zxwsjXL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/03_in_use_coanda_air_curler_ad_photo04_source.jpg",
+        "content": "Amazon ad image = client photo 04 (Coanda curling)",
+        "url": "https://m.media-amazon.com/images/I/71BMV8gdxFL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/04_whats_in_box_with_dimensions.jpg",
+        "content": "What's in the box with 8\" x 2\" body dimensions, case, clips",
+        "url": "https://m.media-amazon.com/images/I/711HDyWfJ9L._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/05_how_to_hold_curl_4_steps.jpg",
+        "content": "4-step how-to (concentrator, air curler, cold shot, pin)",
+        "url": "https://m.media-amazon.com/images/I/716vYeVEx2L._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/06_barrel_sizes_1-5in_vs_1in.jpg",
+        "content": "1 1/2\" vs 1\" barrel results, in use",
+        "url": "https://m.media-amazon.com/images/I/81eafHyxMUL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/attachments_results_paddle_straight_aircurl_waves_roundbrush_blowout_SW_amazon.jpg",
+        "content": "S&W: paddle sleek / air curls / round brush results",
+        "url": "https://m.media-amazon.com/images/I/81OtDhyw0sL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/result_wavy_2a_before_after_frizz_free_sleek_SW_amazon.jpg",
+        "content": "S&W: wavy frizzy before -> sleek",
+        "url": "https://m.media-amazon.com/images/I/714wvC-deHL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/packshot_kit_curly_coily_with_diffuser_CC_amazon.jpg",
+        "content": "C&C kit packshot",
+        "url": "https://m.media-amazon.com/images/I/71lSiqKw9AL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/attachments_results_diffuser_3b_curls_aircurl_waves_roundbrush_CC_amazon.jpg",
+        "content": "C&C: diffuser curls / air curls / round brush results",
+        "url": "https://m.media-amazon.com/images/I/81POs5efMTL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/result_curly_3a_before_after_smooth_straight_round_brush_CC_amazon.jpg",
+        "content": "C&C: curly before -> smooth straight",
+        "url": "https://m.media-amazon.com/images/I/71WsluEvFwL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_coanda_air_curler_dark_wavy_2c_hair_CC_amazon.jpg",
+        "content": "C&C: Coanda air curler on dark hair",
+        "url": "https://m.media-amazon.com/images/I/81hdM6ndzKL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/result_barrel_sizes_1-5in_blowout_vs_1in_defined_curls_dark_hair_CC_amazon.jpg",
+        "content": "C&C: 1 1/2 vs 1 in barrel results",
+        "url": "https://m.media-amazon.com/images/I/811BFaoLa2L._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_diffuser_curly_3b_defined_curls_vogue_CC_amazon.jpg",
+        "content": "C&C: diffuser on 3B curls (Vogue)",
+        "url": "https://m.media-amazon.com/images/I/81dSbB5OmhL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/whats_in_box_curly_coily_CC_amazon.jpg",
+        "content": "C&C what is in the box",
+        "url": "https://m.media-amazon.com/images/I/71WuHGyteFL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_110k_dark_long_straight_hair_CC_amazon.jpg",
+        "content": "C&C: 110K image on long straight dark hair",
+        "url": "https://m.media-amazon.com/images/I/71ZPJGC-CnL._SL1500_.jpg"
+      },
+      {
+        "file": "03_style_switch/guide_heat_and_speed_per_attachment_aplus.jpg",
+        "content": "Heat & airflow guide per attachment",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8cdcfae5-3e28-41bc-a85e-cf19b1e464d0.jpg"
+      },
+      {
+        "file": "03_style_switch/guide_attachments_straight_wavy_vs_curly_coily_aplus.jpg",
+        "content": "Kit comparison chart",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/31fdcb9f-f149-4f7a-a545-fe7341fb620e.jpg"
+      },
+      {
+        "file": "03_style_switch/closeup_air_curling_barrels_pair_bidirectional_aplus.jpg",
+        "content": "Close-up of the two bidirectional barrels",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/afe6c852-5b0a-40cb-9a95-0f5555991243.jpg"
+      },
+      {
+        "file": "03_style_switch/closeup_body_top_attachment_lock_markers_aplus.jpg",
+        "content": "Close-up of body top / lock markers",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d4ada863-496d-471b-a387-4e9527e19f5a.jpg"
+      },
+      {
+        "file": "03_style_switch/callouts_body_buttons_release_coolshot_filter_aplus.jpg",
+        "content": "Body callouts: attachment release, pause, cold shot, custom settings, magnetic filter",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0a489d0c-f182-4983-9d6e-883aa7078f36.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_round_brush_long_blonde_SW_aplus.jpg",
+        "content": "S&W in use, long blonde",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/df8154e4-bf43-4fb5-939d-7b527fe7c1a6.jpg"
+      },
+      {
+        "file": "03_style_switch/result_wavy_long_blowout_curls_SW_aplus.jpg",
+        "content": "S&W result: long blowout curls",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/dd15bd0e-d24c-4275-b630-3002f498305f.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_long_blonde_straight_SW_aplus.jpg",
+        "content": "S&W in use, long straight blonde",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/1b126f26-dbdc-434d-a595-cdd496d81a41.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_air_curler_brunette_vertical_aplus.jpg",
+        "content": "Air curler held vertical, brunette",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8a94ae4b-9db0-4344-8175-69da99789409.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_diffuser_curly_3b_CC_aplus.jpg",
+        "content": "C&C diffuser in use",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/042ccdae-1675-4163-a59c-550a476c9e25.jpg"
+      },
+      {
+        "file": "03_style_switch/result_curly_3b_diffused_defined_curls_CC_aplus.jpg",
+        "content": "C&C diffused 3B curls result",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/2a99a1dd-eeb8-4dce-ad5b-b3bc96117e40.jpg"
+      },
+      {
+        "file": "03_style_switch/in_use_air_curler_arms_up_dark_wavy_hair_CC_aplus.jpg",
+        "content": "C&C air curler, arms up",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/60a87570-1fe2-494d-8a15-265813ca076d.jpg"
+      },
+      {
+        "file": "03_style_switch/packshot_kit_with_case_black_bg_SW_ulta.jpg",
+        "content": "S&W kit with case",
+        "url": "https://media.ulta.com/i/ulta/2654756"
+      },
+      {
+        "file": "03_style_switch/result_wavy_2a_auburn_blowout_curtain_bangs_people_2025_ulta.jpg",
+        "content": "Result auburn blowout (People Best New Launches 2025)",
+        "url": "https://media.ulta.com/i/ulta/2654756_alt01"
+      },
+      {
+        "file": "03_style_switch/result_air_curler_1-5in_before_after_auburn_soft_blowout_curls_high_heat_high_air_ulta.jpg",
+        "content": "Air curler before/after with setting (High Heat + High Airflow)",
+        "url": "https://media.ulta.com/i/ulta/2654756_alt02"
+      },
+      {
+        "file": "03_style_switch/result_round_brush_curly_3b_before_after_bouncy_blowout_medium_heat_air_ulta.jpg",
+        "content": "Round brush on 3B curls before/after (Medium Heat + Medium Airflow)",
+        "url": "https://media.ulta.com/i/ulta/2654756_alt03"
+      }
+    ],
+    "05_flat_iron": [
+      {
+        "file": "05_flat_iron/01_packshot_pink_rush_BNT131THP.jpg",
+        "content": "Pink Rush packshot (the linked ASIN)",
+        "url": "https://m.media-amazon.com/images/I/61HxFK0RIkL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/02_callouts_pink_rush.jpg",
+        "content": "Pink Rush feature callouts",
+        "url": "https://m.media-amazon.com/images/I/615o89xI+ML._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/03_packshot_nano_blue_BNT131T-N.jpg",
+        "content": "Nano Blue packshot, open plates",
+        "url": "https://m.media-amazon.com/images/I/71-gChmi0sL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/04_in_hand_nano_blue_studio_standard.jpg",
+        "content": "Nano Blue in hand, Studio Standard ad style",
+        "url": "https://m.media-amazon.com/images/I/815dGYMYbQL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/05_in_hand_callouts_nano_blue.jpg",
+        "content": "Nano Blue vertical in hand with callouts",
+        "url": "https://m.media-amazon.com/images/I/712fqLM3JmL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/06_dimensions_nano_blue.jpg",
+        "content": "Dimension image 13.375\" x 2 1/2\"",
+        "url": "https://m.media-amazon.com/images/I/61bAYW8qOFL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/result_wavy_2b_before_after_sleek_straight_pink_rush_amazon.jpg",
+        "content": "Wavy 2B before -> sleek straight",
+        "url": "https://m.media-amazon.com/images/I/814JYFlGESL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/guide_heat_settings_by_hair_type_1a_to_4c_pink_rush_amazon.jpg",
+        "content": "Heat chart 300-450 F by 1A-4C",
+        "url": "https://m.media-amazon.com/images/I/61n6qYsIhHL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/result_wavy_2a_before_after_straight_iced_blue_amazon.jpg",
+        "content": "Wavy before -> straight (Iced Blue listing)",
+        "url": "https://m.media-amazon.com/images/I/81CF5wBJYwL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/result_curly_3a_before_after_smooth_shiny_nano_blue_amazon.jpg",
+        "content": "Curly/wavy before -> smooth shiny (Nano Blue)",
+        "url": "https://m.media-amazon.com/images/I/81x2C2ybgPL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/in_hand_adjustable_heat_led_nano_blue_amazon.jpg",
+        "content": "In hand with LED heat inset",
+        "url": "https://m.media-amazon.com/images/I/71mcCDtj9oL._SL1500_.jpg"
+      },
+      {
+        "file": "05_flat_iron/howto_curly_3a_to_straight_3_steps_nano_blue_aplus.png",
+        "content": "Brand 3-step how-to on curly hair",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/6ea03d35-e447-40c9-9257-1522f63df137.png"
+      },
+      {
+        "file": "05_flat_iron/guide_heat_285_to_430_by_hair_type_nano_blue_aplus.png",
+        "content": "A+ heat guide 285-430 F",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/122001cf-eb13-44d2-ac3f-884086d1f094.png"
+      },
+      {
+        "file": "05_flat_iron/result_wavy_before_after_straight_nano_blue_aplus.png",
+        "content": "A+ before/after",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/8ed83397-54f4-4ce3-ae10-805d4d84baec.png"
+      },
+      {
+        "file": "05_flat_iron/in_hand_straightening_long_dark_hair_nano_blue_aplus.png",
+        "content": "In hand straightening long dark hair",
+        "url": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/08b4c0cd-258d-49ec-95a5-529950b8296c.png"
+      }
+    ]
+  },
+  "open_questions": [
+    "Flat iron colour: the linked ASIN B0H7DD5W2V is Pink Rush (BNT131THP), but the rest of the campaign is Nano Blue. Should images use Pink Rush, Nano Blue (BNT131T-N, B0F4MHYKSZ) or Iced Blue (BNT131TLB)?",
+    "Style/Switch button functions (which button is power/heat/speed/cool shot/pause) are not documented in reachable sources; the user manual page was blocked.",
+    "Exact handle diameters, barrel/attachment lengths and the Style/Switch handle-only weight are estimates; a physical sample or the brand spec sheet would settle them.",
+    "Amazon weights for the Auto Curler (1.25 lb) and Thermal Round Brush (1.6 lb) disagree with the A+ copy ('just 2.2 pounds'); the A+ figure looks like shared boilerplate.",
+    "Launch dates for the Thermal Round Brush, Style/Switch BNTSSSW and Pink Rush flat iron are not shown on Amazon; only the Auto Curler has a first-available date (Sep 15 2026).",
+    "Flat iron heat chart conflict: gallery says 300/340/380/420/450 F, A+ module says 285/320/355/395/430 F; the physical LEDs on the A+ close-up read 265/300/355/390/450 F.",
+    "Hair-type matrices mix brand claims with estimates for types the brand does not show (e.g. Auto Curler on 3A-4C, Thermal Brush on 4A-4C); estimates are flagged."
+  ]
+}
