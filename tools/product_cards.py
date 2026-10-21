@@ -14,13 +14,13 @@ Writes to samples/products/cards/:
 
 import os
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RES = os.path.join(ROOT, "samples", "products", "research")
 HAND = os.path.join(ROOT, "samples", "products", "sheets", "hand")
 OUT = os.path.join(ROOT, "samples", "products", "cards")
-W, H, M, GAP = 4000, 2400, 60, 30
+W, H, M, GAP, PAD = 4000, 2400, 60, 28, 26
 FONT = "C:/Windows/Fonts/segoeui.ttf"
 BOLD = "C:/Windows/Fonts/segoeuib.ttf"
 
@@ -32,7 +32,7 @@ CARDS = {
         "hero": ("01_curling_iron/01_packshot_white_3q.jpg", None, "3/4 view"),
         "views": [("01_curling_iron/06_packshot_left_side_silo_BNTAC100C_pearlon.jpg", (0.25, 0.0, 0.85, 1.0), "side"),
                   ("01_curling_iron/packshot_front_vertical_buttons_black_bg_ulta.jpg", (0.36, 0.04, 0.64, 0.98), "front, buttons"),
-                  ("01_curling_iron/05_packshot_blue_bg_side.jpg", (0.0, 0.3, 1.0, 1.0), "low angle")],
+                  ],
         "details": [("01_curling_iron/closeup_handle_controls_led_heat_buttons_aplus.png", None, "heat LEDs and buttons"),
                     ("01_curling_iron/callouts_side_view_clamp_buttons_speed_aplus.png", (0.0, 0.42, 1.0, 0.66), "barrel, clamp, handle"),
                     ("01_curling_iron/01_packshot_white_3q.jpg", (0.0, 0.0, 0.5, 0.45), "titanium barrel and clamp")],
@@ -47,7 +47,7 @@ CARDS = {
         "hero": ("02_round_brush/01_packshot_white_front.jpg", None, "front"),
         "views": [("02_round_brush/05_packshot_blue_bg_angled.jpg", (0.0, 0.3, 1.0, 1.0), "angled"),
                   ("02_round_brush/packshot_front_vertical_black_bg_ulta.jpg", (0.3, 0.04, 0.7, 0.98), "front, ionic side"),
-                  ("02_round_brush/callouts_side_view_cool_tip_ionic_combs_aplus.png", (0.0, 0.42, 1.0, 0.68), "side")],
+                  ],
         "details": [("02_round_brush/01_packshot_white_front.jpg", (0.25, 0.0, 0.75, 0.5), "bristles, heated combs, cool tip"),
                     ("02_round_brush/closeup_cord_end_swivel_hang_loop_aplus.png", None, "swivel and hang loop"),
                     ("02_round_brush/01_packshot_white_front.jpg", (0.25, 0.45, 0.75, 0.75), "collar and handle")],
@@ -62,7 +62,7 @@ CARDS = {
         "hero": ("03_style_switch/01_packshot_all_attachments.jpg", None, "body + attachments (Straight & Wavy kit)"),
         "views": [("03_style_switch/packshot_kit_curly_coily_with_diffuser_CC_amazon.jpg", None, "Curly & Coily kit, diffuser"),
                   ("03_style_switch/packshot_kit_with_case_black_bg_SW_ulta.jpg", (0.1, 0.25, 0.95, 0.95), "kit and case"),
-                  ("03_style_switch/callouts_body_buttons_release_coolshot_filter_aplus.jpg", (0.3, 0.3, 1.0, 0.72), "body, side")],
+                  ],
         "details": [("03_style_switch/closeup_air_curling_barrels_pair_bidirectional_aplus.jpg", None, "1½\" air-curling barrels"),
                     ("03_style_switch/closeup_body_top_attachment_lock_markers_aplus.jpg", None, "attachment lock, buttons"),
                     ("03_style_switch/01_packshot_all_attachments.jpg", (0.31, 0.12, 0.41, 0.98), "body, chrome panel, filter")],
@@ -110,51 +110,121 @@ def load(rel, crop):
     return im
 
 
-def paste_fit(canvas, im, box):
+def background(im):
+    px = im.load()
+    w, h = im.size
+    corners = [px[2, 2], px[w - 3, 2], px[2, h - 3], px[w - 3, h - 3]]
+    bg = tuple(sorted(c[i] for c in corners)[1] for i in range(3))
+    # a crop whose corners land on the product has no real background: use white
+    if sum(max(abs(a - b) for a, b in zip(c, bg)) < 24 for c in corners) < 3:
+        return (255, 255, 255)
+    return bg
+
+
+def trim(im, pad=0.04):
+    """Crop away the empty background around the product (corner colour), keeping a small margin."""
+    w, h = im.size
+    bg = background(im)
+    if bg == (255, 255, 255) and min(im.getpixel((2, 2))) < 240:
+        return im
+    diff = ImageChops.difference(im, Image.new("RGB", im.size, bg)).convert("L").point(lambda v: 255 if v > 22 else 0)
+    box = diff.getbbox()
+    if not box:
+        return im
+    px_, py_ = int((box[2] - box[0]) * pad), int((box[3] - box[1]) * pad)
+    return im.crop((max(0, box[0] - px_), max(0, box[1] - py_), min(w, box[2] + px_), min(h, box[3] + py_)))
+
+
+def clamp(a, lo, hi):
+    return max(lo, min(hi, a))
+
+
+TAGS = {"VIEW": (52, 96, 140), "DETAIL": (255, 106, 0), "SCALE": (124, 58, 237)}
+
+
+def tile(c, d, im, box, tag, label, fonts):
+    """Grey rounded tile with the image contained inside; on the labelled card a tag chip and caption on top."""
     x0, y0, x1, y1 = box
-    im = im.copy()
-    im.thumbnail((x1 - x0, y1 - y0), Image.LANCZOS)
-    canvas.paste(im, (x0 + (x1 - x0 - im.width) // 2, y0 + (y1 - y0 - im.height) // 2))
+    ImageDraw.Draw(c).rounded_rectangle(box, radius=22, fill=background(im), outline=(222, 224, 228), width=3)
+    top = y0 + (64 if d else 0)
+    # contain, allowing up to 2.5x upscaling so small close-ups fill their tile
+    k = min((x1 - x0 - 2 * PAD) / im.width, (y1 - top - 2 * PAD) / im.height, 2.5)
+    im = im.resize((max(1, int(im.width * k)), max(1, int(im.height * k))), Image.LANCZOS)
+    c.paste(im, (x0 + (x1 - x0 - im.width) // 2, top + (y1 - top - im.height) // 2))
+    if d:
+        f_tag, f_cap = fonts
+        tw = d.textlength(tag, font=f_tag)
+        d.rounded_rectangle((x0 + 18, y0 + 16, x0 + 18 + tw + 28, y0 + 54), radius=10, fill=TAGS[tag])
+        d.text((x0 + 32, y0 + 19), tag, font=f_tag, fill="white")
+        cap_w = d.textlength(label, font=f_cap)
+        d.rounded_rectangle((x0 + 18 + tw + 34, y0 + 16, x0 + 18 + tw + 54 + cap_w, y0 + 54), radius=10, fill="white")
+        d.text((x0 + 18 + tw + 44, y0 + 18), label, font=f_cap, fill=(90, 95, 105))
 
 
-def column(canvas, d, items, x0, x1, top, bottom, f_small):
-    n = len(items)
-    hh = (bottom - top - GAP * (n - 1)) // n
-    for i, (rel, crop, label) in enumerate(items):
-        y = top + i * (hh + GAP)
-        lab = 40 if d else 0
-        paste_fit(canvas, load(rel, crop), (x0, y, x1, y + hh - lab))
-        if d:
-            d.text((x0, y + hh - 34), label, font=f_small, fill=(120, 124, 132))
+def row_widths(aspects, height, avail, fixed=0):
+    """Widths proportional to each image's aspect at the row height, scaled to fill the row exactly."""
+    nat = [a * height for a in aspects]
+    free = avail - fixed - GAP * (len(aspects) - (0 if fixed else 1))
+    k = free / sum(nat)
+    return [int(n * k) for n in nat]
 
 
 def card(spec, labels):
     c = Image.new("RGB", (W, H), "white")
     d = ImageDraw.Draw(c) if labels else None
-    top = 170 if labels else M
-    bottom = H - (440 if labels else M)
-    f_title, f_txt, f_small, f_head = (ImageFont.truetype(BOLD, 64), ImageFont.truetype(FONT, 36),
-                                       ImageFont.truetype(FONT, 28), ImageFont.truetype(BOLD, 30))
-    # hero | other views | hand | details
-    paste_fit(c, load(*spec["hero"][:2]), (M, top, 1400, bottom - (40 if labels else 0)))
-    column(c, d, spec["views"], 1440, 2100, top, bottom, f_small)
-    paste_fit(c, Image.open(os.path.join(HAND, spec["hand"])).convert("RGB"), (2140, top, 3160, bottom - (40 if labels else 0)))
-    column(c, d, spec["details"], 3200, W - M, top, bottom, f_small)
+    f_title, f_txt, f_head = ImageFont.truetype(BOLD, 60), ImageFont.truetype(FONT, 34), ImageFont.truetype(BOLD, 28)
+    fonts = (ImageFont.truetype(BOLD, 24), ImageFont.truetype(FONT, 26))
+    top = 150 if labels else M
+    bottom = H - M
+    avail = W - 2 * M
+    r1 = int((bottom - top - GAP) * 0.62)
+    r2 = bottom - top - GAP - r1
+    lab = 64 if labels else 0
+
+    # row 1: main view | other views stacked | hand (scale)
+    hero = trim(load(*spec["hero"][:2]))
+    hand = trim(Image.open(os.path.join(HAND, spec["hand"])).convert("RGB"))
+    views = [(trim(load(r, b)), t) for r, b, t in spec["views"]]
+    # widths: hand gets a fixed share so the scale reference is always readable; the stacked views get the
+    # width their images need (within limits); the main view takes the rest
+    hs = [1 / clamp(v.width / v.height, 0.5, 3.2) for v, _ in views]
+    col_nat = (r1 - GAP * (len(hs) - 1)) / sum(hs)
+    wn = int(avail * 0.27)
+    wc = int(clamp(col_nat, avail * 0.2, avail * 0.36))
+    wh = avail - wn - wc - 2 * GAP
+    x = M
+    tile(c, d, hero, (x, top, x + wh, top + r1), "VIEW", spec["hero"][2], fonts)
+    x += wh + GAP
+    yy, free = top, r1 - GAP * (len(views) - 1)
+    for i, (v, t) in enumerate(views):
+        hh = free - (yy - top - GAP * i) if i == len(views) - 1 else int(free * hs[i] / sum(hs))
+        tile(c, d, v, (x, yy, x + wc, yy + hh), "VIEW", t, fonts)
+        yy += hh + GAP
+    x += wc + GAP
+    tile(c, d, hand, (x, top, M + avail, top + r1), "SCALE", "hand + product, generated", fonts)
+
+    # row 2: details | sizes and colours (labelled card only)
+    y2 = top + r1 + GAP
+    det = [(trim(load(r, b)), t) for r, b, t in spec["details"]]
+    spec_w = 1250 if labels else 0
+    ws = row_widths([clamp(i.width / i.height, 0.8, 1.8) for i, _ in det], r2, avail, spec_w + GAP if labels else 0)
+    x = M
+    for (im, t), w in zip(det, ws):
+        tile(c, d, im, (x, y2, x + w, bottom), "DETAIL", t, fonts)
+        x += w + GAP
     if labels:
-        d.text((M, 50), spec["title"], font=f_title, fill=(18, 20, 26))
-        d.text((M, bottom - 34), spec["hero"][2], font=f_small, fill=(120, 124, 132))
-        d.text((2140, bottom - 34), "Hand + product at true scale (generated reference, the only generated image)",
-               font=f_small, fill=(255, 106, 0))
-        y0 = bottom + 50
-        d.text((M, y0), "SIZES", font=f_head, fill=(255, 106, 0))
+        bx = M + avail - spec_w
+        d.rounded_rectangle((bx, y2, M + avail, bottom), radius=22, outline=(225, 227, 231), width=3)
+        d.text((M, 46), spec["title"], font=f_title, fill=(18, 20, 26))
+        d.text((bx + 36, y2 + 30), "SIZES", font=f_head, fill=(255, 106, 0))
         for i, line in enumerate(spec["sizes"]):
-            d.text((M, y0 + 50 + i * 54), line, font=f_txt, fill=(40, 44, 52))
-        x = 2140
-        d.text((x, y0), "COLOUR AND MATERIAL", font=f_head, fill=(255, 106, 0))
+            d.text((bx + 36, y2 + 74 + i * 46), line, font=f_txt, fill=(40, 44, 52))
+        cy = y2 + 74 + len(spec["sizes"]) * 46 + 24
+        d.text((bx + 36, cy), "COLOUR AND MATERIAL", font=f_head, fill=(255, 106, 0))
         for i, (name, hexv) in enumerate(spec["colours"]):
-            yy = y0 + 50 + i * 66
-            d.rounded_rectangle((x, yy, x + 52, yy + 52), radius=10, fill=hexv, outline=(200, 200, 200))
-            d.text((x + 72, yy + 4), f"{name}  {hexv}", font=f_txt, fill=(40, 44, 52))
+            yy = cy + 44 + i * 54
+            d.rounded_rectangle((bx + 36, yy, bx + 80, yy + 44), radius=8, fill=hexv, outline=(200, 200, 200))
+            d.text((bx + 96, yy + 2), f"{name}  {hexv}", font=ImageFont.truetype(FONT, 28), fill=(40, 44, 52))
     return c
 
 

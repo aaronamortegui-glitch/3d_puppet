@@ -673,4 +673,12 @@ Rules:
 - Pink Rush has fewer real views. The only other photo is an ad callout whose leader lines touch the iron, so it was left out.
 - A third flat-iron colourway, Iced Blue (B0GS7CFJ6F), exists. We have no product photos of it yet, so there is no card for it.
 
+Layout, revised after review: a grid of separate tiles, each with a tag.
+- Tags: VIEW for general views, DETAIL for close-ups and crops, SCALE for the hand reference. On the clean card the tiles stay but have no text.
+- Each tile takes its photo's own background colour, with a thin border, so no photo looks pasted onto another and none is cut by its neighbour.
+- Empty background is trimmed and small close-ups are scaled up, up to 2.5x.
+- Tile widths follow the image proportions. The hand always gets about 27 % of the width.
+- Views were reduced to the 2 or 3 that read well. Thin side strips were dropped.
+- The first layout is kept in `samples/products/cards/v1/`.
+
 Figma: page "Product research", frame "PRODUCT CARDS · real photos + hand reference" (node 80:2), below the back-view library. Each row shows a product with the labelled card on the left and the clean card on the right.
