@@ -643,3 +643,12 @@ Same tool, sizes and specs; only the finish changes.
 - `<id>_sheet_clean.png` - the same photos without text, to pass to the model as the product reference.
 
 Each sheet has the real packshot and detail photos plus a hand holding the product at true scale. The hand image is generated (Nano Banana 2.1, from the packshot and a real in-hand photo, with the real dimensions in the prompt) and saved in `samples/products/sheets/hand/`. The flat iron has one sheet per colour (Pink Rush, Nano Blue); the clean sheets show only their own colour.
+
+## Test 2026-10-21: packshot vs product sheet as image input
+
+Same #066 gray render, person, pose details and final prompt; only image 2 changes (Auto Curler).
+
+- Packshot only: handle hue 96.4 against 96.2 on the real product (same teal); dark charcoal clamp lever, oval direction button and round Home button as on the real tool; titanium barrel with a dark tip.
+- Clean sheet: the handle drifts to a duller blue (hue 101, saturation 160 against 200); the clamp becomes a generic metal clamp with a wire spring; the buttons become a grille.
+
+Decision: pass one clean hero packshot as image 2 and write sizes and grip in the prompt; the sheets stay as the reference for people.
