@@ -99,6 +99,20 @@ CARDS = {
         "colours": [("Body: Nano Blue, metallic", "#68A4CB"), ("Plates: polished Nano Titanium", "#C8CBD0"),
                     ("Hinge ring: chrome", "#C9CED3"), ("Cord: black", "#111111")],
     },
+    "05_flat_iron_iced": {
+        "title": "BaBylissPRO Nano Titanium Ultra-Sleek 1½\" Flat Iron  ·  BNT131TLB  ·  Iced Blue",
+        "hand": "05_flat_iron_iced_hand.png",
+        "hero": ("05_flat_iron/iced_blue/01_packshot_iced_blue_BNT131TLB_amazon.jpg", None, "3/4 view"),
+        "views": [("05_flat_iron/iced_blue/03_heat_chart_side_iced_blue_amazon.jpg", (0.0, 0.62, 1.0, 0.97), "side, plates open"),
+                  ("05_flat_iron/iced_blue/04_whats_in_box_iced_blue_amazon.jpg", (0.04, 0.3, 0.97, 0.9), "front 3/4")],
+        "details": [("05_flat_iron/iced_blue/01_packshot_iced_blue_BNT131TLB_amazon.jpg", (0.0, 0.0, 0.6, 0.5), "plates"),
+                    ("05_flat_iron/iced_blue/01_packshot_iced_blue_BNT131TLB_amazon.jpg", (0.45, 0.3, 0.95, 0.75), "LED dots and logo"),
+                    ("05_flat_iron/iced_blue/01_packshot_iced_blue_BNT131TLB_amazon.jpg", (0.68, 0.68, 1.0, 1.0), "hinge, swivel, cord")],
+        "sizes": ["Overall 34.0 cm (13⅜\")", "6.4 cm (2½\") wide at the plates", "Plates 3.8 cm (1½\") wide, ~13-15 cm long",
+                  "Arms ~3.2 cm wide below the plates", "~530 g (1.17 lb)  ·  cord 2.7 m, swivel"],
+        "colours": [("Body: Iced Blue, pale powder blue, matte", "#B0D8F5"), ("Plates: polished Nano Titanium", "#C8CBD0"),
+                    ("Hinge ring: chrome", "#C9CED3"), ("Cord: black", "#111111")],
+    },
 }
 
 

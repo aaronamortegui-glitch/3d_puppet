@@ -657,7 +657,7 @@ Decision: pass one clean hero packshot as image 2 and write sizes and grip in th
 
 These cards replace the product sheets as the reference for generation. The sheets and `tools/product_sheets.py` are kept. Build the cards with `tools/product_cards.py`; they are written to `samples/products/cards/` (gitignored). There is one card per product and colourway:
 - `01_auto_curler`, `02_thermal_brush`, `03_style_switch`: one colourway each (Nano Blue). The Style/Switch kits, Straight & Wavy and Curly & Coily, share the same body, so they go on one card.
-- `05_flat_iron_pink` (Pink Rush BNT131THP) and `05_flat_iron_blue` (Nano Blue BNT131T-N).
+- `05_flat_iron_pink` (Pink Rush BNT131THP), `05_flat_iron_blue` (Nano Blue BNT131T-N) and `05_flat_iron_iced` (Iced Blue BNT131TLB).
 
 Each card exists in two versions: `<id>_card.png` is labelled for people, `<id>_card_clean.png` has no text and is the model input. It holds:
 - the main view;
@@ -671,7 +671,7 @@ Rules:
 - No people and no real hands, so that no person leaks into a generation that uses another model or avatar. The ad photos with a hand were left out for this reason.
 - The only generated image is the hand reference.
 - Pink Rush has fewer real views. The only other photo is an ad callout whose leader lines touch the iron, so it was left out.
-- A third flat-iron colourway, Iced Blue (B0GS7CFJ6F), exists. We have no product photos of it yet, so there is no card for it.
+- Iced Blue is a third flat-iron colourway: BNT131TLB, ASIN B0GS7CFJ6F, pale powder blue, matte, #B0D8F5. Its card `05_flat_iron_iced` uses only Iced Blue photos from its Amazon listing, saved in `research/05_flat_iron/iced_blue/` (gitignored). The colour of each photo was checked: 3 of the listing's 12 images are the darker Nano Blue and were left out. Its hand reference was generated from the Nano Blue hand, with the Iced Blue packshot as the colour reference (Krea job 00e79e80).
 
 Layout, revised after review: a grid of separate tiles, each with a tag.
 - Tags: VIEW for general views, DETAIL for close-ups and crops, SCALE for the hand reference. On the clean card the tiles stay but have no text.
