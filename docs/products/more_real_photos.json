@@ -1,0 +1,1375 @@
+{
+ "_meta": {
+  "researched": "2026-10-21",
+  "note": "Additional real (user-posted) photos per product x hair type. hair_type: 1 straight, 2 wavy, 3 curly, 4 coily; \"stated\" = poster wrote it (review text or retailer profile field), \"visual\" = read from the photo. All flat-iron images are SIBLING products (other BaBylissPRO Nano Titanium irons or the 1in Ultra-Sleek); none show the 1.5in Ultra-Sleek itself. Ulta/Sephora reviews for the 2026 tools are almost all incentivized (BzzAgent / free sample). Files are re-encoded JPEG copies of the original image_url."
+ },
+ "images": [
+  {
+   "file": "01_curling_iron/evidence/more/real_type2_dampwavy_ulta_588167515.jpg",
+   "product": "BaBylissPRO The Auto Curler 1in BNTAC100",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "damp natural hair with loose S-waves (2a-2b), back view",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/g7y6jc91lwtsfloxq7au.jpg",
+   "date": "2026-10-05",
+   "who": "Kagen (Ulta review 588167515)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "01_curling_iron/evidence/more/real_type2_second_morewaves_ulta_588167515.jpg",
+   "product": "BaBylissPRO The Auto Curler 1in BNTAC100",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "second photo, same hair: waves more defined (review does not say which photo is before/after)",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/ntftdqfzfbbrulvywo33.jpg",
+   "date": "2026-10-05",
+   "who": "Kagen (Ulta review 588167515)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "01_curling_iron/evidence/more/real_type4_inuse_stretchedtextured_ulta_587577458.jpg",
+   "product": "BaBylissPRO The Auto Curler 1in BNTAC100",
+   "hair_type": "4 (visual, uncertain: 3c-4a texture worn stretched)",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "in use: curler held next to stretched, frizzy textured hair (before curling)",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/aeqy4tttatuwqplr4xhg.jpg",
+   "date": "2026-09-21",
+   "who": "Felicita M (Ulta review 587577458)",
+   "quote": null,
+   "size_px": [
+    353,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "01_curling_iron/evidence/more/real_type1_beforeafter_straight_to_curls_ulta_587241088.jpg",
+   "product": "BaBylissPRO The Auto Curler 1in BNTAC100",
+   "hair_type": "1",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "before/after collage: straight blonde hair to loose curls (labels on the image look swapped)",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/vygqsdnyvyojvcl6h9r6.jpg",
+   "date": "2026-09-15",
+   "who": "zdmargarita (Ulta review 587241088)",
+   "quote": null,
+   "size_px": [
+    768,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type3_beforeafter_curly_to_smooth_ulta_588162191.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "before/after: frizzy curly hair to smooth, bouncy blowout",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/xncipdfdvqybzbb1qgvn.jpg",
+   "date": "2026-10-05",
+   "who": "Angela (Ulta review 588162191)",
+   "quote": null,
+   "size_px": [
+    614,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type3_beforeafter_curlyfrizzy_sephora_411129588.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "before/after: curly frizzy hair to smoother, straighter hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/1c420a13-1711-56fa-8fa6-282908da8948",
+   "date": "2026-10-08",
+   "who": "beybirb (Sephora review 411129588; profile texture None)",
+   "quote": "I have curly frizzy hair",
+   "size_px": [
+    450,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type3_before_naturallycurly_sephora_411251195.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "before: frizzy curly hair (face hidden)",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/60e4a984-daa9-5e8d-bafd-3f41c3f90c43",
+   "date": "2026-10-08",
+   "who": "KellP13 (Sephora review 411251195; profile texture Curly)",
+   "quote": "As someone with naturally curly, extra frizzy hair",
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type3_after_smoothed_sephora_411251195.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "after: smoothed, straightened hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/e71e8f4a-1de9-51b6-98ae-66a513acdbd8",
+   "date": "2026-10-08",
+   "who": "KellP13 (Sephora review 411251195; profile texture Curly)",
+   "quote": "this brush has cut my straightening time in half",
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type3_result_curly_blowout_sephora_409719431.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "3 (says curly; Sephora profile Wavy (2c-3a))",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: soft curled blowout (mirror selfie)",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/aadfe419-e6ad-51e7-898d-2a979127ba30",
+   "date": "2026-10-05",
+   "who": "manda007 (Sephora review 409719431; profile texture Wavy)",
+   "quote": "I have curly hair and it does work better when I have dried my hair straight prior",
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_before_frizzywavy_ulta_588250492.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "before: frizzy, slightly wavy long dark hair",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/zchewxo4m7jge1ncyguy.jpg",
+   "date": "2026-10-08",
+   "who": "Nells (Ulta review 588250492)",
+   "quote": null,
+   "size_px": [
+    539,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_after_bouncycurls_ulta_588250492.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "after: big bouncy curled blowout on the same hair",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/s8xjjuiisynfaf9kjecp.jpg",
+   "date": "2026-10-08",
+   "who": "Nells (Ulta review 588250492)",
+   "quote": null,
+   "size_px": [
+    453,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_afterdry_vs_afterbrush_sephora_411808270.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "after blow-drying vs after the brush (labelled): frizz reduced",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/df5d3a6e-6c3b-5a99-9ef4-186f500b1ae8",
+   "date": "2026-10-10",
+   "who": "DariaMe (Sephora review 411808270; profile texture None)",
+   "quote": "I have porous, slightly wavy hair that tends to get frizzy after blow-drying",
+   "size_px": [
+    800,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_result_smooth_sephora_409255333.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: smooth, straight lengths with bent ends",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/f739cca4-6835-5b2c-986c-a1789d0bd7f4",
+   "date": "2026-10-04",
+   "who": "Craft502 (Sephora review 409255333; profile texture Wavy)",
+   "quote": "My hair is a little wavy and tends to frizz",
+   "size_px": [
+    553,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_result_sleek_ulta_588022682.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: smooth, sleek blowout",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/wi1dilpcll9ncipeve0k.jpg",
+   "date": "2026-09-30",
+   "who": "Kea (Ulta review 588022682)",
+   "quote": "It quickly tamed my wavy hair making it smooth & sleek",
+   "size_px": [
+    432,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_inuse_rootvolume_sephora_411810233.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "in use at the crown for root volume",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/21091f57-c8b7-5748-94cc-d3a9f836db6a",
+   "date": "2026-10-10",
+   "who": "coldoc (Sephora review 411810233; profile texture Curly)",
+   "quote": "I have long, wavy hair that can sometimes be unruly",
+   "size_px": [
+    450,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type2_result_blowout_sephora_413162501.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "2 (Sephora profile texture: Wavy)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: voluminous blowout with soft bends",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/the-thermal-round-brush-P527652",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/03da52c9-02d5-5e12-a334-c3f32b976f89",
+   "date": "2026-10-13",
+   "who": "Almap145 (Sephora review 413162501; profile texture Wavy)",
+   "quote": null,
+   "size_px": [
+    450,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type1_result_straight_negative_ulta_587395432.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "1",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "result (negative review): straight hair, little change",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/raxiwai293usj5kanbha.jpg",
+   "date": "2026-09-17",
+   "who": "Roxygirl911 (Ulta review 587395432)",
+   "quote": "It is VERY easy to get your hair tangled in this brush",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type1_result_straight_negative2_ulta_587395432.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "1",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "second view of the same straight hair after use",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/bk4izjnhigsplrh7kjyt.jpg",
+   "date": "2026-09-17",
+   "who": "Roxygirl911 (Ulta review 587395432)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "02_round_brush/evidence/more/real_type1_result_straightblowout_ulta_587290196.jpg",
+   "product": "BaBylissPRO The Thermal Round Brush 1.25in BNTHTB125",
+   "hair_type": "1",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "result: smooth straight blowout on straight dark hair",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/thermal-round-brush-1-14-barrel-dual-voltage-pimprod2061542",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/o12hvkuztp3s6rwgr9h2.jpg",
+   "date": "2026-09-16",
+   "who": "Cmdcasey212 (Ulta review 587290196)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type1_SW_before_wetstraight_ulta_578835262.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "1",
+   "attachment": "unspecified (Straight & Wavy kit)",
+   "stated_or_visual": "visual",
+   "result_shown": "before: wet hair hangs straight (natural texture visible)",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/hptq8siavne04e9da6l4.jpg",
+   "date": "2026-04-27",
+   "who": "Jessie (Ulta review 578835262)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type1_SW_after_sleek_ulta_578835262.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "1",
+   "attachment": "unspecified (Straight & Wavy kit, blowout)",
+   "stated_or_visual": "visual",
+   "result_shown": "after: long sleek straight blowout",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/bxz2qkcpi1xifq3dvmos.jpg",
+   "date": "2026-04-27",
+   "who": "Jessie (Ulta review 578835262)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type1_SW_paddle_inuse_sephora_387384593.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Straight & Wavy (BNTSSSW)",
+   "hair_type": "1",
+   "attachment": "paddle brush",
+   "stated_or_visual": "visual",
+   "result_shown": "in use: paddle brush through very straight black hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-straight-wavy-P524956",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/c20cc02c-d763-5f29-ab85-60515fa2b718",
+   "date": "2026-05-16",
+   "who": "Dayami97 (Sephora review 387384593; profile texture None)",
+   "quote": null,
+   "size_px": [
+    570,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type1_SW_roundbrush_result_ulta_579023248.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "1",
+   "attachment": "round brush",
+   "stated_or_visual": "visual",
+   "result_shown": "result: smooth straight blowout with volume",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-pimprod2058618",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/xxjfy7i3z0x6vsiwpics.jpg",
+   "date": "2026-05-01",
+   "who": "Christine (Ulta review 579023248)",
+   "quote": null,
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type1_CC_roundbrush_inuse_ulta_582886450.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "1",
+   "attachment": "round brush (Curly & Coily kit)",
+   "stated_or_visual": "visual",
+   "result_shown": "in use: round brush on sleek straight black hair",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-with-diffuser-pimprod2058619",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/zigijdbwpgq4ckadeujw.jpg",
+   "date": "2026-06-25",
+   "who": "Raysa (Ulta review 582886450)",
+   "quote": null,
+   "size_px": [
+    430,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type2_SW_roundbrush_inuse_sephora_387001509.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Straight & Wavy (BNTSSSW)",
+   "hair_type": "2 (Sephora profile texture: Wavy)",
+   "attachment": "round brush",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: round brush smoothing long hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-straight-wavy-P524956",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/62fc0ae3-66ca-51c5-9fcc-e20c0f7520ed",
+   "date": "2026-05-12",
+   "who": "ashriya123 (Sephora review 387001509; profile texture Wavy)",
+   "quote": null,
+   "size_px": [
+    368,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type2_SW_roundbrush_roots_sephora_387016070.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Straight & Wavy (BNTSSSW)",
+   "hair_type": "2 (Sephora profile texture: Wavy (fine))",
+   "attachment": "round brush",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: round brush at the roots",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-straight-wavy-P524956",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/403983c7-bed9-594d-8031-9c24ffe859d7",
+   "date": "2026-05-12",
+   "who": "jessalea19 (Sephora review 387016070; profile texture Wavy)",
+   "quote": "I have enjoyed using this system for my fine hair",
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type2_SW_roundbrush_crown_sephora_387040657.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Straight & Wavy (BNTSSSW)",
+   "hair_type": "2 (Sephora profile texture: Wavy)",
+   "attachment": "round brush",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: round brush lifting the crown",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-straight-wavy-P524956",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/048896d8-4863-5853-8469-2aba12b27250",
+   "date": "2026-05-12",
+   "who": "SueChmi (Sephora review 387040657; profile texture Wavy)",
+   "quote": null,
+   "size_px": [
+    370,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_SW_result_smoothed_sephora_393132955.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Straight & Wavy (BNTSSSW)",
+   "hair_type": "3",
+   "attachment": "unspecified (Straight & Wavy kit)",
+   "stated_or_visual": "stated",
+   "result_shown": "result: smoothed, straight blowout on frizzy curly hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-straight-wavy-P524956",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/75c2d7a4-3eb0-5029-8e54-2a569589b757",
+   "date": "2026-06-08",
+   "who": "TaraAred (Sephora review 393132955; profile texture Curly)",
+   "quote": "it smoothed my hair, which is a frizzy curly!",
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_SW_paddle_inuse_sephora_387004972.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Straight & Wavy (BNTSSSW)",
+   "hair_type": "3 (Sephora profile texture: Curly)",
+   "attachment": "paddle brush",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: paddle brush on long hair, rest of hair clipped up",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-straight-wavy-P524956",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/740941bc-f4a9-55ed-8836-ca227058d5d8",
+   "date": "2026-05-12",
+   "who": "Julizaaaaaaaaa (Sephora review 387004972; profile texture Curly)",
+   "quote": null,
+   "size_px": [
+    562,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_CC_diffuser_inuse_ulta_579303950.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "3",
+   "attachment": "diffuser",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: diffusing defined curls",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-with-diffuser-pimprod2058619",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/sv0hohw18rqfa8rdd2ir.jpg",
+   "date": "2026-05-06",
+   "who": "Arllet (Ulta review 579303950)",
+   "quote": "This Babyliss PRO is a lifesaver for my curly hair!",
+   "size_px": [
+    435,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_CC_diffuser_curls_ulta_581546852.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "3",
+   "attachment": "diffuser",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: diffuser on defined curls",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-with-diffuser-pimprod2058619",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/w4fniwvo0xn0exaygcrj.jpg",
+   "date": "2026-06-03",
+   "who": "Felicia (Ulta review 581546852)",
+   "quote": "The diffuser works great on my curls!",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_CC_diffuser_ringlets_sephora_388212705.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Curly & Coily (BNTSSCC)",
+   "hair_type": "3",
+   "attachment": "diffuser",
+   "stated_or_visual": "visual",
+   "result_shown": "in use: diffuser on tight defined ringlets (3b-3c)",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/25252220-8471-5a66-b5e2-b252010e5828",
+   "date": "2026-05-26",
+   "who": "akimao (Sephora review 388212705; profile texture None)",
+   "quote": null,
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_CC_result_curls_sephora_387717380.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Curly & Coily (BNTSSCC)",
+   "hair_type": "3",
+   "attachment": "unspecified (Curly & Coily kit)",
+   "stated_or_visual": "stated",
+   "result_shown": "result: defined 3b-3c curls from behind",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/0a26659d-d48f-54d7-9059-a91b958e90a5",
+   "date": "2026-05-20",
+   "who": "Glen6 (Sephora review 387717380; profile texture None)",
+   "quote": "I have curly hair, so I found that it works better for me when my hair is damp",
+   "size_px": [
+    450,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type3_CC_diffuser_wetcurls_sephora_387026589.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Curly & Coily (BNTSSCC)",
+   "hair_type": "3 (Sephora profile texture: Curly)",
+   "attachment": "diffuser",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: diffusing wet curly hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/cde1e8d1-2787-509d-b9e0-4cb8e17dfd97",
+   "date": "2026-05-12",
+   "who": "mckennahowell (Sephora review 387026589; profile texture Curly)",
+   "quote": "the photos attached show the results with the diffuser",
+   "size_px": [
+    712,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type4_CC_diffuser_coils_sephora_387927078.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Curly & Coily (BNTSSCC)",
+   "hair_type": "4 (4a/4b)",
+   "attachment": "diffuser",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: diffuser on coily hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/866f72e9-ea0a-57f7-85ed-5f9d6329dd23",
+   "date": "2026-05-23",
+   "who": "KailaE85 (Sephora review 387927078; profile texture None)",
+   "quote": "I have 4a/4b hair",
+   "size_px": [
+    600,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type4_CC_roundbrush_kinky_sephora_392449511.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Curly & Coily (BNTSSCC)",
+   "hair_type": "4 (kinky (child))",
+   "attachment": "round brush",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: round brush stretching kinky hair",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/075b1e28-d754-522f-a6c3-d0504817908f",
+   "date": "2026-06-02",
+   "who": "FeeBeeRome (Sephora review 392449511; profile texture None)",
+   "quote": "used it several times on my daughter",
+   "size_px": [
+    450,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type4_CC_roundbrush_4c_sephora_392330780.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1 Curly & Coily (BNTSSCC)",
+   "hair_type": "4 (4c)",
+   "attachment": "round brush",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: round brush straightening 4c hair (says better for looser curls)",
+   "sibling": false,
+   "source_type": "Sephora review photo (Bazaarvoice)",
+   "page_url": "https://www.sephora.com/product/style%7Cswitch-curly-coily-P524791",
+   "image_url": "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86c2VwaG9yYQ/4001288f-42b2-5372-a7a8-2557d9121e41",
+   "date": "2026-06-01",
+   "who": "IgBeauTee (Sephora review 392330780; profile texture None)",
+   "quote": "I have 4C hair texture and the barrel brush is the only tool that I can use to straighten",
+   "size_px": [
+    450,
+    800
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type4_CC_dried_stretched_ulta_581906501.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "4",
+   "attachment": "dryer (attachment not stated)",
+   "stated_or_visual": "visual",
+   "result_shown": "result: child's kinky hair dried and stretched, soft and full",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-with-diffuser-pimprod2058619",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/ooktcn0wccksz9m4vnva.jpg",
+   "date": "2026-06-07",
+   "who": "Talibah (Ulta review 581906501)",
+   "quote": "it dried her hair and made it very manageable",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type4_CC_dryer_coily_ulta_580407657.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "4",
+   "attachment": "dryer (attachment not stated)",
+   "stated_or_visual": "visual",
+   "result_shown": "in use: drying coily hair at the hairline",
+   "sibling": false,
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/styleswitch-air-styling-drying-system-with-diffuser-pimprod2058619",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/m8727y0ucb5xsyponsgf.jpg",
+   "date": "2026-05-20",
+   "who": "Melissa (Ulta review 580407657)",
+   "quote": null,
+   "size_px": [
+    432,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "03_style_switch/evidence/more/real_type4_aircurl_naturalhair_youtube_snYgjLeGfFE.jpg",
+   "product": "BaBylissPRO Style/Switch 5-in-1",
+   "hair_type": "4 (natural hair (stated); Style/Switch variant not named)",
+   "attachment": "air curl barrels",
+   "stated_or_visual": "stated",
+   "result_shown": "video thumbnail: blown-out / air-curled natural hair with the tool",
+   "sibling": false,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=snYgjLeGfFE",
+   "image_url": "https://i.ytimg.com/vi/snYgjLeGfFE/maxresdefault.jpg",
+   "date": "2026-09-28",
+   "who": "Trying the Babyliss Style Switch! Air curls for natural hair!",
+   "quote": "I love the way it came out on my natural hair!",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type1_SIBLING_vented_result_straight_ulta_457691090.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "1",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "result: sleek straight hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/xpcl8xgzg6xh4buks7s7.jpg",
+   "date": "2023-05-12",
+   "who": "Nicshanae (Ulta review 457691090)",
+   "quote": null,
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    314,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type1_SIBLING_ultrathin_thinhair_youtube_KoBr-LFYS1c.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "1 (thin, fragile hair (texture visual: straight))",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "video thumbnail: 5-year review, straight thin hair with Ultra-Thin iron",
+   "sibling": true,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=KoBr-LFYS1c",
+   "image_url": "https://i.ytimg.com/vi/KoBr-LFYS1c/maxresdefault.jpg",
+   "date": "2025-09-11",
+   "who": "BaBylissPRO Nano Titanium Flat Iron | Honest 5 Year Review for Thin Hair",
+   "quote": null,
+   "sibling_product": "Nano Titanium Ultra-Thin Flat Iron",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type1_SIBLING_ultrasleekduo_straight_youtube_14N5PzR7ah0.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "1",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "video thumbnail: Ultra-Sleek/Ultra-Thin duo held next to straight blonde hair",
+   "sibling": true,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=14N5PzR7ah0",
+   "image_url": "https://i.ytimg.com/vi/14N5PzR7ah0/maxresdefault.jpg",
+   "date": "2026-09-07",
+   "who": "13 years using this!! Let's Talk About the BaBylissPRO Ultra-Sleek Flat Iron Duo and More #affiliate",
+   "quote": null,
+   "sibling_product": "Ultra-Sleek / Ultra-Thin flat iron duo (owned 13 years)",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_vented_before_wavy_ulta_456771776.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "before: wavy hair (back view)",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/wtgjc7jxxc4lxqvem9dw.jpg",
+   "date": "2023-05-04",
+   "who": "Saylah738 (Ulta review 456771776)",
+   "quote": "My hair is shoulder length and naturally wavy",
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_vented_after_straight_ulta_456771776.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "after: straight, still full",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/yyv5qkn7grsthliieeow.jpg",
+   "date": "2023-05-04",
+   "who": "Saylah738 (Ulta review 456771776)",
+   "quote": "my hair no longer had the waves which is what I wanted",
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_vented_before_wavycoarse_ulta_457818993.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "before: long wavy frizzy hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/kyg9zihzgzrjybpogmv3.jpg",
+   "date": "2023-05-14",
+   "who": "Aud83 (Ulta review 457818993)",
+   "quote": "As someone with long thick wavy coarse hair",
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_vented_after_straight2_ulta_457818993.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "after: straight smooth hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/p8ofqe48ubxojuauh8lp.jpg",
+   "date": "2023-05-14",
+   "who": "Aud83 (Ulta review 457818993)",
+   "quote": null,
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_ultrathin_result_ulta_191864322.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: pin-straight shiny hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-12-ultra-thin-ionic-flat-iron-pimprod2031772",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/meh5ztaowteahm8dj7uw.jpg",
+   "date": "2016-08-16",
+   "who": "Jodi (Ulta review 191864322)",
+   "quote": "My daughter and I both have wavy, frizzy hair",
+   "sibling_product": "Nano Titanium Ultra-Thin Ionic Flat Iron (Ulta pimprod2031772)",
+   "size_px": [
+    432,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_vented_result_pinstraight_ulta_458406201.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2 (2a (slight wave))",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: long pin-straight hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/elhydbzcojz7rqppmhhg.jpg",
+   "date": "2023-05-19",
+   "who": "Christina (Ulta review 458406201)",
+   "quote": "waist length thick hair that has a slight wave and tends to frizz",
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    362,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type2_SIBLING_ultrasleek1in_inuse_youtube_66AgzOdEKXg.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "2",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "video thumbnail: straightening wavy dark hair, caption \"sleek and shiny\"",
+   "sibling": true,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=66AgzOdEKXg",
+   "image_url": "https://i.ytimg.com/vi/66AgzOdEKXg/maxresdefault.jpg",
+   "date": "2026-06-16",
+   "who": "BabylissPRO Nano Titanium Ultra-Sleek Hair Straightener, Flat Iron for All Hair Types",
+   "quote": null,
+   "sibling_product": "Ultra-Sleek 1in + mini 3/4in prepack",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_vented_before_curly_ulta_457755000.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3 (says very thick curly (photo reads 2c-3a))",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "before: thick wavy-curly hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/wydzocnw9q2es0wzrgkr.jpg",
+   "date": "2023-05-13",
+   "who": "Danielle (Ulta review 457755000)",
+   "quote": "I have very thick curly hair",
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_vented_after_straight3_ulta_457755000.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3 (says very thick curly)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "after: straight",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-vented-straightening-iron-pimprod2019740",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/bcfkvwglsnn5zlgfxowv.jpg",
+   "date": "2023-05-13",
+   "who": "Danielle (Ulta review 457755000)",
+   "quote": "I was able to straighten my hair in UNDER 30 minutes",
+   "sibling_product": "Nano Titanium Vented Straightening Iron 1.5in (Ulta pimprod2019740)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_ultrathin_before_curly_ulta_378348009.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "before: very curly, frizzy hair (face covered)",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-12-ultra-thin-ionic-flat-iron-pimprod2031772",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/prvhwljoj2pmy2hk9wl8.jpg",
+   "date": "2021-09-03",
+   "who": "Roe (Ulta review 378348009)",
+   "quote": "I have very curly and frizzy hair",
+   "sibling_product": "Nano Titanium Ultra-Thin Ionic Flat Iron (Ulta pimprod2031772)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_ultrathin_after_straight_ulta_378348009.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "after: straightened",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-12-ultra-thin-ionic-flat-iron-pimprod2031772",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/dkgrdinl7yz2aqb0fe9j.jpg",
+   "date": "2021-09-03",
+   "who": "Roe (Ulta review 378348009)",
+   "quote": null,
+   "sibling_product": "Nano Titanium Ultra-Thin Ionic Flat Iron (Ulta pimprod2031772)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_ionic_result_ulta_218720414.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3 (Ulta profile: Very Curly Hair)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: straightened thick hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-ionic-straightening-iron-xlsImpprod3540301",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/xbqkhcebg4vnncgxlsbo.jpg",
+   "date": "2018-12-13",
+   "who": "Eva (Ulta review 218720414)",
+   "quote": "I have very thick coarse curly hair",
+   "sibling_product": "Nano Titanium Ionic Straightening Iron (Ulta xlsImpprod3540301)",
+   "size_px": [
+    577,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_ultrathin_result_3c4a_ulta_273208192.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3 (3c/4a)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: long straightened hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-12-ultra-thin-ionic-flat-iron-pimprod2031772",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/imtjj5amebq9xusivh2v.jpg",
+   "date": "2020-04-22",
+   "who": "ginafromtheburbs (Ulta review 273208192)",
+   "quote": "I have curly hair, like 3C/4A type",
+   "sibling_product": "Nano Titanium Ultra-Thin Ionic Flat Iron (Ulta pimprod2031772)",
+   "size_px": [
+    976,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type3_SIBLING_ultrasleek1in_curly_halfhalf_youtube_dWUKHmsuzJ8.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "3",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "video thumbnail: half curly / half straightened hair with the 1in Ultra-Sleek",
+   "sibling": true,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=dWUKHmsuzJ8",
+   "image_url": "https://i.ytimg.com/vi/dWUKHmsuzJ8/maxresdefault.jpg",
+   "date": "2026-01-28",
+   "who": "What you need to know BaBylissPRO 1” Ultra-Sleek Flat Iron Review | Smooths Curly & Frizzy Hair Fast",
+   "quote": null,
+   "sibling_product": "Ultra-Sleek 1in (not the 1.5in)",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_ultrathin_natural4c_ulta_499578661.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4 (4c (self) / 4a (daughter))",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "natural kinky hair (unstraightened)",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-12-ultra-thin-ionic-flat-iron-pimprod2031772",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/pmdxtcwnrjkijr4nrsat.jpg",
+   "date": "2024-01-28",
+   "who": "Shauvon (Ulta review 499578661)",
+   "quote": "It has been great for both my hair (4c)",
+   "sibling_product": "Nano Titanium Ultra-Thin Ionic Flat Iron (Ulta pimprod2031772)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_ultrathin_result_pressed_ulta_499578661.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4 (4c/4a)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: hair pressed straight and curled at the ends",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-12-ultra-thin-ionic-flat-iron-pimprod2031772",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/trhqdxw4tjcmm8skuqqi.jpg",
+   "date": "2024-01-28",
+   "who": "Shauvon (Ulta review 499578661)",
+   "quote": "It literally got the job done with one pass.",
+   "sibling_product": "Nano Titanium Ultra-Thin Ionic Flat Iron (Ulta pimprod2031772)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_ionic_result_4c_negative_ulta_280444881.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4 (4c)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result (negative review): long straightened hair; plates burned",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://www.ulta.com/p/nano-titanium-ionic-straightening-iron-xlsImpprod3540301",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/cgck5x4lprl1rxducco2.jpg",
+   "date": "2020-06-13",
+   "who": "Jljclark35 (Ulta review 280444881)",
+   "quote": "I have thick 4c hair about an inch past my bra strap",
+   "sibling_product": "Nano Titanium Ionic Straightening Iron (Ulta xlsImpprod3540301)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_prima_result_type4_ulta_315261703.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4 (type 4)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "result: straightened, still thick",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://display.powerreviews.com/m/6406/l/en_US/product/xlsImpprod14811003/reviews",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/ederuqemy7j33tox9jnb.jpg",
+   "date": "2020-11-15",
+   "who": "Jljclark3 (Ulta review 315261703)",
+   "quote": "If you have thick 4 type hair buy it now",
+   "sibling_product": "Nano Titanium Prima Styling Iron (Ulta xlsImpprod14811003)",
+   "size_px": [
+    576,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_prima_before_natural_ulta_439431491.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "before: natural coily hair",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://display.powerreviews.com/m/6406/l/en_US/product/xlsImpprod14811003/reviews",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/p8ei8jlo8ds2xr6j9ch1.jpg",
+   "date": "2023-01-04",
+   "who": "Kyla (Ulta review 439431491)",
+   "quote": "They straighten my (natural) hair in one pass",
+   "sibling_product": "Nano Titanium Prima Styling Iron (Ulta xlsImpprod14811003)",
+   "size_px": [
+    364,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_prima_after_pressed_ulta_439431491.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "after: pressed and styled short cut",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://display.powerreviews.com/m/6406/l/en_US/product/xlsImpprod14811003/reviews",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/widk379i3x0fpdhb0uxv.jpg",
+   "date": "2023-01-04",
+   "who": "Kyla (Ulta review 439431491)",
+   "quote": null,
+   "sibling_product": "Nano Titanium Prima Styling Iron (Ulta xlsImpprod14811003)",
+   "size_px": [
+    364,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_digital_beforeafter_kinky_ulta_190761835.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "before/after (stylist): kinky hair to bone straight",
+   "sibling": true,
+   "source_type": "Ulta review photo (PowerReviews), SIBLING product",
+   "page_url": "https://display.powerreviews.com/m/6406/l/en_US/product/xlsImpprod13261139/reviews",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/tsixlntuqkl0ggwh08le.jpg",
+   "date": "2017-05-12",
+   "who": "Paris (Ulta review 190761835)",
+   "quote": null,
+   "sibling_product": "Nano Titanium Digital Straightening Iron (Ulta xlsImpprod13261139)",
+   "size_px": [
+    432,
+    768
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_natural_4c4b_youtube_uCXDvWYNcl0.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4 (4c/4b)",
+   "attachment": null,
+   "stated_or_visual": "stated",
+   "result_shown": "video thumbnail: straightened natural hair, \"Straightening Curly Hair\"",
+   "sibling": true,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=uCXDvWYNcl0",
+   "image_url": "https://i.ytimg.com/vi/uCXDvWYNcl0/maxresdefault.jpg",
+   "date": "2022-01-30",
+   "who": "BaByliss Nano Titanium Pro on 4 Type Natural Hair | Curly to Straight | Review",
+   "quote": null,
+   "sibling_product": "Nano Titanium \"Pro\" flat iron (model not named)",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_ultrathin_silkpress_youtube_eZxVQXNQXZY.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "video thumbnail: kinky natural hair to silk press with Ultra-Thin",
+   "sibling": true,
+   "source_type": "YouTube video thumbnail (creator review)",
+   "page_url": "https://www.youtube.com/watch?v=eZxVQXNQXZY",
+   "image_url": "https://i.ytimg.com/vi/eZxVQXNQXZY/maxresdefault.jpg",
+   "date": "2022-09-15",
+   "who": "Curly to Straight Natural Hair Silk Press DIY | Babyliss Pro Nano Titanium Review",
+   "quote": null,
+   "sibling_product": "Nano Titanium Ultra-Thin 1.5in",
+   "size_px": [
+    1280,
+    720
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more/real_type4_SIBLING_reddit_silkpress_reddit_1gm2780.jpg",
+   "product": "BaBylissPRO Nano Titanium Ultra-Sleek 1.5in (BNT131T)",
+   "hair_type": "4 (natural hair (posted in r/Naturalhair))",
+   "attachment": null,
+   "stated_or_visual": "visual",
+   "result_shown": "result: silk press on natural hair, texture visible at roots",
+   "sibling": true,
+   "source_type": "Reddit post image",
+   "page_url": "https://www.reddit.com/r/Naturalhair/comments/1gm2780/silk_press_update/",
+   "image_url": "https://i.redd.it/tuuh65t1wjzd1.jpeg",
+   "date": "2024-11-07",
+   "who": "u/Velvetfatale (r/Naturalhair)",
+   "quote": "used the babyliss flat iron that was recommended by you guys",
+   "sibling_product": "\"the babyliss flat iron\" (model not named)",
+   "size_px": [
+    1920,
+    2560
+   ],
+   "verified": "opens in PIL and cv2; content checked visually"
+  }
+ ]
+}
