@@ -626,3 +626,20 @@ The flat iron is documented in two colours, both valid product references for im
 - **Nano Blue** - BNT131T-N, ASIN B0F4MHYKSZ: metallic Nano Blue approx #68A4CB, white wordmark; the same blue as the Auto Curler, Thermal Round Brush and Style/Switch.
 
 Same tool, sizes and specs; only the finish changes.
+
+## Summary: what each tool does on each hair type
+
+| Tool | Type 1 straight | Type 2 wavy | Type 3 curly | Type 4 coily | Best for |
+|---|---|---|---|---|---|
+| 01 The Auto Curler 1" | Yes: classic defined curls that relax into soft waves (285-360 F) | Yes: defined, glossy, uniform curls (360-395 F) | Limited: only on blown-out / pressed hair | Limited: only on pressed hair (silk press) | Classic curls |
+| 02 The Thermal Round Brush 1.25" | Yes: root lift, volume, bent ends (ionic off) | Yes: smooth blowout with movement (ionic on) | Yes (brand): sleek frizz-free blowout from curls, dry hair | Limited: smoothing / touch-ups on stretched hair | Blowout and volume |
+| 03 The Style/Switch 5-in-1 | Yes: air curlers = soft blowout curls and waves; round brush = volume; paddle = sleek | Yes: blowout curls, relaxed waves, sleek blowout | Yes (Curly & Coily kit): defined curls (diffuser), stretched blowout, soft waves | Yes, brand claim (Curly & Coily kit): defined coils, stretched blowout; may run cool for very coarse hair | Blowout curls and waves, no heat damage |
+| 05 Ultra-Sleek 1.5" flat iron | Yes: sleek polish; waves or curls by twisting (300-340 F) | Yes: sleek straight in one pass (380 F) | Yes: smooth shiny straight (420 F) | Yes: silk press / bone straight (450 F) | Sleek straight on every type |
+
+## Product sheets (input for image generation)
+
+`tools/product_sheets.py` composes one sheet per product in `samples/products/sheets/` (gitignored images):
+- `<id>_sheet.png` - labelled (name, colours, sizes, grip, use) for people;
+- `<id>_sheet_clean.png` - the same photos without text, to pass to the model as the product reference.
+
+Each sheet has the real packshot and detail photos plus a hand holding the product at true scale. The hand image is generated (Nano Banana 2.1, from the packshot and a real in-hand photo, with the real dimensions in the prompt) and saved in `samples/products/sheets/hand/`. The flat iron has one sheet per colour (Pink Rush, Nano Blue); the clean sheets show only their own colour.
