@@ -49,3 +49,26 @@ AFTER (image 1 = the BEFORE lock):
 Every real-customer photo shown in the Figma "READ FIRST" table was reviewed by eye:
 - removed: one Auto Curler before/after whose labels are reversed (the "after" is straighter), one Thermal Round Brush photo duplicated from Ulta to Sephora, and two flat-iron YouTube thumbnails that show the product but no hair result;
 - flagged: Auto Curler "thick hair" photo (looks wavy, not straight), the two Auto Curler type-2 photos (wet hair: hair type only, no result), the Auto Curler type-3 photo (photo shows wavy hair), and the Style/Switch type-4 YouTube thumbnail (version unknown, no result visible).
+
+## Back-view library: full wig heads (2026-10-21)
+
+Same 21 combinations as the swatch library, shown on a whole head: a wig on a white mannequin with shoulders, seen from behind, on a pure white background. A swatch shows the texture up close; the back view shows the overall shape, length and volume of the style. The two libraries are complementary inputs.
+
+- Files (gitignored): `samples/products/style_library/backview/` — `before_t1..t4.png`, one `<key>.png` per combination (same keys as the table above), `jobs.txt` (key → Krea job) and `before_urls.txt`.
+- Model: Nano Banana 2.1 (Krea), 4:5, 2K. Each AFTER uses the matching BEFORE head as image 1.
+- Figma: page "Product research", frame "BACK-VIEW LIBRARY · before → after wig heads" (node 76:2), to the right of the swatch library and with the same layout (products with packshots, one column per attachment, X for discarded cells).
+
+BEFORE prompt (one per hair type):
+
+> Back view of a full head of human hair (a wig) on a plain white mannequin head with shoulders, seen straight from behind, no face visible. Pure white seamless background, soft even studio light, sharp hair detail, the whole head and hair in frame. The hair is natural {TYPE}: {description}. No person, no hands, no tools, no text.
+
+AFTER prompt:
+
+> Image 1 is the BEFORE photo: a wig of human hair on a plain white mannequin head with shoulders, seen straight from behind. Create the AFTER photo of the SAME wig head: same hair colour, same density, same mannequin, same back view, same pure white background, same framing and soft studio light. Only the styling changes: the hair has just been styled with {tool / attachment}. Result: {result}. Realistic salon result, sharp hair detail. No person, no face, no hands, no tools, no text.
+
+For straightening on curly and coily hair, the result says the hair is now longer, because the curls are stretched; without that line the model keeps the shrunken length.
+
+Review: all 21 kept identity (colour, mannequin, framing). Weak spots:
+- TB_t2 is still fairly wavy for a "polished blowout".
+- SS_t1_aircurl shows full waves rather than a curl that is already dropping.
+- AC_t3 is close to the BEFORE curls.
