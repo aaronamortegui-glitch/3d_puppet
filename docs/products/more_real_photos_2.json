@@ -1,0 +1,154 @@
+{
+ "_meta": {
+  "researched": "2026-10-21",
+  "note": "Second targeted pass for 4 thin cells: A Auto Curler on type 1, B Auto Curler on type 2, C Auto Curler on type 3, D Ultra-Sleek 1.5in on type 1. Only items not already in hair_evidence.md or more_real.json. Files are re-encoded JPEG copies; video items are frames extracted with ffmpeg from the review video.",
+  "searched": {
+   "ulta_powerreviews": "Auto Curler pimprod2061541: all 171 reviews (7 pages, newest first) re-fetched; count unchanged since the last pass, all free samples. Ultra-Sleek pimprod2056505: all 17 reviews, no photos.",
+   "amazon": "B0H6CS24D5 now has 22 reviews; every visible one is Vine (free product). B0H7DD5W2V / B0GS7CFJ6F / B0F4MHYKSZ share one parent listing (2,706 ratings pooled across 1in, 1.5in, 2in, mini and colours); the 13 top reviews were read. The full review list needs sign-in and was not read.",
+   "walmart": "Ultra-Sleek 1.5in item 17115957153: 67 readable reviews (7 pages); 3 photos, all product-only (one shows an Ultra-Thin box). No Auto Curler listing found.",
+   "sephora_bazaarvoice": "No Auto Curler and no Ultra-Sleek listing (only the Ultra-Thin 1.5in P522436, a sibling).",
+   "saloncentric": "Ultra-Sleek page exists (9 reviews, pooled with the 1in BNT130T) but sits behind a Cloudflare bot check; not bypassed.",
+   "target_kohls_macys_sally": "No listing of either model found.",
+   "babylisspro_com": "Auto Curler page blocked to scripts; its ~170 reviews are very likely the same syndicated Ulta/BzzAgent set.",
+   "reddit": "PullPush search (posts and comments since 2025-09) for 8 queries: one 2026-04 comment naming a \"babyliss auto curler\", which predates the launch (older auto curler), excluded. reddit.com blocks scripted access.",
+   "youtube": "Search (relevance and upload date) for 7 queries. Auto Curler: only a Dannyco distributor promo (2026-09-04). Ultra-Sleek: new uploads are affiliate or deal shorts with what looks like AI-generated or stock footage (ReGJQiR1loQ, 8Dzc_Eemexc) and one Spanish affiliate demo where the hair texture before is not shown (rDeQFfzl72U); all excluded.",
+   "tiktok_instagram_editorial": "Search-engine results show only MiraCurl / Curl Secret content and older irons; no editorial first impression of the Auto Curler."
+  },
+  "verdict": {
+   "A": "2 new people with photos (Caddy on Amazon, Jess R. on Ulta) and 1 new text mention (Aimes, about a friend). All incentivized (Vine or free sample). Type 1 now has about 9 people, none non-incentivized. The picture is consistent (defined curls on straight hair; hold varies with fineness). Enough to describe the result, but independence is still low.",
+   "B": "Nothing new. No photo of a result on stated wavy hair exists in any source searched. Keep low evidence.",
+   "C": "Nothing new. Only the 2 existing free-sample reviews (one photo: waved ends on straightened curly hair). Keep low evidence.",
+   "D": "1 new non-incentivized Verified Purchase review of the exact variant (1 1/2 Inch, Blue) on stated naturally straight hair, with a video of the sleek result: the first real photo of THIS model on type 1. One person only."
+  }
+ },
+ "items": [
+  {
+   "file": "01_curling_iron/evidence/more2/real_A_type1_amazon_R3GG3XJLMWWL9X_a.jpg",
+   "cell": "A",
+   "hair_type": "1",
+   "stated_or_visual": "visual (texture); length/density stated: very long & thick",
+   "result_shown": "one side still straight, other side curled into defined spiral curls: before and after in one frame",
+   "source_type": "Amazon customer review photo (Vine)",
+   "page_url": "https://www.amazon.com/dp/B0H6CS24D5 (review R3GG3XJLMWWL9X)",
+   "image_url": "https://m.media-amazon.com/images/I/711HGf8t96L.jpg",
+   "date": "2026-09-18",
+   "who": "Caddy (Amazon; says she is a hairstylist)",
+   "quote": "My hair is very long & thick, and it delivers beautifully defined tight curls that lasts all day!",
+   "incentivized": "yes (Vine Customer Review of Free Product)",
+   "size_px": [
+    959,
+    1640
+   ],
+   "verified": "opens in PIL; content checked visually"
+  },
+  {
+   "file": "01_curling_iron/evidence/more2/real_A_type1_amazon_R3GG3XJLMWWL9X_b.jpg",
+   "cell": "A",
+   "hair_type": "1",
+   "stated_or_visual": "visual",
+   "result_shown": "side view: straight long hair with one curled section (spiral curl)",
+   "source_type": "Amazon customer review photo (Vine)",
+   "page_url": "https://www.amazon.com/dp/B0H6CS24D5 (review R3GG3XJLMWWL9X)",
+   "image_url": "https://m.media-amazon.com/images/I/71w+26TybnL.jpg",
+   "date": "2026-09-18",
+   "who": "Caddy (Amazon)",
+   "quote": null,
+   "incentivized": "yes (Vine Customer Review of Free Product)",
+   "size_px": [
+    817,
+    1925
+   ],
+   "verified": "opens in PIL; content checked visually"
+  },
+  {
+   "file": "01_curling_iron/evidence/more2/real_A_type1_ulta_588071733_a.jpg",
+   "cell": "A",
+   "hair_type": "1 (visual; reviewer's daughter)",
+   "stated_or_visual": "visual",
+   "result_shown": "back view in progress: straight sleek lengths on top, curled ends below",
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541 (review 588071733)",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/rfhdpahqmzmrh9n8gpph.jpg",
+   "date": "2026-10-01",
+   "who": "Jess R. (Ulta review 588071733)",
+   "quote": "Beginning to curl my daughter's hair.",
+   "incentivized": "yes (free sample program)",
+   "size_px": [
+    355,
+    768
+   ],
+   "verified": "opens in PIL; content checked visually"
+  },
+  {
+   "file": "01_curling_iron/evidence/more2/real_A_type1_ulta_588071733_b.jpg",
+   "cell": "A",
+   "hair_type": "1 (visual)",
+   "stated_or_visual": "visual",
+   "result_shown": "close-up of curled ends on otherwise straight hair",
+   "source_type": "Ulta review photo (PowerReviews)",
+   "page_url": "https://www.ulta.com/p/auto-curler-1-automatic-rotating-barrel-dual-voltage-pimprod2061541 (review 588071733)",
+   "image_url": "https://res.cloudinary.com/powerreviews/image/upload/f_auto,q_auto,h_768,w_auto/d_portal-no-product-image_ttlfpi.svg/prod/yjsceirbzjfbbal23ikl.jpg",
+   "date": "2026-10-01",
+   "who": "Jess R. (Ulta review 588071733)",
+   "quote": null,
+   "incentivized": "yes (free sample program)",
+   "size_px": [
+    355,
+    768
+   ],
+   "verified": "opens in PIL; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more2/real_D_type1_amazon_R1QBMUDNBQWMM_result.jpg",
+   "cell": "D",
+   "hair_type": "1 (stated: naturally straight)",
+   "stated_or_visual": "stated",
+   "result_shown": "result: very long, sleek, pin-straight dark hair (frame at 13 s of the 15 s review video)",
+   "source_type": "Amazon customer review video, frame extracted (Verified Purchase)",
+   "page_url": "https://www.amazon.com/dp/B0H7DD5W2V (review R1QBMUDNBQWMM; variant Style: 1 1/2 Inch, Color: Blue)",
+   "image_url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cf22e8a-948d-420f-902a-2652fac93e1a/embedded.cc.default.vertical.jobtemplate.hls.m3u8 (video thumbnail: https://m.media-amazon.com/images/I/510Gnztg3jL.jpg)",
+   "date": "2026-10-11",
+   "who": "Lady Esthefania (Amazon)",
+   "quote": "My hair is naturally straight, but I love achieving an even sleeker, smoother, and more polished look.",
+   "incentivized": "no (Verified Purchase, no Vine or free-product disclosure)",
+   "size_px": [
+    1080,
+    1920
+   ],
+   "verified": "opens in PIL; content checked visually"
+  },
+  {
+   "file": "05_flat_iron/evidence/more2/real_D_type1_amazon_R1QBMUDNBQWMM_inuse.jpg",
+   "cell": "D",
+   "hair_type": "1 (stated: naturally straight)",
+   "stated_or_visual": "stated",
+   "result_shown": "in use: blue Nano Titanium iron passing down straight hair (frame at 11 s)",
+   "source_type": "Amazon customer review video, frame extracted (Verified Purchase)",
+   "page_url": "https://www.amazon.com/dp/B0H7DD5W2V (review R1QBMUDNBQWMM; variant Style: 1 1/2 Inch, Color: Blue)",
+   "image_url": "https://m.media-amazon.com/images/S/vse-vms-transcoding-artifact-us-east-1-prod/4cf22e8a-948d-420f-902a-2652fac93e1a/embedded.cc.default.vertical.jobtemplate.hls.m3u8",
+   "date": "2026-10-11",
+   "who": "Lady Esthefania (Amazon)",
+   "quote": "The best part is that my straightened hair usually lasts about 3 to 4 days!",
+   "incentivized": "no (Verified Purchase)",
+   "size_px": [
+    1080,
+    1920
+   ],
+   "verified": "opens in PIL; content checked visually"
+  },
+  {
+   "file": null,
+   "cell": "A",
+   "hair_type": "1 (stated; a friend of the reviewer)",
+   "stated_or_visual": "stated",
+   "result_shown": "text only: the higher heat setting worked much better on very thick, coarse, straight hair",
+   "source_type": "Amazon customer review text (Vine)",
+   "page_url": "https://www.amazon.com/dp/B0H6CS24D5 (review RDEHJMTXCF9UQ)",
+   "image_url": null,
+   "date": "2026-09-05",
+   "who": "Aimes (Amazon)",
+   "quote": "I also used it on a friend with very thick, coarse, straight hair, and the higher setting worked much better for her.",
+   "incentivized": "yes (Vine Customer Review of Free Product)"
+  }
+ ]
+}
