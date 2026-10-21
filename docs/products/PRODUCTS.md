@@ -652,3 +652,25 @@ Same #066 gray render, person, pose details and final prompt; only image 2 chang
 - Clean sheet: the handle drifts to a duller blue (hue 101, saturation 160 against 200); the clamp becomes a generic metal clamp with a wire spring; the buttons become a grille.
 
 Decision: pass one clean hero packshot as image 2 and write sizes and grip in the prompt; the sheets stay as the reference for people.
+
+## Product cards v2 (2026-10-21)
+
+These cards replace the product sheets as the reference for generation. The sheets and `tools/product_sheets.py` are kept. Build the cards with `tools/product_cards.py`; they are written to `samples/products/cards/` (gitignored). There is one card per product and colourway:
+- `01_auto_curler`, `02_thermal_brush`, `03_style_switch`: one colourway each (Nano Blue). The Style/Switch kits, Straight & Wavy and Curly & Coily, share the same body, so they go on one card.
+- `05_flat_iron_pink` (Pink Rush BNT131THP) and `05_flat_iron_blue` (Nano Blue BNT131T-N).
+
+Each card exists in two versions: `<id>_card.png` is labelled for people, `<id>_card_clean.png` has no text and is the model input. It holds:
+- the main view;
+- 1 to 3 other real views;
+- the generated hand-and-product reference;
+- 3 detail crops (buttons and LEDs, barrel or plates, hinge or cord);
+- on the labelled version only: sizes, and colour and material with hex swatches.
+
+Rules:
+- Real product photos only: packshots, product close-ups and crops of them.
+- No people and no real hands, so that no person leaks into a generation that uses another model or avatar. The ad photos with a hand were left out for this reason.
+- The only generated image is the hand reference.
+- Pink Rush has fewer real views. The only other photo is an ad callout whose leader lines touch the iron, so it was left out.
+- A third flat-iron colourway, Iced Blue (B0GS7CFJ6F), exists. We have no product photos of it yet, so there is no card for it.
+
+Figma: page "Product research", frame "PRODUCT CARDS · real photos + hand reference" (node 80:2), below the back-view library. Each row shows a product with the labelled card on the left and the clean card on the right.
