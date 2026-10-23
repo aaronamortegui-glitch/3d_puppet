@@ -92,3 +92,14 @@ Outputs:
 3. Agree the avatar format with Gustavo, and get 1-2 temporary avatars so we can start.
 4. First test per SKU: 3 images in use + 1 before/after with the same avatar.
 5. Prompts for in hand and on surface (new categories).
+
+## Status (2026-10-23)
+
+- `library/` is built by `tools/build_library.py`; the structure and the avatar format are in [library/README.md](../../library/README.md).
+- `docs/products/product_hair_rules.json` holds 23 rules: 21 allowed, plus 2 discarded (Auto Curler and Thermal Brush on coily hair).
+- The pose library has 28 poses: 5 in use and 2 in hand per SKU. Each has a reference photo, a gray render with hair and pose details.
+  - 24 gray renders were new, made with Nano Banana 2.1 on Krea (job IDs in `samples/pose_library/jobs.tsv`); the other 4 come from the earlier library test.
+  - In-hand poses use the new prompt `server/prompts/gray_render_prompt_in_hand.txt` (hand only; it removes callouts and text).
+  - Pose details are in `tools/pose_details.json`.
+  - All 24 new renders were checked against their reference: same pose and framing, product in orange, no text left.
+- Next: avatars (Gustavo), then the first test per SKU (in use + before/after with the same avatar).

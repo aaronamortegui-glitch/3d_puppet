@@ -26,3 +26,9 @@ samples/stageA/
 samples/library_test/
 samples/batch_curling/
 samples/products/
+
+# built from samples/ by tools/build_library.py (images); only the README is tracked
+library/*
+!library/README.md
+outputs/
+samples/pose_library/

@@ -1,0 +1,257 @@
+{
+  "note": "Source of truth for library/. Paths are relative to samples/. Rebuild with tools/build_library.py.",
+  "products": {
+    "auto_curler": {
+      "model": "BNTAC100",
+      "colours": {
+        "nano_blue": {
+          "card": "products/cards/01_auto_curler_card.png",
+          "card_clean": "products/cards/01_auto_curler_card_clean.png",
+          "hand": "products/sheets/hand/01_auto_curler_hand.png",
+          "packshots": [
+            "products/research/01_curling_iron/01_packshot_white_3q.jpg",
+            "products/research/01_curling_iron/06_packshot_left_side_silo_BNTAC100C_pearlon.jpg",
+            "products/research/01_curling_iron/packshot_front_vertical_buttons_black_bg_ulta.jpg"
+          ]
+        }
+      }
+    },
+    "thermal_brush": {
+      "model": "BNTHTB125",
+      "colours": {
+        "nano_blue": {
+          "card": "products/cards/02_thermal_brush_card.png",
+          "card_clean": "products/cards/02_thermal_brush_card_clean.png",
+          "hand": "products/sheets/hand/02_thermal_brush_hand.png",
+          "packshots": [
+            "products/research/02_round_brush/01_packshot_white_front.jpg",
+            "products/research/02_round_brush/05_packshot_blue_bg_angled.jpg",
+            "products/research/02_round_brush/packshot_front_vertical_black_bg_ulta.jpg"
+          ]
+        }
+      }
+    },
+    "style_switch": {
+      "model": "BNTSSSW / BNTSSCC",
+      "colours": {
+        "nano_blue": {
+          "card": "products/cards/03_style_switch_card.png",
+          "card_clean": "products/cards/03_style_switch_card_clean.png",
+          "hand": "products/sheets/hand/03_style_switch_hand.png",
+          "packshots": [
+            "products/research/03_style_switch/01_packshot_all_attachments.jpg",
+            "products/research/03_style_switch/packshot_kit_curly_coily_with_diffuser_CC_amazon.jpg",
+            "products/research/03_style_switch/closeup_air_curling_barrels_pair_bidirectional_aplus.jpg"
+          ]
+        }
+      }
+    },
+    "flat_iron": {
+      "model": "BNT131T (1.5\")",
+      "colours": {
+        "pink_rush": {
+          "model": "BNT131THP",
+          "card": "products/cards/05_flat_iron_pink_card.png",
+          "card_clean": "products/cards/05_flat_iron_pink_card_clean.png",
+          "hand": "products/sheets/hand/05_flat_iron_pink_hand.png",
+          "packshots": [
+            "products/research/05_flat_iron/01_packshot_pink_rush_BNT131THP.jpg"
+          ]
+        },
+        "nano_blue": {
+          "model": "BNT131T-N",
+          "card": "products/cards/05_flat_iron_blue_card.png",
+          "card_clean": "products/cards/05_flat_iron_blue_card_clean.png",
+          "hand": "products/sheets/hand/05_flat_iron_blue_hand.png",
+          "packshots": [
+            "products/research/05_flat_iron/03_packshot_nano_blue_BNT131T-N.jpg"
+          ]
+        },
+        "iced_blue": {
+          "model": "BNT131TLB",
+          "card": "products/cards/05_flat_iron_iced_card.png",
+          "card_clean": "products/cards/05_flat_iron_iced_card_clean.png",
+          "hand": "products/sheets/hand/05_flat_iron_iced_hand.png",
+          "packshots": [
+            "products/research/05_flat_iron/iced_blue/01_packshot_iced_blue_BNT131TLB_amazon.jpg"
+          ]
+        }
+      }
+    }
+  },
+  "poses": [
+    {
+      "id": "auto_curler_in_use_01",
+      "sku": "auto_curler",
+      "category": "in_use",
+      "reference": "library/images/curling_iron/008_curling_iron_beside_face_front.jpg",
+      "gray": "library_test/gray/008_curling_iron_gray_hair.png"
+    },
+    {
+      "id": "auto_curler_in_use_02",
+      "sku": "auto_curler",
+      "category": "in_use",
+      "reference": "library/images/curling_iron/006_curling_iron_above_head_three_quarter.jpg"
+    },
+    {
+      "id": "auto_curler_in_use_03",
+      "sku": "auto_curler",
+      "category": "in_use",
+      "reference": "library/images/curling_iron/007_curling_iron_held_low_three_quarter.jpg"
+    },
+    {
+      "id": "auto_curler_in_use_04",
+      "sku": "auto_curler",
+      "category": "in_use",
+      "reference": "library/images/curling_iron/066_curling_iron_wrapping_hair_three_quarter.jpg"
+    },
+    {
+      "id": "auto_curler_in_use_05",
+      "sku": "auto_curler",
+      "category": "in_use",
+      "reference": "library/images/curling_iron/079_curling_iron_beside_face_three_quarter.png"
+    },
+    {
+      "id": "auto_curler_in_hand_01",
+      "sku": "auto_curler",
+      "category": "in_hand",
+      "reference": "products/research/01_curling_iron/03_closeup_clamp_buttons_in_hand.jpg"
+    },
+    {
+      "id": "auto_curler_in_hand_02",
+      "sku": "auto_curler",
+      "category": "in_hand",
+      "reference": "products/research/01_curling_iron/04_callouts_vertical_in_hand.jpg"
+    },
+    {
+      "id": "thermal_brush_in_use_01",
+      "sku": "thermal_brush",
+      "category": "in_use",
+      "reference": "library/images/hot_brush/072_hot_brush_beside_face_front.jpg",
+      "gray": "library_test/gray/072_hot_brush_gray_hair.png"
+    },
+    {
+      "id": "thermal_brush_in_use_02",
+      "sku": "thermal_brush",
+      "category": "in_use",
+      "reference": "library/images/hot_brush/065_hot_brush_beside_face_front.jpg"
+    },
+    {
+      "id": "thermal_brush_in_use_03",
+      "sku": "thermal_brush",
+      "category": "in_use",
+      "reference": "library/images/hot_brush/076_hot_brush_above_head_three_quarter.jpg"
+    },
+    {
+      "id": "thermal_brush_in_use_04",
+      "sku": "thermal_brush",
+      "category": "in_use",
+      "reference": "library/images/hot_brush/077_hot_brush_held_at_chest_front.png"
+    },
+    {
+      "id": "thermal_brush_in_use_05",
+      "sku": "thermal_brush",
+      "category": "in_use",
+      "reference": "library/images/hot_brush/078_hot_brush_above_head_front.png"
+    },
+    {
+      "id": "thermal_brush_in_hand_01",
+      "sku": "thermal_brush",
+      "category": "in_hand",
+      "reference": "products/research/02_round_brush/03_closeup_ionic_button_in_hand.jpg"
+    },
+    {
+      "id": "thermal_brush_in_hand_02",
+      "sku": "thermal_brush",
+      "category": "in_hand",
+      "reference": "products/research/02_round_brush/04_callouts_vertical_in_hand.jpg"
+    },
+    {
+      "id": "style_switch_in_use_01",
+      "sku": "style_switch",
+      "category": "in_use",
+      "reference": "library/images/air_styler/057_air_styler_beside_face_three_quarter.jpg",
+      "gray": "library_test/gray/057_air_styler_gray_hair.png"
+    },
+    {
+      "id": "style_switch_in_use_02",
+      "sku": "style_switch",
+      "category": "in_use",
+      "reference": "library/images/air_styler/048_air_styler_beside_face_front.jpg"
+    },
+    {
+      "id": "style_switch_in_use_03",
+      "sku": "style_switch",
+      "category": "in_use",
+      "reference": "library/images/air_styler/059_air_styler_beside_face_front.jpg"
+    },
+    {
+      "id": "style_switch_in_use_04",
+      "sku": "style_switch",
+      "category": "in_use",
+      "reference": "library/images/air_styler/069_air_styler_above_head_front.jpg"
+    },
+    {
+      "id": "style_switch_in_use_05",
+      "sku": "style_switch",
+      "category": "in_use",
+      "attachment": "diffuser",
+      "reference": "library/images/hair_dryer/062_hair_dryer_above_head_front.jpg"
+    },
+    {
+      "id": "style_switch_in_hand_01",
+      "sku": "style_switch",
+      "category": "in_hand",
+      "reference": "library/images/hair_dryer/030_hair_dryer_extended_side.jpg"
+    },
+    {
+      "id": "style_switch_in_hand_02",
+      "sku": "style_switch",
+      "category": "in_hand",
+      "reference": "library/images/hair_dryer/049_hair_dryer_extended_low.jpg"
+    },
+    {
+      "id": "flat_iron_in_use_01",
+      "sku": "flat_iron",
+      "category": "in_use",
+      "reference": "library/images/flat_iron/041_flat_iron_beside_face_front.jpg",
+      "gray": "library_test/gray/041_flat_iron_gray_hair.png"
+    },
+    {
+      "id": "flat_iron_in_use_02",
+      "sku": "flat_iron",
+      "category": "in_use",
+      "reference": "library/images/flat_iron/052_flat_iron_on_hair_side_three_quarter.jpg"
+    },
+    {
+      "id": "flat_iron_in_use_03",
+      "sku": "flat_iron",
+      "category": "in_use",
+      "reference": "library/images/flat_iron/055_flat_iron_beside_face_three_quarter.jpg"
+    },
+    {
+      "id": "flat_iron_in_use_04",
+      "sku": "flat_iron",
+      "category": "in_use",
+      "reference": "library/images/flat_iron/071_flat_iron_on_hair_side_three_quarter.jpg"
+    },
+    {
+      "id": "flat_iron_in_use_05",
+      "sku": "flat_iron",
+      "category": "in_use",
+      "reference": "library/images/flat_iron/051_flat_iron_held_at_chest_front.jpg"
+    },
+    {
+      "id": "flat_iron_in_hand_01",
+      "sku": "flat_iron",
+      "category": "in_hand",
+      "reference": "products/research/05_flat_iron/in_hand_adjustable_heat_led_nano_blue_amazon.jpg"
+    },
+    {
+      "id": "flat_iron_in_hand_02",
+      "sku": "flat_iron",
+      "category": "in_hand",
+      "reference": "products/research/05_flat_iron/05_in_hand_callouts_nano_blue.jpg"
+    }
+  ]
+}

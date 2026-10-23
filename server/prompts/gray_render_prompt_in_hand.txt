@@ -1,0 +1,11 @@
+Edit this photo into a clean, untextured 3D render of the SAME shot, like a neutral gray clay sculpt or a default-material CG viewport render. This is a close-up of a hand holding the tool: render only the visible hand, forearm and tool.
+- Uniform matte medium-light gray material over the hand and arm (unpainted clay / gray 3D shader): no skin texture, no nail polish, no colour, no jewellery.
+- Highly detailed hand: every finger clearly separated and readable, visible knuckles and finger joints, the thumb clearly distinct from the other fingers.
+- The object held in the hand keeps exactly the same shape, size, position and orientation, but is rendered in a single bright saturated ORANGE matte material (#FF6A00) so it can never be confused with the gray hand; the cable, if any, also orange.
+- Remove every element that is not the hand and the tool: text, callout lines, labels, inset circles, graphics.
+CRITICAL - this is a measurement plate, geometry must not change:
+- Keep exactly the same hand, wrist and finger positions, the same finger curl and the same grip on the object.
+- Keep exactly the same camera angle, framing, crop, lens perspective and image size; everything stays at the same pixel position as in the photo. Do not zoom out or re-centre.
+- Do not move, rotate, resize, re-pose or re-frame anything; do not add or remove fingers.
+Lighting and background: neutral, even, soft studio lighting with gentle ambient occlusion; plain light-gray seamless background. No text, logos, watermarks or graphics.
+Clean 3D render look, sharp edges, high detail on the hand.
