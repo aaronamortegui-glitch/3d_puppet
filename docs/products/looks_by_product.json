@@ -360,7 +360,7 @@
         "SS_t4_roundbrush"
       ],
       "does": "blow-dry with volume",
-      "example": "gustavo_h2_coily: SS_t4_roundbrush"
+      "example": "gustavo_h4_curly: SS_t3_roundbrush (test 10, before/after + in use)"
     },
     "style_switch_paddle": {
       "name": "Style/Switch + paddle brush",
@@ -369,7 +369,7 @@
         "SS_t2_paddle"
       ],
       "does": "straight sleek blow-dry",
-      "example": "gustavo_h3_wavy_black: SS_t2_paddle (test 9)"
+      "example": "gustavo_h3_wavy_black: SS_t2_paddle (test 9 before/after, test 10 in use)"
     },
     "style_switch_air_curl": {
       "name": "Style/Switch + 1½\" air-curling barrels",
