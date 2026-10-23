@@ -2,7 +2,8 @@
 
     server\\.venv\\Scripts\\python.exe tools\\scene_qa.py <cases.json> <out.json>
 
-cases.json: [{"id", "gray", "out", "sku"}, ...]  (paths relative to the repo root)
+cases.json: [{"id", "gray", "out", "sku", "hair_target"}, ...]  (paths relative to the repo root; "gray", "sku"
+and "hair_target" are optional: without a gray render only the hair is measured)
 
 Per case, against the gray render (the measurement plate, product in orange at true size):
   pose_drift   mean distance of 13 body keypoints (MediaPipe Pose), % of the image side
@@ -10,9 +11,12 @@ Per case, against the gray render (the measurement plate, product in orange at t
   face_shift   face centre shift, % of the image side
   product_ratio  product length / eye distance (Grounding DINO box -> SAM mask -> principal axis)
   size_error   product_ratio / the same ratio in the gray render (orange mask) - 1
+  hair_end     where the hair ends, in head heights from the top of the head (tools/hair_length.py), plus the
+               nearest body landmark; hair_cropped = the hair leaves the frame, so hair_end is a lower bound
+  hair_error   hanging hair length / the target length - 1, when the case gives "hair_target" (head heights)
 
 Needs mediapipe (in the server venv) and transformers (Grounding DINO, SAM). MediaPipe task models
-are read from SCENE_QA_MODELS (pose.task, face.task); extra Python packages from SCENE_QA_PYLIBS.
+are read from SCENE_QA_MODELS (pose.task, face.task, selfie_multiclass.tflite); extra Python packages from SCENE_QA_PYLIBS.
 """
 
 import json
@@ -30,6 +34,9 @@ import torch  # noqa: E402
 from mediapipe.tasks.python import BaseOptions, vision  # noqa: E402
 from transformers import AutoModelForZeroShotObjectDetection, AutoProcessor, SamModel, SamProcessor  # noqa: E402
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import hair_length  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS = os.environ.get("SCENE_QA_MODELS", ".")
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
@@ -41,6 +48,8 @@ pose_lm = vision.PoseLandmarker.create_from_options(vision.PoseLandmarkerOptions
     base_options=BaseOptions(model_asset_path=os.path.join(MODELS, "pose.task")), num_poses=1))
 face_lm = vision.FaceLandmarker.create_from_options(vision.FaceLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=os.path.join(MODELS, "face.task")), num_faces=1))
+segmenter = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
+    base_options=BaseOptions(model_asset_path=os.path.join(MODELS, "selfie_multiclass.tflite")), output_category_mask=True))
 gd_proc = AutoProcessor.from_pretrained("IDEA-Research/grounding-dino-base")
 gd = AutoModelForZeroShotObjectDetection.from_pretrained("IDEA-Research/grounding-dino-base").to(DEV)
 sam_proc = SamProcessor.from_pretrained("facebook/sam-vit-base")
@@ -60,6 +69,32 @@ def landmarks(im):
     body = np.array([[l.x, l.y] for l in p.pose_landmarks[0]]) if p.pose_landmarks else None
     face = np.array([[l.x * im.width, l.y * im.height] for l in f.face_landmarks[0]]) if f.face_landmarks else None
     return body, face
+
+
+def hair_mask(im):
+    """Hair pixels (class 1 of the selfie multiclass segmenter), only the blobs attached to the head mass."""
+    m = mp.Image(image_format=mp.ImageFormat.SRGB, data=np.asarray(im))
+    mask = np.squeeze(segmenter.segment(m).category_mask.numpy_view()) == 1
+    lab, n = ndimage.label(mask)
+    if n == 0:
+        return None
+    sizes = ndimage.sum(mask, lab, range(1, n + 1))
+    return np.isin(lab, [i + 1 for i, s in enumerate(sizes) if s >= 0.05 * sizes.max()])
+
+
+def hair(im, face, case):
+    hm = hair_mask(im)
+    r = hair_length.measure(hm, face, im.height)
+    if "hair_end" in r and case.get("hair_target"):
+        d = hair_length.DRAPE
+        r["hair_target"] = case["hair_target"]
+        r["hair_error"] = round((r["hair_end"] + d) / (case["hair_target"] + d) - 1, 2)
+    if hm is not None:
+        vis = np.asarray(im).copy()
+        vis[hm] = (0.5 * vis[hm] + 0.5 * np.array([0, 160, 255])).astype(np.uint8)
+        os.makedirs(os.path.join(ROOT, "outputs", "qa"), exist_ok=True)
+        Image.fromarray(vis).save(os.path.join(ROOT, "outputs", "qa", case["id"] + "_hair.jpg"), quality=80)
+    return r
 
 
 def eye_dist(face):
@@ -130,10 +165,14 @@ def product_mask(im, sku):
 
 
 def measure(case):
-    g, o = load(case["gray"]), load(case["out"])
-    gb, gf = landmarks(g)
+    o = load(case["out"])
     ob, of = landmarks(o)
     r = {"id": case["id"]}
+    r.update(hair(o, of, case))
+    if not case.get("gray"):
+        return r
+    g = load(case["gray"])
+    gb, gf = landmarks(g)
     if gb is not None and ob is not None:
         r["pose_drift"] = round(float(np.linalg.norm(gb[BODY] - ob[BODY], axis=1).mean() * 100), 1)
     if gf is not None and of is not None:

@@ -2,6 +2,67 @@
   "version": "2026-10-23",
   "source": "docs/products/HAIR_EVIDENCE.md (audit 2) + docs/products/STYLE_LIBRARY.md",
   "how_to_use": "Pick rules where sku matches the product and hair_type matches the avatar. Only allowed=true rules may be generated. evidence_status: works > mixed > low_evidence > no_proof (brand claim only). Prefer works/mixed for client-facing images; flag the rest.",
+  "hair_length": {
+    "how_to_use": "tools/hair_length.py: visible length = stretched length x (1 - shrinkage). after/before = (1 - after_shrinkage of the rule) / (1 - shrinkage of the avatar's curl pattern). Lengths in head heights from the top of the head; the prompt names the nearest body landmark. after_shrinkage null = the style keeps the curl pattern, so the length stays. Coily blowouts keep part of their texture (SS_t4_roundbrush 0.4): a shoulder-length 4B afro ends at the middle of the chest, not lower; the amount of hair never grows.",
+    "source": "common curl-shrinkage ranges (type 2 ~5-15%, 3A-3C ~30-50%, 4A-4C ~50-75%); we use the low end because a heat style rarely releases all of it. Checked against Gustavo's before/after avatars (2026-10-23): auto curler on straight hair x0.83, sleek blowout on 3C x1.42 in his images; the model gives x0.80 and x1.53.",
+    "shrinkage": {
+      "1": 0.0,
+      "2A": 0.05,
+      "2B": 0.08,
+      "2C": 0.12,
+      "2": 0.08,
+      "3A": 0.2,
+      "3B": 0.3,
+      "3C": 0.4,
+      "3": 0.3,
+      "4A": 0.5,
+      "4B": 0.6,
+      "4C": 0.7,
+      "4": 0.6
+    },
+    "landmarks": [
+      {
+        "name": "jaw",
+        "at": 0.9
+      },
+      {
+        "name": "chin",
+        "at": 1.0
+      },
+      {
+        "name": "shoulders",
+        "at": 1.4
+      },
+      {
+        "name": "collarbone",
+        "at": 1.55
+      },
+      {
+        "name": "armpits",
+        "at": 1.85
+      },
+      {
+        "name": "middle of the chest",
+        "at": 2.05
+      },
+      {
+        "name": "bottom of the bust",
+        "at": 2.3
+      },
+      {
+        "name": "bottom of the ribs",
+        "at": 2.6
+      },
+      {
+        "name": "waist",
+        "at": 2.95
+      },
+      {
+        "name": "hips",
+        "at": 3.5
+      }
+    ]
+  },
   "rules": [
     {
       "key": "AC_t1",
@@ -20,7 +81,8 @@
         "back_after": "hair_styles/auto_curler/type1/AC_t1/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.2
     },
     {
       "key": "AC_t2",
@@ -39,7 +101,8 @@
         "back_after": "hair_styles/auto_curler/type2/AC_t2/back_after.png",
         "swatch_before": "hair_styles/_before/type2/swatch_before.png",
         "back_before": "hair_styles/_before/type2/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.2
     },
     {
       "key": "AC_t3",
@@ -58,7 +121,8 @@
         "back_after": "hair_styles/auto_curler/type3/AC_t3/back_after.png",
         "swatch_before": "hair_styles/_before/type3/swatch_before.png",
         "back_before": "hair_styles/_before/type3/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.2
     },
     {
       "key": "AC_t4",
@@ -72,7 +136,8 @@
       "evidence_note": "Brand never mentions coily hair; no customer uses it on 4A-4C",
       "result_style": null,
       "heat": null,
-      "style_refs": null
+      "style_refs": null,
+      "after_shrinkage": null
     },
     {
       "key": "FI_t1",
@@ -91,7 +156,8 @@
         "back_after": "hair_styles/flat_iron/type1/FI_t1/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.0
     },
     {
       "key": "FI_t1_waves",
@@ -110,7 +176,8 @@
         "back_after": "hair_styles/flat_iron/type1/FI_t1_waves/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.12
     },
     {
       "key": "FI_t2",
@@ -129,7 +196,8 @@
         "back_after": "hair_styles/flat_iron/type2/FI_t2/back_after.png",
         "swatch_before": "hair_styles/_before/type2/swatch_before.png",
         "back_before": "hair_styles/_before/type2/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.0
     },
     {
       "key": "FI_t3",
@@ -148,7 +216,8 @@
         "back_after": "hair_styles/flat_iron/type3/FI_t3/back_after.png",
         "swatch_before": "hair_styles/_before/type3/swatch_before.png",
         "back_before": "hair_styles/_before/type3/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.03
     },
     {
       "key": "FI_t4_silkpress",
@@ -167,7 +236,8 @@
         "back_after": "hair_styles/flat_iron/type4/FI_t4_silkpress/back_after.png",
         "swatch_before": "hair_styles/_before/type4/swatch_before.png",
         "back_before": "hair_styles/_before/type4/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.03
     },
     {
       "key": "SS_t1_aircurl",
@@ -186,7 +256,8 @@
         "back_after": "hair_styles/style_switch/type1/SS_t1_aircurl/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.12
     },
     {
       "key": "SS_t1_paddle",
@@ -205,7 +276,8 @@
         "back_after": "hair_styles/style_switch/type1/SS_t1_paddle/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.0
     },
     {
       "key": "SS_t1_roundbrush",
@@ -224,7 +296,8 @@
         "back_after": "hair_styles/style_switch/type1/SS_t1_roundbrush/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.05
     },
     {
       "key": "SS_t2_aircurl",
@@ -243,7 +316,8 @@
         "back_after": "hair_styles/style_switch/type2/SS_t2_aircurl/back_after.png",
         "swatch_before": "hair_styles/_before/type2/swatch_before.png",
         "back_before": "hair_styles/_before/type2/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.15
     },
     {
       "key": "SS_t2_paddle",
@@ -262,7 +336,8 @@
         "back_after": "hair_styles/style_switch/type2/SS_t2_paddle/back_after.png",
         "swatch_before": "hair_styles/_before/type2/swatch_before.png",
         "back_before": "hair_styles/_before/type2/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.0
     },
     {
       "key": "SS_t2_roundbrush",
@@ -281,7 +356,8 @@
         "back_after": "hair_styles/style_switch/type2/SS_t2_roundbrush/back_after.png",
         "swatch_before": "hair_styles/_before/type2/swatch_before.png",
         "back_before": "hair_styles/_before/type2/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.05
     },
     {
       "key": "SS_t3_diffuser",
@@ -300,7 +376,8 @@
         "back_after": "hair_styles/style_switch/type3/SS_t3_diffuser/back_after.png",
         "swatch_before": "hair_styles/_before/type3/swatch_before.png",
         "back_before": "hair_styles/_before/type3/back_before.png"
-      }
+      },
+      "after_shrinkage": null
     },
     {
       "key": "SS_t3_roundbrush",
@@ -319,7 +396,8 @@
         "back_after": "hair_styles/style_switch/type3/SS_t3_roundbrush/back_after.png",
         "swatch_before": "hair_styles/_before/type3/swatch_before.png",
         "back_before": "hair_styles/_before/type3/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.12
     },
     {
       "key": "SS_t4_diffuser",
@@ -338,7 +416,8 @@
         "back_after": "hair_styles/style_switch/type4/SS_t4_diffuser/back_after.png",
         "swatch_before": "hair_styles/_before/type4/swatch_before.png",
         "back_before": "hair_styles/_before/type4/back_before.png"
-      }
+      },
+      "after_shrinkage": null
     },
     {
       "key": "SS_t4_roundbrush",
@@ -357,7 +436,8 @@
         "back_after": "hair_styles/style_switch/type4/SS_t4_roundbrush/back_after.png",
         "swatch_before": "hair_styles/_before/type4/swatch_before.png",
         "back_before": "hair_styles/_before/type4/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.4
     },
     {
       "key": "TB_t1",
@@ -376,7 +456,8 @@
         "back_after": "hair_styles/thermal_brush/type1/TB_t1/back_after.png",
         "swatch_before": "hair_styles/_before/type1/swatch_before.png",
         "back_before": "hair_styles/_before/type1/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.05
     },
     {
       "key": "TB_t2",
@@ -395,7 +476,8 @@
         "back_after": "hair_styles/thermal_brush/type2/TB_t2/back_after.png",
         "swatch_before": "hair_styles/_before/type2/swatch_before.png",
         "back_before": "hair_styles/_before/type2/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.05
     },
     {
       "key": "TB_t3",
@@ -414,7 +496,8 @@
         "back_after": "hair_styles/thermal_brush/type3/TB_t3/back_after.png",
         "swatch_before": "hair_styles/_before/type3/swatch_before.png",
         "back_before": "hair_styles/_before/type3/back_before.png"
-      }
+      },
+      "after_shrinkage": 0.08
     },
     {
       "key": "TB_t4",
@@ -428,7 +511,8 @@
       "evidence_note": "Brand never mentions coily hair; no customer uses it on 4A-4C",
       "result_style": null,
       "heat": null,
-      "style_refs": null
+      "style_refs": null,
+      "after_shrinkage": null
     }
   ]
 }
