@@ -1,0 +1,293 @@
+{
+  "how_to_use": "Sculpted hair of each gray pose render, tagged by eye on 2026-10-23 (the hair segmenter cannot separate clay hair from clay skin). end = where the hair ends, head heights from the top of the head (tools/hair_length.py landmarks); cropped = the hair leaves the frame, so end is the frame bottom and the real hair is at least that long. texture = curl subtype (1, 2A-2C, 3A-3C, 4A-4C). Used by tools/pick_pose.py to pick poses by the avatar's hair.",
+  "poses": {
+    "auto_curler_in_use_01": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": false,
+        "texture": "2B",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": "small figure far from the camera; little hair detail"
+    },
+    "auto_curler_in_use_02": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "bottom of the bust",
+        "end": 2.3,
+        "cropped": false,
+        "texture": "2B",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": "full upper body, arm raised above the head"
+    },
+    "auto_curler_in_use_03": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "bottom of the bust",
+        "end": 2.3,
+        "cropped": true,
+        "texture": "1",
+        "volume": "flat"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "auto_curler_in_use_04": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": true,
+        "texture": "1",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": "proxy is a thick spring-clamp curling iron, thicker than the Auto Curler"
+    },
+    "auto_curler_in_use_05": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": false,
+        "texture": "2B",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "flat_iron_in_use_01": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "bottom of the bust",
+        "end": 2.3,
+        "cropped": false,
+        "texture": "1",
+        "volume": "flat"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "flat_iron_in_use_02": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": true,
+        "texture": "1",
+        "volume": "flat"
+      },
+      "body": "slim",
+      "note": "close crop: head and shoulders"
+    },
+    "flat_iron_in_use_03": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "collarbone",
+        "end": 1.55,
+        "cropped": false,
+        "texture": "2C",
+        "volume": "big"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "flat_iron_in_use_04": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "bottom of the bust",
+        "end": 2.3,
+        "cropped": true,
+        "texture": "1",
+        "volume": "flat"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "flat_iron_in_use_05": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "collarbone",
+        "end": 1.55,
+        "cropped": true,
+        "texture": "1",
+        "volume": "flat"
+      },
+      "body": "slim",
+      "note": "tight crop at the shoulders"
+    },
+    "style_switch_in_use_01": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "armpits",
+        "end": 1.85,
+        "cropped": true,
+        "texture": "2C",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "style_switch_in_use_02": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": true,
+        "texture": "3A",
+        "volume": "big"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "style_switch_in_use_03": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": false,
+        "texture": "2B",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "style_switch_in_use_04": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": false,
+        "texture": "2B",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "style_switch_in_use_05": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "chin",
+        "end": 1.0,
+        "cropped": false,
+        "texture": "4B",
+        "volume": "big"
+      },
+      "body": "slim",
+      "note": "proxy is a pistol-grip dryer, not the slim Style/Switch body"
+    },
+    "thermal_brush_in_use_01": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "bottom of the bust",
+        "end": 2.3,
+        "cropped": true,
+        "texture": "2A",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": "the brush lifts a long section out to the side"
+    },
+    "thermal_brush_in_use_02": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "bottom of the ribs",
+        "end": 2.6,
+        "cropped": false,
+        "texture": "2A",
+        "volume": "medium"
+      },
+      "body": "slim",
+      "note": ""
+    },
+    "thermal_brush_in_use_03": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "shoulders",
+        "end": 1.4,
+        "cropped": false,
+        "texture": "2A",
+        "volume": "medium"
+      },
+      "body": "curvy",
+      "note": ""
+    },
+    "thermal_brush_in_use_04": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "armpits",
+        "end": 1.85,
+        "cropped": false,
+        "texture": "2C",
+        "volume": "medium"
+      },
+      "body": "curvy",
+      "note": ""
+    },
+    "thermal_brush_in_use_05": {
+      "category": "in_use",
+      "hair": {
+        "end_landmark": "collarbone",
+        "end": 1.55,
+        "cropped": false,
+        "texture": "2B",
+        "volume": "medium"
+      },
+      "body": "curvy",
+      "note": ""
+    },
+    "auto_curler_in_hand_01": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "auto_curler_in_hand_02": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "thermal_brush_in_hand_01": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "thermal_brush_in_hand_02": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "style_switch_in_hand_01": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "style_switch_in_hand_02": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "flat_iron_in_hand_01": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    },
+    "flat_iron_in_hand_02": {
+      "category": "in_hand",
+      "hair": null,
+      "body": null,
+      "note": "hand only, no hair in frame"
+    }
+  }
+}

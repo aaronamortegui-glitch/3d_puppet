@@ -8,7 +8,8 @@ Sources are listed in tools/library_manifest.json (products, poses) and docs/pro
 
 library/
   products/<sku>/<colour>/      card.png, card_clean.png, hand.png, packshots/
-  poses/<category>/<sku>/<id>/  reference.*, gray.png, pose.txt, meta.json   (category: in_use, in_hand)
+  poses/<category>/<sku>/<id>/  reference.*, gray.png, pose.txt, meta.json   (category: in_use, in_hand;
+                                meta.json carries the sculpted-hair tags from tools/pose_hair.json)
   hair_styles/_before/type<n>/  swatch_before.png, back_before.png
   hair_styles/<sku>/type<n>/<key>/  swatch_after.png, back_after.png, rule.json
   rules/product_hair_rules.json
@@ -27,6 +28,8 @@ RULES = os.path.join(ROOT, "docs", "products", "product_hair_rules.json")
 # gray renders (A1) are generated per pose into samples/; pose details (A2) are text, kept in git
 POSE_GRAY = os.path.join(SAMPLES, "pose_library", "gray")
 POSE_DETAILS = json.load(open(os.path.join(ROOT, "tools", "pose_details.json"), encoding="utf-8"))
+# sculpted hair of each gray render (length, texture, volume, body), used by tools/pick_pose.py
+POSE_HAIR = json.load(open(os.path.join(ROOT, "tools", "pose_hair.json"), encoding="utf-8"))["poses"]
 STYLES = os.path.join(SAMPLES, "products", "style_library")
 
 missing = []
@@ -64,7 +67,10 @@ def poses(m):
             open(os.path.join(out, "pose.txt"), "w", encoding="utf-8").write(POSE_DETAILS[po["id"]] + "\n")
         else:
             missing.append(f"pose details for {po['id']} (tools/pose_details.json)")
-        json.dump(po, open(os.path.join(out, "meta.json"), "w", encoding="utf-8"), indent=2)
+        if po["id"] not in POSE_HAIR:
+            missing.append(f"sculpted hair tags for {po['id']} (tools/pose_hair.json)")
+        meta = {**po, **POSE_HAIR.get(po["id"], {})}
+        json.dump(meta, open(os.path.join(out, "meta.json"), "w", encoding="utf-8"), indent=2)
 
 
 def hair_styles(rules):
