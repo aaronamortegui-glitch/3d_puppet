@@ -43,3 +43,25 @@ Each cell comes from `docs/products/product_hair_rules.json` for the hair type s
 | Design file "3d-puppet" | page "Product research", below test 8 | 107:2 |
 | FigJam CONAIR-Products | page "study" | 77:202 |
 | FigJam Essilor | section | 1310:401 |
+
+## Simple view: one row per SKU (Figma 110:2)
+
+The Style/Switch is split into its 4 attachments, because each attachment is its own use case and can be shown as its own SKU. The examples are our own images on Gustavo's avatars. The new paddle-brush and curling-barrel before/afters were made on Sunburst in test 9 (`outputs/09_examples/`).
+
+| SKU | What it does | Straight | Wavy | Curly | Coily | Our example |
+|---|---|---|---|---|---|---|
+| Auto Curler 1" (BNTAC100) | 1-inch curls | ✅ works | ⚪ few reports | ⚪ few reports | ⛔ does not work | gustavo_h5_long_brown: AC_t1 |
+| Thermal Round Brush 1¼" (BNTHTB125) | smooth polished blowout | ✅ works | ✅ works | ✅ works | ⛔ does not work | gustavo_h6_blonde_wavy: TB_t2 |
+| Style/Switch + 1¾" round brush | blow-dry with volume | 🟡 mixed | 🟡 mixed | ✅ works | 🟡 mixed | gustavo_h2_coily: SS_t4_roundbrush |
+| Style/Switch + paddle brush | straight sleek blow-dry | 🟡 mixed | 🟡 mixed | — not used | — not used | gustavo_h3_wavy_black: SS_t2_paddle (test 9) |
+| Style/Switch + 1½" air-curling barrels | soft curls and waves with air | 🟡 mixed | 🟡 mixed | — not used | — not used | gustavo_h6_blonde_wavy: SS_t2_aircurl (test 9) |
+| Style/Switch + diffuser (Curly & Coily kit) | defines curls and coils | — not used | — not used | ✅ works | 🟡 mixed | gustavo_h2_coily: SS_t4_diffuser |
+| Ultra-Sleek flat iron 1½" (BNT131T) | straightens; loose waves on straight hair | ✅ works | 🟡 mixed | ⚪ few reports | ▫️ brand claim only | gustavo_h3_wavy_black: FI_t2 |
+
+Figma nodes for the simple view:
+
+| File | Node |
+|---|---|
+| Design file | 110:2 |
+| FigJam CONAIR (page "study", below the first table) | 80:202 |
+| FigJam Essilor | 1311:401 |

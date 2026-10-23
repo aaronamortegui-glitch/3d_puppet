@@ -16,65 +16,390 @@
     "flat_iron": "Ultra-Sleek 1½\" flat iron (BNT131T)"
   },
   "looks": [
-    {"id": "L1", "name": "Glossy defined waves", "reference": "Before / After (auburn)", "avatar": "H1", "before": "2B wavy", "after": "glossy, defined, bouncy waves",
-     "hero": "auto_curler",
-     "cells": {"auto_curler": ["low_evidence", "AC_t2", "uniform glossy 1\" curls replacing her waves"],
-               "thermal_brush": ["not_this_look", "TB_t2", "a polished blowout with bent ends, not defined waves"],
-               "style_switch": ["mixed", "SS_t2_aircurl", "1.5\" air-curling barrels: soft bouncy waves"],
-               "flat_iron": ["not_this_look", "FI_t1_waves", "flat-iron waves only proven on straight hair"]}},
-    {"id": "L2", "name": "Defined coils", "reference": "Before / After (coily)", "avatar": "H2", "before": "4A-4B coily", "after": "defined, springy coils, less frizz",
-     "hero": "style_switch",
-     "cells": {"auto_curler": ["forbidden", "AC_t4", "does not work on coily hair"],
-               "thermal_brush": ["forbidden", "TB_t4", "does not work on coily hair"],
-               "style_switch": ["mixed", "SS_t4_diffuser", "diffuser: defined coils with volume"],
-               "flat_iron": ["not_this_look", "FI_t4_silkpress", "straightens (silk press, brand claim only)"]}},
-    {"id": "L3", "name": "Smooth & Shiny Results", "reference": "flat iron listing", "avatar": "H3", "before": "2B wavy", "after": "sleek, straight, glossy",
-     "hero": "flat_iron",
-     "cells": {"auto_curler": ["not_this_look", "", "curls, not straight"],
-               "thermal_brush": ["works", "TB_t2", "polished smooth blowout, with more body than an iron"],
-               "style_switch": ["mixed", "SS_t2_paddle", "paddle brush: sleek straight blow-dry"],
-               "flat_iron": ["mixed", "FI_t2", "sleek straight (works on straight hair: FI_t1)"]}},
-    {"id": "L4", "name": "Frizz-Free Shine", "reference": "flat iron listing", "avatar": "H4", "before": "2C-3A curly", "after": "sleek, straight, no frizz",
-     "hero": "flat_iron",
-     "cells": {"auto_curler": ["not_this_look", "", "curls, not straight"],
-               "thermal_brush": ["works", "TB_t3", "sleek almost-straight blowout"],
-               "style_switch": ["works", "SS_t3_roundbrush", "round brush: stretched blowout, some puffiness"],
-               "flat_iron": ["low_evidence", "FI_t3", "smooth shiny straight"]}},
-    {"id": "L5", "name": "Flawless Without the Fuss", "reference": "Auto Curler listing", "avatar": "H5", "before": "1 straight", "after": "classic defined 1\" curls",
-     "hero": "auto_curler",
-     "cells": {"auto_curler": ["works", "AC_t1", "classic defined 1\" curls"],
-               "thermal_brush": ["not_this_look", "TB_t1", "blowout with root lift and bent ends"],
-               "style_switch": ["mixed", "SS_t1_aircurl", "air-curling barrels: soft curls that drop fast"],
-               "flat_iron": ["works", "FI_t1_waves", "loose flat-iron waves, not barrel curls"]}},
-    {"id": "L6", "name": "The Blowout Standard", "reference": "Thermal Brush listing", "avatar": "H6", "before": "2A-2B wavy", "after": "volume, bounce and shine",
-     "hero": "thermal_brush",
-     "cells": {"auto_curler": ["not_this_look", "AC_t2", "curls, not a blowout"],
-               "thermal_brush": ["works", "TB_t2", "polished blowout (TB_t1 on straight hair)"],
-               "style_switch": ["mixed", "SS_t2_roundbrush", "round brush: smooth voluminous blowout"],
-               "flat_iron": ["not_this_look", "FI_t2", "flat and straight, no volume"]}},
-    {"id": "L7", "name": "Round Brush · smooth & shine as you dry", "reference": "air styler listing", "avatar": "H7", "before": "2B-2C wavy", "after": "smooth blowout with movement",
-     "hero": "style_switch",
-     "cells": {"auto_curler": ["not_this_look", "", "curls, not a blowout"],
-               "thermal_brush": ["works", "TB_t2", "same look on dry hair"],
-               "style_switch": ["mixed", "SS_t2_roundbrush", "round brush attachment (works on curly: SS_t3_roundbrush)"],
-               "flat_iron": ["not_this_look", "", "flatter, no movement"]}},
-    {"id": "L8", "name": "Paddle Brush · smooth & detangling blowout", "reference": "air styler listing", "avatar": "H8", "before": "2B wavy", "after": "sleek straight blow-dry",
-     "hero": "style_switch",
-     "cells": {"auto_curler": ["not_this_look", "", "curls, not straight"],
-               "thermal_brush": ["works", "TB_t2", "polished, with more body"],
-               "style_switch": ["mixed", "SS_t2_paddle", "paddle brush attachment"],
-               "flat_iron": ["mixed", "FI_t2", "sleeker and flatter than a blow-dry"]}},
-    {"id": "L9", "name": "Perfectly Polished · sleek blowout", "reference": "Thermal Brush listing", "avatar": "H9", "before": "3C curly", "after": "sleek polished blowout, frizz tamed",
-     "hero": "thermal_brush",
-     "cells": {"auto_curler": ["not_this_look", "AC_t3", "smoother 1\" curls, not a blowout"],
-               "thermal_brush": ["works", "TB_t3", "sleek almost-straight blowout"],
-               "style_switch": ["works", "SS_t3_roundbrush", "round brush: stretched blowout, some puffiness"],
-               "flat_iron": ["low_evidence", "FI_t3", "straight, flatter than a blowout"]}},
-    {"id": "L10", "name": "Curling Wand · long-lasting curls", "reference": "COMBO block (air styler)", "avatar": "-", "before": "1-2 straight or wavy", "after": "soft curls and waves",
-     "hero": "style_switch",
-     "cells": {"auto_curler": ["works", "AC_t1", "1\" curls on straight hair (AC_t2 low evidence on wavy)"],
-               "thermal_brush": ["not_this_look", "", "blowout, not curls"],
-               "style_switch": ["mixed", "SS_t1_aircurl", "air-curling barrels (SS_t2_aircurl on wavy)"],
-               "flat_iron": ["works", "FI_t1_waves", "loose waves on straight hair"]}}
-  ]
+    {
+      "id": "L1",
+      "name": "Glossy defined waves",
+      "reference": "Before / After (auburn)",
+      "avatar": "H1",
+      "before": "2B wavy",
+      "after": "glossy, defined, bouncy waves",
+      "hero": "auto_curler",
+      "cells": {
+        "auto_curler": [
+          "low_evidence",
+          "AC_t2",
+          "uniform glossy 1\" curls replacing her waves"
+        ],
+        "thermal_brush": [
+          "not_this_look",
+          "TB_t2",
+          "a polished blowout with bent ends, not defined waves"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t2_aircurl",
+          "1.5\" air-curling barrels: soft bouncy waves"
+        ],
+        "flat_iron": [
+          "not_this_look",
+          "FI_t1_waves",
+          "flat-iron waves only proven on straight hair"
+        ]
+      }
+    },
+    {
+      "id": "L2",
+      "name": "Defined coils",
+      "reference": "Before / After (coily)",
+      "avatar": "H2",
+      "before": "4A-4B coily",
+      "after": "defined, springy coils, less frizz",
+      "hero": "style_switch",
+      "cells": {
+        "auto_curler": [
+          "forbidden",
+          "AC_t4",
+          "does not work on coily hair"
+        ],
+        "thermal_brush": [
+          "forbidden",
+          "TB_t4",
+          "does not work on coily hair"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t4_diffuser",
+          "diffuser: defined coils with volume"
+        ],
+        "flat_iron": [
+          "not_this_look",
+          "FI_t4_silkpress",
+          "straightens (silk press, brand claim only)"
+        ]
+      }
+    },
+    {
+      "id": "L3",
+      "name": "Smooth & Shiny Results",
+      "reference": "flat iron listing",
+      "avatar": "H3",
+      "before": "2B wavy",
+      "after": "sleek, straight, glossy",
+      "hero": "flat_iron",
+      "cells": {
+        "auto_curler": [
+          "not_this_look",
+          "",
+          "curls, not straight"
+        ],
+        "thermal_brush": [
+          "works",
+          "TB_t2",
+          "polished smooth blowout, with more body than an iron"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t2_paddle",
+          "paddle brush: sleek straight blow-dry"
+        ],
+        "flat_iron": [
+          "mixed",
+          "FI_t2",
+          "sleek straight (works on straight hair: FI_t1)"
+        ]
+      }
+    },
+    {
+      "id": "L4",
+      "name": "Frizz-Free Shine",
+      "reference": "flat iron listing",
+      "avatar": "H4",
+      "before": "2C-3A curly",
+      "after": "sleek, straight, no frizz",
+      "hero": "flat_iron",
+      "cells": {
+        "auto_curler": [
+          "not_this_look",
+          "",
+          "curls, not straight"
+        ],
+        "thermal_brush": [
+          "works",
+          "TB_t3",
+          "sleek almost-straight blowout"
+        ],
+        "style_switch": [
+          "works",
+          "SS_t3_roundbrush",
+          "round brush: stretched blowout, some puffiness"
+        ],
+        "flat_iron": [
+          "low_evidence",
+          "FI_t3",
+          "smooth shiny straight"
+        ]
+      }
+    },
+    {
+      "id": "L5",
+      "name": "Flawless Without the Fuss",
+      "reference": "Auto Curler listing",
+      "avatar": "H5",
+      "before": "1 straight",
+      "after": "classic defined 1\" curls",
+      "hero": "auto_curler",
+      "cells": {
+        "auto_curler": [
+          "works",
+          "AC_t1",
+          "classic defined 1\" curls"
+        ],
+        "thermal_brush": [
+          "not_this_look",
+          "TB_t1",
+          "blowout with root lift and bent ends"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t1_aircurl",
+          "air-curling barrels: soft curls that drop fast"
+        ],
+        "flat_iron": [
+          "works",
+          "FI_t1_waves",
+          "loose flat-iron waves, not barrel curls"
+        ]
+      }
+    },
+    {
+      "id": "L6",
+      "name": "The Blowout Standard",
+      "reference": "Thermal Brush listing",
+      "avatar": "H6",
+      "before": "2A-2B wavy",
+      "after": "volume, bounce and shine",
+      "hero": "thermal_brush",
+      "cells": {
+        "auto_curler": [
+          "not_this_look",
+          "AC_t2",
+          "curls, not a blowout"
+        ],
+        "thermal_brush": [
+          "works",
+          "TB_t2",
+          "polished blowout (TB_t1 on straight hair)"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t2_roundbrush",
+          "round brush: smooth voluminous blowout"
+        ],
+        "flat_iron": [
+          "not_this_look",
+          "FI_t2",
+          "flat and straight, no volume"
+        ]
+      }
+    },
+    {
+      "id": "L7",
+      "name": "Round Brush · smooth & shine as you dry",
+      "reference": "air styler listing",
+      "avatar": "H7",
+      "before": "2B-2C wavy",
+      "after": "smooth blowout with movement",
+      "hero": "style_switch",
+      "cells": {
+        "auto_curler": [
+          "not_this_look",
+          "",
+          "curls, not a blowout"
+        ],
+        "thermal_brush": [
+          "works",
+          "TB_t2",
+          "same look on dry hair"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t2_roundbrush",
+          "round brush attachment (works on curly: SS_t3_roundbrush)"
+        ],
+        "flat_iron": [
+          "not_this_look",
+          "",
+          "flatter, no movement"
+        ]
+      }
+    },
+    {
+      "id": "L8",
+      "name": "Paddle Brush · smooth & detangling blowout",
+      "reference": "air styler listing",
+      "avatar": "H8",
+      "before": "2B wavy",
+      "after": "sleek straight blow-dry",
+      "hero": "style_switch",
+      "cells": {
+        "auto_curler": [
+          "not_this_look",
+          "",
+          "curls, not straight"
+        ],
+        "thermal_brush": [
+          "works",
+          "TB_t2",
+          "polished, with more body"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t2_paddle",
+          "paddle brush attachment"
+        ],
+        "flat_iron": [
+          "mixed",
+          "FI_t2",
+          "sleeker and flatter than a blow-dry"
+        ]
+      }
+    },
+    {
+      "id": "L9",
+      "name": "Perfectly Polished · sleek blowout",
+      "reference": "Thermal Brush listing",
+      "avatar": "H9",
+      "before": "3C curly",
+      "after": "sleek polished blowout, frizz tamed",
+      "hero": "thermal_brush",
+      "cells": {
+        "auto_curler": [
+          "not_this_look",
+          "AC_t3",
+          "smoother 1\" curls, not a blowout"
+        ],
+        "thermal_brush": [
+          "works",
+          "TB_t3",
+          "sleek almost-straight blowout"
+        ],
+        "style_switch": [
+          "works",
+          "SS_t3_roundbrush",
+          "round brush: stretched blowout, some puffiness"
+        ],
+        "flat_iron": [
+          "low_evidence",
+          "FI_t3",
+          "straight, flatter than a blowout"
+        ]
+      }
+    },
+    {
+      "id": "L10",
+      "name": "Curling Wand · long-lasting curls",
+      "reference": "COMBO block (air styler)",
+      "avatar": "-",
+      "before": "1-2 straight or wavy",
+      "after": "soft curls and waves",
+      "hero": "style_switch",
+      "cells": {
+        "auto_curler": [
+          "works",
+          "AC_t1",
+          "1\" curls on straight hair (AC_t2 low evidence on wavy)"
+        ],
+        "thermal_brush": [
+          "not_this_look",
+          "",
+          "blowout, not curls"
+        ],
+        "style_switch": [
+          "mixed",
+          "SS_t1_aircurl",
+          "air-curling barrels (SS_t2_aircurl on wavy)"
+        ],
+        "flat_iron": [
+          "works",
+          "FI_t1_waves",
+          "loose waves on straight hair"
+        ]
+      }
+    }
+  ],
+  "skus": {
+    "_note": "Simple view (Figma 110:2): the Style/Switch is split into one SKU per attachment, because each attachment is its own use case.",
+    "auto_curler": {
+      "name": "Auto Curler 1\" (BNTAC100)",
+      "rules": [
+        "AC_t1",
+        "AC_t2",
+        "AC_t3",
+        "AC_t4"
+      ],
+      "does": "1-inch curls",
+      "example": "gustavo_h5_long_brown: AC_t1"
+    },
+    "thermal_brush": {
+      "name": "Thermal Round Brush 1¼\" (BNTHTB125)",
+      "rules": [
+        "TB_t1",
+        "TB_t2",
+        "TB_t3",
+        "TB_t4"
+      ],
+      "does": "smooth polished blowout",
+      "example": "gustavo_h6_blonde_wavy: TB_t2"
+    },
+    "style_switch_round_brush": {
+      "name": "Style/Switch + 1¾\" round brush",
+      "rules": [
+        "SS_t1_roundbrush",
+        "SS_t2_roundbrush",
+        "SS_t3_roundbrush",
+        "SS_t4_roundbrush"
+      ],
+      "does": "blow-dry with volume",
+      "example": "gustavo_h2_coily: SS_t4_roundbrush"
+    },
+    "style_switch_paddle": {
+      "name": "Style/Switch + paddle brush",
+      "rules": [
+        "SS_t1_paddle",
+        "SS_t2_paddle"
+      ],
+      "does": "straight sleek blow-dry",
+      "example": "gustavo_h3_wavy_black: SS_t2_paddle (test 9)"
+    },
+    "style_switch_air_curl": {
+      "name": "Style/Switch + 1½\" air-curling barrels",
+      "rules": [
+        "SS_t1_aircurl",
+        "SS_t2_aircurl"
+      ],
+      "does": "soft curls and waves with air",
+      "example": "gustavo_h6_blonde_wavy: SS_t2_aircurl (test 9)"
+    },
+    "style_switch_diffuser": {
+      "name": "Style/Switch + diffuser (Curly & Coily kit)",
+      "rules": [
+        "SS_t3_diffuser",
+        "SS_t4_diffuser"
+      ],
+      "does": "defines curls and coils",
+      "example": "gustavo_h2_coily: SS_t4_diffuser"
+    },
+    "flat_iron": {
+      "name": "Ultra-Sleek flat iron 1½\" (BNT131T)",
+      "rules": [
+        "FI_t1",
+        "FI_t1_waves",
+        "FI_t2",
+        "FI_t3",
+        "FI_t4_silkpress"
+      ],
+      "does": "straightens; loose waves on straight hair",
+      "example": "gustavo_h3_wavy_black: FI_t2"
+    }
+  }
 }
