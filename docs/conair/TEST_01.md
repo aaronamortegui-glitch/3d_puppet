@@ -49,3 +49,5 @@ The prompt says that only the hair changes, describes the rule's result, and say
 - Replace the temporary avatars with Gustavo's (same format).
 - Product in hand and product on surface (Aaron's other two categories).
 - 3-5 images per SKU and category (POC scope).
+
+Figma: page "Product research", frame "CONAIR POC · TEST 1" (node 94:2), below the product cards.
