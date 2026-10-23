@@ -36,7 +36,7 @@ The picker gives every in-use pose of the rule's SKU a score; lower is better.
 
 **Score = length + 0.6 × texture + 0.5 × volume + 0.5 × body + view**
 
-- **Length**: the distance in head heights to the nearer of her before length and her styled length (in-use shots are mid-process).
+- **Length**: the distance in head heights to her BEFORE length. In an in-use shot most of the hair is still unstyled, so the mass of hair must be hers; matching the styled length instead let the coily avatar through on a long curly mane.
   - A cropped pose is penalised only if it shows more hair than she has.
 - **Texture**: the curl-type distance to the nearer of her natural pattern and the rule's result style. The result style's curl type comes from its `after_shrinkage`.
 - **Volume**: one step between flat, medium and big counts 1.
