@@ -68,7 +68,8 @@ def target(avatar, rule, doc=None):
 def prompt_line(t, in_progress=False):
     """in_progress: an in-use shot, where only the sections already styled have the new length."""
     amount = ("HAIR AMOUNT: exactly the same amount and density of hair as in her before photo: no added volume, no extensions, "
-              "no extra hair; any change of length comes only from stretching or curling her own hair.")
+              "no extra hair, realistic volume (never fuller than in her before photo unless the style itself adds root lift); "
+              "any change of length comes only from stretching or curling her own hair.")
     if in_progress and abs(t["factor"] - 1) >= 0.06:
         return (f"HAIR LENGTH: the sections not styled yet keep her natural texture and end at the {t['before_landmark']}, as in her before photo; "
                 f"the sections already styled end at the {t['after_landmark']}. " + amount)

@@ -18,6 +18,7 @@ Each pose carries the following tags. They were set by eye from the gray renders
 | `hair.texture` | Curl subtype: 1, 2A–2C, 3A–3C, 4A–4C |
 | `hair.volume` | Flat, medium or big |
 | `body` | The sculpted body: slim or curvy (the curvy thermal-brush poses changed the avatar's body in test 4) |
+| `view` | front, three_quarter, profile or back. The picker adds 0.6 for a profile view and 1.2 for a back view; front and three-quarter poses are preferred (review, 2026-10-23) |
 | `note` | For example: "proxy is a pistol-grip dryer, not the slim Style/Switch body" |
 
 Poses in the `in_hand` category have `hair: null`. `tools/build_library.py` writes the tags into `library/poses/.../meta.json`.
@@ -33,7 +34,7 @@ python tools/pick_pose.py --matrix
 
 The picker gives every in-use pose of the rule's SKU a score; lower is better.
 
-**Score = length + 0.6 × texture + 0.5 × volume + 0.5 × body**
+**Score = length + 0.6 × texture + 0.5 × volume + 0.5 × body + view**
 
 - **Length**: the distance in head heights to the nearer of her before length and her styled length (in-use shots are mid-process).
   - A cropped pose is penalised only if it shows more hair than she has.

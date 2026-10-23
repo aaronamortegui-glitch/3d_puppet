@@ -5,14 +5,17 @@
 
 The gray render's sculpted hair leaks into the output (test 6: a curly mane on a coily avatar, a short bob on a
 long-haired one), so a pose is only as good as the match between its hair and hers. Per pose (tools/pose_hair.json):
-  length   |pose end - her end| in head heights, against the nearer of her before length and her styled length
-           (tools/hair_length.py target); when the pose's hair leaves the frame its end is a lower bound, so only a
+  length   |pose end - her end| in head heights, against her BEFORE length: in an in-use shot most of the hair is
+           still unstyled, so the mass of hair must be hers (test 6: matching the styled length let the coily avatar
+           through on a long curly mane); when the pose's hair leaves the frame its end is a lower bound, so only a
            pose that shows MORE hair than she has is penalised
   texture  curl-type distance to the nearer of her natural pattern and the rule's result style
            (in-use shots are mid-process, so the sculpted hair may show either)
   volume   flat / medium / big, one step = 1
   body     a curvy sculpted body on a slim avatar (or the reverse) changes her body (test 4)
-score = length + 0.6 texture + 0.5 volume + 0.5 body; ok < 0.6, check < 1.2, avoid above. Pose notes (e.g. the
+  view     front and three-quarter are preferred; profile and back views break identity and hair more often
+           (review 2026-10-23): profile 0.6, back 1.2
+score = length + 0.6 texture + 0.5 volume + 0.5 body + view; ok < 0.6, check < 1.2, avoid above. Pose notes (e.g. the
 orange proxy is another tool) are listed as warnings, not scored.
 """
 
@@ -28,6 +31,7 @@ POSES = os.path.join(ROOT, "tools", "pose_hair.json")
 AVATARS = os.path.join(ROOT, "library", "avatars")
 VOLUME = {"flat": 0, "medium": 1, "big": 2}
 DEFAULT_VOLUME = {"1": "flat", "2": "medium", "3": "big", "4": "big"}
+VIEW = {"front": 0.0, "three_quarter": 0.0, "profile": 0.6, "back": 1.2}
 SUB = ["1", "2A", "2B", "2C", "3A", "3B", "3C", "4A", "4B", "4C"]
 
 
@@ -50,14 +54,15 @@ def result_curl(rule, avatar, doc):
 def score(pose, avatar, rule, doc):
     h = pose["hair"]
     her_end = avatar.get("hair_end") or HL.landmark_value(avatar["hair_end_landmark"], doc)
-    ends = (her_end, HL.target(avatar, rule, doc)["after"])
-    length = min(max(0.0, h["end"] - e) if h["cropped"] else abs(h["end"] - e) for e in ends)
+    diff = h["end"] - her_end
+    length = max(0.0, diff) if h["cropped"] else abs(diff)
     pc = curl(h["texture"])
     texture = min(abs(pc - curl(avatar["hair_subtype"])), abs(pc - result_curl(rule, avatar, doc)))
     vol = avatar.get("hair_volume") or DEFAULT_VOLUME[avatar["hair_type"]]
     volume = abs(VOLUME[h["volume"]] - VOLUME[vol])
     body = 0 if pose.get("body") == avatar.get("body", "slim") else 1
-    total = length + 0.6 * texture + 0.5 * volume + 0.5 * body
+    view = VIEW[pose.get("view", "front")]
+    total = length + 0.6 * texture + 0.5 * volume + 0.5 * body + view
     why = []
     if length >= 0.3:
         why.append(f"sculpted hair {'at least ' if h['cropped'] else ''}to the {h['end_landmark']}, hers to the {HL.nearest(her_end, doc)}")
@@ -67,6 +72,8 @@ def score(pose, avatar, rule, doc):
         why.append(f"volume {h['volume']} vs hers {vol}")
     if body:
         why.append(f"{pose.get('body')} body vs her {avatar.get('body', 'slim')} body")
+    if view:
+        why.append(f"{pose['view']} view (prefer front or three-quarter)")
     return {"score": round(total, 2), "verdict": "ok" if total < 0.6 else "check" if total < 1.2 else "avoid",
             "why": why, "warning": pose.get("note") if pose.get("note") and "proxy" in pose.get("note") else ""}
 

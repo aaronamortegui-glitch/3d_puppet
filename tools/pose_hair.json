@@ -1,5 +1,5 @@
 {
-  "how_to_use": "Sculpted hair of each gray pose render, tagged by eye on 2026-10-23 (the hair segmenter cannot separate clay hair from clay skin). end = where the hair ends, head heights from the top of the head (tools/hair_length.py landmarks); cropped = the hair leaves the frame, so end is the frame bottom and the real hair is at least that long. texture = curl subtype (1, 2A-2C, 3A-3C, 4A-4C). Used by tools/pick_pose.py to pick poses by the avatar's hair.",
+  "how_to_use": "Sculpted hair of each gray pose render, tagged by eye on 2026-10-23 (the hair segmenter cannot separate clay hair from clay skin). end = where the hair ends, head heights from the top of the head (tools/hair_length.py landmarks); cropped = the hair leaves the frame, so end is the frame bottom and the real hair is at least that long. texture = curl subtype (1, 2A-2C, 3A-3C, 4A-4C). Used by tools/pick_pose.py to pick poses by the avatar's hair. view = camera angle on her face/body: front, three_quarter, profile or back; front and three-quarter are preferred (profile and back views break identity and hair more often, review 2026-10-23).",
   "poses": {
     "auto_curler_in_use_01": {
       "category": "in_use",
@@ -11,7 +11,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": "small figure far from the camera; little hair detail"
+      "note": "small figure far from the camera; little hair detail",
+      "view": "three_quarter"
     },
     "auto_curler_in_use_02": {
       "category": "in_use",
@@ -23,7 +24,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": "full upper body, arm raised above the head"
+      "note": "full upper body, arm raised above the head",
+      "view": "three_quarter"
     },
     "auto_curler_in_use_03": {
       "category": "in_use",
@@ -35,7 +37,8 @@
         "volume": "flat"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "three_quarter"
     },
     "auto_curler_in_use_04": {
       "category": "in_use",
@@ -47,7 +50,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": "proxy is a thick spring-clamp curling iron, thicker than the Auto Curler"
+      "note": "proxy is a thick spring-clamp curling iron, thicker than the Auto Curler",
+      "view": "three_quarter"
     },
     "auto_curler_in_use_05": {
       "category": "in_use",
@@ -59,7 +63,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "flat_iron_in_use_01": {
       "category": "in_use",
@@ -71,7 +76,8 @@
         "volume": "flat"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "flat_iron_in_use_02": {
       "category": "in_use",
@@ -83,7 +89,8 @@
         "volume": "flat"
       },
       "body": "slim",
-      "note": "close crop: head and shoulders"
+      "note": "close crop: head and shoulders",
+      "view": "front"
     },
     "flat_iron_in_use_03": {
       "category": "in_use",
@@ -95,7 +102,8 @@
         "volume": "big"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "flat_iron_in_use_04": {
       "category": "in_use",
@@ -107,7 +115,8 @@
         "volume": "flat"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "three_quarter"
     },
     "flat_iron_in_use_05": {
       "category": "in_use",
@@ -119,7 +128,8 @@
         "volume": "flat"
       },
       "body": "slim",
-      "note": "tight crop at the shoulders"
+      "note": "tight crop at the shoulders",
+      "view": "three_quarter"
     },
     "style_switch_in_use_01": {
       "category": "in_use",
@@ -131,7 +141,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "style_switch_in_use_02": {
       "category": "in_use",
@@ -143,7 +154,8 @@
         "volume": "big"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "style_switch_in_use_03": {
       "category": "in_use",
@@ -155,7 +167,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "style_switch_in_use_04": {
       "category": "in_use",
@@ -167,7 +180,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "style_switch_in_use_05": {
       "category": "in_use",
@@ -179,7 +193,8 @@
         "volume": "big"
       },
       "body": "slim",
-      "note": "proxy is a pistol-grip dryer, not the slim Style/Switch body"
+      "note": "proxy is a pistol-grip dryer, not the slim Style/Switch body",
+      "view": "front"
     },
     "thermal_brush_in_use_01": {
       "category": "in_use",
@@ -191,7 +206,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": "the brush lifts a long section out to the side"
+      "note": "the brush lifts a long section out to the side",
+      "view": "profile"
     },
     "thermal_brush_in_use_02": {
       "category": "in_use",
@@ -203,7 +219,8 @@
         "volume": "medium"
       },
       "body": "slim",
-      "note": ""
+      "note": "",
+      "view": "three_quarter"
     },
     "thermal_brush_in_use_03": {
       "category": "in_use",
@@ -215,7 +232,8 @@
         "volume": "medium"
       },
       "body": "curvy",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "thermal_brush_in_use_04": {
       "category": "in_use",
@@ -227,7 +245,8 @@
         "volume": "medium"
       },
       "body": "curvy",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "thermal_brush_in_use_05": {
       "category": "in_use",
@@ -239,7 +258,8 @@
         "volume": "medium"
       },
       "body": "curvy",
-      "note": ""
+      "note": "",
+      "view": "front"
     },
     "auto_curler_in_hand_01": {
       "category": "in_hand",
