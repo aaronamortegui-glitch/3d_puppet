@@ -24,6 +24,7 @@ Test 14 showed that a Nano relight of a Sunburst still life adds nothing. The re
 | Auto Curler | 7/255 | **Win.** Nano made the barrel gold, which is wrong. The fix restores the titanium-grey barrel and the charcoal tip, a crisp wordmark, the real LED temperatures (300–380) and the ON/OFF labels. |
 | Thermal Brush | 11/255 | **Small gain.** The wordmark already read on Nano; the fix makes it sharper and the flared collar truer. |
 | Style/Switch | 8/255 | **Partial.** The fix adds the wordmark on the body and cleaner buttons. Some tiny garbled text remains on the chrome panel. There are no air-curl barrels because the scene prompt only asked for the round and paddle brushes. |
+| Style/Switch, retry | 7/255 | **Win.** The scene prompt now asks for all four attachments, and Nano lays out the body, both air-curl barrels, the round brush and the paddle. The fix adds the wordmark on the body and cleaner buttons. |
 | Flat iron Nano Blue | 13/255 | **Win.** A crisp BaBylissPRO NANO TITANIUM wordmark with ®, readable temperatures (450°F–285°F) and real button icons. |
 
 In all four, the fix kept Nano's set, light, reflections and shadows, and the whole product stays in frame.
@@ -39,7 +40,7 @@ In all four, the fix kept Nano's set, light, reflections and shadows, and the wh
 
 ## Open
 
-- **Style/Switch.** Ask for the attachments explicitly in the scene prompt. To check the small text on the chrome panel, a second fix pass or a tighter crop of the product sheet may help.
+- **Style/Switch.** Solved by the retry: name every attachment in the set description of the scene prompt (`style_switch__sage_plinth_all_attachments`).
 
 ## Where
 
@@ -56,4 +57,12 @@ In all four, the fix kept Nano's set, light, reflections and shadows, and the wh
 | FigJam CONAIR, page "study" | 164:228 |
 | FigJam Essilor | 1319:401 |
 
-The total cost was 4 Nano runs plus 4 Sunburst high runs.
+**Connected workflow** (inputs → prompt → model → output, both lanes: the look and the product):
+
+| Board | Node |
+|---|---|
+| Design file, page "workflow" | 186:2 (below 155:2) |
+| FigJam CONAIR, page "Workflow and Logic" | 168:60 |
+| FigJam Essilor | 1321:401 |
+
+The total cost was 5 Nano runs plus 5 Sunburst high runs.
