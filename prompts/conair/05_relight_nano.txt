@@ -1,4 +1,4 @@
-# Category 4, step 2 (test): relight the Sunburst still life with Nano Banana 2.1 (google/nano-banana-2.1, 2K).
+# Category 4, step 2 (TESTED, NOT USED: test 14 found no real gain, and with a busy packshot it replaced the scene). Kept for reference.
 # Keep it only if it improves the light without changing the product; compare side by side.
 # INPUTS:
 #   1  the Sunburst output of 04_soft_environment.txt

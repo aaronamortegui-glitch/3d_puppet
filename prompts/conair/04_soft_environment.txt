@@ -1,5 +1,5 @@
 # Category 4: product on a soft environment, step 1. Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 1:1.
-# Then run 05_relight_nano.txt on the result (test: does Nano Banana 2.1 improve the light?).
+# Sunburst alone is final for this category (test 14); ask for the light here, not in a relight.
 # Fill with: python tools/fill_prompt.py soft_env - - - - [colour] --set "<set description, product already lying down>"
 # INPUTS:
 #   1  library/products/{sku}/{colour}/packshots/<best packshot>         the exact product
