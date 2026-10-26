@@ -109,6 +109,7 @@ def main():
         ref = refs[a.ref]
         if ref["grade"] != "A":
             sys.exit(f"{a.ref} is grade {ref['grade']}; only grade A references are style inputs")
+        v["ref_dir"] = f"{ref['sku']}/{ref['rule']}/{a.ref}"  # a reference can serve a neighbour rule of the same slot
         if a.rule != "-" and ref["sku"] != v["sku_slot"]:
             notes.append(f"{a.ref} is a {ref['sku']} reference ({ref['rule']}), not {v['sku_slot']}")
     if not sku:

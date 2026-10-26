@@ -1,6 +1,6 @@
 """Draws docs/conair/pipeline.png: how one Conair image is made (inputs -> logic -> prompt -> model -> QA -> output).
 
-Uses real library files as thumbnails (example: avatar A07, Style/Switch diffuser, reference r58).
+Uses real library files as thumbnails (example: avatar A03, Style/Switch round brush, reference r47).
     python tools/draw_pipeline.py
 """
 import os
@@ -44,14 +44,14 @@ def arrow(x0, y0, x1, y1):
 
 
 d.text((60, 40), "Conair POC: how one image is made", font=B[56], fill=INK)
-d.text((60, 115), "Inputs come from library/ (built by tools/build_library.py). Example: avatar A07 (3B curls) + Style/Switch diffuser (SS_t3_diffuser) + reference r58.", font=F[26], fill=GREY)
+d.text((60, 115), "Inputs come from library/ (built by tools/build_library.py). Example: avatar A03 (2B waves) + Style/Switch round brush (SS_t2_roundbrush) + reference r47.", font=F[26], fill=GREY)
 
 ex = {
-    "avatar": f"{LIB}/avatars/client_a07_burgundy_curls/front.png",
-    "pose": f"{LIB}/poses/in_use/style_switch/style_switch_in_use_02/gray.png",
+    "avatar": f"{LIB}/avatars/client_a03_red_wavy/front.png",
+    "pose": f"{LIB}/poses/in_use/style_switch/style_switch_in_use_01/gray.png",
     "product": f"{LIB}/products/style_switch/nano_blue/card_clean.png",
-    "lock": f"{LIB}/hair_styles/style_switch_diffuser/SS_t3_diffuser/r58/lock.png",
-    "after": f"{LIB}/hair_styles/style_switch_diffuser/SS_t3_diffuser/r58/after.png",
+    "lock": f"{LIB}/hair_styles/style_switch_round_brush/SS_t2_roundbrush/r47/lock.png",
+    "after": f"{LIB}/hair_styles/style_switch_round_brush/SS_t2_roundbrush/r47/after.png",
 }
 X0, BW, BH, GAP = 60, 900, 200, 22
 inputs = [

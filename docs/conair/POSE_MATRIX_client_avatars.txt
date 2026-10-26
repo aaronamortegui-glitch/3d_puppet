@@ -1,7 +1,7 @@
 
 client_a01_bob_black (type 2)
-  AC_t2              auto_curler_in_use_01      1.05  check  sculpted hair to the middle of the chest, hers to the chin
-  FI_t2              flat_iron_in_use_05        0.85  check  sculpted hair at least to the collarbone, hers to the chin; volume flat vs hers medium
+  AC_t2              auto_curler_in_use_05      1.05  check  sculpted hair to the middle of the chest, hers to the chin
+  FI_t2              flat_iron_in_use_03        1.25  avoid  sculpted hair to the collarbone, hers to the chin; texture 2C vs hers 2A; volume big vs hers medium
   SS_t2_aircurl      style_switch_in_use_01     0.65  check  sculpted hair at least to the armpits, hers to the chin
   SS_t2_paddle       style_switch_in_use_01     1.05  check  sculpted hair at least to the armpits, hers to the chin; texture 2C vs hers 2A
   SS_t2_roundbrush   style_switch_in_use_01     1.05  check  sculpted hair at least to the armpits, hers to the chin; texture 2C vs hers 2A
@@ -10,36 +10,36 @@ client_a01_bob_black (type 2)
 client_a02_coily (type 4)
   AC_t4              FORBIDDEN
   FI_t4_silkpress    flat_iron_in_use_03        1.0   check  sculpted hair to the collarbone, hers to the jaw; texture 2C vs hers 4B
-  SS_t4_diffuser     style_switch_in_use_02     1.9   avoid  sculpted hair at least to the middle of the chest, hers to the jaw; texture 3A vs hers 4B
-  SS_t4_roundbrush   style_switch_in_use_02     1.5   avoid  sculpted hair at least to the middle of the chest, hers to the jaw; texture 3A vs hers 4B
+  SS_t4_diffuser     style_switch_in_use_01     2.4   avoid  sculpted hair at least to the armpits, hers to the jaw; texture 2C vs hers 4B; volume medium vs hers big
+  SS_t4_roundbrush   style_switch_in_use_01     2.0   avoid  sculpted hair at least to the armpits, hers to the jaw; texture 2C vs hers 4B; volume medium vs hers big
   TB_t4              FORBIDDEN
 
 client_a03_red_wavy (type 2)
-  AC_t2              auto_curler_in_use_02      0.23  ok     
+  AC_t2              auto_curler_in_use_05      0.48  ok     sculpted hair to the middle of the chest, hers to the bottom of the ribs
   FI_t2              flat_iron_in_use_02        0.5   ok     volume flat vs hers medium
   SS_t2_aircurl      style_switch_in_use_01     0.0   ok     
   SS_t2_paddle       style_switch_in_use_01     0.2   ok     
   SS_t2_roundbrush   style_switch_in_use_01     0.2   ok     
-  TB_t2              thermal_brush_in_use_02    0.07  ok     
+  TB_t2              thermal_brush_in_use_04    1.38  avoid  sculpted hair to the armpits, hers to the bottom of the ribs; curvy body vs her slim body
 
 client_a04_wavy_dark (type 2)
-  AC_t2              auto_curler_in_use_01      1.69  avoid  sculpted hair to the middle of the chest, hers to the collarbone; volume medium vs hers big; slim body vs her average body
+  AC_t2              auto_curler_in_use_05      1.69  avoid  sculpted hair to the middle of the chest, hers to the collarbone; volume medium vs hers big; slim body vs her average body
   FI_t2              flat_iron_in_use_03        0.51  ok     slim body vs her average body
-  SS_t2_aircurl      style_switch_in_use_02     1.19  check  sculpted hair at least to the middle of the chest, hers to the collarbone; slim body vs her average body
-  SS_t2_paddle       style_switch_in_use_02     1.19  check  sculpted hair at least to the middle of the chest, hers to the collarbone; slim body vs her average body
-  SS_t2_roundbrush   style_switch_in_use_02     1.19  check  sculpted hair at least to the middle of the chest, hers to the collarbone; slim body vs her average body
+  SS_t2_aircurl      style_switch_in_use_01     1.29  avoid  volume medium vs hers big; slim body vs her average body
+  SS_t2_paddle       style_switch_in_use_01     1.29  avoid  volume medium vs hers big; slim body vs her average body
+  SS_t2_roundbrush   style_switch_in_use_01     1.29  avoid  volume medium vs hers big; slim body vs her average body
   TB_t2              thermal_brush_in_use_03    1.16  check  volume medium vs hers big; curvy body vs her average body
 
 client_a05_long_curly (type 3)
-  AC_t3              auto_curler_in_use_02      1.33  avoid  sculpted hair to the bottom of the bust, hers to the bottom of the ribs; texture 2B vs hers 3A; volume medium vs hers big
+  AC_t3              auto_curler_in_use_05      1.58  avoid  sculpted hair to the middle of the chest, hers to the bottom of the ribs; texture 2B vs hers 3A; volume medium vs hers big
   FI_t3              flat_iron_in_use_03        1.38  avoid  sculpted hair to the collarbone, hers to the bottom of the ribs
-  SS_t3_diffuser     style_switch_in_use_02     0.0   ok     
-  SS_t3_roundbrush   style_switch_in_use_02     0.0   ok     
-  TB_t3              thermal_brush_in_use_02    0.83  check  volume medium vs hers big
+  SS_t3_diffuser     style_switch_in_use_01     0.7   check  volume medium vs hers big
+  SS_t3_roundbrush   style_switch_in_use_01     0.5   ok     volume medium vs hers big
+  TB_t3              thermal_brush_in_use_04    2.08  avoid  sculpted hair to the armpits, hers to the bottom of the ribs; volume medium vs hers big; curvy body vs her slim body
 
 client_a06_platinum (type 1)
   AC_t1              auto_curler_in_use_04      0.65  check  sculpted hair at least to the middle of the chest, hers to the shoulders  [!] proxy is a thick spring-clamp curling iron, thicker than the Auto Curler
-  FI_t1              flat_iron_in_use_05        0.65  check  volume flat vs hers medium
+  FI_t1              flat_iron_in_use_02        1.15  check  sculpted hair at least to the middle of the chest, hers to the shoulders; volume flat vs hers medium
   FI_t1_waves        flat_iron_in_use_03        0.65  check  volume big vs hers medium
   SS_t1_aircurl      style_switch_in_use_01     0.45  ok     sculpted hair at least to the armpits, hers to the shoulders
   SS_t1_paddle       style_switch_in_use_01     1.45  avoid  sculpted hair at least to the armpits, hers to the shoulders; texture 2C vs hers 1
@@ -47,32 +47,32 @@ client_a06_platinum (type 1)
   TB_t1              thermal_brush_in_use_03    0.5   ok     curvy body vs her slim body
 
 client_a07_burgundy_curls (type 3)
-  AC_t3              auto_curler_in_use_01      1.38  avoid  sculpted hair to the middle of the chest, hers to the collarbone; texture 2B vs hers 3B; volume medium vs hers big
+  AC_t3              auto_curler_in_use_05      1.38  avoid  sculpted hair to the middle of the chest, hers to the collarbone; texture 2B vs hers 3B; volume medium vs hers big
   FI_t3              flat_iron_in_use_03        0.42  ok     texture 2C vs hers 3B
-  SS_t3_diffuser     style_switch_in_use_02     0.68  check  sculpted hair at least to the middle of the chest, hers to the collarbone
-  SS_t3_roundbrush   style_switch_in_use_02     0.68  check  sculpted hair at least to the middle of the chest, hers to the collarbone
+  SS_t3_diffuser     style_switch_in_use_01     1.18  check  texture 2C vs hers 3B; volume medium vs hers big
+  SS_t3_roundbrush   style_switch_in_use_01     0.78  check  volume medium vs hers big
   TB_t3              thermal_brush_in_use_05    1.02  check  volume medium vs hers big; curvy body vs her slim body
 
 client_a08_shag_bangs (type 2)
-  AC_t2              auto_curler_in_use_01      0.25  ok     
+  AC_t2              auto_curler_in_use_05      0.25  ok     
   FI_t2              flat_iron_in_use_02        0.5   ok     volume flat vs hers medium
   SS_t2_aircurl      style_switch_in_use_01     0.0   ok     
   SS_t2_paddle       style_switch_in_use_03     0.25  ok     
   SS_t2_roundbrush   style_switch_in_use_03     0.25  ok     
-  TB_t2              thermal_brush_in_use_02    0.5   ok     sculpted hair to the bottom of the ribs, hers to the middle of the chest
+  TB_t2              thermal_brush_in_use_04    1.15  check  texture 2C vs hers 2A; curvy body vs her slim body
 
 client_a09_blonde_straight (type 1)
-  AC_t1              auto_curler_in_use_03      1.25  avoid  sculpted hair at least to the bottom of the bust, hers to the collarbone; slim body vs her average body
-  FI_t1              flat_iron_in_use_05        0.5   ok     slim body vs her average body
-  FI_t1_waves        flat_iron_in_use_05        0.5   ok     slim body vs her average body
+  AC_t1              auto_curler_in_use_04      1.5   avoid  sculpted hair at least to the middle of the chest, hers to the collarbone; volume medium vs hers flat; slim body vs her average body  [!] proxy is a thick spring-clamp curling iron, thicker than the Auto Curler
+  FI_t1              flat_iron_in_use_02        1.0   check  sculpted hair at least to the middle of the chest, hers to the collarbone; slim body vs her average body
+  FI_t1_waves        flat_iron_in_use_02        1.0   check  sculpted hair at least to the middle of the chest, hers to the collarbone; slim body vs her average body
   SS_t1_aircurl      style_switch_in_use_01     1.3   avoid  sculpted hair at least to the armpits, hers to the collarbone; volume medium vs hers flat; slim body vs her average body
   SS_t1_paddle       style_switch_in_use_01     2.3   avoid  sculpted hair at least to the armpits, hers to the collarbone; texture 2C vs hers 1; volume medium vs hers flat; slim body vs her average body
   SS_t1_roundbrush   style_switch_in_use_01     1.7   avoid  sculpted hair at least to the armpits, hers to the collarbone; texture 2C vs hers 1; volume medium vs hers flat; slim body vs her average body
   TB_t1              thermal_brush_in_use_03    1.15  check  volume medium vs hers flat; curvy body vs her average body
 
 client_a10_long_curly (type 3)
-  AC_t3              auto_curler_in_use_02      0.93  check  texture 2B vs hers 3B; volume medium vs hers big
+  AC_t3              auto_curler_in_use_05      1.18  check  texture 2B vs hers 3B; volume medium vs hers big
   FI_t3              flat_iron_in_use_03        1.18  check  sculpted hair to the collarbone, hers to the bottom of the bust; texture 2C vs hers 3B
-  SS_t3_diffuser     style_switch_in_use_02     0.2   ok     
-  SS_t3_roundbrush   style_switch_in_use_02     0.2   ok     
-  TB_t3              thermal_brush_in_use_02    0.97  check  volume medium vs hers big
+  SS_t3_diffuser     style_switch_in_use_01     0.9   check  texture 2C vs hers 3B; volume medium vs hers big
+  SS_t3_roundbrush   style_switch_in_use_01     0.5   ok     volume medium vs hers big
+  TB_t3              thermal_brush_in_use_04    1.68  avoid  sculpted hair to the armpits, hers to the bottom of the bust; volume medium vs hers big; curvy body vs her slim body

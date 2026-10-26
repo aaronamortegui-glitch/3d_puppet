@@ -1,8 +1,16 @@
 {
-  "_note": "Poses that do not work, with the reason. tools/build_library.py puts them in library/poses/_rejected/ so the generator only sees the approved ones. Approved = front or three-quarter view and an orange proxy with the real product silhouette (reviews of tests 4-8).",
+  "_note": "Poses that do not work, with the reason. tools/build_library.py puts them in library/poses/_rejected/ and tools/pick_pose.py / fill_prompt.py skip them. Approved = front or three-quarter view with the face visible, portrait framing that fits 3:4, moderate sculpted hair (it leaks into the output), and an orange proxy with the real product silhouette. Review of 2026-10-26 by eye on all gray renders.",
   "rejected": {
     "thermal_brush_in_use_01": "profile view: breaks identity and hair (test 7 review)",
     "style_switch_in_use_05": "the orange proxy is a pistol-grip dryer, not the Style/Switch; both models copy it (test 4)",
-    "style_switch_in_hand_01": "the orange proxy is the wrong tool; Sunburst copied it (test 8)"
+    "style_switch_in_hand_01": "the orange proxy is the wrong tool; Sunburst copied it (test 8)",
+    "style_switch_in_hand_02": "the orange proxy is a round-head hair dryer, not the slim Style/Switch",
+    "style_switch_in_use_02": "huge sculpted curly mane: gives 'too much hair' (review 2026-10-26)",
+    "auto_curler_in_use_01": "figure small and far, body turned sideways",
+    "auto_curler_in_use_02": "full-body nude framing with the arm over the head; not an ad crop",
+    "auto_curler_in_use_03": "face turned close to profile",
+    "flat_iron_in_use_04": "face turned up and away, close to profile",
+    "flat_iron_in_use_05": "landscape crop, does not fit the 3:4 output",
+    "thermal_brush_in_use_02": "face turned close to profile, very long heavy sculpted hair"
   }
 }
