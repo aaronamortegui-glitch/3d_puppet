@@ -138,7 +138,7 @@
         "end": 1.85,
         "cropped": true,
         "texture": "2C",
-        "volume": "medium"
+        "volume": "big"
       },
       "body": "slim",
       "note": "",
@@ -242,7 +242,7 @@
         "end": 1.85,
         "cropped": false,
         "texture": "2C",
-        "volume": "medium"
+        "volume": "big"
       },
       "body": "curvy",
       "note": "",

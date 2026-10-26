@@ -12,6 +12,7 @@ pattern explains; the pose verdict comes from tools/pick_pose.py.
 """
 import argparse
 import json
+import re
 import os
 import sys
 
@@ -57,6 +58,28 @@ def sku_slot(rule_key):
     raise ValueError(f"unknown rule {rule_key}")
 
 
+TOOL_WORDS = re.compile(r"\b(styler|iron|brush|barrel|tool|hand|plates|curler|attachment|grip|arm|holds|held)\b", re.I)
+HAIR_WORDS = re.compile(r"\b(hair|curls?|waves?|wavy|curly|mane|locks?)\b", re.I)
+HAIR_ADJ = re.compile(r"\b(voluminous|big|long|medium-length|wavy|curly|straight)\s+(?=(lock of |section of )?(\w+ )?hair)", re.I)
+RESULT_TEXTURE = {  # test 11: the sculpted waves of the gray pose beat the lock unless the result is spelled out
+    "1": ("RESULT TEXTURE: her hair is now completely straight and sleek from root to tip, with no waves, curls or bends left; "
+          "ignore any waves in the sculpted hair of image 1."),
+    "2A": ("RESULT TEXTURE: a smooth blowout: straight and polished through the lengths with only a soft bend at the ends; "
+           "no waves or curls along the lengths; ignore any waves in the sculpted hair of image 1."),
+}
+
+
+def pose_without_hair(details):
+    """Pose details without the sculpted-hair description: a sentence only about hair goes, hair adjectives go.
+    The style comes from the lock and the after, never from the pose (test 11)."""
+    keep = []
+    for sent in re.split(r"(?<=\.)\s+", details.strip()):
+        if HAIR_WORDS.search(sent) and not TOOL_WORDS.search(sent):
+            continue
+        keep.append(HAIR_ADJ.sub("", sent))
+    return " ".join(keep)
+
+
 class Keep(dict):
     def __missing__(self, k):
         return "{" + k + "}"
@@ -87,6 +110,7 @@ def main():
         sku = rule["sku"]
         v["sku_slot"] = sku_slot(a.rule)
         v["style_result"] = rule["result_style"][0].lower() + rule["result_style"][1:]
+        v["result_texture_line"] = RESULT_TEXTURE.get(rule.get("after_texture"), "")
     if a.avatar != "-":
         av = pick_pose.avatar_meta(a.avatar)
         v["hair_colour"] = av.get("hair_colour", "")
@@ -98,12 +122,12 @@ def main():
         if a.pose in pick_pose.REJECTED:
             sys.exit(f"{a.pose} is rejected: {pick_pose.REJECTED[a.pose]}")
         sku = sku or a.pose.split("_in_")[0]
-        v["pose_details"] = json.load(open(os.path.join(ROOT, "tools", "pose_details.json"), encoding="utf-8"))[a.pose]
+        v["pose_details"] = pose_without_hair(json.load(open(os.path.join(ROOT, "tools", "pose_details.json"), encoding="utf-8"))[a.pose])
         if a.kind == "in_use" and a.avatar != "-":
-            r = next(x for x in pick_pose.rank(a.avatar, a.rule, doc) if x["pose"] == a.pose)
+            r = next(x for x in pick_pose.rank(a.avatar, a.rule, doc, finished=True) if x["pose"] == a.pose)
             notes.append(f"pose verdict: {r['verdict']} ({r['score']}): {'; '.join(r['why'])}")
             if r["verdict"] == "avoid":
-                notes.append("pick another pose: python tools/pick_pose.py " + f"{a.avatar} {a.rule}")
+                notes.append("pick another pose: python tools/pick_pose.py " + f"{a.avatar} {a.rule} --finished")
     if a.ref != "-":
         refs = {r["id"]: r for r in json.load(open(os.path.join(ROOT, "docs", "products", "hair_refs.json"), encoding="utf-8"))["refs"]}
         ref = refs[a.ref]

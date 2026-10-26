@@ -53,7 +53,10 @@ How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff
 - The amount stays the same: no added volume.
 
 **Poses:**
-- The sculpted hair of the gray pose leaks into the output, so pick the pose by her hair.
+- The sculpted hair of the gray pose leaks into the output.
+  - Never use a pose with big or abundant sculpted hair (hard rule, test 12).
+  - For finished in-use shots, pick the pose by the after: `pick_pose.py <avatar> <rule> --finished`.
+  - The pose details lose their hair sentences, and straight or blowout results get an explicit `RESULT TEXTURE` line (`fill_prompt.py`).
 - Use front or three-quarter views. Profile and back views break identity and hair.
 - The orange proxy must be the real product silhouette, because models copy a wrong proxy.
 
