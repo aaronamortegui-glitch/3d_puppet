@@ -23,6 +23,12 @@ The script prints the resolved input paths and the full prompt. It **refuses** f
 
 For an in-use image it also prints the pose verdict (ok, check or avoid).
 
+## Order (test 13)
+
+For every look, run `02_after.txt` first, then `01_in_use.txt`.
+- The in-use step takes the hair and the background from the after.
+- The after takes the amount of change from the real reference pair, never from a model or a guess.
+
 ## The templates
 
 | File | Category | Model | Inputs |

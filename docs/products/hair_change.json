@@ -1,0 +1,162 @@
+{
+ "_note": "Real change of hair volume (width) and length from before to after, measured on the grade A real references (tools/measure_ref_change.py). 1.0 = unchanged.",
+ "slots": {
+  "flat_iron": {
+   "width_ratio": 0.86,
+   "length_ratio": 1.01,
+   "n": 7
+  },
+  "thermal_brush": {
+   "width_ratio": 0.7,
+   "length_ratio": 1.02,
+   "n": 2
+  },
+  "style_switch_diffuser": {
+   "width_ratio": 0.82,
+   "length_ratio": 0.96,
+   "n": 3
+  },
+  "auto_curler": {
+   "width_ratio": 1.09,
+   "length_ratio": 0.98,
+   "n": 5
+  },
+  "style_switch_round_brush": {
+   "width_ratio": 1.07,
+   "length_ratio": 0.92,
+   "n": 5
+  },
+  "style_switch_air_curl": {
+   "width_ratio": 0.97,
+   "length_ratio": 0.98,
+   "n": 1
+  },
+  "style_switch_paddle": {
+   "width_ratio": 0.82,
+   "length_ratio": 0.98,
+   "n": 1
+  }
+ },
+ "refs": {
+  "r03": {
+   "width_ratio": 0.86,
+   "length_ratio": 1.07,
+   "by": "frame"
+  },
+  "r04": {
+   "width_ratio": 0.99,
+   "length_ratio": 1.04,
+   "by": "frame"
+  },
+  "r14": {
+   "width_ratio": 0.83,
+   "length_ratio": 1.01,
+   "by": "face"
+  },
+  "r17": {
+   "width_ratio": 0.71,
+   "length_ratio": 0.95,
+   "by": "frame"
+  },
+  "r18": {
+   "width_ratio": 0.82,
+   "length_ratio": 1.17,
+   "by": "frame"
+  },
+  "r19": {
+   "width_ratio": 0.69,
+   "length_ratio": 0.98,
+   "by": "frame"
+  },
+  "r21": {
+   "width_ratio": 1.22,
+   "length_ratio": 0.84,
+   "by": "frame"
+  },
+  "r26": {
+   "width_ratio": 1.09,
+   "length_ratio": 0.98,
+   "by": "frame"
+  },
+  "r36": {
+   "width_ratio": 0.77,
+   "length_ratio": 1.01,
+   "by": "face"
+  },
+  "r38": {
+   "width_ratio": 0.98,
+   "length_ratio": 0.88,
+   "by": "face"
+  },
+  "r39": {
+   "width_ratio": 1.54,
+   "length_ratio": 0.98,
+   "by": "face"
+  },
+  "r40": {
+   "width_ratio": 0.95,
+   "length_ratio": 0.98,
+   "by": "face"
+  },
+  "r41": {
+   "width_ratio": 0.58,
+   "length_ratio": 1.03,
+   "by": "face"
+  },
+  "r43": {
+   "width_ratio": 1.29,
+   "length_ratio": 0.86,
+   "by": "face"
+  },
+  "r45": {
+   "width_ratio": 0.94,
+   "length_ratio": 1.02,
+   "by": "face"
+  },
+  "r47": {
+   "width_ratio": 1.07,
+   "length_ratio": 0.92,
+   "by": "face"
+  },
+  "r48": {
+   "width_ratio": 1.05,
+   "length_ratio": 0.92,
+   "by": "face"
+  },
+  "r50": {
+   "width_ratio": 1.12,
+   "length_ratio": 0.88,
+   "by": "face"
+  },
+  "r51": {
+   "width_ratio": 0.97,
+   "length_ratio": 0.98,
+   "by": "face"
+  },
+  "r52": {
+   "width_ratio": 1.46,
+   "length_ratio": 0.98,
+   "by": "face"
+  },
+  "r54": {
+   "width_ratio": 0.91,
+   "length_ratio": 0.91,
+   "by": "face"
+  },
+  "r55": {
+   "width_ratio": 0.75,
+   "length_ratio": 1.43,
+   "by": "face"
+  },
+  "r57": {
+   "width_ratio": 0.82,
+   "length_ratio": 0.98,
+   "by": "face"
+  },
+  "r58": {
+   "width_ratio": 1.0,
+   "length_ratio": 0.96,
+   "by": "face"
+  }
+ }
+}

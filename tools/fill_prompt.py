@@ -80,6 +80,35 @@ def pose_without_hair(details):
     return " ".join(keep)
 
 
+AMOUNT = ("Same amount and density of hair as in her before photo: no extensions, no extra hair, never fuller or "
+          "flatter than the real change shown by the reference pair.")
+
+
+def hair_change_line(avatar, ref, doc):
+    """Length and volume of her after, calibrated on the real before/after of the reference
+    (docs/products/hair_change.json, tools/measure_ref_change.py): the same change, never more and never less.
+    Falls back to the median of the reference's SKU slot, then to the shrinkage model of hair_length.py."""
+    ch = json.load(open(os.path.join(ROOT, "docs", "products", "hair_change.json"), encoding="utf-8"))
+    m = ch["refs"].get(ref["id"], {})
+    src = f"the real reference pair ({ref['id']}: {ref['before']} -> {ref['after']})"
+    if "length_ratio" not in m:
+        m, src = ch["slots"].get(ref["sku"], {}), "real before/after photos of this style"
+    before = avatar.get("hair_end") or HL.landmark_value(avatar["hair_end_landmark"], doc)
+    vol = avatar.get("hair_volume", "medium")
+    if "length_ratio" not in m:
+        return HL.prompt_line(HL.target(avatar, next(r for r in doc["rules"] if r["key"] == ref["rule"]), doc))
+    lr, wr = m["length_ratio"], m["width_ratio"]
+    after = before * lr
+    length = ("the SAME length as before" if abs(lr - 1) < 0.05 else
+              f"about {round(abs(lr - 1) * 100)}% {'longer' if lr > 1 else 'shorter'} than before")
+    width = ("the same width and volume as before" if abs(wr - 1) < 0.05 else
+             f"about {round(abs(wr - 1) * 100)}% {'wider and fuller' if wr > 1 else 'narrower and flatter'} than before")
+    return (f"HAIR LENGTH AND VOLUME, calibrated on {src}, where the real hair kept {round(lr * 100)}% of its length and "
+            f"{round(wr * 100)}% of its width: apply exactly the same change to her. Her hair now ends at the "
+            f"{HL.nearest(after, doc)} (before: at the {HL.nearest(before, doc)}): {length}; it is {width} "
+            f"(before: {vol} volume). " + AMOUNT)
+
+
 class Keep(dict):
     def __missing__(self, k):
         return "{" + k + "}"
@@ -111,6 +140,8 @@ def main():
         v["sku_slot"] = sku_slot(a.rule)
         v["style_result"] = rule["result_style"][0].lower() + rule["result_style"][1:]
         v["result_texture_line"] = RESULT_TEXTURE.get(rule.get("after_texture"), "")
+        if a.kind == "after":  # image 1 is her photo here, not a gray render
+            v["result_texture_line"] = v["result_texture_line"].replace("; ignore any waves in the sculpted hair of image 1", "")
     if a.avatar != "-":
         av = pick_pose.avatar_meta(a.avatar)
         v["hair_colour"] = av.get("hair_colour", "")
@@ -134,6 +165,8 @@ def main():
         if ref["grade"] != "A":
             sys.exit(f"{a.ref} is grade {ref['grade']}; only grade A references are style inputs")
         v["ref_dir"] = f"{ref['sku']}/{ref['rule']}/{a.ref}"  # a reference can serve a neighbour rule of the same slot
+        if a.avatar != "-":
+            v["hair_change_line"] = hair_change_line(av, ref, doc)
         if a.rule != "-" and ref["sku"] != v["sku_slot"]:
             notes.append(f"{a.ref} is a {ref['sku']} reference ({ref['rule']}), not {v['sku_slot']}")
     if not sku:

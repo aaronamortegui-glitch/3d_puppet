@@ -17,7 +17,20 @@
 
 How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff: [docs/conair/HANDOFF.md](docs/conair/HANDOFF.md).
 
-## Make one image
+## Make one look: before → after → in use (test 13)
+
+1. **After** (`prompts/conair/02_after.txt`).
+   - Command: `python tools/fill_prompt.py after <avatar> <rule> - <rNN>`.
+   - Inputs: the avatar front, the real reference before and after, and the lock.
+   - The length and width change exactly as in that real pair (`docs/products/hair_change.json`).
+   - It keeps the background.
+   - Save it to `library/avatars/<avatar>/after/<rule>__<rNN>.png`.
+2. **In use** (`prompts/conair/01_in_use.txt`).
+   - Command: `python tools/fill_prompt.py in_use <avatar> <rule> <pose> <rNN>`.
+   - Inputs: the gray pose v2, the step 1 after, the product sheet and the lock.
+   - The hair and the background come from the after.
+
+## Make one image (details)
 
 1. **Rule.** Pick the rule for the product × the avatar's hair type in `docs/products/product_hair_rules.json`. Never use a forbidden one: Auto Curler and Thermal Brush on coily hair.
 2. **Pose.** Run `python tools/pick_pose.py <avatar> <rule>`. Use front or three-quarter poses with the verdict ok, or check at worst.

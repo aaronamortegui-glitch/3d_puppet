@@ -47,11 +47,12 @@
         "end": 2.05,
         "cropped": true,
         "texture": "1",
-        "volume": "medium"
+        "volume": "flat"
       },
       "body": "slim",
       "note": "proxy is a thick spring-clamp curling iron, thicker than the Auto Curler",
-      "view": "three_quarter"
+      "view": "three_quarter",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "auto_curler_in_use_05": {
       "category": "in_use",
@@ -59,38 +60,41 @@
         "end_landmark": "middle of the chest",
         "end": 2.05,
         "cropped": false,
-        "texture": "2B",
+        "texture": "2A",
         "volume": "medium"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "flat_iron_in_use_01": {
       "category": "in_use",
       "hair": {
         "end_landmark": "bottom of the bust",
         "end": 2.3,
-        "cropped": false,
+        "cropped": true,
         "texture": "1",
         "volume": "flat"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "flat_iron_in_use_02": {
       "category": "in_use",
       "hair": {
-        "end_landmark": "middle of the chest",
-        "end": 2.05,
+        "end_landmark": "bottom of the bust",
+        "end": 2.3,
         "cropped": true,
         "texture": "1",
         "volume": "flat"
       },
       "body": "slim",
       "note": "close crop: head and shoulders",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "flat_iron_in_use_03": {
       "category": "in_use",
@@ -98,12 +102,13 @@
         "end_landmark": "collarbone",
         "end": 1.55,
         "cropped": false,
-        "texture": "2C",
-        "volume": "big"
+        "texture": "2A",
+        "volume": "medium"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "flat_iron_in_use_04": {
       "category": "in_use",
@@ -134,15 +139,16 @@
     "style_switch_in_use_01": {
       "category": "in_use",
       "hair": {
-        "end_landmark": "armpits",
-        "end": 1.85,
-        "cropped": true,
-        "texture": "2C",
-        "volume": "big"
+        "end_landmark": "collarbone",
+        "end": 1.55,
+        "cropped": false,
+        "texture": "2A",
+        "volume": "medium"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "style_switch_in_use_02": {
       "category": "in_use",
@@ -150,25 +156,27 @@
         "end_landmark": "middle of the chest",
         "end": 2.05,
         "cropped": true,
-        "texture": "3A",
-        "volume": "big"
+        "texture": "1",
+        "volume": "flat"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "style_switch_in_use_03": {
       "category": "in_use",
       "hair": {
-        "end_landmark": "middle of the chest",
-        "end": 2.05,
+        "end_landmark": "collarbone",
+        "end": 1.55,
         "cropped": false,
-        "texture": "2B",
+        "texture": "2A",
         "volume": "medium"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "style_switch_in_use_04": {
       "category": "in_use",
@@ -176,12 +184,13 @@
         "end_landmark": "middle of the chest",
         "end": 2.05,
         "cropped": false,
-        "texture": "2B",
+        "texture": "2A",
         "volume": "medium"
       },
       "body": "slim",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "style_switch_in_use_05": {
       "category": "in_use",
@@ -233,20 +242,22 @@
       },
       "body": "curvy",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "thermal_brush_in_use_04": {
       "category": "in_use",
       "hair": {
-        "end_landmark": "armpits",
-        "end": 1.85,
-        "cropped": false,
-        "texture": "2C",
-        "volume": "big"
+        "end_landmark": "middle of the chest",
+        "end": 2.05,
+        "cropped": true,
+        "texture": "1",
+        "volume": "flat"
       },
       "body": "curvy",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "thermal_brush_in_use_05": {
       "category": "in_use",
@@ -254,12 +265,13 @@
         "end_landmark": "collarbone",
         "end": 1.55,
         "cropped": false,
-        "texture": "2B",
+        "texture": "2A",
         "volume": "medium"
       },
       "body": "curvy",
       "note": "",
-      "view": "front"
+      "view": "front",
+      "gray_version": "v2 (moderate neutral hair, server/prompts/gray_render_prompt_v3_moderate_hair.txt, 2026-10-26)"
     },
     "auto_curler_in_hand_01": {
       "category": "in_hand",

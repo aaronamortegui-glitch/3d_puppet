@@ -31,6 +31,7 @@ MANIFEST = os.path.join(ROOT, "tools", "library_manifest.json")
 RULES = os.path.join(ROOT, "docs", "products", "product_hair_rules.json")
 # gray renders (A1) are generated per pose into samples/; pose details (A2) are text, kept in git
 POSE_GRAY = os.path.join(SAMPLES, "pose_library", "gray")
+POSE_GRAY_V2 = os.path.join(SAMPLES, "pose_library", "gray_v2")
 POSE_DETAILS = json.load(open(os.path.join(ROOT, "tools", "pose_details.json"), encoding="utf-8"))
 # sculpted hair of each gray render (length, texture, volume, body), used by tools/pick_pose.py
 POSE_HAIR = json.load(open(os.path.join(ROOT, "tools", "pose_hair.json"), encoding="utf-8"))["poses"]
@@ -70,6 +71,10 @@ def poses(m):
         ref =os.path.join(SAMPLES, po["reference"])
         copy(ref, os.path.join(out, "reference" + os.path.splitext(ref)[1]))
         gray = os.path.join(SAMPLES, po["gray"]) if "gray" in po else os.path.join(POSE_GRAY, po["id"] + ".png")
+        v2 = os.path.join(POSE_GRAY_V2, po["id"] + ".png")
+        if os.path.exists(v2):  # neutral moderate hair (test 13): the v2 render is the input, the first one is kept
+            copy(gray, os.path.join(out, "gray_v1.png"))
+            gray = v2
         copy(gray, os.path.join(out, "gray.png"))
         if po["id"] in POSE_DETAILS:
             open(os.path.join(out, "pose.txt"), "w", encoding="utf-8").write(POSE_DETAILS[po["id"]] + "\n")

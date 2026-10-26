@@ -1,19 +1,15 @@
 {
-  "_note": "Poses that do not work, with the reason. tools/build_library.py puts them in library/poses/_rejected/ and tools/pick_pose.py / fill_prompt.py skip them. Approved = front or three-quarter view with the face visible, portrait framing that fits 3:4, moderate sculpted hair (it leaks into the output), and an orange proxy with the real product silhouette. Review of 2026-10-26 by eye on all gray renders. Hard rule (review 2026-10-26): no pose with big or abundant sculpted hair, whatever the avatar's volume; it gives 'too much hair' and its texture beats the hair lock.",
+  "_note": "Poses that do not work, with the reason. tools/build_library.py puts them in library/poses/_rejected/ and tools/pick_pose.py / fill_prompt.py skip them. Approved = front or three-quarter view with the face visible, portrait framing that fits 3:4, moderate sculpted hair (it leaks into the output), and an orange proxy with the real product silhouette. Review of 2026-10-26 by eye on all gray renders. Hard rule (review 2026-10-26): no pose with big or abundant sculpted hair, whatever the avatar's volume; it gives 'too much hair' and its texture beats the hair lock. Poses rejected only for their hair were re-rendered with neutral moderate hair (gray v2, samples/pose_library/gray_v2) and are approved again; the old render stays as gray_v1.png.",
   "rejected": {
     "thermal_brush_in_use_01": "profile view: breaks identity and hair (test 7 review)",
     "style_switch_in_use_05": "the orange proxy is a pistol-grip dryer, not the Style/Switch; both models copy it (test 4)",
     "style_switch_in_hand_01": "the orange proxy is the wrong tool; Sunburst copied it (test 8)",
     "style_switch_in_hand_02": "the orange proxy is a round-head hair dryer, not the slim Style/Switch",
-    "style_switch_in_use_02": "huge sculpted curly mane: gives 'too much hair' (review 2026-10-26)",
     "auto_curler_in_use_01": "figure small and far, body turned sideways",
     "auto_curler_in_use_02": "full-body nude framing with the arm over the head; not an ad crop",
     "auto_curler_in_use_03": "face turned close to profile",
     "flat_iron_in_use_04": "face turned up and away, close to profile",
     "flat_iron_in_use_05": "landscape crop, does not fit the 3:4 output",
-    "thermal_brush_in_use_02": "face turned close to profile, very long heavy sculpted hair",
-    "style_switch_in_use_01": "abundant, voluminous sculpted waves (re-tagged big); used in test 11 and its waves leaked into straight and blowout results",
-    "flat_iron_in_use_03": "abundant, voluminous sculpted waves; test 11: flat-iron results came out wavy",
-    "thermal_brush_in_use_04": "abundant, voluminous sculpted waves"
+    "thermal_brush_in_use_02": "face turned close to profile, very long heavy sculpted hair"
   }
 }
