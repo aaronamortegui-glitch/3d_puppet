@@ -1,0 +1,8 @@
+{
+  "_note": "Poses that do not work, with the reason. tools/build_library.py puts them in library/poses/_rejected/ so the generator only sees the approved ones. Approved = front or three-quarter view and an orange proxy with the real product silhouette (reviews of tests 4-8).",
+  "rejected": {
+    "thermal_brush_in_use_01": "profile view: breaks identity and hair (test 7 review)",
+    "style_switch_in_use_05": "the orange proxy is a pistol-grip dryer, not the Style/Switch; both models copy it (test 4)",
+    "style_switch_in_hand_01": "the orange proxy is the wrong tool; Sunburst copied it (test 8)"
+  }
+}

@@ -1,0 +1,15 @@
+# Category 1: product in use. Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 3:4.
+# Fill with: python tools/fill_prompt.py in_use <avatar_id> <rule> <pose_id> <ref_id> [colour]
+# INPUTS, in this order:
+#   1  library/poses/in_use/{sku}/{pose_id}/gray.png                     pose, camera, crop, product size (orange proxy)
+#   2  library/avatars/{avatar_id}/front.png                             identity, skin, hair colour, hair length before
+#   3  library/products/{sku}/{colour}/card_clean.png                    the product sheet
+#   4  library/hair_styles/{sku_slot}/{rule}/{ref_id}/lock.png           real hair lock: curl pattern, texture, shine
+#   5  library/hair_styles/{sku_slot}/{rule}/{ref_id}/after.png          real finished style: overall shape only
+---
+Image 1 is a gray clay 3D render that defines the pose, body position, camera, framing and crop; the ORANGE object in it is the product at its true size. {HAIR_FROM_AVATAR} Image 2 is the woman to show: same face, skin tone, eyes, brows, body shape and hair colour. Image 3 is the product character sheet of the {product_name}: reproduce the product exactly as shown there (design, colours, materials, buttons, proportions). Image 4 is a close-up lock of real hair after this style and image 5 is a real photo of the finished style on another woman: copy ONLY the curl pattern, wave shape, texture and shine from them; never copy that woman's hair colour, length, haircut, face or clothes, and ignore any text in those images.
+Create a photorealistic studio beauty photograph of the woman from image 2 in EXACTLY the pose, head angle, camera angle, framing and crop of image 1; every body part stays at the same pixel position.
+POSE DETAILS (must match): {pose_details}
+Replace the orange object of image 1 with {product_in_hand}, held with the same grip, position and angle. PRODUCT SIZE: {product_size}. It must keep the length of the orange object in image 1 relative to her hand and head. {IN_HAND_REAL}
+Her hair: the style is finished. Her {hair_colour} hair now has {style_result}, with exactly the texture and shine of images 4 and 5, and the tool passes through one section as a finishing touch. {hair_length_line}
+She wears the same top as in image 2. Soft, even studio lighting, plain light-gray background, natural skin texture, sharp detailed hands. No text, logos or graphics other than the product's own wordmark.

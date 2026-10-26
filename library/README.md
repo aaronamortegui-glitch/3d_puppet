@@ -8,10 +8,20 @@ This folder holds only approved, reusable inputs. It is built from `samples/` by
 | `products/<sku>/<colour>/` | `card.png` (for people), `card_clean.png` (model input), `hand.png` (hand + product at true scale, generated), `packshots/` (real photos), `meta.json` | Product identity in every category |
 | `poses/in_use/<sku>/<id>/` | `reference.*` (real photo), `gray.png` (gray clay render with hair, product in orange), `pose.txt` (pose details), `meta.json` (with the sculpted hair: `hair.end_landmark`, `texture`, `volume`, `body`) | Category 1, product in use |
 | `poses/in_hand/<sku>/<id>/` | The same, hand only | Category 3, product in hand |
-| `hair_styles/_before/type<n>/` | `swatch_before.png`, `back_before.png` | Before / after: the natural hair |
-| `hair_styles/<sku>/type<n>/<key>/` | `swatch_after.png`, `back_after.png`, `rule.json` | Before / after: the style this product gives this hair type |
-| `rules/product_hair_rules.json` | SKU × hair type × attachment: allowed, result style, evidence status, heat | Which style goes with which product and avatar |
-| `avatars/<avatar_id>/` | See below. Filled by hand; a rebuild keeps it. | The same people in every category |
+| `poses/_rejected/<category>/<sku>/<id>/` | Poses that do not work, with the reason in `meta.json` (from `tools/pose_status.json`) | Nothing: kept for the record |
+| `hair_styles/<sku_slot>/<rule>/<ref_id>/` | `lock.png` (real hair lock: texture), `after.png` (real finished style: shape), `before.png`, `ref.json`; grade A real references only (`docs/products/hair_refs.json`) | The style input of in use and before / after |
+| `hair_styles_generated_v1/` | The old generated swatches and back-view heads | Nothing: replaced by the real references |
+| `rules/` | `product_hair_rules.json` (SKU × hair type × attachment: allowed, result style, evidence, heat), `hair_refs.json`, `looks_by_product.json` | Which style goes with which product and avatar |
+| `prompts/` | The prompt templates (copy of `prompts/conair/`), filled by `tools/fill_prompt.py` | Every category |
+| `avatars/<avatar_id>/` | See below. Filled by hand; a rebuild keeps it. `client_aNN_<look>` are the current client avatars; `_archive/` holds the earlier ones. | The same people in every category |
+
+`sku_slot` is the SKU, with the Style/Switch split per attachment:
+- `style_switch_round_brush`;
+- `style_switch_paddle`;
+- `style_switch_air_curl`;
+- `style_switch_diffuser`.
+
+How it all connects: [docs/conair/pipeline.png](../docs/conair/pipeline.png).
 
 SKUs: `auto_curler` (BNTAC100), `thermal_brush` (BNTHTB125), `style_switch` (BNTSSSW / BNTSSCC) and `flat_iron` (BNT131T, in pink_rush, nano_blue and iced_blue).
 

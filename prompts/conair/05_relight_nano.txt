@@ -1,0 +1,7 @@
+# Category 4, step 2 (test): relight the Sunburst still life with Nano Banana 2.1 (google/nano-banana-2.1, 2K).
+# Keep it only if it improves the light without changing the product; compare side by side.
+# INPUTS:
+#   1  the Sunburst output of 04_soft_environment.txt
+#   2  library/products/{sku}/{colour}/packshots/<best packshot>         to keep the product exact
+---
+Image 1 is a product still-life photograph. Keep everything exactly as it is: the product, its position, size, angle and every detail, the set, the props and the composition. Only improve the lighting: soft natural light with a clear direction, realistic soft contact shadows where the product touches the surface, gentle reflections on the metal and plastic that follow its real shape, and a clean natural white balance. The product must stay identical to image 2: same design, colours, materials, buttons, proportions and wordmark. Do not add or remove anything. No text, no logos other than the product's own wordmark.

@@ -22,7 +22,7 @@ AVATARS = [
     ("client_a06_platinum", "A06_seedream_a_zimage.png", "1", "1", "platinum blonde, dark roots", "light", "medium", "slim", "lob, slight bend at the ends"),
     ("client_a07_burgundy_curls", "A07_orig_zimage.png", "3", "3B", "burgundy red", "light brown", "big", "slim", "shoulder-length ringlets"),
     ("client_a08_shag_bangs", "A08_seedream_b_zimage.png", "2", "2A", "warm brown", "light", "medium", "slim", "layered shag with curtain bangs"),
-    ("client_a09_blonde_straight", "A09_seedream_b_zimage.png", "1", "1", "dark blonde", "fair", "low", "average", "shoulder to collarbone"),
+    ("client_a09_blonde_straight", "A09_seedream_b_zimage.png", "1", "1", "dark blonde", "fair", "flat", "average", "shoulder to collarbone"),
     ("client_a10_long_curly", "A10_seedream_b_zimage.png", "3", "3B", "black", "medium brown", "big", "slim", "long, to the waist"),
 ]
 

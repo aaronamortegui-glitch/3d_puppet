@@ -1,0 +1,11 @@
+# Category 2: before / after (Miguel). This template makes the AFTER of an avatar; her front.png is the BEFORE.
+# Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 3:4.
+# Fill with: python tools/fill_prompt.py after <avatar_id> <rule> - <ref_id>
+# INPUTS, in this order:
+#   1  library/avatars/{avatar_id}/front.png                             the before: identity, framing, hair colour and length
+#   2  library/hair_styles/{sku_slot}/{rule}/{ref_id}/lock.png           real hair lock: curl pattern, texture, shine
+#   3  library/hair_styles/{sku_slot}/{rule}/{ref_id}/after.png          real finished style: overall shape only
+---
+Image 1 is the woman's before photo. Image 2 is a close-up lock of real hair after the style and image 3 is a real photo of the finished style on another woman: copy ONLY the curl pattern, wave shape, texture and shine from them; never copy that woman's hair colour, length, haircut, face or clothes, and ignore any text in those images.
+Create her after photo: the same woman as image 1, same face, expression, skin, clothes, pose, camera, framing, light and background, every pixel the same except her hair. Her {hair_colour} hair now has {style_result}, with exactly the texture and shine of images 2 and 3, styled with the {product_name}. {hair_length_line}
+Photorealistic, natural skin texture. No text, logos or graphics.

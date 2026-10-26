@@ -1,0 +1,8 @@
+# Category 4: product on a soft environment, step 1. Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 1:1.
+# Then run 05_relight_nano.txt on the result (test: does Nano Banana 2.1 improve the light?).
+# Fill with: python tools/fill_prompt.py soft_env - - - - [colour] --set "<set description, product already lying down>"
+# INPUTS:
+#   1  library/products/{sku}/{colour}/packshots/<best packshot>         the exact product
+---
+Image 1 shows the exact product: the {product_name}. Reproduce it exactly: same design, colours, materials, buttons and proportions ({product_size}).
+Create a premium e-commerce still-life photograph of this product alone, {set_description}. {STAGING} Calm minimal composition with generous negative space, shallow depth of field on the background, the whole product in frame and in sharp focus. Square format. No people, no hands, no text, no extra logos, no other products.

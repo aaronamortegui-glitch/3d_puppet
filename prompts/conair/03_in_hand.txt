@@ -1,0 +1,10 @@
+# Category 3: product in hand. Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 1:1.
+# Fill with: python tools/fill_prompt.py in_hand <avatar_id> - <pose_id> - [colour]
+# INPUTS, in this order:
+#   1  library/poses/in_hand/{sku}/{pose_id}/gray.png                    hand pose, grip, camera, crop (orange proxy)
+#   2  library/products/{sku}/{colour}/packshots/<best packshot>         the exact product
+#   3  library/avatars/{avatar_id}/front.png                             skin tone only
+---
+Image 1 is a gray clay 3D render that defines the hand pose, the grip, the camera angle, the framing and the crop (the orange object is the product). Image 2 is the exact product: the {product_name}. Image 3 shows the woman whose hand this is: use her exact skin tone, natural short nails with no polish.
+Create a photorealistic e-commerce close-up photograph: her hand and forearm holding the product in EXACTLY the pose, grip, angle, position, framing and crop of image 1. Reproduce the product exactly as in image 2: same design, colours, materials, buttons and proportions; {product_size}, so scale it correctly against the hand. Only the hand and forearm, no face, no hair.
+Background: smooth soft light-blue studio backdrop with a gentle gradient, soft even studio light, subtle realistic shadow, crisp product detail, natural skin texture. No text, no logos other than the product's own wordmark, no graphics.

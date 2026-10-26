@@ -29,6 +29,16 @@ import hair_length as HL  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSES = os.path.join(ROOT, "tools", "pose_hair.json")
 AVATARS = os.path.join(ROOT, "library", "avatars")
+REJECTED = json.load(open(os.path.join(ROOT, "tools", "pose_status.json"), encoding="utf-8"))["rejected"]
+
+
+def avatar_meta(avatar_id):
+    """library/avatars/<id>/meta.json, or the earlier avatars kept in library/avatars/_archive/."""
+    for d in (AVATARS, os.path.join(AVATARS, "_archive")):
+        f = os.path.join(d, avatar_id, "meta.json")
+        if os.path.exists(f):
+            return json.load(open(f, encoding="utf-8"))
+    raise FileNotFoundError(f"no avatar {avatar_id} in library/avatars")
 VOLUME = {"flat": 0, "medium": 1, "big": 2}
 DEFAULT_VOLUME = {"1": "flat", "2": "medium", "3": "big", "4": "big"}
 VIEW = {"front": 0.0, "three_quarter": 0.0, "profile": 0.6, "back": 1.2}
@@ -84,11 +94,11 @@ def rank(avatar_id, rule_key, doc=None, poses=None):
     rule = next(r for r in doc["rules"] if r["key"] == rule_key)
     if not rule["allowed"]:
         raise ValueError(f"{rule_key} is forbidden: {rule['sku']} on type {rule['hair_type']} hair")
-    avatar = json.load(open(os.path.join(AVATARS, avatar_id, "meta.json"), encoding="utf-8"))
+    avatar = avatar_meta(avatar_id)
     if avatar["hair_type"] != rule["hair_type"]:
         raise ValueError(f"{rule_key} is for type {rule['hair_type']} hair; {avatar_id} is type {avatar['hair_type']}")
     out = [{"pose": pid, **score(p, avatar, rule, doc)} for pid, p in poses.items()
-           if p["category"] == "in_use" and pid.startswith(rule["sku"] + "_")]
+           if p["category"] == "in_use" and pid.startswith(rule["sku"] + "_") and pid not in REJECTED]
     return sorted(out, key=lambda r: r["score"])
 
 
