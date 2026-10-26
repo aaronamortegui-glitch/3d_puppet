@@ -30,6 +30,8 @@ How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff
    - Inputs: the gray pose v2, the step 1 after, the product sheet and the lock.
    - The hair and the background come from the after.
 
+**Final assets, clean (gitignored):** `outputs/FINAL_2026-10-26/` with `01_before/`, `02_after/`, `03_in_use/`, `04_product/` and a README.
+
 ## Make one image (details)
 
 1. **Rule.** Pick the rule for the product × the avatar's hair type in `docs/products/product_hair_rules.json`. Never use a forbidden one: Auto Curler and Thermal Brush on coily hair.
