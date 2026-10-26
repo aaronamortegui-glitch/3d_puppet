@@ -53,6 +53,7 @@ It generates product images for 4 SKUs, in 4 categories, from fixed inputs, so t
 | `tools/prompt_rules.py` | The sentences every prompt must carry: hair taken from the avatar, product really held in the hand, support rule for sets, and the model |
 | `tools/scene_qa.py` | Measures an output against its gray render: pose drift, framing, product size (Grounding DINO + SAM) and hair end (MediaPipe hair segmenter) |
 | `docs/conair/LOOKS_X_PRODUCTS.md` + `docs/products/looks_by_product.json` | Which product gives each of Nare's 10 reference looks, per hair type and with evidence (Figma node 107:2) |
+| `docs/conair/HAIR_REFS.md` + `docs/products/hair_refs.json` | The 58 real before/after hair references, split and classified by SKU and graded, plus the 10 client avatars (`library/avatars/client_a01..a10`) |
 | `docs/conair/` | Every test write-up (TEST_01 to TEST_08), POSE_HAIR, POC_PLAN and the transcript of Nare's brief |
 | `docs/products/` | Product sheets, hair evidence audit, style library notes |
 
