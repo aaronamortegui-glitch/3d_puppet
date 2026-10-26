@@ -27,8 +27,10 @@ AVATARS = [
 ]
 
 
-def mediapipe_tools():
-    """Face mesh and hair mask, the same models and mask rule as scene_qa.py (without its DINO/SAM imports)."""
+def mediapipe_tools(raw=False):
+    """Face mesh and hair mask, the same models and mask rule as scene_qa.py (without its DINO/SAM imports).
+
+    raw=False: run(path) -> hair_length.measure dict. raw=True: run(PIL image) -> (hair mask, face landmarks)."""
     import mediapipe as mp
     import numpy as np
     from mediapipe.tasks.python import BaseOptions, vision
@@ -41,8 +43,9 @@ def mediapipe_tools():
         base_options=BaseOptions(model_asset_path=os.path.join(models, "selfie_multiclass.tflite")), output_category_mask=True))
 
     def run(path):
-        im = Image.open(path).convert("RGB")
-        im.thumbnail((1024, 1024))
+        im = path if raw else Image.open(path).convert("RGB")
+        if not raw:
+            im.thumbnail((1024, 1024))
         m = mp.Image(image_format=mp.ImageFormat.SRGB, data=np.asarray(im))
         f = face_lm.detect(m)
         face = np.array([[p.x * im.width, p.y * im.height] for p in f.face_landmarks[0]]) if f.face_landmarks else None
@@ -51,6 +54,8 @@ def mediapipe_tools():
         if n:
             sizes = ndimage.sum(mask, lab, range(1, n + 1))
             mask = np.isin(lab, [i + 1 for i, s in enumerate(sizes) if s >= 0.05 * sizes.max()])
+        if raw:
+            return mask, face
         return hair_length.measure(mask if n else None, face, im.height)
     return run
 

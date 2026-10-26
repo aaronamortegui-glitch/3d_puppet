@@ -48,6 +48,19 @@ The after is the input for the hair *style* only: curl pattern, texture and shin
 - **Split-face references** (r01, r05–r10, r12, r13, r16–r18, r32, r33) give half a head per file. They are fine for texture and weak for overall shape.
 - **Text on the image.** Many references carry BEFORE/AFTER text. A model may copy it, so crop the text or tell the prompt to ignore it.
 
+## Hair locks (texture input)
+
+- **What.** One lock is cropped from each grade A after: 24 locks, 384 x 512.
+- **Where in the photo.** The mid-lengths and ends, with no face, background or text.
+- **Files.** `outputs/10_hair_refs/locks/<id>_lock.png`, made by `tools/crop_hair_locks.py`.
+- **How the window is chosen.**
+  - Automatically, from the MediaPipe hair mask.
+  - Six were set by eye (`LOCK_OVERRIDE`): r03, r38, r40, r41, r45 and r57.
+  - r57 is soft because its source photo is small.
+- **What it carries.** Only the curl pattern, texture and shine, not the wig-like shape of a full head. Length, shape, volume and colour come from the avatar.
+- **The test.** Lock in colour vs grayscale vs the old generated swatch, still to be decided.
+- **On the board.** The locks are on the board under the categories, in the "Hair locks" row.
+
 ## Client avatars
 
 The hair length is measured on `front.png` with the MediaPipe hair segmenter (`hair_length.measure`). The other tags were read by eye.
