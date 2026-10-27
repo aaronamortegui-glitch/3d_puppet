@@ -28,7 +28,9 @@ How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff
 2. **In use** (`prompts/conair/01_in_use.txt`).
    - Command: `python tools/fill_prompt.py in_use <avatar> <rule> <pose> <rNN>`.
    - Inputs: the gray pose v2, the step 1 after, the product sheet and the lock.
-   - The hair and the background come from the after. The prompt gets a hard HAIR LENGTH line: the hair ends exactly where it ends in the after (test 17).
+   - The hair and the background come from the after. The prompt gets a hard HAIR LENGTH line (the hair ends exactly where it ends in the after) and a HOW IT TOUCHES THE HAIR line per product (test 17).
+   - Input 1 is the gray pose length variant nearest the after: `gray_short.png`, `gray.png` (medium) or `gray_long.png` (test 18).
+3. **Product fix** (`06_product_fix_sunburst.txt`), when the tool comes out wrong: run it on the in-use image to correct only the product.
 
 **Final assets, clean (gitignored):** `outputs/FINAL_2026-10-26/` with `01_before/`, `02_after/`, `03_in_use/`, `04_product/` and a README.
 

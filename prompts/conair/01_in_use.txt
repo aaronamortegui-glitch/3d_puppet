@@ -3,7 +3,7 @@
 # Then run tools/measure_after.py on the after: {after_length_line} uses where its hair ends (test 17).
 # Fill with: python tools/fill_prompt.py in_use <avatar_id> <rule> <pose_id> <ref_id> [colour]
 # INPUTS, in this order:
-#   1  library/poses/in_use/{sku}/{pose_id}/gray.png                     pose, camera, crop, product size (orange proxy); neutral moderate hair
+#   1  {pose_gray}                     pose, camera, crop, product size (orange proxy); sculpted hair as long as her after (short / medium / long variant, test 18)
 #   2  library/avatars/{avatar_id}/after/{rule}__{ref_id}.png            her finished style (step 1): identity, hair length, volume, texture, background
 #   3  library/products/{sku}/{colour}/card_clean.png                    the product sheet
 #   4  library/hair_styles/{ref_dir}/lock.png                            real hair lock: texture and shine only

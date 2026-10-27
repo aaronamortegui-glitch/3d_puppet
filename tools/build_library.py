@@ -32,6 +32,7 @@ RULES = os.path.join(ROOT, "docs", "products", "product_hair_rules.json")
 # gray renders (A1) are generated per pose into samples/; pose details (A2) are text, kept in git
 POSE_GRAY = os.path.join(SAMPLES, "pose_library", "gray")
 POSE_GRAY_V2 = os.path.join(SAMPLES, "pose_library", "gray_v2")
+POSE_GRAY_LENGTHS = os.path.join(SAMPLES, "pose_library", "gray_length_variants")
 POSE_DETAILS = json.load(open(os.path.join(ROOT, "tools", "pose_details.json"), encoding="utf-8"))
 # sculpted hair of each gray render (length, texture, volume, body), used by tools/pick_pose.py
 POSE_HAIR = json.load(open(os.path.join(ROOT, "tools", "pose_hair.json"), encoding="utf-8"))["poses"]
@@ -76,6 +77,10 @@ def poses(m):
             copy(gray, os.path.join(out, "gray_v1.png"))
             gray = v2
         copy(gray, os.path.join(out, "gray.png"))
+        for length in ("short", "long"):  # sculpted-hair length variants (test 18); gray.png is the medium one
+            var = os.path.join(POSE_GRAY_LENGTHS, f"{po['id']}__{length}.png")
+            if os.path.exists(var):
+                copy(var, os.path.join(out, f"gray_{length}.png"))
         if po["id"] in POSE_DETAILS:
             open(os.path.join(out, "pose.txt"), "w", encoding="utf-8").write(POSE_DETAILS[po["id"]] + "\n")
         else:

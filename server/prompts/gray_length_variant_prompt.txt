@@ -1,0 +1,9 @@
+# Gray pose length variants (test 18). Model: Nano Banana 2.1, 2K, same aspect as the v2 render.
+# Input: image 1 = the gray pose v2 (library/poses/in_use/<sku>/<pose>/gray.png).
+# {length_end}:
+#   short -> "at the top of the shoulders: a shoulder-length cut, the ends just touching the shoulders"
+#   long  -> "at the bottom of the ribs: long hair falling over the chest"
+# The v2 render itself is the medium variant (collarbone to the middle of the chest).
+---
+Image 1 is a gray clay 3D render used as a measurement plate. Keep EVERYTHING in it exactly the same: the pose, the body, the head, the face, the hands and every finger, the orange object and its cable, the gray clay material, the lighting, the background, the camera, the framing and the crop; every pixel that is not hair stays identical.
+Change ONLY the length of the sculpted gray hair: it now ends {length_end}. Same neutral, moderate sculpted hairstyle as in image 1: smooth and close to the head, natural moderate volume, straight or with one soft bend, the same darker gray clay. Where the orange tool touches or holds the hair, keep a slim section of hair in contact with the tool; that section is part of this same length. No text, logos or graphics.

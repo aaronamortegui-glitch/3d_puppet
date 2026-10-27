@@ -64,14 +64,36 @@ def result_curl(rule, avatar, doc):
     return curl(min(SUB, key=lambda t: abs(table[t] - s)))
 
 
-def score(pose, avatar, rule, doc, finished=False):
+LENGTH_VARIANTS = {"short": 1.4, "long": 2.6}  # head heights: shoulders, bottom of the ribs (test 18)
+
+
+def pose_variant(pose_id, pose, target_end):
+    """The gray render whose sculpted hair ends nearest her hair end: gray_short.png, gray.png (medium) or
+    gray_long.png (server/prompts/gray_length_variant_prompt.txt). Ties go to the shorter one: a longer sculpted
+    mane leaks length into the output (test 17)."""
+    sku = pose_id.split("_in_")[0]
+    d = os.path.join(ROOT, "library", "poses", pose["category"], sku, pose_id)
+    opts = [("medium", "gray.png", pose["hair"]["end"], pose["hair"]["cropped"])]
+    for name, end in LENGTH_VARIANTS.items():
+        if os.path.exists(os.path.join(d, f"gray_{name}.png")):
+            opts.append((name, f"gray_{name}.png", end, False))
+    name, f, end, cropped = min(opts, key=lambda o: (abs(o[2] - target_end), o[2]))
+    return {"variant": name, "gray": os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, "/"),
+            "end": end, "cropped": cropped}
+
+
+def score(pose, avatar, rule, doc, finished=False, pose_id=None):
     """finished=True: the shot shows the finished style (the in-use template), so the sculpted hair must match
     the AFTER: its texture and its length. Test 11: wavy sculpted hair beat the lock on every straightening rule.
     finished=False: a mid-process shot, where her natural hair (the before) is still most of what shows."""
-    h = pose["hair"]
+    h = dict(pose["hair"])
     her_end = avatar.get("hair_end") or HL.landmark_value(avatar["hair_end_landmark"], doc)
+    var = None
     if finished:
         her_end = HL.target(avatar, rule, doc)["after"]
+        if pose_id:  # the length variant nearest the after replaces the medium render
+            var = pose_variant(pose_id, pose, her_end)
+            h.update(end=var["end"], cropped=var["cropped"], end_landmark=HL.nearest(var["end"], doc))
     diff = h["end"] - her_end
     length = max(0.0, diff) if h["cropped"] else abs(diff)
     pc = curl(h["texture"])
@@ -99,7 +121,8 @@ def score(pose, avatar, rule, doc, finished=False):
     if view:
         why.append(f"{pose['view']} view (prefer front or three-quarter)")
     return {"score": round(total, 2), "verdict": "ok" if total < 0.6 else "check" if total < 1.2 else "avoid",
-            "why": why, "warning": pose.get("note") if pose.get("note") and "proxy" in pose.get("note") else ""}
+            "why": why, "warning": pose.get("note") if pose.get("note") and "proxy" in pose.get("note") else "",
+            "variant": var["variant"] if var else "medium"}
 
 
 def rank(avatar_id, rule_key, doc=None, poses=None, finished=False):
@@ -111,7 +134,7 @@ def rank(avatar_id, rule_key, doc=None, poses=None, finished=False):
     avatar = avatar_meta(avatar_id)
     if avatar["hair_type"] != rule["hair_type"]:
         raise ValueError(f"{rule_key} is for type {rule['hair_type']} hair; {avatar_id} is type {avatar['hair_type']}")
-    out = [{"pose": pid, **score(p, avatar, rule, doc, finished)} for pid, p in poses.items()
+    out = [{"pose": pid, **score(p, avatar, rule, doc, finished, pid)} for pid, p in poses.items()
            if p["category"] == "in_use" and pid.startswith(rule["sku"] + "_") and pid not in REJECTED]
     return sorted(out, key=lambda r: r["score"])
 

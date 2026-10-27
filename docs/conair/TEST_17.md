@@ -17,8 +17,8 @@ Both steps ran on Sunburst, high, 2K, 3:4.
 | Avatar | Rule · ref | New pose | Pose verdict | Result |
 |---|---|---|---|---|
 | A08 shag bangs | AC_t2 · r45 | `auto_curler_in_use_04` | avoid (texture) | **Pass:** curls and length kept from the after |
-| A02 coily | FI_t4_silkpress · r55 | `flat_iron_in_use_02` | ok | **Pass on v2.** The first try came out longer than the after. A re-run with a HAIR LENGTH line ("ends exactly where it ends in image 2, at the neckline, never lower") matches the after. |
-| A06 platinum | FI_t1 · r36 | `flat_iron_in_use_03` | avoid (texture) | **Pass on v3.** v1 was too long (armpits, 1.81 head heights vs 1.43 in the after) and the iron sat beside the hair. Re-runs with the measured HAIR LENGTH line and the product's HOW IT TOUCHES THE HAIR line close the plates on a section; the hair ends just below the shoulders (measured 1.62–1.64, collarbone). |
+| A02 coily | FI_t4_silkpress · r55 | `flat_iron_in_use_02` | ok | **Pass (final).** The first try came out longer than the after. The final uses the short gray pose, the HAIR LENGTH line and the Sunburst product fix (the iron had come out as a tube). |
+| A06 platinum | FI_t1 · r36 | `flat_iron_in_use_03` | avoid (texture) | **Pass on v3.** v1 was too long (armpits, 1.81 head heights vs 1.43 in the after) and the iron sat beside the hair. The final uses the short gray pose, the HAIR LENGTH and HOW IT TOUCHES THE HAIR lines, and the product fix: the plates are closed on the hair, and the hair ends at the shoulders (1.52). |
 | A01 bob black | SS_t2_roundbrush · r39 | `style_switch_in_use_03` | ok | **Pass:** voluminous blowout kept, round brush correct |
 | A07 burgundy curls | TB_t3 · r41 | `thermal_brush_in_use_04` | avoid (texture) | **Pass:** blowout kept |
 | A04 wavy dark | TB_t2 · r14 | `thermal_brush_in_use_05` | check | **Pass:** blowout kept; the raised-arm pose works |
@@ -32,7 +32,12 @@ All 6 afters keep the identity and the background, and the hair change looks bel
 3. **Hair length in use.** When a pose's sculpted hair is longer than the after (silk press, r55: +43% length), the in-use step can grow it. An explicit line fixed it: the hair ends exactly where it ends in the after, at a named landmark, never lower. Next step: have `fill_prompt.py` add this line automatically from the after's measured hair end.
 
 4. **How the product touches the hair.** `fill_prompt.py` now adds a `HOW IT TOUCHES THE HAIR` line per product and attachment (`CONTACT`): plates closed on a section, a section wound around the barrel, bristles buried in the hair, the diffuser cupping the curls.
-5. **Remaining cause: the sculpted hair of the gray pose.** A long sculpted mane still pulls the in-use length down a little. The fix is gray poses in length variants (short / shoulder / long), picked by the after's measured hair end.
+5. **The sculpted hair of the gray pose sets the length (test 18).** Every in-use pose now has three renders: `gray_short.png` (shoulders), `gray.png` (medium) and `gray_long.png` (bottom of the ribs). They are made by `server/prompts/gray_length_variant_prompt.txt` on Nano Banana 2.1 (job ids in `samples/pose_library/jobs_gray_length_variants.tsv`). `fill_prompt.py` and `pick_pose.py` pick the variant nearest the after's measured hair end. With the short variant, A06 went from 1.81 to 1.52 head heights (after 1.43) and A02 from longer to 1.59 (after 1.39); both now end at the shoulders.
+6. **Step 3 of a look, the product fix.** When the tool comes out deformed (A02: a tube with no plates), `06_product_fix_sunburst.txt` on the in-use image corrects only the product and keeps the hand, the hair and the face.
+
+## Pending
+
+- **Product fix on the other in-use images.** Run `06_product_fix_sunburst.txt` on the 11 remaining in-use images (test 13 and test 17), then replace them in `outputs/FINAL_2026-10-26/03_in_use/` and on the three boards.
 
 ## Where
 

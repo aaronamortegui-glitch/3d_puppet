@@ -135,12 +135,14 @@ def after_length_line(avatar_id, ref, avatar, doc):
     if os.path.exists(path):
         m = json.load(open(path, encoding="utf-8"))
         where = ("at least at the " if m.get("hair_cropped") else "at the ") + m["hair_landmark"]
-        src = "measured on image 2"
+        end, src = m["hair_end"], "measured on image 2"
     else:
         ch = json.load(open(os.path.join(ROOT, "docs", "products", "hair_change.json"), encoding="utf-8"))
         lr = ch["refs"].get(ref["id"], {}).get("length_ratio") or ch["slots"].get(ref["sku"], {}).get("length_ratio", 1)
         before = avatar.get("hair_end") or HL.landmark_value(avatar["hair_end_landmark"], doc)
-        where, src = "at the " + HL.nearest(before * lr, doc), "estimated; run tools/measure_after.py on the after"
+        end = before * lr
+        where, src = "at the " + HL.nearest(end, doc), "estimated; run tools/measure_after.py on the after"
+    after_length_line.end = end
     lms = HL.landmarks(doc)
     name = where.split("the ", 1)[1]
     below = next((l["name"] for l in lms if l["at"] > HL.landmark_value(name, doc) + 0.1), None)
@@ -211,6 +213,11 @@ def main():
             v["after_length_line"], src = after_length_line(a.avatar, ref, av, doc)
             if a.kind == "in_use":
                 notes.append(f"hair end of the after: {src}")
+                if a.pose != "-":
+                    pose = json.load(open(pick_pose.POSES, encoding="utf-8"))["poses"][a.pose]
+                    pv = pick_pose.pose_variant(a.pose, pose, after_length_line.end)
+                    v["pose_gray"] = pv["gray"]
+                    notes.append(f"gray pose length variant: {pv['variant']} ({pv['gray']})")
         if a.rule != "-" and ref["sku"] != v["sku_slot"]:
             notes.append(f"{a.ref} is a {ref['sku']} reference ({ref['rule']}), not {v['sku_slot']}")
     if not sku:
