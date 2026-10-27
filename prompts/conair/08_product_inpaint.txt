@@ -9,6 +9,11 @@
 # set (no people)" or "a hand holding the {product_name} (a product close-up)", no HOW IT TOUCHES THE HAIR line, and "the hair and
 # how the hair touches the product" replaced by "the surface, the props, the cable and the contact shadows" / "the grip of the
 # fingers around it" (exact prompts in outputs/20_product/jobs_test20_product.json).
+# RULE (review 2026-10-27): every product fix has the product card connected (card_v2), and the real packshot as well
+#   whenever the shape, the proportions or the wordmark direction is in doubt; the real photo wins over the card's notes
+#   (the flat iron card_v2 LOGO note 'reading toward the plates' is wrong: on the real iron it reads from the plates to the hinge).
+#   QA after every pass: the product next to the packshot at the same angle - shape and width ratio (flat iron: plate end
+#   about twice the handle width), parts, buttons, LEDs, wordmark side, direction and spelling.
 # INPUTS, in this order:
 #   1  the crop around the product (made by tools/inpaint_product.py)
 #   2  library/products/{sku}/{colour}/card_v2.png                       the product sheet: views, details, sizes
