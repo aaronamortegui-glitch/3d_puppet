@@ -15,6 +15,7 @@ PLAN = os.path.join(ROOT, "outputs", "jobs_test20_plan.json")
 LOOKS = os.path.join(ROOT, "outputs", "20_nano_inuse")
 PROD = os.path.join(ROOT, "outputs", "20_product")
 HERO_DIR = os.path.join(ROOT, "outputs", "21_hero_banners")
+AMZ_DIR = os.path.join(ROOT, "outputs", "25_amazon_flora")  # test 23: 4 more Amazon scenes made on Flora
 PB_DIR = os.path.join(ROOT, "outputs", "23_product_banners")
 CLIP_DIR = os.path.join(ROOT, "outputs", "24_clips")
 # test 22: product-only 16:9 banners, after the product fix (p1 and p2 redone lying flat, review 2026-10-27)
@@ -79,6 +80,13 @@ def hero(out):
     ref = os.path.join(ROOT, "samples", "web_refs", "conair_home")
     if os.path.isdir(ref):  # internal only, never published
         shutil.copytree(ref, os.path.join(out, "00_inputs", "style_reference_conair_home_INTERNAL"), dirs_exist_ok=True)
+
+
+def amazon_flora(out):
+    for f in sorted(os.listdir(AMZ_DIR)):
+        if f.endswith("__2_fixed.png"):
+            cp(os.path.join(AMZ_DIR, f), os.path.join(out, "04_product", "soft_environment", f[3:].replace("__2_fixed", "")))
+    cp(os.path.join(AMZ_DIR, "plan.json"), os.path.join(out, "05_prompts", "filled", "04_product", "jobs_test23_flora.json"))
 
 
 def product_banners_and_clips(out):
@@ -172,6 +180,7 @@ def main(out):
             cp(os.path.join(ROOT, f), os.path.join(out, "06_instructions", os.path.basename(f)))
     hero(out)
     product_banners_and_clips(out)
+    amazon_flora(out)
     variations(out)
     cp(PLAN, os.path.join(out, "06_instructions", "jobs", "jobs_test20_plan.json"))
     cp(os.path.join(ROOT, "docs", "conair", "FINAL_README.md"), os.path.join(out, "README.md"))

@@ -35,7 +35,7 @@ Every experiment stays in `outputs/`, one folder per test. Folders `00` to `07` 
 | `01_before/` | The avatar of each look (10). |
 | `02_after/` | The after of each look (13): the same woman in the same session, with a slightly different pose. |
 | `03_in_use/` | The product in use (13): the finished style, with the product fixed. |
-| `04_product/soft_environment/` | The product in a set (8). |
+| `04_product/soft_environment/` | The product in a set (12): 8 from test 20 and 4 from test 23, made on Flora. The 4 new ones: Iced Blue and Pink Rush on marble, Style/Switch with the diffuser on travertine, Auto Curler on linen. |
 | `04_product/in_hand/` | The product in hand (3). |
 | `05_prompts/` | The templates. `filled/` holds the exact prompt, inputs and job id of every image, plus the crop, the edit and `crop.json` of every product fix. |
 | `07_hero_banners/` | The 4 hero banners in the conair.com home style (test 21): 16:9, 4K, one avatar close-up each, product fixed. The style reference (the conair.com home banners) is in `00_inputs/style_reference_conair_home_INTERNAL/`: internal only, never publish. |
