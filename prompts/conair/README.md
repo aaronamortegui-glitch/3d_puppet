@@ -35,10 +35,10 @@ For every look, run `02_after.txt` first, then `01_in_use.txt`.
 |---|---|---|---|
 | `01_in_use.txt` | 1 · Product in use: the finished style, product in her hand | Sunburst, 3:4 | gray pose, avatar, product sheet, hair lock, real after |
 | `02_after.txt` | 2 · The after of a before / after | Sunburst, 3:4 | avatar (the before), hair lock, real after |
-| `03_in_hand.txt` | 3 · Product in hand | Sunburst, 1:1 | gray hand pose, packshot, avatar (skin tone) |
+| `03_in_hand.txt` | 3 · Product in hand, step 1 (test 16) | Nano Banana 2.1, 1:1 | gray hand pose, packshot, avatar (skin tone) |
 | `04_soft_environment.txt` | 4 · Product on a soft environment, step 1: scene and light | Nano Banana 2.1, 1:1 | packshot |
 | `05_relight_nano.txt` | 4 · Tested, not used (test 14): relight of a Sunburst image | Nano Banana 2.1 | Sunburst output, packshot |
-| `06_product_fix_sunburst.txt` | 4 · Step 2: correct only the product (test 15) | Sunburst, 1:1 | Nano scene, packshot, product sheet |
+| `06_product_fix_sunburst.txt` | 3 and 4 · Step 2: correct only the product (tests 15, 16) | Sunburst, 1:1 | Nano scene, packshot, product sheet |
 
 ## Where the fixed sentences come from
 

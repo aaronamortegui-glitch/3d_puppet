@@ -81,7 +81,7 @@ How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff
 
 **In use:** show the finished style, the after, with the product in use. Never a before and after combined.
 
-**Models:** Sunburst for everything, except product on a soft environment (test 15): Nano Banana 2.1 makes the scene and the light (`04_soft_environment.txt`), then Sunburst corrects only the product (`06_product_fix_sunburst.txt`). A Nano relight of a Sunburst image adds nothing (test 14).
+**Models:** Sunburst for the looks (after, in use). For product images, in hand and on a soft environment (tests 15, 16, validated 7/7): Nano Banana 2.1 makes the image (`03_in_hand.txt` / `04_soft_environment.txt`), then Sunburst corrects only the product (`06_product_fix_sunburst.txt`). A Nano relight of a Sunburst image adds nothing (test 14).
 
 ## Working rules
 

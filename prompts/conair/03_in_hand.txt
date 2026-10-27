@@ -1,4 +1,4 @@
-# Category 3: product in hand. Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 1:1.
+# Category 3: product in hand, step 1. Model: Nano Banana 2.1, 2K, aspect 1:1 (test 16). Step 2: 06_product_fix_sunburst.txt on Sunburst.
 # Fill with: python tools/fill_prompt.py in_hand <avatar_id> - <pose_id> - [colour]
 # INPUTS, in this order:
 #   1  library/poses/in_hand/{sku}/{pose_id}/gray.png                    hand pose, grip, camera, crop (orange proxy)

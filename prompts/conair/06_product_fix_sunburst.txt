@@ -1,9 +1,10 @@
-# Category 4, step 2 (test 15): Nano Banana 2.1 makes the scene and the light; Sunburst corrects ONLY the product.
+# Step 2 (test 15, validated on new sets and in hand in test 16): Nano Banana 2.1 makes the image; Sunburst corrects ONLY the product.
+# Works for category 4 (soft environment) and category 3 (in hand: step 1 is 03_in_hand.txt run on Nano).
 # Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 1:1.
 # INPUTS, in this order:
-#   1  the Nano Banana 2.1 still life (04_soft_environment.txt + a LIGHT line, run on Nano)
+#   1  the Nano Banana 2.1 image (04_soft_environment.txt or 03_in_hand.txt, run on Nano)
 #   2  library/products/{sku}/{colour}/packshots/<best packshot>         the exact product, angle reference for details
 #   3  library/products/{sku}/{colour}/card_clean.png                    the product sheet: every view, logo and button
 ---
-Image 1 is a product still-life photograph. Keep from image 1 everything except the product's details: the set, the props, the surface, the composition, the camera angle, the light, the reflections on the surface, the shadows, and the product's position, orientation and scale in the frame. Images 2 and 3 show the exact product: the {product_name}.
+Image 1 is a product photograph. Keep from image 1 everything except the product's details: the set, the props, the surface, any hand holding the product (skin, nails, grip, finger positions), the composition, the camera angle, the light, the reflections on the surface, the shadows, and the product's position, orientation and scale in the frame. Images 2 and 3 show the exact product: the {product_name}.
 Correct ONLY the product in image 1 so it matches images 2 and 3 exactly: its true shape and proportions ({product_size}), every part and attachment, the buttons, LEDs and controls, the colours and materials, and the white BaBylissPRO wordmark: crisp, correctly spelled, the same typeface and in the same place as on the real product. The whole product stays in the frame, never cropped. Its reflections and contact shadows follow its corrected shape and the light of image 1. Photorealistic premium e-commerce quality. No other text, no extra logos, no other products.
