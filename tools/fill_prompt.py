@@ -57,6 +57,25 @@ def sku_slot(rule_key):
             return slot
     raise ValueError(f"unknown rule {rule_key}")
 
+CONTACT = {  # how each tool really touches the hair (test 17: an iron held beside the hair, not on it)
+    "flat_iron": ("The two plates are CLOSED on a flat section of her hair: the section goes in between the plates and comes "
+                  "out below them, pulled straight and taut, as the iron glides down from the root to the ends. The plates "
+                  "are never open, empty or held in the air beside the hair."),
+    "auto_curler": ("A section of her hair is held under the clamp and wound around the barrel in a spiral, the hair "
+                    "visibly wrapping the barrel; the rest of the section hangs from it. The barrel is never empty."),
+    "thermal_brush": ("The bristles are buried inside a section of her hair: the section passes over and around the "
+                      "barrel, held taut from the root, the brush gliding down toward the ends. The brush never floats "
+                      "beside the hair."),
+    "style_switch_round_brush": ("The round brush bristles are buried inside a section of her hair, the section wrapped "
+                                 "over the barrel and held taut as the brush glides down toward the ends. The brush never "
+                                 "floats beside the hair."),
+    "style_switch_paddle": ("The paddle's bristles go through a flat section of her hair, the brush flat against it and "
+                            "gliding down from the root to the ends. The brush never floats beside the hair."),
+    "style_switch_air_curl": ("A section of her hair winds around the air-curling barrel in a spiral, held there by the "
+                              "airflow. The barrel is never empty."),
+    "style_switch_diffuser": ("The diffuser bowl cups a section of her curls from below, the curls resting between the "
+                              "prongs and lifted toward the root. The curls stay defined, never pressed flat."),
+}
 
 TOOL_WORDS = re.compile(r"\b(styler|iron|brush|barrel|tool|hand|plates|curler|attachment|grip|arm|holds|held)\b", re.I)
 HAIR_WORDS = re.compile(r"\b(hair|curls?|waves?|wavy|curly|mane|locks?)\b", re.I)
@@ -122,9 +141,13 @@ def after_length_line(avatar_id, ref, avatar, doc):
         lr = ch["refs"].get(ref["id"], {}).get("length_ratio") or ch["slots"].get(ref["sku"], {}).get("length_ratio", 1)
         before = avatar.get("hair_end") or HL.landmark_value(avatar["hair_end_landmark"], doc)
         where, src = "at the " + HL.nearest(before * lr, doc), "estimated; run tools/measure_after.py on the after"
+    lms = HL.landmarks(doc)
+    name = where.split("the ", 1)[1]
+    below = next((l["name"] for l in lms if l["at"] > HL.landmark_value(name, doc) + 0.1), None)
+    limit = f" Its ends never reach the {below}." if below else ""
     return (f"HAIR LENGTH (hard rule): her hair ends exactly where it ends in image 2, {where}, never lower and never "
-            f"higher. The sculpted hair of image 1 may be longer or shorter: ignore its length. Any section the tool "
-            f"holds is no longer than her hair in image 2."), src
+            f"higher.{limit} The sculpted hair of image 1 may be longer or shorter: ignore its length. Any section the "
+            f"tool holds is no longer than her hair in image 2, so the tool sits within the length of her hair."), src
 
 
 class Keep(dict):
@@ -196,6 +219,7 @@ def main():
     v["product_name"] = PRODUCTS[sku]["name"]
     v["product_size"] = PRODUCTS[sku]["size"]
     v["product_in_hand"] = IN_HAND.get(v.get("sku_slot"), "the product from image 3")
+    v["product_contact"] = "HOW IT TOUCHES THE HAIR: " + CONTACT.get(v.get("sku_slot"), CONTACT.get(sku, ""))
 
     text = open(os.path.join(ROOT, "prompts", "conair", TEMPLATES[a.kind]), encoding="utf-8").read()
     head, body = text.split("\n---\n", 1)
