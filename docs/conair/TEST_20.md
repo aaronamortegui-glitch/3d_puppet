@@ -96,3 +96,18 @@ Job ids:
 
 - **In-use at 4K.** They are 2K (Nano). The options are a faithful Topaz upscale, or regenerating them on Nano 4K and redoing the fix.
 - **The A10 diffuser:** it is held at the side instead of cupping the curls from below.
+
+## QA of the in-use images (2026-10-27, `outputs/22_inuse_redo/`)
+
+Each product was checked against its `card_v2` sheet: shape, parts, buttons, logo and how it touches the hair. 9 of the 13 passed.
+
+| Look | Problem | Fix | Result |
+|---|---|---|---|
+| A03 · Auto Curler | The barrel was empty, the hair beside it. | New in use on Nano Banana 2.1, 4K. The pose line makes the curling the action: a section is held under the clamp and wound on the barrel. Then the product fix at 4K. | The hair spirals around the barrel. Hair end 2.14 against 2.15 in the after. |
+| A02 · flat iron, silk press | The iron sat beside the hair, and the hair was too long (1.77 against 1.34 in the after, also in the old final). | The Nano redo was still too long (1.77, 1.66). On Sunburst at 4K the other hand rests on her shoulder instead of pulling the section down. Then the product fix at 4K. | The plates are closed on a section at the root. Hair end 1.54 (+14.9%, inside the 15% limit). |
+| A01 · Style/Switch round brush | The wordmark was on the chrome panel. | Product fix v3, with a LOGO AND PANEL line: the wordmark on the blue body, the chrome panel only for the buttons. | The wordmark is on the blue body. |
+| A10 · Style/Switch diffuser | Same as A01. | Same as A01. | Same as A01. |
+
+**Lessons:**
+- When the use is wrong, regenerate. The product fix cannot put hair inside the product.
+- A hand that pulls the section down makes straightened hair read longer. Keep the other hand away from the section.
