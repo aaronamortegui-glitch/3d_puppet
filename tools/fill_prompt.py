@@ -109,6 +109,24 @@ def hair_change_line(avatar, ref, doc):
             f"(before: {vol} volume). " + AMOUNT)
 
 
+def after_length_line(avatar_id, ref, avatar, doc):
+    """In use: the hair ends exactly where it ends in the step-1 after (test 17: a silk press grew longer in use).
+    Reads the end measured on the after by tools/measure_after.py; without it, estimates it from the reference change."""
+    path = os.path.join(ROOT, "library", "avatars", avatar_id, "after", f"{ref['rule']}__{ref['id']}.json")
+    if os.path.exists(path):
+        m = json.load(open(path, encoding="utf-8"))
+        where = ("at least at the " if m.get("hair_cropped") else "at the ") + m["hair_landmark"]
+        src = "measured on image 2"
+    else:
+        ch = json.load(open(os.path.join(ROOT, "docs", "products", "hair_change.json"), encoding="utf-8"))
+        lr = ch["refs"].get(ref["id"], {}).get("length_ratio") or ch["slots"].get(ref["sku"], {}).get("length_ratio", 1)
+        before = avatar.get("hair_end") or HL.landmark_value(avatar["hair_end_landmark"], doc)
+        where, src = "at the " + HL.nearest(before * lr, doc), "estimated; run tools/measure_after.py on the after"
+    return (f"HAIR LENGTH (hard rule): her hair ends exactly where it ends in image 2, {where}, never lower and never "
+            f"higher. The sculpted hair of image 1 may be longer or shorter: ignore its length. Any section the tool "
+            f"holds is no longer than her hair in image 2."), src
+
+
 class Keep(dict):
     def __missing__(self, k):
         return "{" + k + "}"
@@ -167,6 +185,9 @@ def main():
         v["ref_dir"] = f"{ref['sku']}/{ref['rule']}/{a.ref}"  # a reference can serve a neighbour rule of the same slot
         if a.avatar != "-":
             v["hair_change_line"] = hair_change_line(av, ref, doc)
+            v["after_length_line"], src = after_length_line(a.avatar, ref, av, doc)
+            if a.kind == "in_use":
+                notes.append(f"hair end of the after: {src}")
         if a.rule != "-" and ref["sku"] != v["sku_slot"]:
             notes.append(f"{a.ref} is a {ref['sku']} reference ({ref['rule']}), not {v['sku_slot']}")
     if not sku:

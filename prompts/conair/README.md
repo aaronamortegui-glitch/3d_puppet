@@ -28,6 +28,7 @@ For an in-use image it also prints the pose verdict (ok, check or avoid).
 For every look, run `02_after.txt` first, then `01_in_use.txt`.
 - The in-use step takes the hair and the background from the after.
 - The after takes the amount of change from the real reference pair, never from a model or a guess.
+- Between the two, run `tools/measure_after.py` on the after: the in-use prompt then ends the hair exactly where the after ends it (`{after_length_line}`, test 17).
 
 ## The templates
 

@@ -24,11 +24,11 @@ How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff
    - Inputs: the avatar front, the real reference before and after, and the lock.
    - The length and width change exactly as in that real pair (`docs/products/hair_change.json`).
    - It keeps the background.
-   - Save it to `library/avatars/<avatar>/after/<rule>__<rNN>.png`.
+   - Save it to `library/avatars/<avatar>/after/<rule>__<rNN>.png`, then measure where its hair ends: `SCENE_QA_MODELS=<models> server/.venv/Scripts/python.exe tools/measure_after.py <after.png>` (writes the `.json` next to it).
 2. **In use** (`prompts/conair/01_in_use.txt`).
    - Command: `python tools/fill_prompt.py in_use <avatar> <rule> <pose> <rNN>`.
    - Inputs: the gray pose v2, the step 1 after, the product sheet and the lock.
-   - The hair and the background come from the after.
+   - The hair and the background come from the after. The prompt gets a hard HAIR LENGTH line: the hair ends exactly where it ends in the after (test 17).
 
 **Final assets, clean (gitignored):** `outputs/FINAL_2026-10-26/` with `01_before/`, `02_after/`, `03_in_use/`, `04_product/` and a README.
 

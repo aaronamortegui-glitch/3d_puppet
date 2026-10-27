@@ -1,5 +1,6 @@
 # Step 2 of every look: product in use, with the finished style. Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 3:4.
 # Run 02_after.txt first: its result is this step's hair and identity input.
+# Then run tools/measure_after.py on the after: {after_length_line} uses where its hair ends (test 17).
 # Fill with: python tools/fill_prompt.py in_use <avatar_id> <rule> <pose_id> <ref_id> [colour]
 # INPUTS, in this order:
 #   1  library/poses/in_use/{sku}/{pose_id}/gray.png                     pose, camera, crop, product size (orange proxy); neutral moderate hair
@@ -12,4 +13,5 @@ Create a photorealistic studio beauty photograph of the woman from image 2 in EX
 POSE DETAILS (must match; the attachment on the tool is the one named in the next sentence, whatever these details call it): {pose_details}
 Replace the orange object of image 1 with {product_in_hand}, held with the same grip, position and angle. PRODUCT SIZE: {product_size}. It must keep the length of the orange object in image 1 relative to her hand and head. {IN_HAND_REAL}
 Her hair is her finished style from image 2, the tool passing through one section as a finishing touch. {result_texture_line}
+{after_length_line}
 She wears the same top as in image 2. The background is the same as in image 2 (same colour and tone), soft even studio lighting, natural skin texture, sharp detailed hands. No text, logos or graphics other than the product's own wordmark.
