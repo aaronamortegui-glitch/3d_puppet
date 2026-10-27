@@ -12,12 +12,12 @@ The 6 approved v2 poses never used before, each with a client avatar that had no
 
 Both steps ran on Sunburst, high, 2K, 3:4.
 
-## Results: 5/6 pass, 1 check
+## Results: 6/6 pass (one after a re-run)
 
 | Avatar | Rule · ref | New pose | Pose verdict | Result |
 |---|---|---|---|---|
 | A08 shag bangs | AC_t2 · r45 | `auto_curler_in_use_04` | avoid (texture) | **Pass:** curls and length kept from the after |
-| A02 coily | FI_t4_silkpress · r55 | `flat_iron_in_use_02` | ok | **Check:** silk press, skin and product good; the hair is a bit longer in use than in the after |
+| A02 coily | FI_t4_silkpress · r55 | `flat_iron_in_use_02` | ok | **Pass on v2.** The first try came out longer than the after. A re-run with a HAIR LENGTH line ("ends exactly where it ends in image 2, at the neckline, never lower") matches the after. |
 | A06 platinum | FI_t1 · r36 | `flat_iron_in_use_03` | avoid (texture) | **Pass:** sleek straight kept |
 | A01 bob black | SS_t2_roundbrush · r39 | `style_switch_in_use_03` | ok | **Pass:** voluminous blowout kept, round brush correct |
 | A07 burgundy curls | TB_t3 · r41 | `thermal_brush_in_use_04` | avoid (texture) | **Pass:** blowout kept |
@@ -29,13 +29,13 @@ All 6 afters keep the identity and the background, and the hair change looks bel
 
 1. **The looks method is confirmed on new poses and new avatars.**
 2. **The pose verdict matters less now.** Since the hair comes from the after, a pose rated "avoid" only for its hair texture works. The hard rule against abundant sculpted hair still holds.
-3. **Silk press (4A → straight) adds length** (r55: +43%). In the in-use step it can grow a little more. If it matters, add the measured end landmark of the after to the in-use prompt.
+3. **Hair length in use.** When a pose's sculpted hair is longer than the after (silk press, r55: +43% length), the in-use step can grow it. An explicit line fixed it: the hair ends exactly where it ends in the after, at a named landmark, never lower. Next step: have `fill_prompt.py` add this line automatically from the after's measured hair end.
 
 ## Where
 
 **Files:**
 - Afters: `library/avatars/<avatar>/after/<rule>__<ref>.png` (each with its `.prompt.txt`).
-- In use: `outputs/17_validation_looks/`.
+- In use: `outputs/17_validation_looks/` (A02 final: `..._in_use_v2_length_fix.png`; comparison: `..._length_compare.jpg`).
 - Plan, prompts and job ids: `outputs/jobs_test17_plan.json`.
 
 **Boards:**
