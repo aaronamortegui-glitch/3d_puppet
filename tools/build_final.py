@@ -14,6 +14,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PLAN = os.path.join(ROOT, "outputs", "jobs_test20_plan.json")
 LOOKS = os.path.join(ROOT, "outputs", "20_nano_inuse")
 PROD = os.path.join(ROOT, "outputs", "20_product")
+HERO_DIR = os.path.join(ROOT, "outputs", "21_hero_banners")
+HERO = ["c1_a10_diffuser_pink_v2", "c2_a01_roundbrush_violet_v2",
+        "c3_a07_thermalbrush_skyblue_v5_sunburst", "c4_a06_flatiron_orange_v5_sunburst"]
 
 # look: (after plan key, in-use plan key, after file, in-use file after the product fix)
 LOOK_FILES = [
@@ -48,6 +51,38 @@ DOCS = ["CLAUDE.md", "docs/conair/HAIR_REFS.md", "docs/conair/TEST_20.md", "docs
 def cp(src, dst):
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     shutil.copy2(src, dst)
+
+
+def hero(out):
+    """07_hero_banners: the 4 close-ups (test 21) after the product fix, with their prompt json, fix crops and the style reference."""
+    for name in HERO:
+        cp(os.path.join(HERO_DIR, f"{name}__fixed.png"), os.path.join(out, "07_hero_banners", f"{name[:2]}_{name[3:]}.png"))
+        cp(os.path.join(HERO_DIR, f"{name}.json"), os.path.join(out, "05_prompts", "filled", "07_hero_banners", f"{name}.json"))
+        fix = os.path.join(HERO_DIR, f"fix_{name}")
+        if os.path.isdir(fix):
+            shutil.copytree(fix, os.path.join(out, "05_prompts", "filled", "07_hero_banners", f"{name}__product_fix"), dirs_exist_ok=True)
+    for f in ("plan_v2.json", "inpaint_plan.json"):
+        cp(os.path.join(HERO_DIR, f), os.path.join(out, "05_prompts", "filled", "07_hero_banners", f))
+    cp(os.path.join(ROOT, "prompts", "conair", "09_hero_banner.txt"), os.path.join(out, "05_prompts", "09_hero_banner.txt"))
+    ref = os.path.join(ROOT, "samples", "web_refs", "conair_home")
+    if os.path.isdir(ref):  # internal only, never published
+        shutil.copytree(ref, os.path.join(out, "00_inputs", "style_reference_conair_home_INTERNAL"), dirs_exist_ok=True)
+
+
+def variations(out):
+    """08_variations: every tried version next to the final, so the choice can be reviewed (copies; the tests stay in place)."""
+    v = os.path.join(out, "08_variations")
+    for ak, uk, af, uf in LOOK_FILES:
+        look = af.replace("_after_v7.png", "")
+        for f in sorted(os.listdir(LOOKS)):
+            if f.endswith(".png") and (f.startswith(look + "_after_v") or f.startswith(look + "_inuse")):
+                cp(os.path.join(LOOKS, f), os.path.join(v, "looks", look, f))
+    for f in sorted(os.listdir(HERO_DIR)):
+        if f.endswith(".png"):
+            cp(os.path.join(HERO_DIR, f), os.path.join(v, "hero_banners", "groups_pending" if f.startswith("g") else "close_ups", f))
+    for f in sorted(os.listdir(PROD)):
+        if f.endswith(".png"):
+            cp(os.path.join(PROD, f), os.path.join(v, "product", f))
 
 
 def main(out):
@@ -110,6 +145,8 @@ def main(out):
     for f in DOCS:
         if os.path.exists(os.path.join(ROOT, f)):
             cp(os.path.join(ROOT, f), os.path.join(out, "06_instructions", os.path.basename(f)))
+    hero(out)
+    variations(out)
     cp(PLAN, os.path.join(out, "06_instructions", "jobs", "jobs_test20_plan.json"))
     cp(os.path.join(ROOT, "docs", "conair", "FINAL_README.md"), os.path.join(out, "README.md"))
     wf = os.path.join(ROOT, "docs", "conair", "WORKFLOW_test20.png")

@@ -5,7 +5,7 @@ This folder holds only what is used:
 - the original inputs that made them;
 - the prompts and the instructions.
 
-Every experiment stays in `outputs/`, one folder per test. Nothing here is a rejected version. The folder is rebuilt with `python tools/build_final.py outputs/FINAL_2026-10-27`.
+Every experiment stays in `outputs/`, one folder per test. Folders `00` to `07` hold only the chosen versions; `08_variations/` holds every version tried, next to the final, for review. The folder is rebuilt with `python tools/build_final.py outputs/FINAL_2026-10-27`.
 
 **Start here:**
 - `WORKFLOW_test20.png`: the workflow;
@@ -38,6 +38,8 @@ Every experiment stays in `outputs/`, one folder per test. Nothing here is a rej
 | `04_product/soft_environment/` | The product in a set (8). |
 | `04_product/in_hand/` | The product in hand (3). |
 | `05_prompts/` | The templates. `filled/` holds the exact prompt, inputs and job id of every image, plus the crop, the edit and `crop.json` of every product fix. |
+| `07_hero_banners/` | The 4 hero banners in the conair.com home style (test 21): 16:9, 4K, one avatar close-up each, product fixed. The style reference (the conair.com home banners) is in `00_inputs/style_reference_conair_home_INTERNAL/`: internal only, never publish. |
+| `08_variations/` | Every version tried: `looks/<look>/` (after v2 to v7, in use before and after the product fix), `hero_banners/close_ups/` and `hero_banners/groups_pending/` (the group banners, still open), `product/` (Nano scene and each fix). |
 | `06_instructions/` | `CLAUDE.md` (how to run it, the rules), `TEST_20.md` (the report), `HAIR_REFS.md`, `pipeline.png`, and `jobs/` (all job ids). |
 
 ## How each image is made
@@ -85,3 +87,16 @@ Every experiment stays in `outputs/`, one folder per test. Nothing here is a rej
 | client_a10_long_curly | SS_t3_diffuser | r58 | Style/Switch, diffuser |
 
 A05 and A08 (round brush) were the first validation runs. Their in-use images took the full real `after.png` of the reference, before `after_hair.png` existed. Every later look uses `after_hair.png`.
+
+## Hero banners (test 21)
+
+`09_hero_banner.txt` on Nano Banana 2.1, 4K, 16:9 (Sunburst for A07 and A06, where Nano made the hair too long). Inputs: the avatar, the hair cut out of the real after, the lock and `card_v2.png`, with the same hair-length lines as the looks. Then the same product fix.
+
+| Banner | Avatar | Product | Colour |
+|---|---|---|---|
+| c1 | client_a10_long_curly | Style/Switch, diffuser | pink |
+| c2 | client_a01_bob_black | Style/Switch, round brush | violet |
+| c3 | client_a07_burgundy_curls | Thermal brush | sky blue |
+| c4 | client_a06_platinum | Flat iron | orange |
+
+The group banners (three women) are pending: the models do not hold three calibrated hair lengths at once.
