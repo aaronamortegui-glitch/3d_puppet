@@ -1,0 +1,14 @@
+# Hero banner, 16:9, in the style of the conair.com home banners (analysed 2026-10-27, samples/web_refs/conair_home/, internal).
+# Model: Nano Banana 2.1, 4K, aspect 16:9. Only original inputs: avatar front(s), the hair cut out of the real reference,
+# the real lock, the product sheet(s) card_v2. Then fix only the product with tools/inpaint_product.py + 08 if needed.
+# STYLE of the reference banners:
+#   - one saturated seamless studio colour (sky blue, violet, hot pink to coral, orange, yellow, red), sometimes a soft gradient
+#     and a coloured gel rim light; the wardrobe picks up or complements the background;
+#   - the people fill the RIGHT half; the LEFT third stays clean background for a headline (no text in the image);
+#   - very tight crop, chest or shoulders up, the top of the head may be cropped; the product big and close to the lens;
+#   - real joy: open laughs, eyes squinting, head tilts, hair in motion;
+#   - bright high-key soft front light, glowing natural skin.
+# CLOSE-UP inputs: 1 avatar front, 2 hair cut out of the real after, 3 lock, 4 card_v2.
+# GROUP inputs: 1-3 avatar fronts, 4-6 card_v2 of each woman's product (the hair is described in words).
+---
+(prompts are written per image in outputs/21_hero_banners/plan.json)

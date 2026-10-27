@@ -32,3 +32,4 @@ library/*
 !library/README.md
 outputs/
 samples/pose_library/
+samples/web_refs/
