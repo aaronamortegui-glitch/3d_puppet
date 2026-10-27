@@ -1,0 +1,19 @@
+# Step 3, test 20: fix only the product, on a crop around it, then stitch it back (tools/inpaint_product.py).
+# Method adapted from EL_Inpainting_system (crop -> edit -> stitch, unmasked edit + masked paste):
+#   - the crop is the product box grown x1.35 (min 768 px), fitted to 3:4 or 4:3, enlarged to ~2K for the model;
+#   - the edit runs on the crop only, with the product sheet as image 2 (never the whole picture);
+#   - the result is resized back, colour matched (LAB mean/std) to the original crop outside the product,
+#     and pasted with a feathered edge (7% ramp), so everything outside the product stays the original pixels.
+# Model: GPT Image 2.5 Sunburst (quality high) for text, logos and colour; Nano Banana 2.1 as the alternative for shape.
+# Product images (categories 3 and 4, test 20): same prompt, with the first sentence "the {product_name} in a premium still-life
+# set (no people)" or "a hand holding the {product_name} (a product close-up)", no HOW IT TOUCHES THE HAIR line, and "the hair and
+# how the hair touches the product" replaced by "the surface, the props, the cable and the contact shadows" / "the grip of the
+# fingers around it" (exact prompts in outputs/20_product/jobs_test20_product.json).
+# INPUTS, in this order:
+#   1  the crop around the product (made by tools/inpaint_product.py)
+#   2  library/products/{sku}/{colour}/card_v2.png                       the product sheet: views, details, sizes
+---
+Image 1 is a close crop of a photograph: a person's hand holding the {product_name} in her hair. Image 2 is the product sheet: the authority on what this exact product looks like.
+Correct ONLY the product in image 1 so it matches image 2 exactly: its true shape and proportions ({product_size}), every part and attachment, the buttons, LEDs and controls, the colours and materials (this colourway: {colour_name}), and the white BaBylissPRO wordmark in its real place, orientation and size as in image 2 (crisp, correctly spelled, never moved to another side). Keep the product's position, angle and scale in the frame.
+Keep everything else in image 1 exactly as it is: the hand, fingers and nails, the skin, the hair and how the hair touches the product, the clothes, the background, the light and the framing. {product_contact}
+Photorealistic. No other text, no extra logos, no other products.

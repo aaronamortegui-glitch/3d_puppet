@@ -22,8 +22,59 @@ import pick_pose  # noqa: E402
 import prompt_rules as PR  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# The after is a new frame of the same session, never the same photo (rule, review 2026-10-27):
+#  - a NEW DIRECTION, from where the before faces (tools/avatar_facing.json, measured by tools/facing.py): a before turned to one
+#    side becomes frontal or turned to the other side; a frontal before turns three-quarter. "Turn a little" alone came back
+#    facing the same way.
+#  - NEW ARMS: a hand on the waist or the hands behind the back (never near the face or in the hair, never raised);
+#  - a light happy smile. Natural, never exaggerated.
+AFTER_FACING = json.load(open(os.path.join(ROOT, "tools", "avatar_facing.json")))
+AFTER_ARMS = ["one hand resting on her waist with the elbow out, the other arm relaxed down at her side",
+              "both hands clasped loosely behind her back so her shoulders open",
+              "one hand resting on her hip, the other arm relaxed down at her side"]
+AFTER_ARMS_FIXED = {"client_a03_red_wavy": 1, "client_a02_coily": 1}  # befores with hands already on the hips
+
+
+def after_front(avatar_id):
+    """Image 1 of the after. A before turned to one side goes in mirrored (front_mirror.png): asked in words to face the
+    other way, Sunburst kept the head angle of image 1 in 11 of 11 looks (test 20, measured by tools/facing.py)."""
+    return "front.png" if AFTER_FACING.get(avatar_id, {}).get("facing", "frontal") == "frontal" else "front_mirror.png"
+
+
+def after_pose(avatar_id, rule):
+    k = sum(map(ord, avatar_id + rule))
+    side = AFTER_FACING.get(avatar_id, {}).get("facing", "frontal")
+    if side == "frontal":
+        d = f"in image 1 she faces the camera straight on; now her body and shoulders are turned about 25 degrees toward the {('right', 'left')[k % 2]} of the frame into a three-quarter view, her eyes back on the camera"
+    else:  # image 1 is the mirrored before: it already faces the other way, keep it
+        d = "keep the direction her face and body point in image 1 (the camera is on her other side this time), her eyes on the camera"
+    arms = AFTER_ARMS[AFTER_ARMS_FIXED.get(avatar_id, k % len(AFTER_ARMS))]
+    return f"{d}; {arms}; her head a little tilted, a light happy smile"
 TEMPLATES = {"in_use": "01_in_use.txt", "after": "02_after.txt", "in_hand": "03_in_hand.txt",
-             "soft_env": "04_soft_environment.txt"}
+             "soft_env": "04_soft_environment.txt", "in_use_nano": "07_in_use_nano.txt",
+             "inpaint": "08_product_inpaint.txt"}
+COLOUR_NAME = {"nano_blue": "Nano Blue", "pink_rush": "Pink Rush", "iced_blue": "Iced Blue"}
+DYNAMIC = {  # test 20: a free, more dynamic and sensual in-use pose per tool, with the tool really working the hair
+    "auto_curler": ("POSE: confident three-quarter beauty shot, chin slightly lifted, eyes to the camera with a soft knowing smile. "
+                    "One hand holds the handle up near her temple while a section of her hair winds around the barrel; the other hand "
+                    "runs its fingers through the finished curls on the other side, lifting them off her shoulder."),
+    "thermal_brush": ("POSE: dynamic three-quarter beauty shot, head tilted, a playful confident smile to the camera. One hand rolls "
+                      "the brush under a section at the side of her face, lifting it from the root; the other hand rests on her neck or "
+                      "sweeps the finished hair back."),
+    "style_switch_round_brush": ("POSE: dynamic three-quarter beauty shot, head tilted, a confident smile to the camera. One hand rolls "
+                                 "the styler's round brush under a section at the side of her face, lifting it from the root; the other "
+                                 "hand sweeps the finished hair back."),
+    "style_switch_paddle": ("POSE: elegant three-quarter beauty shot, head turned over her shoulder toward the camera, a calm confident look. "
+                            "One hand glides the paddle brush down a section beside her neck; the other hand smooths the finished hair."),
+    "style_switch_air_curl": ("POSE: playful three-quarter beauty shot, chin slightly lifted, a soft smile to the camera. One hand holds the "
+                              "styler upright beside her head while a section winds around the air-curling barrel; the other hand lifts a "
+                              "finished curl."),
+    "style_switch_diffuser": ("POSE: joyful dynamic beauty shot, head tilted to one side, a big natural smile. One hand holds the diffuser "
+                              "under a section of curls at the side of her head, cupping them; the other hand scrunches curls on the other side."),
+    "flat_iron": ("POSE: sensual three-quarter beauty shot, head tilted, looking over her shoulder at the camera with a confident half smile. "
+                  "One hand glides the closed flat iron down a section of hair from her cheek toward her shoulder; the other hand sweeps the "
+                  "rest of her hair back."),
+}
 SS_BODY = "the slim Style/Switch body from image 3 with its "
 PRODUCTS = {
     "auto_curler": {"name": "BaBylissPRO Auto Curler 1-inch automatic rotating curling iron (BNTAC100)",
@@ -185,6 +236,9 @@ def main():
         v["result_texture_line"] = RESULT_TEXTURE.get(rule.get("after_texture"), "")
         if a.kind == "after":  # image 1 is her photo here, not a gray render
             v["result_texture_line"] = v["result_texture_line"].replace("; ignore any waves in the sculpted hair of image 1", "")
+            # a concrete new pose per look: "change slightly" alone came back as a copy of image 1 (test 20 review)
+            v["after_pose"] = after_pose(a.avatar, a.rule)
+            v["after_front"] = after_front(a.avatar)
     if a.avatar != "-":
         av = pick_pose.avatar_meta(a.avatar)
         v["hair_colour"] = av.get("hair_colour", "")
@@ -211,7 +265,7 @@ def main():
         if a.avatar != "-":
             v["hair_change_line"] = hair_change_line(av, ref, doc)
             v["after_length_line"], src = after_length_line(a.avatar, ref, av, doc)
-            if a.kind == "in_use":
+            if a.kind in ("in_use", "in_use_nano"):
                 notes.append(f"hair end of the after: {src}")
                 if a.pose != "-":
                     pose = json.load(open(pick_pose.POSES, encoding="utf-8"))["poses"][a.pose]
@@ -227,6 +281,20 @@ def main():
     v["product_size"] = PRODUCTS[sku]["size"]
     v["product_in_hand"] = IN_HAND.get(v.get("sku_slot"), "the product from image 3")
     v["product_contact"] = "HOW IT TOUCHES THE HAIR: " + CONTACT.get(v.get("sku_slot"), CONTACT.get(sku, ""))
+    v["colour_name"] = COLOUR_NAME.get(a.colour, a.colour)
+    if a.kind == "in_use_nano":
+        v["product_in_hand"] = v["product_in_hand"].replace("image 3", "image 4")  # the sheet is image 4 here
+        tex = v.get("result_texture_line", "")  # the gray pose is image 5 here, or absent
+        v["result_texture_line"] = (tex.replace("; ignore any waves in the sculpted hair of image 1", "") if a.pose == "-"
+                                    else tex.replace("sculpted hair of image 1", "sculpted hair of image 5"))
+        slot = v.get("sku_slot", sku)
+        if a.pose == "-":
+            v["pose_block"] = DYNAMIC.get(slot, DYNAMIC.get(sku, ""))
+            v["pose_gray"] = "(none: free pose)"
+        else:
+            v["pose_block"] = ("POSE: image 5 is a gray clay 3D render that defines her pose, body position, camera angle, framing and crop; "
+                               "the ORANGE object in it is the product at its true size. Its sculpted gray hair is only a placeholder: "
+                               "ignore its length and texture. POSE DETAILS: " + v.get("pose_details", ""))
 
     text = open(os.path.join(ROOT, "prompts", "conair", TEMPLATES[a.kind]), encoding="utf-8").read()
     head, body = text.split("\n---\n", 1)

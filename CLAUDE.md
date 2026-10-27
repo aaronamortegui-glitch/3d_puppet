@@ -83,6 +83,19 @@ How it works: [docs/conair/pipeline.png](docs/conair/pipeline.png). Full handoff
 
 **In use:** show the finished style, the after, with the product in use. Never a before and after combined.
 
+**Before / after (test 20):** the after is a new photo of the same session, never the same photo with new hair.
+- New direction, from where the before faces (`tools/avatar_facing.json`, measured by `tools/facing.py`):
+  - a before turned to one side goes in **mirrored** (`front_mirror.png`), so the after faces the other side. Asked in words, Sunburst kept the head angle in 11 of 11 looks.
+  - a frontal before turns three-quarter.
+- New arms: a hand on the waist or the hands behind the back. Never raised, never near the face or in the hair.
+- A light happy smile. Natural, never exaggerated.
+- Same face, clothes, background, light and camera distance.
+- Check: `tools/facing.py` on the after. The head yaw must move at least 15° from the before; regenerate if it does not.
+
+**Only original inputs (test 20):**
+- Never chain a generated image as a model input.
+- The only exception is the product inpaint: crop at the model's exact shape (`tools/inpaint_product.py`), then register and paste back only the product.
+
 **Models:** Sunburst for the looks (after, in use). For product images, in hand and on a soft environment (tests 15, 16, validated 7/7): Nano Banana 2.1 makes the image (`03_in_hand.txt` / `04_soft_environment.txt`), then Sunburst corrects only the product (`06_product_fix_sunburst.txt`). A Nano relight of a Sunburst image adds nothing (test 14).
 
 ## Working rules

@@ -1,0 +1,42 @@
+{
+ "client_a01_bob_black": {
+  "yaw": -36.8,
+  "facing": "left"
+ },
+ "client_a02_coily": {
+  "yaw": 2.8,
+  "facing": "frontal"
+ },
+ "client_a03_red_wavy": {
+  "yaw": 3.7,
+  "facing": "frontal"
+ },
+ "client_a04_wavy_dark": {
+  "yaw": -9.2,
+  "facing": "left"
+ },
+ "client_a05_long_curly": {
+  "yaw": 41.1,
+  "facing": "right"
+ },
+ "client_a06_platinum": {
+  "yaw": -13.9,
+  "facing": "left"
+ },
+ "client_a07_burgundy_curls": {
+  "yaw": -9.3,
+  "facing": "left"
+ },
+ "client_a08_shag_bangs": {
+  "yaw": -12.9,
+  "facing": "left"
+ },
+ "client_a09_blonde_straight": {
+  "yaw": 24.8,
+  "facing": "right"
+ },
+ "client_a10_long_curly": {
+  "yaw": -25.8,
+  "facing": "left"
+ }
+}

@@ -1,8 +1,11 @@
 # Category 4: product on a soft environment, step 1. Model: Nano Banana 2.1, 2K, aspect 1:1 (test 15: better scene and light than Sunburst).
-# Step 2 is 06_product_fix_sunburst.txt: Sunburst corrects only the product (logo, shape, buttons). Sunburst alone was the model until test 14.
+# Step 2 (test 20): fix only the product with tools/inpaint_product.py (crop -> 08_product_inpaint.txt on Sunburst -> stitch),
+# never a full-image re-edit. Keep the step 1 image when the fix makes it worse (test 20: 2 of 11).
 # Fill with: python tools/fill_prompt.py soft_env - - - - [colour] --set "<set description, product already lying down>"
-# INPUTS:
-#   1  library/products/{sku}/{colour}/packshots/<best packshot>         the exact product
+# INPUTS (original inputs only):
+#   1  library/products/{sku}/{colour}/packshots/<best packshot>         the exact product (real photo)
+#   2  library/products/{sku}/{colour}/card_v2.png                       the product sheet: views, sizes, LOGO position (test 20)
 ---
 Image 1 shows the exact product: the {product_name}. Reproduce it exactly: same design, colours, materials, buttons and proportions ({product_size}).
+Image 2 is the product sheet of this exact product (real views, sizes, colours and a LOGO note): follow it for the side, direction and size of the white BaBylissPRO wordmark and for the placement of the buttons, LEDs and every part; never move the logo to another side.
 Create a premium e-commerce still-life photograph of this product alone, {set_description}. {STAGING} LIGHT: a clear soft key light with realistic specular reflections on the metal and glossy surfaces that follow their real curvature, crisp soft contact shadows, gentle fill, natural white balance. Calm minimal composition with generous negative space, shallow depth of field on the background, the whole product in frame and in sharp focus. Square format. No people, no hands, no text, no extra logos, no other products.

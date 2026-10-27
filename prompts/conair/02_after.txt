@@ -1,14 +1,17 @@
 # Step 1 of every look: the AFTER of an avatar (before / after category; also the hair input of step 2, in use).
-# Model: GPT Image 2.5 Sunburst, quality high, 2K, aspect 3:4.
+# Model: GPT Image 2.5 Sunburst, quality high, 4K (test 20; 2K before), aspect 3:4.
+# RULE (test 20): the after is a new photo of the same session, never the same photo: a new direction (from where the before faces,
+# tools/avatar_facing.json), new arms (hand on the waist or hands behind the back) and a light happy smile. Checked with tools/facing.py.
+# Only original inputs: the avatar and the real reference photos, never a generated image.
 # Fill with: python tools/fill_prompt.py after <avatar_id> <rule> - <ref_id>
 # Save the result as library/avatars/{avatar_id}/after/{rule}__{ref_id}.png (the in-use step reads it from there).
 # INPUTS, in this order:
-#   1  library/avatars/{avatar_id}/front.png                             the before: identity, framing, background, colour, length, volume
+#   1  library/avatars/{avatar_id}/{after_front}                         the before (mirrored when she faces a side): identity, framing, background, colour, length, volume
 #   2  library/hair_styles/{ref_dir}/before.png                          real reference, before
 #   3  library/hair_styles/{ref_dir}/after.png                           real reference, after: how much the hair really changes
 #   4  library/hair_styles/{ref_dir}/lock.png                            real hair lock: curl pattern, texture, shine
 ---
 Image 1 is the woman's before photo. Images 2 and 3 are a real before and after of this exact style on another woman, and image 4 is a close-up lock of her real hair after it. They show ONLY two things: the curl pattern, texture and shine of the finished style (images 3 and 4), and HOW MUCH real hair changes with this style (from image 2 to image 3). Never copy that woman's hair colour, haircut, face, clothes or background, and ignore any text in those images.
-Create her after photo: the same woman as image 1, same face, expression, skin, clothes, pose, camera, framing, light and the SAME BACKGROUND as image 1, every pixel the same except her hair. Her {hair_colour} hair now has {style_result}, with the texture and shine of images 3 and 4, styled with the {product_name}. {result_texture_line}
+Create her after photo: the same woman as image 1 (same face and identity, skin, clothes, framing scale, light and the SAME BACKGROUND), photographed again in the same session a moment later, so it must NOT look like an edited copy of image 1. NEW POSE, happier and more confident (same camera distance and framing scale): {after_pose}. Natural and relaxed, never exaggerated; no hands near her face or in her hair. Her pose and arms must be clearly different from image 1 at first glance. Her {hair_colour} hair now has {style_result}, with the texture and shine of images 3 and 4, styled with the {product_name}. {result_texture_line}
 {hair_change_line}
 Photorealistic, natural skin texture. No text, logos or graphics.
