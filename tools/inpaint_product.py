@@ -27,6 +27,8 @@ FEATHER = 0.05    # feather of the paste mask, fraction of the crop's long side
 # The exact shapes Sunburst returns at 2K (w / h). The crop must have one of them, or the edit is stretched on the way
 # back and the product lands off its place (test 20 bug: near-square crops came back 3:4 / 4:3, up to 35% stretched).
 ASPECTS = {"3:4": 1760 / 2368, "1:1": 1.0, "4:3": 2368 / 1760}
+# Wide banners (test 22): the product spans most of a 16:9 frame, so the crop can be 16:9 (Sunburst 4K: 3840 x 2160).
+ASPECTS["16:9"] = 3840 / 2160
 
 
 def load(p):

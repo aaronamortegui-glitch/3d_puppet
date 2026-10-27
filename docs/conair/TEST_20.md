@@ -104,10 +104,12 @@ Each product was checked against its `card_v2` sheet: shape, parts, buttons, log
 | Look | Problem | Fix | Result |
 |---|---|---|---|
 | A03 · Auto Curler | The barrel was empty, the hair beside it. | New in use on Nano Banana 2.1, 4K. The pose line makes the curling the action: a section is held under the clamp and wound on the barrel. Then the product fix at 4K. | The hair spirals around the barrel. Hair end 2.14 against 2.15 in the after. |
-| A02 · flat iron, silk press | The iron sat beside the hair, and the hair was too long (1.77 against 1.34 in the after, also in the old final). | The Nano redo was still too long (1.77, 1.66). On Sunburst at 4K the other hand rests on her shoulder instead of pulling the section down. Then the product fix at 4K. | The plates are closed on a section at the root. Hair end 1.54 (+14.9%, inside the 15% limit). |
+| A02 · flat iron, silk press | The iron sat beside the hair, and the hair was too long (1.77 against 1.34 in the after). | Four redos. Nano was still too long (1.77, 1.66). On Sunburst the v4a fix kept the iron beside the hair, read the wordmark toward the hinge, garbled NANO TITANIUM and left an orange glow at the tip. With the iron horizontal (v5) the clamping read well, but the hair was still too long (1.58, 1.67) and the pose looked odd. | **The original in use is kept by review.** Its hair is +32% over the after, an accepted exception. |
 | A01 · Style/Switch round brush | The wordmark was on the chrome panel. | Product fix v3, with a LOGO AND PANEL line: the wordmark on the blue body, the chrome panel only for the buttons. | The wordmark is on the blue body. |
 | A10 · Style/Switch diffuser | Same as A01. | Same as A01. | Same as A01. |
 
 **Lessons:**
+- QA the product at full zoom against card_v2: which side the wordmark is on, its direction and its spelling, and the hair really between the plates. Never pass small-text errors as minor.
+- A straightened look on Sunburst lands about +15% to +25% over the after when the iron is in the shot.
 - When the use is wrong, regenerate. The product fix cannot put hair inside the product.
 - A hand that pulls the section down makes straightened hair read longer. Keep the other hand away from the section.

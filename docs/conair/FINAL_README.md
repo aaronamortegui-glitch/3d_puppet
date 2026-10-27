@@ -39,6 +39,8 @@ Every experiment stays in `outputs/`, one folder per test. Folders `00` to `07` 
 | `04_product/in_hand/` | The product in hand (3). |
 | `05_prompts/` | The templates. `filled/` holds the exact prompt, inputs and job id of every image, plus the crop, the edit and `crop.json` of every product fix. |
 | `07_hero_banners/` | The 4 hero banners in the conair.com home style (test 21): 16:9, 4K, one avatar close-up each, product fixed. The style reference (the conair.com home banners) is in `00_inputs/style_reference_conair_home_INTERNAL/`: internal only, never publish. |
+| `09_product_banners/` | 5 product-only banners, 16:9 at 4K, in the conair.com colour language (test 22). Nano Banana makes the scene, then the Sunburst product fix. The product always rests on a support. |
+| `10_clips/` | 5-second, 720p Seedance 2.5 clips made from the 16:9 finals: 3 with avatars (c1, c2, c4) and 2 of product (p3, p4). The p1 clip is pending: the Krea monthly limit was reached. |
 | `08_variations/` | Every version tried: `looks/<look>/` (after v2 to v7, in use before and after the product fix), `hero_banners/close_ups/` and `hero_banners/groups_pending/` (the group banners, still open), `product/` (Nano scene and each fix). |
 | `06_instructions/` | `CLAUDE.md` (how to run it, the rules), `TEST_20.md` (the report), `HAIR_REFS.md`, `pipeline.png`, and `jobs/` (all job ids). |
 

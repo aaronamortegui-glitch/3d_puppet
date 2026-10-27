@@ -15,6 +15,15 @@ PLAN = os.path.join(ROOT, "outputs", "jobs_test20_plan.json")
 LOOKS = os.path.join(ROOT, "outputs", "20_nano_inuse")
 PROD = os.path.join(ROOT, "outputs", "20_product")
 HERO_DIR = os.path.join(ROOT, "outputs", "21_hero_banners")
+PB_DIR = os.path.join(ROOT, "outputs", "23_product_banners")
+CLIP_DIR = os.path.join(ROOT, "outputs", "24_clips")
+# test 22: product-only 16:9 banners, after the product fix (p1 and p2 redone lying flat, review 2026-10-27)
+PRODUCT_BANNERS = {"p1_auto_curler_orange": "p1_auto_curler_orange_v2__3_fixed.png", "p2_thermal_brush_sky": "p2_thermal_brush_sky_v2__2_fixed.png",
+                   "p3_flat_iron_pink_rush": "p3_flat_iron_pink_rush__2_fixed.png", "p4_style_switch_violet": "p4_style_switch_violet__2_fixed.png",
+                   "p5_flat_iron_nano_blue_yellow": "p5_flat_iron_nano_blue_yellow__2_fixed.png"}
+# Seedance 2.5 clips, 5 s, 720p, that passed QA (the first p1 clip came from the rejected floating banner)
+CLIPS = ["clip_c1_a10_diffuser_pink.mp4", "clip_c2_a01_roundbrush_violet.mp4", "clip_c4_a06_flatiron_orange.mp4",
+         "clip_p3_flat_iron_pink_rush.mp4", "clip_p4_style_switch_violet.mp4"]
 HERO = ["c1_a10_diffuser_pink_v2", "c2_a01_roundbrush_violet_v2",
         "c3_a07_thermalbrush_skyblue_v5_sunburst", "c4_a06_flatiron_orange_v5_sunburst"]
 
@@ -28,13 +37,14 @@ LOOK_FILES = [
     ("A09_TB_t1__after", "A09_TB_t1__inuse", "a09_tb_after_v7.png", "a09_tb_inuse_fixed_v2.png"),
     ("A10_SS_t3_diffuser__after", "A10_SS_t3_diffuser__inuse", "a10_diffuser_after_v7.png", "a10_diffuser_inuse_fixed_v3.png"),
     ("A08_AC_t2__after", "A08_AC_t2__inuse", "a08_ac_after_v7.png", "a08_ac_inuse_fixed_v2.png"),
-    ("A02_FI_t4_silkpress__after", "A02_FI_t4_silkpress__inuse_v4", "a02_silkpress_after_v7.png", "a02_silkpress_inuse_fixed_v3.png"),
+    ("A02_FI_t4_silkpress__after", "A02_FI_t4_silkpress__inuse", "a02_silkpress_after_v7.png", "a02_silkpress_inuse_fixed_v2.png"),
     ("A06_FI_t1__after", "A06_FI_t1__inuse", "a06_fi_after_v7.png", "a06_fi_inuse_fixed_v2.png"),
     ("A01_SS_t2_roundbrush__after", "A01_SS_t2_roundbrush__inuse", "a01_roundbrush_after_v7.png", "a01_roundbrush_inuse_fixed_v3.png"),
     ("A07_TB_t3__after", "A07_TB_t3__inuse", "a07_tb_after_v7.png", "a07_tb_inuse_fixed_v2.png"),
     ("A04_TB_t2__after", "A04_TB_t2__inuse", "a04_tb_after_v7.png", "a04_tb_inuse_fixed_v2.png"),
 ]
-# QA 2026-10-27 (outputs/22_inuse_redo): A03 and A02 redone with the hair inside the product, A01 round brush and A10 logo fixed
+# QA 2026-10-27 (outputs/22_inuse_redo): A03 redone with the hair on the barrel, A01 round brush and A10 logo fixed.
+# A02 keeps the original in use by review (the redos looked odd), although its hair is +32% longer than the after
 FIX_DIRS = {"a02_silkpress_inuse_fixed_v3.png": os.path.join(LOOKS, "fix_a02_silkpress_v4")}
 # product images: the inpaint fix is kept only where it improved the product (review 2026-10-27)
 NO_FIX = set()  # every product image keeps its fix since the aspect bug was fixed (test 20)
@@ -69,6 +79,17 @@ def hero(out):
     ref = os.path.join(ROOT, "samples", "web_refs", "conair_home")
     if os.path.isdir(ref):  # internal only, never published
         shutil.copytree(ref, os.path.join(out, "00_inputs", "style_reference_conair_home_INTERNAL"), dirs_exist_ok=True)
+
+
+def product_banners_and_clips(out):
+    for name, f in PRODUCT_BANNERS.items():
+        cp(os.path.join(PB_DIR, f), os.path.join(out, "09_product_banners", f"{name}.png"))
+    for f in ("plan.json",):
+        cp(os.path.join(PB_DIR, f), os.path.join(out, "05_prompts", "filled", "09_product_banners", f))
+    cp(os.path.join(ROOT, "prompts", "conair", "10_product_banner.txt"), os.path.join(out, "05_prompts", "10_product_banner.txt"))
+    for f in CLIPS:
+        cp(os.path.join(CLIP_DIR, f), os.path.join(out, "10_clips", f))
+    cp(os.path.join(CLIP_DIR, "plan.json"), os.path.join(out, "10_clips", "jobs.json"))
 
 
 def variations(out):
@@ -150,6 +171,7 @@ def main(out):
         if os.path.exists(os.path.join(ROOT, f)):
             cp(os.path.join(ROOT, f), os.path.join(out, "06_instructions", os.path.basename(f)))
     hero(out)
+    product_banners_and_clips(out)
     variations(out)
     cp(PLAN, os.path.join(out, "06_instructions", "jobs", "jobs_test20_plan.json"))
     cp(os.path.join(ROOT, "docs", "conair", "FINAL_README.md"), os.path.join(out, "README.md"))

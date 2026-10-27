@@ -1,0 +1,12 @@
+# Product-only hero banner, 16:9, in the colour language of the conair.com home page (test 22). No people.
+# Step 1: Nano Banana 2.1, 4K, 16:9, thinking high. Step 2: fix only the product (tools/inpaint_product.py, a 16:9 or 4:3 crop,
+# 08_product_inpaint.txt on Sunburst 4K with "reading correctly, never mirrored" on the wordmark), then stitch.
+# QA before any use or video: compare the product with card_v2 at full zoom (shape, parts, buttons, wordmark side, direction and spelling).
+# Step 1 mirrored the wordmark in 3 of 5 (test 22); the fix corrected all 5.
+# INPUTS (original inputs only):
+#   1  library/products/{sku}/{colour}/packshots/<best packshot>
+#   2  library/products/{sku}/{colour}/card_v2.png
+---
+{product_line}
+Image 2 is the product sheet of this exact product (real views, sizes, colours and a LOGO note): follow it for the side, direction and size of the white BaBylissPRO wordmark and for the placement of the buttons, LEDs and every part; never move the logo to another side.
+Create a bold, joyful hero banner photograph for a colourful beauty-brand home page, product only: {set_description} {STAGING} LIGHT: bright high-key soft studio light, a {gel_colour} coloured gel rim light from behind tracing the product's edges, realistic specular reflections on the metal and glossy surfaces that follow their real curvature, crisp soft contact shadows on the coloured surface, rich saturated colour. COMPOSITION, wide 16:9: the product big and close to the lens across the right two thirds of the frame; the left third is clean background for a headline (no text in the image). The whole product in sharp focus; only the cable may leave the frame. No people, no hands, no text, no extra logos, no other products.
