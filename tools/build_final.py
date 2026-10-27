@@ -38,16 +38,17 @@ LOOK_FILES = [
     ("A09_TB_t1__after", "A09_TB_t1__inuse", "a09_tb_after_v7.png", "a09_tb_inuse_fixed_v2.png"),
     ("A10_SS_t3_diffuser__after", "A10_SS_t3_diffuser__inuse", "a10_diffuser_after_v7.png", "a10_diffuser_inuse_fixed_v3.png"),
     ("A08_AC_t2__after", "A08_AC_t2__inuse", "a08_ac_after_v7.png", "a08_ac_inuse_fixed_v2.png"),
-    ("A02_FI_t4_silkpress__after", "A02_FI_t4_silkpress__inuse_pose02_v6", "a02_silkpress_after_v7.png", "a02_silkpress_inuse_pose02_v6.png"),
+    ("A02_FI_t4_silkpress__after", "A02_FI_t4_silkpress__inuse_v7_flora", "a02_silkpress_after_v7.png", "a02_silkpress_inuse_v7_flora.png"),
     ("A06_FI_t1__after", "A06_FI_t1__inuse", "a06_fi_after_v7.png", "a06_fi_inuse_fixed_v2.png"),
     ("A01_SS_t2_roundbrush__after", "A01_SS_t2_roundbrush__inuse", "a01_roundbrush_after_v7.png", "a01_roundbrush_inuse_fixed_v3.png"),
     ("A07_TB_t3__after", "A07_TB_t3__inuse", "a07_tb_after_v7.png", "a07_tb_inuse_fixed_v2.png"),
     ("A04_TB_t2__after", "A04_TB_t2__inuse", "a04_tb_after_v7.png", "a04_tb_inuse_fixed_v2.png"),
 ]
 # QA 2026-10-27 (outputs/22_inuse_redo): A03 redone with the hair on the barrel, A01 round brush and A10 logo fixed.
-# A02: the test 17 composition (diagonal iron on the chest) redone at 4K from original inputs (+16% hair over the after)
+# A02: new image without the gray pose (its proxy was not the BNT131T), real packshot + card_v2 connected, 4K (hair 1.32 vs after 1.34)
 FIX_DIRS = {"a02_silkpress_inuse_fixed_v3.png": os.path.join(LOOKS, "fix_a02_silkpress_v4"),
-            "a02_silkpress_inuse_pose02_v6.png": os.path.join(ROOT, "outputs", "22_inuse_redo", "fix_a02_pose02_v6b_4")}
+            "a02_silkpress_inuse_pose02_v6.png": os.path.join(ROOT, "outputs", "22_inuse_redo", "fix_a02_pose02_v6b_4"),
+            "a02_silkpress_inuse_v7_flora.png": os.path.join(ROOT, "outputs", "22_inuse_redo", "fix_a02_v7b_3")}
 # product images: the inpaint fix is kept only where it improved the product (review 2026-10-27)
 NO_FIX = set()  # every product image keeps its fix since the aspect bug was fixed (test 20)
 IN_HAND_POSES = {"in_hand__auto_curler_02__a03": "auto_curler/auto_curler_in_hand_02",
