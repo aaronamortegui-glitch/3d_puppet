@@ -35,9 +35,16 @@ All 6 afters keep the identity and the background, and the hair change looks bel
 5. **The sculpted hair of the gray pose sets the length (test 18).** Every in-use pose now has three renders: `gray_short.png` (shoulders), `gray.png` (medium) and `gray_long.png` (bottom of the ribs). They are made by `server/prompts/gray_length_variant_prompt.txt` on Nano Banana 2.1 (job ids in `samples/pose_library/jobs_gray_length_variants.tsv`). `fill_prompt.py` and `pick_pose.py` pick the variant nearest the after's measured hair end. With the short variant, A06 went from 1.81 to 1.52 head heights (after 1.43) and A02 from longer to 1.59 (after 1.39); both now end at the shoulders.
 6. **Step 3 of a look, the product fix.** When the tool comes out deformed (A02: a tube with no plates), `06_product_fix_sunburst.txt` on the in-use image corrects only the product and keeps the hand, the hair and the face.
 
-## Pending
+## Done: product fix on every in-use image (test 19)
 
-- **Product fix on the other in-use images.** Run `06_product_fix_sunburst.txt` on the 11 remaining in-use images (test 13 and test 17), then replace them in `outputs/FINAL_2026-10-26/03_in_use/` and on the three boards.
+`06_product_fix_sunburst.txt` ran on the other 11 in-use images (test 13 and test 17). The wordmarks, LEDs and attachments are now crisp, and the hair, hands, faces and backgrounds are kept. One correction: A05's flat iron is Pink Rush, and the first fix used the Nano Blue packshot. It was re-run with the Pink Rush packshot and sheet; the wrong version is kept as `..._WRONG_COLOUR_nano_blue.png`. Each fix must use the colour of the look's product sheet.
+
+- Images and prompts: `outputs/19_inuse_product_fix/`.
+- Plan and job ids: `outputs/jobs_inuse_product_fix_plan.json`.
+- Replaced in `outputs/FINAL_2026-10-26/03_in_use/` and on the boards:
+  - FigJam CONAIR: final tables 156:202 and 158:451, and Test 17 (186:144);
+  - design file: 199:2 and 206:2;
+  - FigJam Essilor: 1323:461 and 1324:461.
 
 ## Where
 
